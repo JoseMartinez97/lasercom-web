@@ -1,6 +1,7 @@
 // Every internal link, image and anchor in the built site must lead somewhere:
 // the file exists in dist/, and a #fragment exists on the page it points to.
-// Also checks that every redirect in dist/_redirects lands on a real page.
+// Also checks that every redirect in dist/_redirects lands on a real page, and
+// that a refresh page answers at each old address (GitHub Pages has no 301s).
 // Run after `pnpm build` (part of `pnpm test`)
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs"
 import { join } from "node:path"
@@ -72,6 +73,8 @@ if (existsSync(redirects)) {
     const [from, to] = line.trim().split(/\s+/)
     if (!from || !to) continue
     if (!fileFor(to)) problems.push(`_redirects: ${from} goes to missing ${to}`)
+    // GitHub Pages ignores _redirects: a page must answer at the old address
+    if (!fileFor(from)) problems.push(`no page answers at old address ${from}`)
     if (fileFor(from) && !from.endsWith(".htm"))
       if (!readFileSync(fileFor(from), "utf8").includes('http-equiv="refresh"'))
         problems.push(`_redirects: ${from} is also a real page`)

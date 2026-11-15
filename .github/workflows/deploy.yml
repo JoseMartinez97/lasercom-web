@@ -41,6 +41,11 @@ jobs:
     needs: check
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
+    # While the repository variable SITE_PREVIEW is 1 the site is a preview
+    # on its own subdomain: every page noindex and no IndexNow. Delete the
+    # variable when the site goes live on lasercom.es
+    env:
+      PUBLIC_PREVIEW: ${{ vars.SITE_PREVIEW }}
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v7
@@ -48,8 +53,10 @@ jobs:
         uses: withastro/action@v6
       # Which pages changed against the live site, before it's replaced
       - name: Pages to announce to search engines
+        if: vars.SITE_PREVIEW != '1'
         run: node scripts/indexnow.mjs diff
-      - uses: actions/upload-artifact@v7
+      - if: vars.SITE_PREVIEW != '1'
+        uses: actions/upload-artifact@v7
         with:
           name: indexnow
           path: indexnow-changed.json
@@ -68,12 +75,15 @@ jobs:
       # IndexNow (Bing, Yandex…): recrawl the changed pages now. Waits until
       # the new version is live and does nothing while the domain still
       # serves another site; a refusal never undoes the publish
-      - uses: actions/checkout@v7
+      - if: vars.SITE_PREVIEW != '1'
+        uses: actions/checkout@v7
         with:
           sparse-checkout: scripts
-      - uses: actions/download-artifact@v8
+      - if: vars.SITE_PREVIEW != '1'
+        uses: actions/download-artifact@v8
         with:
           name: indexnow
       - name: Announce changed pages to search engines
+        if: vars.SITE_PREVIEW != '1'
         continue-on-error: true
         run: node scripts/indexnow.mjs submit

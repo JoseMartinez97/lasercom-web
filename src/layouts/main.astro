@@ -33,6 +33,9 @@ const {
   noindex = false,
 } = Astro.props
 const t = (key: keyof (typeof ui)[typeof defaultLang]) => ui[lang][key]
+// A preview build (PUBLIC_PREVIEW=1, see .github/workflows/deploy.yml) keeps
+// every page out of search engines, so it never competes with lasercom.es
+const preview = import.meta.env.PUBLIC_PREVIEW === "1"
 
 const siteOrigin = Astro.site?.origin ?? "https://lasercom.es"
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href
@@ -164,6 +167,7 @@ const structuredData: Record<string, unknown>[] = noindex
     ) : (
       <link rel="canonical" href={canonicalUrl} />
     )}
+    {preview && !noindex && <meta name="robots" content="noindex" />}
     {alternates.length > 1 &&
       alternates.map(({ code, href }) => (
         <link rel="alternate" hreflang={code} href={href} />

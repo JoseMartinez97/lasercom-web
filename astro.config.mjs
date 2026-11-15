@@ -47,9 +47,15 @@ const redirects = {
   "/grabado-laser-para-piel": "/corte-grabado-laser-piel-cuero/",
   "/metal": "/corte-grabado-laser-metal-acero/",
 }
-// The same list as real 301s for hosts that read a _redirects file (Netlify,
-// Cloudflare Pages). Astro alone can only write refresh pages, and those
-// cannot answer for an address like /contacto.htm
+// The site is served by GitHub Pages, which has no real redirects: Astro
+// writes a refresh page for each address (below), and the .htm addresses,
+// which Astro would turn into folders, get a refresh page with that very
+// file name (GitHub Pages serves .htm as a web page). The same list also
+// goes to a _redirects file, as real 301s, in case the site moves to a host
+// that reads one (Netlify, Cloudflare Pages)
+/** @param {string} from @param {string} to */
+const refreshPage = (from, to) =>
+  `<!doctype html><title>Redirecting to: ${to}</title><meta http-equiv="refresh" content="0;url=${to}"><meta name="robots" content="noindex"><link rel="canonical" href="${site}${to}"><body><a href="${to}">Redirecting from <code>${from}</code> to <code>${to}</code></a></body>\n`
 /** @type {import("astro").AstroIntegration} */
 const redirectsFile = {
   name: "redirects-file",
@@ -61,6 +67,9 @@ const redirectsFile = {
           : [`${from} ${to} 301`, `${from}/ ${to} 301`]
       )
       await writeFile(new URL("_redirects", dir), lines.join("\n") + "\n")
+      for (const [from, to] of Object.entries(redirects))
+        if (from.endsWith(".htm"))
+          await writeFile(new URL(from.slice(1), dir), refreshPage(from, to))
     },
   },
 }
