@@ -6,7 +6,7 @@
 #   A  Pixabay 305027  CO2 laser with two heads engraving and cutting plywood (4K)
 #      https://pixabay.com/videos/laser-engraving-laser-wood-cutting-305027/
 # Output: public/video/hero-film.mp4 (1920x1080), hero-film-xl.mp4 (2560x1440,
-#         for retina laptops and large monitors), hero-film-m.mp4 (1080x1920)
+#         for retina laptops and large monitors), hero-film-m.mp4 (720x1280)
 #         src/assets/film/hero-film.jpg, hero-film-m.jpg (first frames, posters)
 # Encoded for scroll scrubbing: a keyframe every 10 frames, no B-frames, faststart.
 set -euo pipefail
@@ -28,7 +28,7 @@ SHARP="hqdn3d=${DENOISE:-1.5:1.5:4:4},cas=0.5"
 SHOTS=("0.0 4.6" "10.0 5.0" "20.5 5.0" "37.0 12.6")
 
 build() {
-  local W=$1 H=$2 OUT=$3 CRF=$4 FRAME
+  local W=$1 H=$2 OUT=$3 CRF=$4 G=${5:-${GOP:-10}} FRAME
   if [ "$W" -gt "$H" ]; then
     FRAME="scale=${W}:${H}:flags=lanczos"
   else
@@ -52,18 +52,24 @@ build() {
   ffmpeg -loglevel error -y "${inputs[@]}" -filter_complex "$graph" \
     -map "[out]" -an -r 24 \
     -c:v libx264 -preset slow -tune film -crf "$CRF" -profile:v high -pix_fmt yuv420p \
-    -g ${GOP:-10} -keyint_min ${GOP:-10} -sc_threshold 0 -bf 0 -movflags +faststart \
+    -g "$G" -keyint_min "$G" -sc_threshold 0 -bf 0 -movflags +faststart \
     "$OUT"
 }
 
-# Sizes and quality can be overridden for trials: DW DH DCRF LW LH LCRF PW PH PCRF OUTDIR
+# Sizes and quality can be overridden for trials: DW DH DCRF LW LH LCRF PW PH
+# PCRF PGOP OUTDIR, and ONLY=phone to render just the phone cut.
+# The phone cut is 720x1280 with a keyframe every 4 frames: a phone fills its
+# screen with it, and each scroll jump decodes at most 3 light frames, so
+# scrubbing stays smooth on mobile chips.
 DW=${DW:-1920} DH=${DH:-1080} DCRF=${DCRF:-25}
-PW=${PW:-1080} PH=${PH:-1920} PCRF=${PCRF:-26}
+PW=${PW:-720} PH=${PH:-1280} PCRF=${PCRF:-25} PGOP=${PGOP:-4}
 OUTDIR=${OUTDIR:-public/video}
 mkdir -p "$OUTDIR" src/assets/film
-build "$DW" "$DH" "$OUTDIR/hero-film.mp4" "$DCRF"
-build "${LW:-2560}" "${LH:-1440}" "$OUTDIR/hero-film-xl.mp4" "${LCRF:-25}"
-build "$PW" "$PH" "$OUTDIR/hero-film-m.mp4" "$PCRF"
+if [ "${ONLY:-}" != phone ]; then
+  build "$DW" "$DH" "$OUTDIR/hero-film.mp4" "$DCRF"
+  build "${LW:-2560}" "${LH:-1440}" "$OUTDIR/hero-film-xl.mp4" "${LCRF:-25}"
+fi
+build "$PW" "$PH" "$OUTDIR/hero-film-m.mp4" "$PCRF" "$PGOP"
 [ "$OUTDIR" = public/video ] || exit 0
 
 ffmpeg -loglevel error -y -i public/video/hero-film.mp4 -frames:v 1 -q:v 3 src/assets/film/hero-film.jpg

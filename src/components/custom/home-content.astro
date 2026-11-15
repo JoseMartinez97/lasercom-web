@@ -170,6 +170,16 @@ const filmChapter2Words = t("hero.film.3.line").split(" ")
         class="film-video absolute inset-0 size-full object-cover object-center opacity-0 transition-opacity duration-700"
       ></video>
 
+      <!-- Portrait screens: a laser line sweeps down with the scroll and lifts
+           a dark veil off the film. The lens below is for wide screens only -->
+      <div
+        data-film-scan
+        class="absolute inset-0 hidden will-change-transform tall:block"
+        style="background: oklch(0.11 0.006 60 / 0.5);"
+      >
+        <span class="film-scan-line absolute inset-x-0 top-0 h-0.5 bg-laser"></span>
+      </div>
+
       <!-- Clean top/bottom editorial edge vignette leaving the center laser glow completely unobstructed -->
       <div
         class="absolute inset-0"
@@ -181,7 +191,7 @@ const filmChapter2Words = t("hero.film.3.line").split(" ")
     <svg
       data-iris-svg
       viewBox="0 0 240 240"
-      class="pointer-events-none absolute top-[37%] left-1/2 z-10 size-[46vmin] max-w-[26rem] -translate-x-1/2 -translate-y-1/2 opacity-0"
+      class="pointer-events-none absolute top-[37%] left-1/2 z-10 size-[46vmin] max-w-[26rem] -translate-x-1/2 -translate-y-1/2 opacity-0 tall:hidden"
       aria-hidden="true"
     >
       <circle
@@ -221,7 +231,7 @@ const filmChapter2Words = t("hero.film.3.line").split(" ")
         data-at="0.30"
         data-scene={t("hero.film.2.scene")}
         aria-hidden="true"
-        class="film-line absolute inset-x-5 top-[62%] hidden flex-col items-center text-center md:inset-x-8 lg:inset-x-12"
+        class="film-line absolute inset-x-5 top-[62%] hidden flex-col items-center text-center tall:top-auto tall:bottom-28 md:inset-x-8 lg:inset-x-12"
       >
         <p class="display mx-auto max-w-4xl text-[clamp(1.4rem,3.8vw,3.35rem)] leading-[1.04] text-white">
           {filmChapter1Words.map((word) => (
@@ -237,7 +247,7 @@ const filmChapter2Words = t("hero.film.3.line").split(" ")
         data-at="0.72"
         data-scene={t("hero.film.3.scene")}
         aria-hidden="true"
-        class="film-line pointer-events-auto absolute inset-0 hidden flex-col items-center justify-center gap-6 px-5 text-center"
+        class="film-line pointer-events-auto absolute inset-0 hidden flex-col items-center justify-center gap-6 px-5 text-center tall:justify-end tall:pb-28"
       >
         <p class="display mx-auto max-w-4xl text-[clamp(1.75rem,4.6vw,4.15rem)] leading-[1.03] text-white drop-shadow-[0_4px_24px_rgb(0_0_0/0.65)]">
           {filmChapter2Words.map((word) => (
@@ -337,7 +347,7 @@ const filmChapter2Words = t("hero.film.3.line").split(" ")
         <p
           data-hero-word
           aria-hidden="true"
-          class="display pointer-events-none flex w-full justify-between overflow-hidden text-[clamp(2.45rem,11.8vw,11.2rem)] leading-[0.82] tracking-[-0.045em] text-[#f6f1e9] select-none [font-stretch:100%] sm:text-[clamp(3.2rem,13.6vw,11.2rem)] sm:[font-stretch:125%]"
+          class="display pointer-events-none flex w-full justify-between overflow-hidden text-[clamp(2.45rem,12.2vw,11.2rem)] leading-[0.82] tracking-[-0.045em] text-[#f6f1e9] select-none [font-stretch:125%] sm:text-[clamp(3.2rem,13.6vw,11.2rem)]"
         >
           {heroChars.map((c, idx) => (
             <span class="hero-char inline-block" style={`--ci: ${idx}`}>
@@ -873,8 +883,16 @@ const filmChapter2Words = t("hero.film.3.line").split(" ")
     )
 
     if (filmSection && filmStage && filmMedia && !reducedMotion) {
+      // The address bar of a phone resizes the window as it hides: recomputing
+      // the pinned hero then would make the page jump mid-scroll
+      ScrollTrigger.config({ ignoreMobileResize: true })
+      // Portrait screens (phones): no lens, a laser line sweeps the film instead
+      const portrait = matchMedia("(max-aspect-ratio: 4/5)").matches
+      const filmScan = document.querySelector<HTMLElement>("[data-film-scan]")
+      if (portrait) filmMedia.style.clipPath = "none"
       filmLines.forEach((line) => {
-        line.classList.remove("hidden")
+        // A flex column, so each line keeps its vertical alignment
+        line.classList.replace("hidden", "flex")
         gsap.set(line, { autoAlpha: 0 })
       })
 
@@ -1006,23 +1024,37 @@ const filmChapter2Words = t("hero.film.3.line").split(" ")
       const st = ScrollTrigger.create({
         trigger: filmSection,
         start: "top 64px",
-        end: () => `+=${Math.round(window.innerHeight * 3)}`,
+        // On a phone the stage height (svh) stays put when the address bar
+        // moves, and a shorter pin keeps the film from dragging
+        end: () =>
+          `+=${Math.round(portrait ? filmStage.clientHeight * 2.4 : window.innerHeight * 3)}`,
         pin: true,
+        anticipatePin: 1,
         refreshPriority: 10,
         onUpdate: (self) => {
           const p = self.progress
           if (filmVideo?.duration) filmTarget = p * (filmVideo.duration - 0.05)
 
-          // Continuous iris aperture choreography: full -> lens (0..0.28) -> hold (0.28..0.64) -> full (0.64..0.86)
-          const shrinkT = easeInOut(clamp01(p / 0.28))
-          const expandT = easeInOut(clamp01((p - 0.64) / 0.22))
-          const lensMix = shrinkT * (1 - expandT)
-          const r = Math.round(fullR - (fullR - lensR) * lensMix)
-          const cy = Math.round(48 - 11 * lensMix)
-          filmMedia.style.clipPath = `circle(${r}px at 50% ${cy}%)`
-          if (irisSvg) irisSvg.style.top = `${cy}%`
+          // Phones: the laser line sweeps down over the first third, lifting
+          // the veil, while the film slowly pushes in. Transforms only
+          let lensMix = 0
+          if (portrait) {
+            const scan = easeInOut(clamp01(p / 0.34))
+            if (filmScan)
+              filmScan.style.transform = `translate3d(0, ${(scan * 101).toFixed(2)}%, 0)`
+            filmMedia.style.transform = `scale(${(1 + 0.1 * p).toFixed(4)})`
+          } else {
+            // Continuous iris aperture choreography: full -> lens (0..0.28) -> hold (0.28..0.64) -> full (0.64..0.86)
+            const shrinkT = easeInOut(clamp01(p / 0.28))
+            const expandT = easeInOut(clamp01((p - 0.64) / 0.22))
+            lensMix = shrinkT * (1 - expandT)
+            const r = Math.round(fullR - (fullR - lensR) * lensMix)
+            const cy = Math.round(48 - 11 * lensMix)
+            filmMedia.style.clipPath = `circle(${r}px at 50% ${cy}%)`
+            if (irisSvg) irisSvg.style.top = `${cy}%`
+          }
 
-          if (!filmReady && filmPoster) {
+          if (!filmReady && filmPoster && !portrait) {
             gsap.set(filmPoster, { scale: 1 + p * 0.08 })
           }
 
@@ -1162,6 +1194,13 @@ const filmChapter2Words = t("hero.film.3.line").split(" ")
   }
   .film-w:not(.block) {
     display: inline-block;
+  }
+  /* The beam: a hot core with a red glow, sitting on the veil's top edge */
+  .film-scan-line {
+    box-shadow:
+      0 0 6px 1px var(--laser),
+      0 0 28px 6px color-mix(in oklab, var(--laser) 55%, transparent),
+      0 -40px 60px 10px color-mix(in oklab, var(--laser) 14%, transparent);
   }
   .film-wheel {
     animation: film-wheel 1.8s ease-in-out infinite;

@@ -4,6 +4,10 @@
 @import "@fontsource-variable/archivo/wdth.css";
 @import "@fontsource-variable/jetbrains-mono";
 
+/* Screens narrower than 4:5 (phones upright): the hero plays its 9:16 cut and
+   the laser-line sweep there. The same query picks the video in the script */
+@custom-variant tall (@media (max-aspect-ratio: 4/5));
+
 @theme inline {
   --font-sans: "Archivo Variable", system-ui, sans-serif;
   --font-heading: "Archivo Variable", system-ui, sans-serif;
