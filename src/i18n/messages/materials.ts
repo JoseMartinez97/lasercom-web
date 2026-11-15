@@ -8,38 +8,44 @@ export const materials = {
     "svc.madera.title":
       "Laser cutting and engraving on wood in Valencia | Lasercom",
     "svc.madera.description":
-      "Laser cutting and engraving on solid wood, plywood and MDF in Valencia. Names, wedding favours, coasters, boxes and custom pieces. Free quote.",
+      "Laser cutting and engraving on solid wood, plywood and MDF in Valencia. Custom names, wedding favours, coasters, boxes and cut-out pieces. Free quote.",
     "svc.madera.h1": "Laser cutting and engraving on wood",
     "svc.madera.lead":
-      "Names, cut-out pieces, boxes, coasters and wedding favours in solid wood, plywood or MDF: clean edges and a toasted engraving that never wears off.",
+      "Names, openwork pieces, boxes, stands, coasters and wedding favours in solid wood, plywood or MDF: clean edges and a toasted engraving that never wears off.",
     "svc.madera.intro":
-      "Wood has been one of our materials since the beginning. We prepare your design digitally and the laser follows it with total precision, whether it's a name with fine letters or a cut-out with dozens of openings. We cut solid wood and its variants, such as plywood and MDF, in the thickness each piece needs.",
+      "Wood has been one of our core materials since 2007. We prepare your vector design and the laser follows every curve with millimetre precision, whether it's a fine script name, an architectural model or an openwork mandala with dozens of inner cuts. We cut and engrave solid wood, birch plywood and MDF in the thickness each piece requires.",
     "svc.madera.body":
-      "Not all woods behave the same way: moisture, density and resin content change how the laser cuts and engraves them. The more uniform the board, the better the finish, so we adapt the whole process to the wood chosen and advise you on which one suits your piece.",
+      "Each board behaves differently under the beam: grain, moisture, density and resin content change both the cut edge and the contrast of the engraving. Light, even-grained woods such as birch plywood give sharp dark contrast, MDF gives a completely uniform surface ideal for painting afterwards, and solid wood shows its natural grain — as on the Ron Barceló 30th anniversary stand, with a 1.5 mm deep engraving. We adjust power and speed to your piece and advise you on which board suits it best.",
     "svc.madera.points": "Why laser on wood",
     "svc.madera.p1.t": "Fine contours",
     "svc.madera.p1.d":
-      "Free-radius curves and very fine details that a saw or a router can't reach.",
+      "Free-radius curves, tight inner corners and lace-like openwork that a jigsaw or router bit can't reach.",
     "svc.madera.p2.t": "No chips, no waste",
     "svc.madera.p2.d":
-      "The beam vaporises the material: no shavings and less breakage or waste.",
+      "The beam vaporises a narrow kerf: no shavings, tighter nesting on the sheet and far less breakage on delicate pieces.",
     "svc.madera.p3.t": "Finished edges",
     "svc.madera.p3.d":
-      "Smooth edges with a toasted tone, with no need for sanding afterwards.",
+      "Smooth edges with a warm toasted tone straight off the bed, usually with no sanding required.",
     "svc.madera.p4.t": "No contact",
     "svc.madera.p4.d":
-      "The laser doesn't touch the wood, so there is no pressure or tool wear that could mark the piece.",
+      "The laser doesn't press against the timber, so thin slats, finished boxes and musical instruments aren't scratched or clamped.",
     "svc.madera.uses":
-      "Names and letters · Wedding favours · Coasters and mandalas · Boxes and packaging · Christmas ornaments · Stands and displays",
-    "svc.madera.faq.1.q": "Which woods do you cut?",
+      "Names and letters · Wedding favours · Coasters and mandalas · Boxes and packaging · Falla crests · Stands and displays · Musical instruments",
+    "svc.madera.faq.1.q": "Which woods can you cut and engrave?",
     "svc.madera.faq.1.a":
-      "Solid wood, plywood and MDF, among others. We adapt power and speed to each wood, and if you aren't sure which to choose we'll advise you according to the use of the piece.",
-    "svc.madera.faq.2.q": "Can I order just a few units?",
+      "Solid wood, plywood (such as birch) and MDF, among others. We adapt power, speed and air assist to each type and thickness; if you aren't sure which board fits your use, we recommend the right one before cutting.",
+    "svc.madera.faq.2.q": "Can I order a single piece or only large runs?",
     "svc.madera.faq.2.a":
-      "Yes. We make a single name for a gift or a whole run of favours for a wedding or a company.",
-    "svc.madera.faq.3.q": "Do I need to bring the design?",
+      "Both. We cut a single name or engrave one board for a personal gift, and we also produce full runs of favours, coasters or packaging stands for weddings and companies.",
+    "svc.madera.faq.3.q": "Do I need to bring a vector file?",
     "svc.madera.faq.3.a":
-      "No. A sketch, a photo or the text you want is enough: we prepare the file for the laser and show it to you before cutting.",
+      "No. A sketch, a photo or the text you want is enough: we prepare the vector file, separate cut lines from engraving fills, and show you the layout before cutting.",
+    "svc.madera.faq.4.q": "Can you engrave photographs on wood?",
+    "svc.madera.faq.4.a":
+      "Yes, on light, even woods such as birch plywood or MDF where the contrast shows cleanly. Send us a bright, sharp photo and we'll tell you how it will look at the size you need.",
+    "svc.madera.faq.5.q": "Can I bring my own wood or finished wooden objects?",
+    "svc.madera.faq.5.a":
+      "Yes. We work both with our own sheets and with customer-supplied boards or finished wooden items such as boxes, guitar headstocks, castanets or bottle stands.",
 
     "svc.metacrilato.name": "Acrylic and glass",
     "svc.metacrilato.card":
@@ -47,114 +53,183 @@ export const materials = {
     "svc.metacrilato.title":
       "Acrylic and glass laser cutting in Valencia | Lasercom",
     "svc.metacrilato.description":
-      "Laser cutting of acrylic and engraving on glass in Valencia: signs, plaques, trophies, displays, glasses and bottles. Polished edges. Free quote.",
+      "Acrylic laser cutting with polished edges and frosted glass engraving in Valencia: signs, plaques, trophies, displays, glasses and bottles.",
     "svc.metacrilato.h1": "Laser cutting and engraving on acrylic and glass",
     "svc.metacrilato.lead":
-      "Signs, plaques, trophies, displays, glasses and bottles. Acrylic comes out of the laser with bright, polished edges; glass keeps a frosted engraving that doesn't wear off.",
+      "Signs, plaques, trophies, scale models, glasses and bottles. Acrylic comes off the laser with bright, flame-polished edges; glass keeps a frosted engraving that never wears off.",
     "svc.metacrilato.intro":
-      "Acrylic is a resistant and versatile plastic, ideal for signage, lettering and personalised gifts. Cutting it with a laser is fast and precise, perfect for small pieces that need a fine finish with clean, bright edges. We work with sheets of different thicknesses depending on the piece.",
+      "Acrylic (PMMA) is one of the cleanest materials to machine by laser: the beam cuts cleanly and leaves a smooth, glassy edge straight away, making it ideal for corporate lettering, signage, displays, trophies and scale models. We work with clear, coloured, matte and mirror sheets in different thicknesses depending on the piece.",
     "svc.metacrilato.body":
-      "Glass is engraved, not cut: the laser marks its surface with a frosted finish. That's how we personalise glasses, bottles, mirrors, trophies and decorative plaques with no templates, straight from the digital design. The result varies with the type of glass, so we always tell you what to expect before starting.",
+      "Glass behaves differently: it is engraved, not cut. The laser fractures the very top surface microscopically to create a permanent white frosted finish without templates, masks or sandblasting. That lets us personalise wine glasses, champagne flutes, bottles, mirrors and awards directly from a digital file — even with a different name on every glass. Because glass composition varies, we always confirm how a given piece will react before starting.",
     "svc.metacrilato.points": "Why laser on acrylic and glass",
     "svc.metacrilato.p1.t": "Polished edges",
     "svc.metacrilato.p1.d":
-      "The laser melts the acrylic edge as it cuts, leaving it bright with no need to polish it.",
-    "svc.metacrilato.p2.t": "Precision in small pieces",
+      "The laser seals the acrylic cut edge as it passes, leaving clear sheets transparent and glossy without manual polishing.",
+    "svc.metacrilato.p2.t": "Accuracy on small parts",
     "svc.metacrilato.p2.d":
-      "Letters, signs and fine parts with the same accuracy in the first piece as in the last.",
-    "svc.metacrilato.p3.t": "Engraving without templates",
+      "Letters, slots for scale models and fine signage components cut with identical tolerances from the first unit to the last.",
+    "svc.metacrilato.p3.t": "Glass engraving without screens",
     "svc.metacrilato.p3.d":
-      "On glass we engrave straight from the digital design, saving time and money in short runs.",
-    "svc.metacrilato.p4.t": "Several thicknesses",
+      "Engraving directly from your vector design means no setup moulds or stencils, saving cost on short runs and individual gifts.",
+    "svc.metacrilato.p4.t": "Range of thicknesses",
     "svc.metacrilato.p4.d":
-      "From thin sheets for cards to thicker panels for signs and displays.",
+      "From thin sheets for black or clear cards to thicker structural panels for shop signs, trophies and displays.",
     "svc.metacrilato.uses":
-      "Glasses and bottles · Plaques and trophies · Signage · Displays · Acrylic cards · Scale models",
-    "svc.metacrilato.faq.1.q": "Can you engrave my own glasses or bottles?",
+      "Wine & champagne glasses · Bottles · Plaques and trophies · Signage · Displays · Acrylic business cards · Scale models",
+    "svc.metacrilato.faq.1.q":
+      "Can you engrave glasses or bottles I bring myself?",
     "svc.metacrilato.faq.1.a":
-      "Usually yes. Tell us the type of glass and the size of the engraving and we'll confirm it before you bring them.",
+      "Usually yes. Tell us what kind of glass or bottle it is, whether the surface is cylindrical or curved, and the size of the logo or text so we can confirm before you bring them.",
     "svc.metacrilato.faq.2.q": "Can you cut glass with a laser?",
     "svc.metacrilato.faq.2.a":
-      "Glass is engraved with a laser, not cut. If you need a transparent cut-out piece, acrylic is the material: it's lighter, tougher and comes out with polished edges.",
+      "Glass is engraved with a laser, not cut cleanly into shapes. When you need a transparent cut-out piece, acrylic is the right material: lighter, far more impact-resistant and with bright polished edges.",
     "svc.metacrilato.faq.3.q": "Do you make signs and plaques for businesses?",
     "svc.metacrilato.faq.3.a":
-      "Yes: signage plaques, door signs, acrylic letters and displays. See also our corporate letters service.",
+      "Yes: reception logos, door signs, directory plaques, bar menus and displays. See also our corporate letters and signs service.",
+    "svc.metacrilato.faq.4.q":
+      "Does frosted engraving on glass come off in the dishwasher?",
+    "svc.metacrilato.faq.4.a":
+      "No. It isn't ink or vinyl applied on top — it is etched into the glass surface itself, so it resists washing and daily handling.",
+    "svc.metacrilato.faq.5.q": "Do you also cut polycarbonate?",
+    "svc.metacrilato.faq.5.a":
+      "No. Polycarbonate melts, discolours and produces heavy fumes under a laser, so for clear plastic parts we always recommend acrylic (PMMA).",
 
+    "svc.cristal.name": "Glass and drinking glasses",
+    "svc.cristal.card":
+      "Glasses, bottles, jugs and mirrors with a frosted engraving that never wears off.",
+    "svc.cristal.title": "Laser engraving on glass in Valencia | Lasercom",
+    "svc.cristal.description":
+      "Laser engraving on wine glasses, flutes, bottles, jugs and mirrors in Valencia: a permanent white frosted finish, with a different name on each glass if needed.",
+    "svc.cristal.h1": "Laser engraving on glass and drinking glasses",
+    "svc.cristal.lead":
+      "Wedding flutes, bottles, jugs, mirrors and glasses with your business logo. The laser leaves a white frosted engraving in the glass itself, which does not peel or wash off.",
+    "svc.cristal.intro":
+      "A laser does not cut glass: it engraves it. The beam fractures the very top of the surface and leaves a permanent white frosted finish, with no templates, masks or sandblasting. Because the design goes straight from the digital file to the glass, every piece can carry a different name with no moulds to make, which suits short runs and one-off gifts.",
+    "svc.cristal.body":
+      "Every glass reacts a little differently depending on its composition, so we always check the material before starting. If the glasses are yours, tell us what kind they are, whether the area to engrave is straight or curved and how big the design should be, and we will confirm before you bring them. If what you need is a clear piece cut to shape, such as a plaque or a display, the right material is acrylic.",
+    "svc.cristal.points": "Why engrave glass with a laser",
+    "svc.cristal.p1.t": "A permanent frosted finish",
+    "svc.cristal.p1.d":
+      "It is not ink or vinyl on top: the engraving is in the glass surface itself, so it does not come off when washed.",
+    "svc.cristal.p2.t": "No templates or screens",
+    "svc.cristal.p2.d":
+      "We engrave straight from the digital file, with no moulds or screens, which suits short runs and one-off pieces.",
+    "svc.cristal.p3.t": "A name on every glass",
+    "svc.cristal.p3.d":
+      "Each piece comes from the file, so the name or the date can change from one glass to the next.",
+    "svc.cristal.p4.t": "We check your glass first",
+    "svc.cristal.p4.d":
+      "Each glass reacts differently depending on its composition; we test it before we start.",
+    "svc.cristal.uses":
+      "Wedding and christening glasses · Bottles · Jugs · Mirrors · Glasses with a logo · Glass awards",
+    "svc.cristal.faq.1.q": "Can you engrave glasses or bottles I bring myself?",
+    "svc.cristal.faq.1.a":
+      "Usually yes. Tell us what kind of glass or bottle it is, whether the area is straight or curved and the size of the engraving, so we can confirm before you bring them.",
+    "svc.cristal.faq.2.q": "Can you cut glass with a laser?",
+    "svc.cristal.faq.2.a":
+      "Glass is engraved with a laser, not cut into shapes. When you need a clear piece cut to size, acrylic is the right material: lighter, tougher and with bright polished edges.",
+    "svc.cristal.faq.3.q": "Does the engraving survive the dishwasher?",
+    "svc.cristal.faq.3.a":
+      "Yes. It is not ink or vinyl applied on top but a permanent frosting engraved into the glass surface, so it does not peel off when washed.",
+    "svc.cristal.faq.4.q": "Can each glass carry a different name?",
+    "svc.cristal.faq.4.a":
+      "Yes. The engraving comes straight from the digital file, so each glass can carry its own name or date without new templates. Send us the list of names with the design.",
+    "svc.cristal.faq.5.q":
+      "Do you engrave glasses with a bar's or a falla's logo?",
+    "svc.cristal.faq.5.a":
+      "Yes: we have engraved glasses with falla crests and with company logos. Send us the logo, ideally as a vector file, and tell us how many glasses you need.",
     "svc.piel.name": "Leather",
     "svc.piel.card":
       "Logos, crests and names on wallets, key rings, belts and leather goods.",
-    "svc.piel.title": "Leather laser engraving in Valencia | Lasercom",
+    "svc.piel.title":
+      "Leather laser engraving & cutting in Valencia | Lasercom",
     "svc.piel.description":
-      "Laser engraving and cutting on leather in Valencia: logos and names on wallets, key rings, belts and leather goods. Free quote.",
+      "CO2 laser engraving and cutting on leather in Valencia: logos, crests and names on wallets, keyrings, belts and leather goods. Free quote.",
     "svc.piel.h1": "Laser engraving and cutting on leather",
     "svc.piel.lead":
-      "Logos, crests and names on wallets, card holders, key rings and belts. Leather darkens where the laser touches it, giving a natural contrast with fine detail.",
+      "Logos, crests and names on wallets, card holders, key rings and belts. Natural leather darkens cleanly where the beam touches it, giving crisp contrast and fine relief.",
     "svc.piel.intro":
-      "We use a CO2 laser engraver and cutter to give leather a clean, precise finish with a unique design. Engraving on leather is usually superficial and stands out through its change of tone, so it works as well for a small logo as for detailed images.",
+      "We use a CO2 laser cutter and engraver to personalise leather goods with a sharp, permanent finish. Because leather engraving works by gently scorching the top fibres, it needs no ink or hot-stamping dies — meaning small runs, individual names or detailed crests are quick to produce.",
     "svc.piel.body":
-      "Leather is also easy to cut with the laser, which lets us separate pieces with complex shapes. The result depends on the type of leather: full grain, top grain, corrected grain or bonded leather each react differently, and we'll tell you which one gives the effect you're looking for.",
+      "We also laser-cut leather into patterns, labels and straps with clean edges and tight curves. The exact tone and depth depend on the hide and tanning: full-grain, top-grain, corrected-grain and bonded leather react differently, and darker hides give subtler contrast than light natural leather. We check the piece first and advise you on the cleanest result.",
     "svc.piel.points": "Why laser on leather",
     "svc.piel.p1.t": "Natural contrast",
     "svc.piel.p1.d":
-      "The laser darkens the leather without ink, so the marking doesn't peel or fade.",
-    "svc.piel.p2.t": "Fine detail",
+      "The laser darkens the hide directly without ink or paint, so the mark never peels, cracks or rubs off.",
+    "svc.piel.p2.t": "Fine detail without dies",
     "svc.piel.p2.d":
-      "Thanks to its fibre, leather holds small text, logos and detailed images.",
-    "svc.piel.p3.t": "Complex shapes",
+      "Leather fibres hold small lettering, detailed crests and logos cleanly without needing metal stamping moulds.",
+    "svc.piel.p3.t": "Complex cut patterns",
     "svc.piel.p3.d":
-      "We cut patterns and pieces with curves and openings that are slow to make by hand.",
-    "svc.piel.p4.t": "Finished products too",
+      "We cut precise shapes, stitch holes and curved openings that are slow or uneven by hand.",
+    "svc.piel.p4.t": "Finished leather goods too",
     "svc.piel.p4.d":
-      "We engrave on leather goods that are already made: wallets, belts, folders or key rings.",
+      "We engrave straight onto finished wallets, belts, folders, card holders and key rings.",
     "svc.piel.uses":
-      "Wallets and card holders · Key rings · Belts · Covers and diaries · Clothing labels · Logos on leather",
-    "svc.piel.faq.1.q": "Can you engrave a wallet or belt I already have?",
+      "Wallets and card holders · Key rings · Belts · Covers and diaries · Clothing labels · Brand logos and crests",
+    "svc.piel.faq.1.q": "Can you engrave a wallet or belt I already own?",
     "svc.piel.faq.1.a":
-      "Yes, as long as the area to engrave is flat and accessible. Tell us what it is and we'll confirm it.",
-    "svc.piel.faq.2.q": "Does it work on synthetic leather?",
+      "Yes, as long as the area to engrave sits flat and accessible without stitches or metal clasps in the way. Send us a photo and we'll confirm.",
+    "svc.piel.faq.2.q": "Does it work on synthetic or faux leather?",
     "svc.piel.faq.2.a":
-      "It depends on its composition. Some synthetics can't be lasered safely, so tell us the material first and we'll advise you.",
-    "svc.piel.faq.3.q": "Do you make runs for brands and shops?",
+      "Only if it is PVC-free. Many synthetic leathers contain PVC, which releases toxic chlorine gas and corrodes optics when lasered, so we always check the composition first.",
+    "svc.piel.faq.3.q": "Do you make runs for leather goods brands and shops?",
     "svc.piel.faq.3.a":
-      "Yes: logos on leather goods, labels and promotional items, in short or long runs.",
+      "Yes: logos on wallets, card holders, tags and promotional accessories, from a single prototype to full production runs.",
+    "svc.piel.faq.4.q": "Does engraved leather show well on dark hides?",
+    "svc.piel.faq.4.a":
+      "On black or very dark leather the mark shows mainly through slight depth and matte texture rather than colour contrast; on tan, cognac or natural leather it gives strong dark contrast.",
+    "svc.piel.faq.5.q":
+      "Can you cut small leather patches or labels with stitch holes?",
+    "svc.piel.faq.5.a":
+      "Yes. From a vector pattern we can cut the outer contour, engrave your logo and pierce exact stitch holes in the same pass.",
 
     "svc.metal.name": "Metal",
     "svc.metal.card":
       "Plaques, tags, serial numbers and QR codes on steel, aluminium, brass and more.",
     "svc.metal.title": "Metal and steel laser engraving in Valencia | Lasercom",
     "svc.metal.description":
-      "Laser engraving and marking on stainless steel, aluminium, brass, copper, silver and gold in Valencia. Plaques, tags, serial numbers and QR codes.",
+      "Laser marking on stainless steel, anodised aluminium, brass, copper, silver and gold in Valencia. Permanent plaques, tags, serial numbers and QR codes.",
     "svc.metal.h1": "Laser engraving and marking on metal",
     "svc.metal.lead":
-      "Plaques, tags, serial numbers, barcodes and logos on stainless steel, aluminium, brass, copper, silver or gold. A permanent marking that withstands use and the weather.",
+      "Plaques, tags, serial numbers, barcodes and logos on stainless steel, anodised aluminium, brass, copper, silver or gold. A permanent mark built to withstand wear and the outdoors.",
     "svc.metal.intro":
-      "With the laser, soft metals such as aluminium and hard metals and alloys such as stainless steel are marked easily, quickly and permanently. Applications range from labelling for traceability to the personalisation of promotional products, decorative items and accessories.",
+      "Laser marking gives metals a crisp, permanent finish without inks, acids or mechanical stamping. Applications range from industrial traceability — serial numbers, DataMatrix/QR codes and rating plates — to metal business cards, trophies, pet tags and personalised jewellery.",
     "svc.metal.body":
-      "We work with anodised aluminium, stainless steel, brass, sterling silver, titanium, copper, coated materials and gold, among others. Depending on the metal we use a CO2 laser, ideal for anodised aluminium and lacquered surfaces, or a fibre laser, ideal for stainless steel, copper and brass. Annealing produces a high-contrast mark without even changing the surface.",
+      "We choose the laser source for each alloy: CO2 laser for anodised aluminium and lacquered or coated metals (removing the surface coating cleanly to reveal high-contrast base metal), and fibre laser for bare stainless steel, brass, copper, titanium, sterling silver and gold. With laser annealing on stainless steel, we produce a dark, high-contrast mark right at the surface without removing material or compromising corrosion resistance.",
     "svc.metal.points": "Why laser on metal",
-    "svc.metal.p1.t": "Permanent",
+    "svc.metal.p1.t": "Truly permanent",
     "svc.metal.p1.d":
-      "The marking is part of the metal: it doesn't peel off, fade or rub off with use.",
-    "svc.metal.p2.t": "High contrast",
+      "The mark is in the metal itself — it doesn't peel like a sticker, wash off with solvents or fade outdoors.",
+    "svc.metal.p2.t": "Scanner-ready contrast",
     "svc.metal.p2.d":
-      "Dark, legible marks, also for codes that must be read by a scanner.",
-    "svc.metal.p3.t": "No damage to the piece",
+      "Sharp, dark marks legible both by eye and by barcode or QR code scanners.",
+    "svc.metal.p3.t": "Preserves steel surface",
     "svc.metal.p3.d":
-      "On steel alloys we can mark without damaging the surface or its corrosion resistance.",
-    "svc.metal.p4.t": "Any shape",
+      "Annealing on stainless steel leaves the surface smooth and protects its corrosion resistance.",
+    "svc.metal.p4.t": "No mechanical pressure",
     "svc.metal.p4.d":
-      "The laser doesn't touch the piece, so we mark flat and irregular objects alike.",
+      "Because nothing touches the part, we mark thin plates, curved items, tools and delicate jewellery without bending them.",
     "svc.metal.uses":
-      "ID plates · Serial numbers and QR codes · Pet tags and medals · Metal cards · Tools and parts · Trophies",
-    "svc.metal.faq.1.q": "Which metals can you engrave?",
+      "ID & rating plates · Serial numbers and QR codes · Pet tags and medals · Metal business cards · Tools and machine parts · Trophies",
+    "svc.metal.faq.1.q": "Which metals can you mark and engrave?",
     "svc.metal.faq.1.a":
-      "Stainless steel, anodised aluminium, brass, copper, titanium, sterling silver, gold and coated metals, among others.",
-    "svc.metal.faq.2.q": "Will the engraving wear off over time?",
+      "Stainless steel, anodised aluminium, brass, copper, titanium, sterling silver, gold and painted or coated metals, among others.",
+    "svc.metal.faq.2.q": "Will the marking wear off with handling or weather?",
     "svc.metal.faq.2.a":
-      "No. Laser marking is in the metal itself, not on top of it, so it withstands handling, cleaning and the outdoors.",
-    "svc.metal.faq.3.q": "Can you mark barcodes and QR codes?",
+      "No. On bare metals it alters the surface oxide layer or engraves into the alloy itself, so it resists friction, cleaning and outdoor exposure.",
+    "svc.metal.faq.3.q":
+      "Can you mark sequential serial numbers, barcodes and QR codes?",
     "svc.metal.faq.3.a":
-      "Yes. We mark serial numbers, barcodes and QR codes with enough contrast for them to be read. See our industrial marking service.",
+      "Yes. We generate and mark variable numbering, barcodes and QR codes with high contrast for reliable scanning. See also our industrial marking service.",
+    "svc.metal.faq.4.q":
+      "What is the difference between CO2 and fibre marking on metal?",
+    "svc.metal.faq.4.a":
+      "CO2 works cleanly on anodised or lacquered metals by stripping the coloured coating, while our fibre laser marks bare metals such as stainless steel, brass, copper, silver and gold directly.",
+    "svc.metal.faq.5.q":
+      "Can you cut metal sheets to shape as well as mark them?",
+    "svc.metal.faq.5.a":
+      "Tell us the exact alloy, thickness and dimensions you need — we'll review your plans or sample and tell you straight away how we can make it.",
   },
   es: {
     "svc.madera.name": "Madera",
@@ -163,38 +238,46 @@ export const materials = {
     "svc.madera.title":
       "Corte y grabado láser en madera en Valencia | Lasercom",
     "svc.madera.description":
-      "Corte y grabado láser en madera maciza, contrachapado y DM en Valencia. Nombres, regalos de boda, posavasos, cajas y piezas a medida. Pide presupuesto.",
+      "Corte y grabado láser en madera maciza, contrachapado y DM en Valencia. Nombres, calados, detalles de boda, posavasos, cajas y peanas a medida.",
     "svc.madera.h1": "Corte y grabado láser en madera",
     "svc.madera.lead":
-      "Nombres, piezas caladas, cajas, posavasos y detalles de boda en madera maciza, contrachapado o DM: bordes limpios y un grabado tostado que no se borra.",
+      "Nombres, piezas caladas, cajas, peanas, posavasos y detalles de boda en madera maciza, contrachapado o DM: bordes limpios y un grabado tostado que no se borra.",
     "svc.madera.intro":
-      "La madera es uno de nuestros materiales desde el principio. Preparamos tu diseño en digital y el láser lo sigue con total precisión, ya sea un nombre de letras finas o un calado con decenas de huecos. Cortamos madera maciza y sus variantes, como el contrachapado o el DM, con el grosor que necesite cada pieza.",
+      "La madera es uno de nuestros materiales principales desde 2007. Preparamos tu diseño vectorial y el láser sigue cada curva con precisión milimétrica, ya sea un nombre con tipografía fina, una pieza de maqueta o un mandala calado con decenas de huecos interiores. Cortamos y grabamos madera maciza, contrachapado de abedul y DM en el grosor que necesite cada proyecto.",
     "svc.madera.body":
-      "No todas las maderas se comportan igual: la humedad, la densidad o el contenido de resina cambian cómo las corta y graba el láser. Cuanto más homogénea es la plancha, mejor es el acabado, así que adaptamos todo el proceso a la madera escogida y te aconsejamos cuál le va mejor a tu pieza.",
-    "svc.madera.points": "Por qué con láser",
-    "svc.madera.p1.t": "Contornos finos",
+      "No todas las maderas reaccionan igual al haz: la veta, la humedad, la densidad o la resina cambian el tono del canto y el contraste del grabado. Los tableros claros y homogéneos como el contrachapado de abedul ofrecen un contraste muy nítido; el DM queda uniforme y resulta ideal para pintar después; y la madera maciza conserva su veta natural, como en la peana del 30 aniversario de Ron Barceló (con mordida de ~1,5 mm). Ajustamos potencia y velocidad y te aconsejamos qué tablero encaja mejor.",
+    "svc.madera.points": "Por qué trabajar madera con láser",
+    "svc.madera.p1.t": "Contornos y calados finos",
     "svc.madera.p1.d":
-      "Curvas de radio libre y detalles muy finos a los que no llega una sierra ni una fresadora.",
+      "Curvas de radio libre, esquinas interiores cerradas y celosías finas a las que no llega una sierra ni una fresa.",
     "svc.madera.p2.t": "Sin virutas ni desperdicio",
     "svc.madera.p2.d":
-      "El rayo vaporiza el material: no hay virutas y hay menos roturas y desperdicio.",
+      "El haz vaporiza una línea muy estrecha: no genera virutas, aprovecha mejor la plancha y evita roturas en piezas delicadas.",
     "svc.madera.p3.t": "Bordes terminados",
     "svc.madera.p3.d":
-      "Cantos suaves con un tono tostado, sin necesidad de lijar después.",
-    "svc.madera.p4.t": "Sin contacto",
+      "Cantos suaves con un tono tostado natural recién salido de máquina, normalmente sin necesidad de lijar después.",
+    "svc.madera.p4.t": "Sin contacto mecánico",
     "svc.madera.p4.d":
-      "El láser no toca la madera, así que no hay presión ni desgaste de herramienta que marque la pieza.",
+      "El láser no presiona ni sujeta con fuerza la madera, así que grabamos láminas finas, cajas montadas o instrumentos sin marcarlos.",
     "svc.madera.uses":
-      "Nombres y letras · Regalos para invitados · Posavasos y mandalas · Cajas y packaging · Adornos de Navidad · Peanas y expositores",
-    "svc.madera.faq.1.q": "¿Qué maderas cortáis?",
+      "Nombres y letras · Regalos para invitados · Posavasos y mandalas · Cajas y packaging · Escudos de falla · Peanas y expositores · Instrumentos musicales",
+    "svc.madera.faq.1.q": "¿Qué tipos de madera cortáis y grabáis?",
     "svc.madera.faq.1.a":
-      "Madera maciza, contrachapado y DM, entre otras. Ajustamos potencia y velocidad a cada madera y, si no sabes cuál elegir, te aconsejamos según el uso de la pieza.",
-    "svc.madera.faq.2.q": "¿Puedo pedir pocas unidades?",
+      "Madera maciza, contrachapado (como abedul) y DM (MDF), entre otras. Adaptamos potencia, velocidad y asistencia de aire a cada grosor y te aconsejamos qué madera conviene según el uso.",
+    "svc.madera.faq.2.q":
+      "¿Puedo encargar una sola pieza o solo tiradas grandes?",
     "svc.madera.faq.2.a":
-      "Sí. Hacemos un solo nombre para un regalo o una tirada entera de detalles para una boda o una empresa.",
-    "svc.madera.faq.3.q": "¿Tengo que llevar el diseño hecho?",
+      "Las dos cosas. Hacemos desde un único nombre o una tabla grabada para regalo hasta tiradas completas de detalles de boda, posavasos o peanas para empresa.",
+    "svc.madera.faq.3.q": "¿Tengo que llevar el archivo vectorial hecho?",
     "svc.madera.faq.3.a":
-      "No. Con un boceto, una foto o el texto que quieres es suficiente: preparamos el archivo para el láser y te lo enseñamos antes de cortar.",
+      "No. Con un boceto, una foto o el texto nos vale: preparamos el vectorial, separamos lo que va cortado de lo que va grabado y te enseñamos el diseño antes de cortar.",
+    "svc.madera.faq.4.q": "¿Se pueden grabar fotografías en madera?",
+    "svc.madera.faq.4.a":
+      "Sí, especialmente en maderas claras y de veta suave como el contrachapado de abedul o el DM, donde el contraste luce más. Mándanos una foto luminosa y nítida y te confirmamos cómo quedará al tamaño final.",
+    "svc.madera.faq.5.q":
+      "¿Puedo llevar mi propia madera o un objeto de madera ya fabricado?",
+    "svc.madera.faq.5.a":
+      "Sí. Trabajamos tanto con nuestras planchas como con madera o piezas terminadas que traigas tú, como cajas, tablas, castañuelas, palas de guitarra o peanas.",
 
     "svc.metacrilato.name": "Metacrilato y cristal",
     "svc.metacrilato.card":
@@ -202,115 +285,185 @@ export const materials = {
     "svc.metacrilato.title":
       "Corte láser de metacrilato y cristal en Valencia | Lasercom",
     "svc.metacrilato.description":
-      "Corte láser de metacrilato y grabado en cristal en Valencia: rótulos, placas, trofeos, expositores, copas y botellas. Pide presupuesto.",
+      "Corte láser de metacrilato con cantos pulidos y grabado esmerilado en cristal en Valencia: rótulos, placas, trofeos, copas y botellas.",
     "svc.metacrilato.h1": "Corte y grabado láser de metacrilato y cristal",
     "svc.metacrilato.lead":
-      "Rótulos, placas, trofeos, expositores, copas y botellas. El metacrilato sale del láser con los cantos brillantes y pulidos; el cristal se queda con un grabado esmerilado que no se borra.",
+      "Rótulos, placas, trofeos, maquetas, copas y botellas. El metacrilato sale del láser con los cantos brillantes y pulidos; el cristal queda con un grabado esmerilado que no se borra.",
     "svc.metacrilato.intro":
-      "El metacrilato es un plástico resistente y versátil, ideal para señalización, rotulación y regalos personalizados. Cortarlo con láser es rápido y preciso, perfecto para piezas pequeñas que necesitan un acabado fino, con bordes limpios y brillantes. Trabajamos planchas de distintos grosores según la pieza.",
+      "El metacrilato (PMMA) es uno de los plásticos técnicos que mejor responde al láser: el corte es rápido, exacto y deja el canto liso y brillante en la misma pasada, sin repasos manuales. Es ideal para rotulación, letras corporativas, placas, expositores, trofeos y maquetas a escala, en planchas transparentes, de colores, mate o espejo de distintos grosores.",
     "svc.metacrilato.body":
-      "El cristal se graba, no se corta: el láser marca su superficie con un acabado esmerilado. Así personalizamos copas, botellas, espejos, trofeos y placas decorativas sin plantillas, directamente desde el diseño digital. El resultado varía según el tipo de vidrio, así que siempre te contamos qué esperar antes de empezar.",
+      "El cristal, en cambio, se graba pero no se corta con láser: el haz microfractura la superficie creando un esmerilado blanco permanente sin necesidad de plantillas ni pantallas de arena. Así personalizamos copas, botellas, jarras, espejos y trofeos directamente desde el diseño digital, incluso cambiando el nombre en cada copa. Como cada vidrio responde distinto según su composición, siempre revisamos el material antes de empezar.",
     "svc.metacrilato.points": "Por qué con láser",
-    "svc.metacrilato.p1.t": "Cantos pulidos",
+    "svc.metacrilato.p1.t": "Cantos pulidos al corte",
     "svc.metacrilato.p1.d":
-      "El láser funde el borde del metacrilato al cortarlo y lo deja brillante, sin tener que pulirlo.",
-    "svc.metacrilato.p2.t": "Precisión en piezas pequeñas",
+      "El láser funde ligeramente el borde del metacrilato al cortarlo y lo deja brillante y transparente sin pulido posterior.",
+    "svc.metacrilato.p2.t": "Exactitud en piezas pequeñas",
     "svc.metacrilato.p2.d":
-      "Letras, señales y piezas finas con la misma exactitud en la primera pieza que en la última.",
-    "svc.metacrilato.p3.t": "Grabado sin plantillas",
+      "Letras, ranuras de encaje para maquetas y señalética fina con la misma tolerancia de la primera pieza a la última.",
+    "svc.metacrilato.p3.t": "Grabado en cristal sin plantillas",
     "svc.metacrilato.p3.d":
-      "En cristal grabamos directamente desde el diseño digital: ahorras tiempo y dinero en tiradas cortas.",
-    "svc.metacrilato.p4.t": "Varios grosores",
+      "Al grabar directo desde archivo digital no hay costes de moldes ni pantallas, ideal para tiradas cortas o piezas únicas.",
+    "svc.metacrilato.p4.t": "Distintos grosores y acabados",
     "svc.metacrilato.p4.d":
-      "Desde láminas finas para tarjetas hasta planchas gruesas para rótulos y expositores.",
+      "Desde láminas finas para tarjetas negras o transparentes hasta planchas gruesas para rótulos y peanas.",
     "svc.metacrilato.uses":
       "Copas y botellas · Placas y trofeos · Señalización · Expositores · Tarjetas de metacrilato · Maquetas a escala",
     "svc.metacrilato.faq.1.q": "¿Podéis grabar mis propias copas o botellas?",
     "svc.metacrilato.faq.1.a":
-      "Normalmente sí. Dinos el tipo de cristal y el tamaño del grabado y te lo confirmamos antes de que las traigas.",
+      "Normalmente sí. Dinos qué tipo de copa o botella es, si la zona es recta o curva y el tamaño del grabado para confirmártelo antes de traerlas.",
     "svc.metacrilato.faq.2.q": "¿Se puede cortar cristal con láser?",
     "svc.metacrilato.faq.2.a":
-      "El cristal se graba con láser, pero no se corta. Si necesitas una pieza transparente recortada, el material es el metacrilato: más ligero, más resistente y con los cantos pulidos.",
+      "El cristal se graba con láser, pero no se recorta en formas. Si necesitas una pieza transparente cortada a medida, el material adecuado es el metacrilato: más ligero, resistente y con cantos pulidos.",
     "svc.metacrilato.faq.3.q": "¿Hacéis rótulos y placas para negocios?",
     "svc.metacrilato.faq.3.a":
-      "Sí: placas de señalización, rótulos de puerta, letras de metacrilato y expositores. Mira también nuestro servicio de letras corporativas.",
+      "Sí: placas de señalización, rótulos de recepción y puerta, cartas de hostelería, letras de metacrilato y expositores. Mira también nuestro servicio de letras corporativas.",
+    "svc.metacrilato.faq.4.q":
+      "¿El grabado del cristal aguanta el lavavajillas?",
+    "svc.metacrilato.faq.4.a":
+      "Sí. No es tinta ni vinilo pegado encima, sino un esmerilado permanente grabado en la propia superficie del vidrio, por lo que no se despega al lavarlo.",
+    "svc.metacrilato.faq.5.q": "¿Cortáis también policarbonato?",
+    "svc.metacrilato.faq.5.a":
+      "No. El policarbonato se funde, amarillea y desprende humos inadecuados bajo el láser; para piezas transparentes trabajamos siempre con metacrilato (PMMA).",
 
+    "svc.cristal.name": "Cristal y copas",
+    "svc.cristal.card":
+      "Copas, botellas, jarras y espejos con un grabado esmerilado que no se borra.",
+    "svc.cristal.title":
+      "Grabado láser en cristal y copas en Valencia | Lasercom",
+    "svc.cristal.description":
+      "Grabado láser en copas, botellas, jarras y espejos en Valencia: un esmerilado blanco permanente, con un nombre distinto en cada copa si lo necesitas.",
+    "svc.cristal.h1": "Grabado láser en cristal y copas",
+    "svc.cristal.lead":
+      "Copas de boda, botellas, jarras, espejos y vasos con el logotipo de tu negocio. El láser deja un esmerilado blanco en el propio vidrio, que no se despega ni se va al lavarlo.",
+    "svc.cristal.intro":
+      "El láser no corta el cristal: lo graba. El haz microfractura la superficie y deja un esmerilado blanco permanente, sin plantillas ni pantallas de arena. Como el diseño pasa directo del archivo digital al vidrio, cada pieza puede llevar un nombre distinto sin hacer moldes, y eso lo hace ideal para tiradas cortas y regalos únicos.",
+    "svc.cristal.body":
+      "Cada vidrio responde un poco distinto según su composición, así que siempre revisamos el material antes de empezar. Si las copas son tuyas, dinos qué tipo son, si la zona del grabado es recta o curva y de qué tamaño quieres el diseño, y te lo confirmamos antes de que las traigas. Si lo que necesitas es una pieza transparente cortada a medida, como una placa o un expositor, el material adecuado es el metacrilato.",
+    "svc.cristal.points": "Por qué grabar el cristal con láser",
+    "svc.cristal.p1.t": "Esmerilado permanente",
+    "svc.cristal.p1.d":
+      "No es tinta ni vinilo pegado encima: el grabado está en la propia superficie del vidrio y no se despega al lavarlo.",
+    "svc.cristal.p2.t": "Sin plantillas ni pantallas",
+    "svc.cristal.p2.d":
+      "Grabamos directo desde el archivo digital, sin moldes ni pantallas, ideal para tiradas cortas o piezas únicas.",
+    "svc.cristal.p3.t": "Un nombre en cada copa",
+    "svc.cristal.p3.d":
+      "Cada pieza sale del archivo, así que el nombre o la fecha pueden cambiar de una copa a otra.",
+    "svc.cristal.p4.t": "Revisamos tu vidrio antes",
+    "svc.cristal.p4.d":
+      "Cada cristal responde distinto según su composición; lo comprobamos antes de empezar.",
+    "svc.cristal.uses":
+      "Copas de boda y bautizo · Botellas · Jarras · Espejos · Vasos con logotipo · Trofeos de cristal",
+    "svc.cristal.faq.1.q": "¿Podéis grabar mis propias copas o botellas?",
+    "svc.cristal.faq.1.a":
+      "Normalmente sí. Dinos qué tipo de copa o botella es, si la zona es recta o curva y el tamaño del grabado para confirmártelo antes de traerlas.",
+    "svc.cristal.faq.2.q": "¿Se puede cortar cristal con láser?",
+    "svc.cristal.faq.2.a":
+      "El cristal se graba con láser, pero no se recorta en formas. Si necesitas una pieza transparente cortada a medida, el material adecuado es el metacrilato: más ligero, resistente y con cantos pulidos.",
+    "svc.cristal.faq.3.q": "¿El grabado aguanta el lavavajillas?",
+    "svc.cristal.faq.3.a":
+      "Sí. No es tinta ni vinilo pegado encima, sino un esmerilado permanente grabado en la propia superficie del vidrio, por lo que no se despega al lavarlo.",
+    "svc.cristal.faq.4.q": "¿Puede llevar cada copa un nombre distinto?",
+    "svc.cristal.faq.4.a":
+      "Sí. El grabado sale directo del archivo digital, así que cada copa puede llevar su nombre o su fecha sin plantillas nuevas. Mándanos la lista de nombres junto al diseño.",
+    "svc.cristal.faq.5.q":
+      "¿Grabáis copas con el logotipo de un bar o de una falla?",
+    "svc.cristal.faq.5.a":
+      "Sí: hemos grabado copas con escudos de falla y con logotipos de empresa. Mándanos el logotipo, mejor en vectorial, y dinos cuántas copas necesitas.",
     "svc.piel.name": "Piel y cuero",
     "svc.piel.card":
       "Logotipos, escudos y nombres en carteras, llaveros, cinturones y marroquinería.",
     "svc.piel.title":
       "Corte y grabado láser en piel y cuero en Valencia | Lasercom",
     "svc.piel.description":
-      "Grabado y corte láser en piel y cuero en Valencia: logotipos y nombres en carteras, llaveros, cinturones y marroquinería. Presupuesto sin compromiso.",
+      "Grabado y corte láser de CO2 en piel y cuero natural en Valencia: logotipos, escudos y nombres en carteras, llaveros, cinturones y marroquinería.",
     "svc.piel.h1": "Corte y grabado láser en piel y cuero",
     "svc.piel.lead":
-      "Logotipos, escudos y nombres en carteras, tarjeteros, llaveros y cinturones. La piel se oscurece donde la toca el láser y da un contraste natural con mucho detalle.",
+      "Logotipos, escudos y nombres en carteras, tarjeteros, llaveros y cinturones. La piel natural se oscurece donde la toca el láser, dejando un contraste limpio y con relieve.",
     "svc.piel.intro":
-      "Empleamos una grabadora y cortadora láser de CO2 para dar al cuero un acabado limpio, preciso y con un diseño único. El grabado en piel suele ser superficial y destaca por su cambio de tonalidad, así que funciona igual de bien para un logotipo pequeño que para imágenes con mucho detalle.",
+      "Utilizamos láser de CO2 para grabar y cortar cuero y piel con un acabado limpio, sin tintas ni clichés metálicos de termograbado. Al no requerir molde previo, podemos personalizar desde un único regalo hasta tiradas de marroquinería corporativa con logotipos, escudos o textos finos.",
     "svc.piel.body":
-      "El cuero también es fácil de cortar con láser, lo que nos permite separar piezas con formas complejas. El resultado depende del tipo de piel: la de grano completo, la de grano superior, la de grano corregido o el cuero regenerado reaccionan de forma distinta, y te decimos cuál da el efecto que buscas.",
-    "svc.piel.points": "Por qué con láser",
-    "svc.piel.p1.t": "Contraste natural",
+      "Además del grabado superficial por cambio de tonalidad, cortamos piezas y patrones de piel con curvas cerradas y huecos exactos. El resultado depende del tipo de curtido y grano: la piel de grano completo, grano superior, grano corregido o cuero regenerado reaccionan de forma distinta, y en pieles claras el contraste oscuro es más marcado que en pieles negras. Revisamos tu pieza antes para asegurarte el mejor acabado.",
+    "svc.piel.points": "Por qué trabajar piel con láser",
+    "svc.piel.p1.t": "Contraste natural sin tintas",
     "svc.piel.p1.d":
-      "El láser oscurece la piel sin tinta, así que el marcado no se pela ni se borra.",
-    "svc.piel.p2.t": "Mucho detalle",
+      "El láser oscurece la fibra de la piel directamente: no hay pintura que se agriete o se pele con el roce.",
+    "svc.piel.p2.t": "Detalle fino sin troqueles",
     "svc.piel.p2.d":
-      "Gracias a su fibra, el cuero admite textos pequeños, logotipos e imágenes detalladas.",
-    "svc.piel.p3.t": "Formas complejas",
+      "Admite textos pequeños, escudos complejos y logotipos nítidos sin tener que fabricar un cuño metálico.",
+    "svc.piel.p3.t": "Corte de patrones complejos",
     "svc.piel.p3.d":
-      "Cortamos patrones y piezas con curvas y huecos que a mano llevarían mucho tiempo.",
-    "svc.piel.p4.t": "También sobre producto hecho",
+      "Recortamos etiquetas, apliques, curvas y perforaciones de costura con repetibilidad exacta.",
+    "svc.piel.p4.t": "También sobre artículo terminado",
     "svc.piel.p4.d":
-      "Grabamos sobre artículos ya terminados: carteras, cinturones, carpetas o llaveros.",
+      "Grabamos directamente en carteras, cinturones, carpetas, tarjeteros y llaveros ya confeccionados.",
     "svc.piel.uses":
-      "Carteras y tarjeteros · Llaveros · Cinturones · Fundas y agendas · Etiquetas para ropa · Logotipos en piel",
+      "Carteras y tarjeteros · Llaveros · Cinturones · Fundas y agendas · Etiquetas para ropa · Escudos y logotipos en piel",
     "svc.piel.faq.1.q":
       "¿Podéis grabar una cartera o un cinturón que ya tengo?",
     "svc.piel.faq.1.a":
-      "Sí, siempre que la zona a grabar sea plana y accesible. Cuéntanos qué es y te lo confirmamos.",
-    "svc.piel.faq.2.q": "¿Funciona en piel sintética?",
+      "Sí, siempre que la zona a grabar quede plana y accesible sin costuras gruesas ni hebillas que estorben. Mándanos una foto y te lo confirmamos.",
+    "svc.piel.faq.2.q": "¿Funciona en piel sintética o polipiel?",
     "svc.piel.faq.2.a":
-      "Depende de su composición. Algunos sintéticos no se pueden trabajar con láser de forma segura, así que dinos antes el material y te aconsejamos.",
-    "svc.piel.faq.3.q": "¿Hacéis tiradas para marcas y tiendas?",
+      "Solo si está libre de PVC. Muchas polipieles contienen PVC, que desprende cloro tóxico y daña las ópticas al calentarse, así que comprobamos siempre la composición antes.",
+    "svc.piel.faq.3.q":
+      "¿Hacéis tiradas para marcas y tiendas de marroquinería?",
     "svc.piel.faq.3.a":
-      "Sí: logotipos en marroquinería, etiquetas y artículos promocionales, en tiradas cortas o largas.",
+      "Sí: logotipos en carteras, tarjeteros, etiquetas y artículos promocionales, desde prototipos unitarios hasta tiradas completas.",
+    "svc.piel.faq.4.q": "¿Cómo queda el grabado en piel negra u oscura?",
+    "svc.piel.faq.4.a":
+      "En piel muy oscura el grabado se aprecia sobre todo por el bajo relieve y el cambio de textura mate; en tonos cuero, coñac o beige ofrece además un contraste oscuro muy visible.",
+    "svc.piel.faq.5.q":
+      "¿Podéis cortar etiquetas de cuero ya perforadas para coser?",
+    "svc.piel.faq.5.a":
+      "Sí. A partir de un archivo vectorial cortamos la silueta, grabamos tu marca y perforamos los puntos de costura en la misma pasada.",
 
     "svc.metal.name": "Metal",
     "svc.metal.card":
       "Placas, chapas, números de serie y códigos QR en acero, aluminio, latón y más.",
-    "svc.metal.title": "Grabado láser en metal y acero en Valencia | Lasercom",
+    "svc.metal.title":
+      "Grabado y marcado láser en metal en Valencia | Lasercom",
     "svc.metal.description":
-      "Grabado y marcado láser en acero inoxidable, aluminio, latón, cobre, plata y oro en Valencia. Placas, chapas, números de serie y códigos QR.",
+      "Marcado y grabado láser permanente en acero inoxidable, aluminio anodizado, latón, cobre, plata y oro en Valencia. Placas, chapas, series y QR.",
     "svc.metal.h1": "Grabado y marcado láser en metal",
     "svc.metal.lead":
-      "Placas, chapas, números de serie, códigos de barras y logotipos en acero inoxidable, aluminio, latón, cobre, plata u oro. Un marcado permanente que aguanta el uso y la intemperie.",
+      "Placas, chapas, números de serie, códigos de barras y logotipos en acero inoxidable, aluminio anodizado, latón, cobre, plata u oro. Un marcado permanente que aguanta el uso y la intemperie.",
     "svc.metal.intro":
-      "Con el láser, metales blandos como el aluminio y duros o aleaciones como el acero inoxidable se marcan de forma fácil, rápida y permanente. Las aplicaciones van desde el etiquetado para la trazabilidad hasta la personalización de productos de promoción, decorativos y accesorios.",
+      "El marcado láser permite identificar y personalizar metales blandos y duros de forma limpia y definitiva, sin tintas, etiquetas ni punzones. Trabajamos desde trazabilidad industrial —números de serie, códigos QR, códigos de barras y placas de características— hasta tarjetas metálicas de visita, trofeos, chapas para mascotas y joyería.",
     "svc.metal.body":
-      "Trabajamos aluminio anodizado, acero inoxidable, latón, plata de ley, titanio, cobre, materiales revestidos y oro, entre otros. Según el metal usamos láser de CO2, ideal para aluminio anodizado y superficies lacadas, o láser de fibra, ideal para acero inoxidable, cobre y latón. El recocido láser da una marca de alto contraste sin que varíe siquiera el aspecto de la superficie.",
-    "svc.metal.points": "Por qué con láser",
-    "svc.metal.p1.t": "Permanente",
+      "Elegimos la fuente láser adecuada para cada metal: láser de CO2 para aluminio anodizado y superficies lacadas o revestidas (eliminando el recubrimiento para sacar un contraste limpio), y láser de fibra para acero inoxidable, latón, cobre, titanio, plata de ley y oro. Con el recocido láser en acero inoxidable logramos una marca oscura de alto contraste a ras de superficie, sin arrancar material ni reducir su resistencia a la corrosión.",
+    "svc.metal.points": "Por qué marcar metal con láser",
+    "svc.metal.p1.t": "Marcado permanente",
     "svc.metal.p1.d":
-      "El marcado forma parte del metal: no se pela, no se destiñe y no se borra con el uso.",
-    "svc.metal.p2.t": "Alto contraste",
+      "La marca forma parte del propio metal: no se despega como una pegatina, no se borra con disolventes ni se decolora al sol.",
+    "svc.metal.p2.t": "Alto contraste para lectura",
     "svc.metal.p2.d":
-      "Marcas oscuras y legibles, también para códigos que tiene que leer un escáner.",
-    "svc.metal.p3.t": "Sin dañar la pieza",
+      "Trazos oscuros y definidos, legibles tanto a simple vista como con lectores de códigos de barras o QR.",
+    "svc.metal.p3.t": "Sin dañar el acero inoxidable",
     "svc.metal.p3.d":
-      "En aleaciones de acero podemos marcar sin dañar la superficie ni su resistencia a la corrosión.",
-    "svc.metal.p4.t": "Cualquier forma",
+      "Mediante recocido marcamos aleaciones de acero sin rebajar la superficie ni comprometer la protección anticorrosión.",
+    "svc.metal.p4.t": "Sin presión ni deformación",
     "svc.metal.p4.d":
-      "El láser no toca la pieza, así que marcamos igual objetos planos que irregulares.",
+      "Al no haber contacto físico, marcamos chapas finas, piezas irregulares, herramientas y joyas sin rayarlas ni doblarlas.",
     "svc.metal.uses":
-      "Placas identificativas · Números de serie y QR · Chapas y medallas para mascotas · Tarjetas metálicas · Herramientas y piezas · Trofeos",
-    "svc.metal.faq.1.q": "¿Qué metales podéis grabar?",
+      "Placas identificativas y de características · Números de serie y QR · Chapas para mascotas y medallas · Tarjetas metálicas · Herramientas y utillaje · Trofeos",
+    "svc.metal.faq.1.q": "¿Qué metales podéis grabar y marcar?",
     "svc.metal.faq.1.a":
-      "Acero inoxidable, aluminio anodizado, latón, cobre, titanio, plata de ley, oro y metales revestidos, entre otros.",
-    "svc.metal.faq.2.q": "¿El grabado se borra con el tiempo?",
+      "Acero inoxidable, aluminio anodizado, latón, cobre, titanio, plata de ley, oro y metales pintados o revestidos, entre otros.",
+    "svc.metal.faq.2.q":
+      "¿El marcado se borra con el roce, la limpieza o el exterior?",
     "svc.metal.faq.2.a":
-      "No. El marcado láser está en el propio metal, no encima, así que aguanta la manipulación, la limpieza y la intemperie.",
-    "svc.metal.faq.3.q": "¿Marcáis códigos de barras y QR?",
+      "No. El marcado láser modifica el propio metal o su capa superficial, por lo que resiste la manipulación continua, la limpieza e intemperie.",
+    "svc.metal.faq.3.q":
+      "¿Marcáis números de serie correlativos, códigos de barras y QR?",
     "svc.metal.faq.3.a":
-      "Sí. Marcamos números de serie, códigos de barras y QR con el contraste necesario para que se lean. Mira nuestro servicio de marcado industrial.",
+      "Sí. Marcamos numeración variable, referencias, códigos de barras y códigos QR con el contraste necesario para su lectura con escáner. Mira también nuestro servicio de marcado industrial.",
+    "svc.metal.faq.4.q":
+      "¿Qué diferencia hay entre marcar con CO2 y con fibra en metal?",
+    "svc.metal.faq.4.a":
+      "El CO2 se utiliza sobre aluminio anodizado y metales lacados para descubrir el contraste bajo la capa de color; el láser de fibra marca directamente metales desnudos como acero inoxidable, latón, cobre, plata u oro.",
+    "svc.metal.faq.5.q": "¿También cortáis chapas metálicas a medida?",
+    "svc.metal.faq.5.a":
+      "Indícanos la aleación, el grosor y las medidas que necesitas; revisamos tu plano o pieza de muestra y te confirmamos cómo lo fabricamos.",
   },
 } as const

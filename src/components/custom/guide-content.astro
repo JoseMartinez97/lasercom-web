@@ -125,7 +125,7 @@ const updated = new Intl.DateTimeFormat(lang, { dateStyle: "long" }).format(
 
 <section class="border-t border-border px-5 py-24 md:px-8 lg:py-32">
   <h2 class="readout mb-6 text-muted-foreground">{t("guides.more")}</h2>
-  <GuideCards lang={lang} ids={guideIds.filter((g) => g !== id)} />
+  <GuideCards lang={lang} ids={guideIds.filter((g) => g !== id).slice(0, 3)} />
 </section>
 
 <CloseSection lang={lang} />

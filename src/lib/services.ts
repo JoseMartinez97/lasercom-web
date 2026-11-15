@@ -34,9 +34,12 @@ export const cutouts = new Set([
   "grabado_laser_placa_hospital",
 ])
 
+export const serviceFaqIndices = [1, 2, 3, 4, 5] as const
+
 export const serviceIds = [
   "madera",
   "metacrilato",
+  "cristal",
   "piel",
   "metal",
   "industrial",
@@ -86,7 +89,18 @@ export const services: Record<ServiceId, Service> = {
       "grabado_laser_cristal_vidrio",
       "grabado_laser_metacrilato_com",
     ],
-    related: ["letras", "empresas", "decoracion"],
+    related: ["cristal", "letras", "empresas"],
+  },
+  cristal: {
+    es: "/grabado-laser-cristal-copas/",
+    en: "/en/laser-engraving-glass/",
+    kind: "material",
+    photos: [
+      "grabado_en_crista",
+      "grabado_laser_cristal_vidrio",
+      "corte_laser_metacrilato_cristal_online_1",
+    ],
+    related: ["bodas", "empresas", "metacrilato"],
   },
   piel: {
     es: "/corte-grabado-laser-piel-cuero/",
@@ -150,7 +164,7 @@ export const services: Record<ServiceId, Service> = {
       "mandala_cortado_laser",
       "nombre_corte_laser",
     ],
-    related: ["madera", "metacrilato", "joyeria"],
+    related: ["cristal", "madera", "joyeria"],
   },
   joyeria: {
     es: "/grabado-laser-joyeria/",

@@ -9,7 +9,7 @@ import PhotoLightbox from "@/components/custom/photo-lightbox.astro"
 import WorkPhoto from "@/components/custom/work-photo.astro"
 import { whatsappHref } from "@/lib/business"
 import { guideIds, guides, type GuideId } from "@/lib/guides"
-import { services, type ServiceId } from "@/lib/services"
+import { serviceFaqIndices, services, type ServiceId } from "@/lib/services"
 import { cn } from "@/lib/utils"
 import { ArrowRight, ArrowUpRight, ZoomIn } from "lucide-react"
 
@@ -24,7 +24,7 @@ const serviceHref = (s: ServiceId) =>
   lang === "en" ? services[s].en : services[s].es
 const [lead, ...gallery] = service.photos
 const points = [1, 2, 3, 4] as const
-const faqs = ([1, 2, 3] as const).map((n) => ({
+const faqs = serviceFaqIndices.map((n) => ({
   q: t(`svc.${id}.faq.${n}.q`),
   a: t(`svc.${id}.faq.${n}.a`),
 }))

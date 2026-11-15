@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>C · Ficha de caso · Lasercom</title>
+<link rel="stylesheet" href="proto.css">
+<style>
+  .top{display:grid;grid-template-columns:1.05fr 1fr;min-height:calc(100svh - 34px)}
+  .top .ph{position:relative;background:var(--steel);overflow:hidden}
+  .top .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .top .tx{padding:clamp(28px,5vw,80px);display:grid;align-content:space-between;gap:40px}
+  .top h1{font-size:clamp(40px,5.6vw,96px)}
+  .crumb{font-size:13px;color:var(--mut)}
+  .crumb a{text-decoration:none}
+  .lede{font-size:clamp(18px,1.5vw,22px);max-width:40ch;color:var(--mut)}
+  dl{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line)}
+  dl div{padding:16px 0;border-bottom:1px solid var(--line)}
+  dl div:nth-child(odd){padding-right:20px}
+  dt{color:var(--mut);margin-bottom:4px}
+  dd{font-weight:700;font-size:18px;margin:0}
+  @media(max-width:900px){.top{grid-template-columns:1fr}.top .ph{aspect-ratio:4/5}}
+
+  .story{padding:clamp(64px,9vw,130px) 0;display:grid;grid-template-columns:1fr 1.4fr;gap:clamp(24px,6vw,96px)}
+  .story h2{font-size:clamp(28px,3.6vw,54px)}
+  .story .body p{font-size:19px;max-width:58ch;margin-bottom:1.1em}
+  .story .body h3{font-stretch:125%;font-weight:800;font-size:22px;letter-spacing:-.02em;margin:1.6em 0 .5em}
+  @media(max-width:900px){.story{grid-template-columns:1fr}}
+
+  .gal{display:grid;grid-template-columns:2fr 1fr 1fr;gap:clamp(8px,1vw,16px)}
+  .gal img{width:100%;height:100%;object-fit:cover;border-radius:8px;aspect-ratio:4/3}
+  .gal img:first-child{aspect-ratio:auto;grid-row:span 2}
+  @media(max-width:700px){.gal{grid-template-columns:1fr 1fr}.gal img:first-child{grid-column:span 2}}
+
+  .similar{margin-top:clamp(64px,9vw,120px);padding:clamp(48px,7vw,110px) 0}
+  .similar h2{font-size:clamp(40px,7vw,116px);max-width:13ch}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:28px 0}
+  .chip{height:44px;padding:0 18px;border-radius:999px;border:1px solid rgb(255 255 255/.28);display:inline-flex;align-items:center;font-size:15px;text-decoration:none}
+  .chip:hover{border-color:var(--laser);color:var(--laser)}
+  .sticky{position:fixed;left:0;right:0;bottom:0;z-index:40;background:oklch(0.985 0.008 80/.94);backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:10px clamp(16px,4vw,48px);display:flex;justify-content:space-between;align-items:center;gap:16px}
+  .sticky p{font-weight:700;font-size:15px}
+  .sticky .btn{height:44px;padding:0 20px;font-size:15px}
+  @media(max-width:600px){.sticky p span{display:none}}
+  .next{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line)}
+  .next a{padding:40px clamp(20px,4vw,48px);text-decoration:none;display:grid;gap:6px}
+  .next a+a{border-left:1px solid var(--line);text-align:right}
+  .next b{font-stretch:125%;font-weight:800;font-size:clamp(20px,2.4vw,34px);letter-spacing:-.02em}
+</style>
+
+<div class="protobar"><b>PROTOTIPO C</b><a href="index.html">Índice</a><a href="a-portada.html">A · Portada de pruebas</a><a href="b-muestrario.html">B · Muestrario real</a><a class="on" href="c-caso.html">C · Ficha de caso</a></div>
+
+<header class="top">
+  <div class="ph"><img src="../../src/assets/work/abanico_exclusivo_louis_vuitton_3.webp" alt="Abanico exclusivo de Louis Vuitton con varillas de madera caladas con láser"></div>
+  <div class="tx">
+    <p class="crumb"><a href="#">Inicio</a> / <a href="#">Trabajos</a> / Abanico Louis Vuitton</p>
+    <div style="display:grid;gap:22px">
+      <p class="readout" style="color:var(--laser-ink)">Madera · corte y grabado</p>
+      <h1 class="display">Abanico exclusivo Louis Vuitton</h1>
+      <p class="lede">Pieza única para una subasta benéfica: calamos el interior de cada varilla y marcamos los logotipos sin astillar la madera.</p>
+    </div>
+    <dl>
+      <div><dt class="readout">Material</dt><dd>Madera</dd></div>
+      <div><dt class="readout">Técnica</dt><dd>Corte y grabado láser</dd></div>
+      <div><dt class="readout">Unidades</dt><dd>Pieza única</dd></div>
+      <div><dt class="readout">Año</dt><dd><span class="ask">preguntar al dueño</span></dd></div>
+    </dl>
+  </div>
+</header>
+
+<section class="wrap story">
+  <div>
+    <h2 class="display">Cómo se hizo</h2>
+    <div class="note">Hoy cada trabajo es una fila de la página «Trabajos», con dos frases. Como página propia puede posicionar por búsquedas como «abanico personalizado corte láser» y sirve para enviársela a un cliente que pide algo parecido.</div>
+  </div>
+  <div class="body">
+    <p>Calamos los círculos interiores de las varillas y la cerradura central sin astillar la madera, y marcamos los logotipos con precisión en varillas y caberas.</p>
+    <h3>El reto</h3>
+    <p>Qué pidió el cliente, qué era lo difícil de la pieza y cómo se resolvió, contado por quien la hizo. <span class="ask">preguntar al dueño</span></p>
+    <h3>Lo que aprendimos</h3>
+    <p>Dos o tres frases del taller sobre esta madera, este grosor o este tipo de calado, que sirvan a quien quiera encargar algo parecido. <span class="ask">preguntar al dueño</span></p>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="gal">
+    <img src="../../src/assets/work/abanico_exclusivo_louis_vuitton-2.webp" alt="Detalle de las varillas caladas del abanico">
+    <img src="../../src/assets/work/abanico_exclusivo_louis_vuitton_2.webp" alt="Detalle del calado circular de las varillas">
+    <img src="../../src/assets/work/abanico_exclusivo_louis_vuitton_4.webp" alt="Cerradura calada en el centro del abanico">
+    <img src="../../src/assets/work/abanico_amarillo_logotipo_varillas_1.webp" alt="Abanico de la tirada con logotipos marcados">
+    <img src="../../src/assets/work/abanico_amarillo_logotipo_varillas_3.webp" alt="Varillas marcadas con láser">
+  </div>
+  <div class="note">Estas fotos miden 640–800 px y tienen dominante amarilla. A este tamaño se nota. Si la pieza ya no está en el taller, se puede corregir el color y dejar la galería más pequeña.</div>
+</section>
+
+<section class="similar steel">
+  <div class="wrap">
+    <p class="readout" style="color:var(--laser)">¿Te sirve de referencia?</p>
+    <h2 class="display" style="margin-top:14px">Pide algo parecido</h2>
+    <p style="max-width:48ch;margin-top:20px;color:oklch(0.84 0.008 80)">El mensaje sale ya escrito con este trabajo como referencia. Solo tienes que decirnos el material y cuántas unidades.</p>
+    <div class="chips">
+      <a class="chip" href="#">Una pieza única</a>
+      <a class="chip" href="#">Una tirada para un evento</a>
+      <a class="chip" href="#">Con mi logotipo</a>
+      <a class="chip" href="#">Otra madera u otro material</a>
+    </div>
+    <a href="#" class="btn btn-p">Escríbenos por WhatsApp ↗</a>
+  </div>
+</section>
+
+<nav class="next">
+  <a href="#"><span class="readout" style="color:var(--mut)">← Anterior</span><b>Peana aniversario Ron Barceló</b></a>
+  <a href="#"><span class="readout" style="color:var(--mut)">Siguiente →</span><b>Tirada de abanicos Louis Vuitton</b></a>
+</nav>
+<div style="height:70px"></div>
+
+<div class="sticky">
+  <p>Abanico Louis Vuitton <span style="font-weight:400;color:var(--mut)">· madera calada y marcada</span></p>
+  <a href="#" class="btn btn-p">Pedir algo parecido →</a>
+</div>
+</html>

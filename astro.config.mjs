@@ -130,8 +130,8 @@ export default defineConfig({
     react(),
     redirectsFile,
     sitemap({
-      // The 404 and the design prototype stay out of search engines
-      filter: (page) => !/\/(404|prototipo|prototype)\/?$/.test(page),
+      // The 404 stays out of search engines
+      filter: (page) => !/\/404\/?$/.test(page),
       serialize(item) {
         const pair = pairs.get(item.url)
         if (!pair) return item

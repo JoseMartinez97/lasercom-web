@@ -30,6 +30,7 @@ const getRef = () => (visitRef ||= newRef())
 const serviceMaterial: Record<string, (typeof materials)[number]> = {
   madera: "wood",
   metacrilato: "acrylic",
+  cristal: "glass",
   piel: "leather",
   metal: "metal",
 }
@@ -135,16 +136,8 @@ export function QuoteBuilder({
     () => new URLSearchParams(location.search).get("servicio") ?? "",
     () => ""
   )
-  // The text the visitor tried on the engraving preview (?texto=…)
-  const engraveText = React.useSyncExternalStore(
-    noSubscribe,
-    () =>
-      (new URLSearchParams(location.search).get("texto") ?? "").slice(0, 60),
-    () => ""
-  )
   const [dismissed, setDismissed] = React.useState(false)
   const service = !dismissed && serviceNames[param] ? param : ""
-  const text = dismissed ? "" : engraveText.trim()
   const [activePreset, setActivePreset] = React.useState<string>("")
   const [job, setJob] = React.useState<string[]>([])
   // null until the visitor picks: then the service's material stands in
@@ -170,7 +163,6 @@ export function QuoteBuilder({
       ? `${t("quote.msg.hello")} ${name.trim()}. ${t("quote.msg.intro")}`
       : t("quote.msg.intro"),
     service && `- ${t("quote.msg.service")}: ${serviceNames[service]}`,
-    text && `- ${t("quote.msg.text")}: "${text}"`,
     job.length > 0 &&
       `- ${t("quote.msg.what")}: ${label("quote.what", job[0])}`,
     mats.length > 0 &&
@@ -188,7 +180,6 @@ export function QuoteBuilder({
   // Nothing picked or written yet: sending would only say "I'd like a quote"
   const empty =
     !service &&
-    !text &&
     [job, mats, qty, design].every((v) => v.length === 0) &&
     !when.trim() &&
     !details.trim()

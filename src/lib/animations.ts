@@ -123,17 +123,24 @@ function animateCuts() {
 // fill the screen
 function animateTravellingType() {
   gsap.utils.toArray<HTMLElement>("[data-marquee]").forEach((line) => {
-    gsap.to(line, {
-      x: () => -window.innerWidth * 0.7,
-      ease: "none",
-      scrollTrigger: {
-        trigger: line.parentElement,
-        start: "top bottom",
-        end: "bottom top",
-        scrub: SCRUB,
-        invalidateOnRefresh: true,
-      },
-    })
+    const dir = line.dataset.marquee === "right" ? 1 : -1
+    const shift = () =>
+      Math.min(window.innerWidth * 0.45, line.scrollWidth * 0.25)
+    gsap.fromTo(
+      line,
+      { x: dir > 0 ? -shift() : 0 },
+      {
+        x: dir > 0 ? 0 : -shift(),
+        ease: "none",
+        scrollTrigger: {
+          trigger: line.parentElement,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: SCRUB,
+          invalidateOnRefresh: true,
+        },
+      }
+    )
   })
   gsap.utils.toArray<HTMLElement>("[data-close]").forEach((panel) => {
     gsap.fromTo(

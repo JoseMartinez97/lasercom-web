@@ -19,7 +19,7 @@ const pages = walk(dist)
   }))
   // redirect stubs (old WordPress addresses) only carry a refresh
   .filter((p) => !p.html.includes('http-equiv="refresh"'))
-  // pages kept out of search engines (the design prototype) are not checked
+  // pages kept out of search engines are not checked
   .filter((p) => !p.html.includes('name="robots" content="noindex"'))
 
 const sitemap = walk(dist)

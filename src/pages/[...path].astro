@@ -11,10 +11,10 @@ import GuideContent from "@/components/custom/guide-content.astro"
 import { getImage } from "astro:assets"
 import { guides, guidesUpdated } from "@/lib/guides"
 import { business } from "@/lib/business"
-import { photo, services } from "@/lib/services"
+import { photo, serviceFaqIndices, services } from "@/lib/services"
 import type { Lang } from "@/i18n/ui"
 import { useTranslations } from "@/i18n/utils"
-import { pages } from "@/lib/pages"
+import { homeFaqIndices, pages } from "@/lib/pages"
 
 // Every page in both languages from the table in src/lib/pages.ts
 export const getStaticPaths = (() =>
@@ -61,7 +61,7 @@ if (page.service) {
     {
       "@context": "https://schema.org",
       "@type": "FAQPage",
-      mainEntity: ([1, 2, 3] as const).map((n) => ({
+      mainEntity: serviceFaqIndices.map((n) => ({
         "@type": "Question",
         name: t(`svc.${id}.faq.${n}.q`),
         acceptedAnswer: { "@type": "Answer", text: t(`svc.${id}.faq.${n}.a`) },
@@ -73,7 +73,7 @@ if (page.kind === "home") {
   jsonLd.push({
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: ([1, 2, 3, 4, 5] as const).map((n) => ({
+    mainEntity: homeFaqIndices.map((n) => ({
       "@type": "Question",
       name: t(`home.faq.${n}.q`),
       acceptedAnswer: { "@type": "Answer", text: t(`home.faq.${n}.a`) },
@@ -96,6 +96,12 @@ if (page.guide) {
     publisher: { "@id": `${origin}/#business` },
   })
 }
+// What a shared link shows: the page's own lead photo where it has one
+const ogImage = page.service
+  ? await imageUrl(services[page.service].photos[0])
+  : page.guide
+    ? await imageUrl(guides[page.guide].photo)
+    : undefined
 const guidesPath = lang === "en" ? "/en/guides/" : "/guias/"
 const crumbName = page.service
   ? t(`svc.${page.service}.name`)
@@ -123,6 +129,8 @@ const crumbName = page.service
         : undefined
   }
   jsonLd={jsonLd}
+  ogImage={ogImage}
+  ogType={page.guide ? "article" : "website"}
 >
   {page.kind === "home" && <HomeContent lang={lang} />}
   {page.service && <ServiceContent lang={lang} id={page.service} />}

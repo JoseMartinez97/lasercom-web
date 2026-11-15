@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>A · Portada de pruebas · Lasercom</title>
+<link rel="stylesheet" href="proto.css">
+<style>
+  .hero{position:relative;min-height:calc(100svh - 34px);display:grid;grid-template-rows:auto 1fr auto;overflow:hidden}
+  .hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,oklch(0.12 0.006 60/.82) 0%,oklch(0.12 0.006 60/.25) 38%,oklch(0.12 0.006 60/.3) 55%,oklch(0.12 0.006 60/.96) 100%)}
+  .hero>*{position:relative;z-index:2}
+  .nav{display:flex;justify-content:space-between;align-items:center;padding:22px clamp(20px,4vw,48px)}
+  .nav .logo{font-stretch:125%;font-weight:800;letter-spacing:.14em;font-size:18px}
+  .nav .tel{font-family:"JBMono",monospace;font-size:13px;letter-spacing:.1em;display:flex;gap:18px;align-items:center}
+  .hero h1{font-size:clamp(46px,9.2vw,148px);max-width:12ch}
+  .hero h1 em{font-style:normal;color:var(--laser)}
+  .hero .body{align-self:end;padding:0 clamp(20px,4vw,48px) 36px;display:grid;gap:28px}
+  .hero .sub{max-width:44ch;font-size:clamp(17px,1.5vw,21px);color:oklch(0.9 0.008 80)}
+  .cta{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+  .proofbar{border-top:1px solid rgb(255 255 255/.16);display:grid;grid-template-columns:repeat(4,1fr)}
+  .proofbar div{padding:18px clamp(20px,4vw,48px);border-right:1px solid rgb(255 255 255/.12)}
+  .proofbar div:last-child{border:0}
+  .proofbar b{display:block;font-stretch:125%;font-weight:800;font-size:clamp(20px,2.2vw,30px);letter-spacing:-.02em}
+  .proofbar span{font-size:13px;color:oklch(0.78 0.008 80)}
+  @media(max-width:760px){.proofbar{grid-template-columns:1fr 1fr}.proofbar div:nth-child(2){border-right:0}.proofbar div:nth-child(-n+2){border-bottom:1px solid rgb(255 255 255/.12)}.nav .tel span{display:none}}
+
+  .brands{padding:clamp(64px,9vw,140px) 0}
+  .brands h2{font-size:clamp(34px,5.4vw,84px);max-width:16ch}
+  .brands .grid{display:grid;grid-template-columns:1.25fr 1fr;gap:clamp(16px,2vw,28px);margin-top:clamp(32px,5vw,64px)}
+  .case{position:relative;border-radius:10px;overflow:hidden;background:var(--steel);color:var(--paper);min-height:min(74vh,720px);display:flex;align-items:flex-end;text-decoration:none}
+  .case img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.2,.7,.1,1)}
+  .case:hover img{transform:scale(1.04)}
+  .case::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,oklch(0.12 0.006 60/.92))}
+  .case .t{position:relative;z-index:2;padding:clamp(20px,2.4vw,36px);display:grid;gap:8px}
+  .case h3{font-size:clamp(26px,3vw,46px)}
+  .case p{max-width:44ch;color:oklch(0.86 0.008 80);font-size:15px}
+  @media(max-width:860px){.brands .grid{grid-template-columns:1fr}.case{min-height:62vh}}
+
+  .doors{display:grid;grid-template-columns:1fr 1fr}
+  .door{padding:clamp(40px,6vw,96px) clamp(20px,4vw,48px);display:grid;gap:20px;align-content:start;text-decoration:none;transition:background .3s}
+  .door.b{background:var(--steel);color:var(--paper)}
+  .door.a{background:var(--ply2)}
+  .door h3{font-size:clamp(34px,4.6vw,72px)}
+  .door ul{list-style:none;padding:0;border-top:1px solid currentColor;border-color:color-mix(in oklab,currentColor 18%,transparent)}
+  .door li a{display:flex;justify-content:space-between;gap:16px;padding:16px 0;border-bottom:1px solid color-mix(in oklab,currentColor 18%,transparent);text-decoration:none;font-weight:600;font-size:clamp(17px,1.5vw,21px)}
+  .door li a:hover{color:var(--laser)}
+  .door li a span{color:var(--laser)}
+  @media(max-width:860px){.doors{grid-template-columns:1fr}}
+
+  .reviews{padding:clamp(64px,9vw,140px) 0}
+  .score{display:flex;align-items:baseline;gap:18px;flex-wrap:wrap}
+  .score b{font-size:clamp(72px,12vw,190px)}
+  .stars{color:var(--laser);font-size:28px;letter-spacing:4px}
+  .quote{font-stretch:112%;font-weight:600;font-size:clamp(24px,3.1vw,46px);line-height:1.14;letter-spacing:-.02em;max-width:26ch;text-wrap:balance}
+  .rgrid{display:grid;grid-template-columns:1.3fr 1fr;gap:clamp(24px,5vw,80px);margin-top:48px;align-items:start}
+  .rside{display:grid;gap:28px}
+  .rside p{color:oklch(0.82 0.008 80);font-size:16px}
+  .rside cite,.quote+cite{display:block;margin-top:10px;font-style:normal}
+  @media(max-width:860px){.rgrid{grid-template-columns:1fr}}
+
+  .steps{padding:clamp(64px,9vw,120px) 0}
+  .steps ol{list-style:none;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--line);margin-top:40px}
+  .steps li{padding:28px 24px 28px 0;border-right:1px solid var(--line);margin-right:24px}
+  .steps li:last-child{border:0;margin:0}
+  .steps h3{font-stretch:125%;font-weight:800;font-size:22px;margin:10px 0 8px;letter-spacing:-.02em}
+  .steps p{color:var(--mut);font-size:15px}
+  @media(max-width:860px){.steps ol{grid-template-columns:1fr}.steps li{border-right:0;border-bottom:1px solid var(--line);margin:0}}
+
+  .close{margin:0 clamp(8px,1vw,16px) 16px;border-radius:16px;padding:clamp(40px,6vw,96px) clamp(20px,4vw,56px)}
+  .close h2{font-size:clamp(46px,9vw,150px)}
+</style>
+
+<div class="protobar"><b>PROTOTIPO A</b><a href="index.html">Índice</a><a class="on" href="a-portada.html">A · Portada de pruebas</a><a href="b-muestrario.html">B · Muestrario real</a><a href="c-caso.html">C · Ficha de caso</a></div>
+
+<header class="hero steel">
+  <video src="../../public/video/hero-film.mp4" autoplay muted loop playsinline></video>
+  <div class="nav">
+    <span class="logo">LASERCOM</span>
+    <span class="tel"><span>RIBA-ROJA DE TÚRIA · VALENCIA</span><a href="#" class="btn btn-p" style="height:44px;padding:0 20px;font-family:Archivo;letter-spacing:0">Pide presupuesto</a></span>
+  </div>
+  <div class="body">
+    <p class="readout" style="color:var(--laser)">Taller propio · desde 2007</p>
+    <h1 class="display">Corte y grabado láser <em>en Valencia</em></h1>
+    <p class="sub">Madera, metacrilato, cristal, piel y metal. Una pieza o una tirada entera, hechas en nuestro taller.</p>
+    <div class="cta">
+      <a href="#" class="btn btn-p">Pide presupuesto gratis →</a>
+      <a href="#" class="btn btn-o">WhatsApp</a>
+      <span class="readout" style="opacity:.8">● Cerrado ahora · abre mañana a las 9:00</span>
+    </div>
+  </div>
+  <div class="proofbar">
+    <div><b>Desde 2007</b><span>en el mismo taller de Riba-roja</span></div>
+    <div><b>Louis Vuitton</b><span>abanicos calados y marcados</span></div>
+    <div><b>Ron Barceló</b><span>peana del 30 aniversario</span></div>
+    <div><b>4,5 ★ en Google</b><span>6 reseñas</span></div>
+  </div>
+</header>
+
+<section class="brands">
+  <div class="wrap">
+    <p class="readout" style="color:var(--laser-ink)">Pruebas, no promesas</p>
+    <h2 class="display" style="margin-top:14px">Lo que ya ha salido de este taller</h2>
+    <div class="note">Cambio clave: los dos trabajos con más peso ocupan una pantalla entera justo después del vídeo. Hoy están en una lista pequeña con miniaturas de 640 px. Harían falta fotos nuevas de estas piezas, si tu tío las conserva. <span class="ask">preguntar al dueño</span></div>
+    <div class="grid">
+      <a class="case" href="c-caso.html">
+        <img src="../../src/assets/work/abanico_exclusivo_louis_vuitton_3.webp" alt="Abanico de Louis Vuitton con varillas caladas con láser">
+        <div class="t">
+          <p class="readout" style="color:var(--laser)">Madera · corte y grabado</p>
+          <h3 class="display">Abanico exclusivo Louis Vuitton</h3>
+          <p>Pieza única para una subasta benéfica: varillas caladas sin astillar la madera y logotipos marcados con precisión.</p>
+        </div>
+      </a>
+      <a class="case" href="c-caso.html">
+        <img src="../../src/assets/work/peana_grabada.webp" alt="Peana de madera grabada para la botella del 30 aniversario de Ron Barceló">
+        <div class="t">
+          <p class="readout" style="color:var(--laser)">Madera · grabado en relieve</p>
+          <h3 class="display">Peana aniversario Ron Barceló</h3>
+          <p>Grabada con unos 1,5 mm de relieve para que se note al tacto, sin tintas.</p>
+        </div>
+      </a>
+    </div>
+    <p style="margin-top:28px"><a href="#" style="font-weight:600">Ver los 12 trabajos →</a></p>
+  </div>
+</section>
+
+<section class="doors">
+  <div class="door a">
+    <p class="readout" style="color:var(--laser-ink)">Para ti</p>
+    <h3 class="display">Soy particular</h3>
+    <p style="color:var(--mut);max-width:40ch">Un regalo, los detalles de una boda, una pulsera para un aniversario.</p>
+    <ul>
+      <li><a href="#">Bodas y eventos <span>→</span></a></li>
+      <li><a href="#">Grabado en joyería <span>→</span></a></li>
+      <li><a href="#">Corte y grabado personalizado <span>→</span></a></li>
+      <li><a href="#">Decoración y maquetas <span>→</span></a></li>
+    </ul>
+  </div>
+  <div class="door b">
+    <p class="readout" style="color:var(--laser)">Para tu negocio</p>
+    <h3 class="display">Soy empresa</h3>
+    <p style="color:oklch(0.82 0.008 80);max-width:40ch">Números de serie y QR en piezas, regalos con tu logotipo, letras y rótulos.</p>
+    <ul>
+      <li><a href="#">Marcado industrial <span>→</span></a></li>
+      <li><a href="#">Merchandising y regalos de empresa <span>→</span></a></li>
+      <li><a href="#">Letras corporativas y rótulos <span>→</span></a></li>
+      <li><a href="#">Grabado y marcado en metal <span>→</span></a></li>
+    </ul>
+  </div>
+</section>
+
+<section class="reviews steel">
+  <div class="wrap">
+    <div class="score"><b class="display">4,5</b><div><div class="stars">★★★★★</div><p class="readout" style="opacity:.75;margin-top:6px">de 5 en Google · 6 reseñas</p></div></div>
+    <div class="note">Las reseñas son la palanca de SEO local más barata: el competidor mejor colocado enseña 4,9 con 62 reseñas. Aquí pasan de letra de 12 px al tamaño de un titular.</div>
+    <div class="rgrid">
+      <div>
+        <p class="quote">«No solo se preocuparon porque la tuviera a tiempo, sino que además se involucraron y me aconsejaron en el diseño.»</p>
+        <cite class="readout" style="opacity:.75">Lorena Tabuenca · Google</cite>
+      </div>
+      <div class="rside">
+        <div><p>«Les solicitamos unos grabados en madera personalizados para nuestra boda, para regalos de invitados, y nos gustó mucho el resultado.»</p><cite class="readout" style="opacity:.75">Pau Pastor · Google</cite></div>
+        <div><p>«Me encantan cómo quedan los detallitos a madera realizados por esta empresa. Me la recomendó una amiga hace tiempo, y la verdad es que ha sido todo un acierto.»</p><cite class="readout" style="opacity:.75">Olga Gomez · Google</cite></div>
+        <a href="#" style="color:var(--laser);font-weight:600">Ver las reseñas en Google ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="steps">
+  <div class="wrap">
+    <h2 class="display" style="font-size:clamp(34px,5vw,72px)">Así trabajamos</h2>
+    <ol>
+      <li><span class="readout" style="color:var(--laser-ink)">01</span><h3>Nos cuentas la idea</h3><p>Una foto, un boceto o tu logotipo por WhatsApp o email.</p></li>
+      <li><span class="readout" style="color:var(--laser-ink)">02</span><h3>Diseño y presupuesto</h3><p>Preparamos el archivo, te decimos qué material va mejor y te pasamos el precio.</p></li>
+      <li><span class="readout" style="color:var(--laser-ink)">03</span><h3>Corte y grabado</h3><p>Lo hacemos en nuestro taller de Riba-roja de Túria.</p></li>
+      <li><span class="readout" style="color:var(--laser-ink)">04</span><h3>Listo para ti</h3><p>Lo recoges en el taller o nos dices cómo lo necesitas.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="close steel">
+  <h2 class="display">¿Tienes una idea? Cuéntanosla.</h2>
+  <p style="max-width:46ch;margin:24px 0;color:oklch(0.84 0.008 80)">Mándanos una foto, un boceto o tu logotipo y te decimos cómo hacerlo y cuánto cuesta, sin compromiso.</p>
+  <div class="cta"><a href="#" class="btn btn-p">Escríbenos por WhatsApp ↗</a><a href="#" class="btn btn-o">626 37 05 06</a></div>
+</section>
+</html>

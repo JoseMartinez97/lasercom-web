@@ -27,3 +27,8 @@ pnpm-debug.log*
 indexnow-changed.json
 # Drafts of new jobs (pnpm trabajo)
 .work-drafts/
+
+# Source clips for the hero film (render/film.sh)
+render/src/
+render/fotos/
+render/tools/

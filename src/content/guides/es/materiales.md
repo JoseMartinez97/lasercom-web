@@ -2,51 +2,63 @@
 title: Materiales para corte y grabado láser
 ---
 
-El láser trabaja calentando el material en un punto muy pequeño. Por eso el resultado depende tanto de qué material sea: unos se cortan limpios, otros se graban precioso pero no se cortan, y algunos desprenden gases que no deben entrar en una máquina. Este es un repaso por los más habituales.
+El láser trabaja concentrando calor en un punto muy pequeño. Por eso cada material responde de una manera concreta: algunos se cortan con el canto ya acabado, otros solo admiten grabado superficial y unos pocos desprenden gases corrosivos o tóxicos que nunca deben entrar en la máquina. Este es el comportamiento real de los materiales que trabajamos en nuestro taller de Valencia.
 
 ## Madera, contrachapado y DM
 
-Es el material más agradecido. Se corta y se graba con mucho detalle, y el láser deja un tono tostado que forma parte del acabado.
+Es uno de los materiales más versátiles. Se corta y se graba con mucho detalle, dejando un canto tostado característico y sin generar virutas.
 
-- **Madera natural:** cada tabla tiene su veta, así que el grabado nunca sale idéntico en dos piezas. Las maderas claras dan más contraste.
-- **Contrachapado:** ligero y estable, ideal para piezas que encajan, maquetas y decoración.
-- **DM (MDF):** superficie lisa y uniforme, perfecta para pintar después o para grabados muy regulares.
+- **Madera maciza:** cada tabla tiene su veta y densidad natural, de modo que dos grabados nunca salen exactamente iguales. Las maderas claras y de veta suave dan mayor contraste; en maderas compactas se puede lograr relieve profundo (hasta ~1,5 mm, como en la peana de Ron Barceló).
+- **Contrachapado (como el abedul):** ligero, estable y con capas uniformes. Es el favorito para piezas caladas finas, posavasos, maquetas, abanicos y encajes.
+- **DM (MDF):** tablero de fibra completamente liso y homogéneo, ideal para letras corporativas que después van lacadas o pintadas, y para grabados muy regulares.
 
-Lo usamos en nombres, cajas, peanas, tablas, decoración y regalos. Más en [corte y grabado láser en madera](/impresion-corte-grabado-laser-madera/).
+Lo utilizamos en nombres, cajas, peanas, tablas, decoración, escudos de falla y detalles de boda. Más en [corte y grabado láser en madera](/impresion-corte-grabado-laser-madera/).
 
-## Metacrilato
+## Metacrilato (PMMA)
 
-El metacrilato (PMMA) es de los materiales que mejor responden al láser: el corte deja el canto pulido, como si fuera vidrio, y el grabado queda blanco y esmerilado. Viene en transparente, colores, espejo y acabados mate.
+El metacrilato es el plástico técnico que mejor responde al láser de CO2. El corte funde y sella el borde en la misma pasada, dejando el **canto brillante y pulido** sin necesidad de lijar ni pulir a mano. El grabado superficial queda blanco y mate, creando muy buen contraste sobre planchas transparentes, negras o de color.
 
-Sirve para expositores, rótulos, letras corporativas, maquetas, trofeos y señalética. Más en [corte y grabado en metacrilato y cristal](/corte-grabado-laser-cristal-metacrilato/).
+Trabajamos metacrilato transparente, de colores, mate y espejo en distintos grosores para rótulos, letras corporativas, maquetas a escala, trofeos, tarjetas negras y expositores. Más en [corte y grabado en metacrilato y cristal](/corte-grabado-laser-cristal-metacrilato/).
 
 ## Cristal y vidrio
 
-El cristal **se graba**, no se corta con láser: el rayo crea un esmerilado blanco muy fino en la superficie. Es el acabado clásico de copas, botellas, jarras, trofeos y placas conmemorativas.
+El cristal **se graba, no se corta** con láser: el haz produce una microfractura controlada que deja un esmerilado blanco permanente al tacto y resistente al lavado. Es el acabado clásico de copas de boda, copas de vino para hostelería, botellas, jarras y trofeos.
 
-## Piel y cuero
+Como el contenido en plomo o el templado cambia de un vidrio a otro, el nivel de blanco y textura varía ligeramente según la copa o botella; siempre revisamos la pieza antes de empezar.
 
-La piel natural se graba con un relieve hundido y más oscuro, muy elegante, y también se puede cortar en piezas pequeñas. Carteras, cinturones, llaveros, fundas y etiquetas son los trabajos típicos. Ojo con las pieles sintéticas: muchas son de PVC (ver abajo). Más en [grabado láser en piel](/corte-grabado-laser-piel-cuero/).
+## Piel y cuero natural
 
-## Metal
+La piel natural se graba oscureciendo sus fibras por calor, con un ligero bajo relieve sin usar tintas ni clichés metálicos, y también se corta limpia en patrones complejos o etiquetas con perforaciones de costura.
 
-En metal lo habitual es **marcar o grabar** la superficie: acero inoxidable, aluminio anodizado, latón… El resultado es una marca nítida y permanente, ideal para placas, herramientas, piezas industriales, chapas y joyería. Si necesitas una pieza recortada en metal, cuéntanos el material y el grosor y te decimos cómo hacerla. Más en [grabado láser en metal](/corte-grabado-laser-metal-acero/).
+- **Tono según el color de la piel:** en cuero claro, beige o coñac el contraste oscuro resalta mucho; en piel negra o muy oscura el grabado se aprecia sobre todo por el relieve y el cambio de brillo mate.
+- **Precaución con pieles sintéticas:** muchas polipieles contienen PVC (ver más abajo), así que antes de aceptar un artículo comprobamos siempre de qué material está hecho.
 
-## Otros materiales que funcionan bien
+Más en [corte y grabado láser en piel y cuero](/corte-grabado-laser-piel-cuero/).
 
-- **Cartón y papel:** cortes muy finos para invitaciones, maquetas y prototipos.
-- **Corcho:** posavasos, tablones y detalles con grabado cálido.
-- **Tela y fieltro:** cortes sin deshilachar en muchas fibras sintéticas, porque el láser sella el borde.
-- **Piedra, pizarra y cerámica:** se graban (no se cortan) con un acabado claro muy vistoso.
+## Metal: acero inoxidable, aluminio, latón y metales preciosos
 
-## Materiales que no se trabajan con láser
+En metal trabajamos habitualmente con **marcado y grabado permanente**, combinando láser de CO2 y láser de fibra según la aleación:
 
-Por seguridad y por calidad, hay materiales que un taller láser serio rechaza:
+- **Aluminio anodizado o lacado (CO2 o fibra):** el rayo retira la capa coloreada superficial dejando ver el aluminio claro, con contraste altísimo para placas y códigos de barras.
+- **Acero inoxidable, latón, cobre, titanio, plata de ley y oro (fibra):** el láser marca directamente el metal desnudo; en acero inoxidable permite además el recocido superficial sin arrancar material ni afectar a la protección anticorrosión.
 
-- **PVC y vinilo:** al calentarse desprenden cloro, que es tóxico y corroe la máquina. Muchas pieles sintéticas y polipieles son PVC.
-- **Policarbonato:** se funde y amarillea en lugar de cortarse limpio.
-- **Materiales con recubrimientos desconocidos:** si no se sabe qué es, mejor pedir antes la ficha técnica.
+Si necesitas además piezas metálicas cortadas a medida, indícanos la aleación y el grosor para estudiar el trabajo. Más en [grabado y marcado láser en metal](/corte-grabado-laser-metal-acero/).
 
-Si tienes un material y no sabes si sirve, **tráelo o mándanos una foto con lo que sepas de él** (marca, nombre, grosor) y te decimos si se puede trabajar.
+## Otros materiales que admiten láser
+
+- **Cartón y papel:** cortes precisos sin troquel para invitaciones, maquetas arquitectónicas y prototipos de packaging.
+- **Corcho:** posavasos, tapas y detalles con un grabado cálido muy contrastado.
+- **Tela y fieltro:** muchas fibras sintéticas se cortan sellando el borde para que no se deshilachen.
+- **Piedra, pizarra y cerámica:** admiten grabado (no corte) con una marca clara y muy visible sobre tonos oscuros.
+
+## Materiales que NO se trabajan con láser
+
+Por seguridad de las personas, cuidado de la máquina y calidad de acabado, rechazamos siempre:
+
+- **PVC y vinilo:** al calentarse liberan gas cloro, tóxico y altamente corrosivo para espejos, lentes y guías. Muchas polipieles y lonas son PVC.
+- **Policarbonato:** en lugar de cortarse limpio, se funde, amarillea y desprende humo denso. Cuando se busca un plástico transparente resistente, la alternativa correcta es el metacrilato (PMMA).
+- **Materiales con recubrimientos desconocidos:** si no se conoce la composición de una pintura o plástico, conviene verificar primero su ficha técnica.
+
+Si tienes un material o una pieza ya fabricada y dudas de si sirve, **mándanos una foto y lo que sepas de él** (nombre comercial, composición o grosor) y te lo confirmamos antes de venir.
 
 Siguiente paso: [cómo preparar tu archivo para el láser](/guias/preparar-archivo-corte-laser/).

@@ -2,6 +2,8 @@ import type { UiKey } from "@/i18n/ui"
 import { services, serviceIds, type ServiceId } from "@/lib/services"
 import { guides, guideIds, type GuideId } from "@/lib/guides"
 
+export const homeFaqIndices = [1, 2, 3, 4, 5, 6, 7] as const
+
 // Every page of the site, keyed by its Spanish path. Spanish lives at the
 // root, English under /en/ with its own slugs; legal pages are Spanish-only
 export type Page = {

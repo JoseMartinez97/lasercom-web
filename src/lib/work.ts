@@ -59,7 +59,7 @@ export const work = [
       "corte_laser_metacrilato_cristal_online_1",
       "grabado_laser_cristal_vidrio",
     ],
-    service: "bodas",
+    service: "cristal",
   },
   {
     slug: "chapa",

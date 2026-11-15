@@ -7,6 +7,9 @@ export const guideIds = [
   "corte-o-grabado",
   "materiales",
   "preparar-archivo",
+  "marcado-industrial",
+  "joyeria-regalos",
+  "bodas-eventos",
 ] as const
 export type GuideId = (typeof guideIds)[number]
 
@@ -18,7 +21,7 @@ export const guides: Record<
     es: "/guias/corte-o-grabado-laser/",
     en: "/en/guides/laser-cutting-vs-engraving/",
     photo: "mandala_cortado_laser",
-    services: ["madera", "personalizado", "industrial"],
+    services: ["madera", "personalizado", "decoracion"],
   },
   materiales: {
     es: "/guias/materiales-corte-grabado-laser/",
@@ -32,7 +35,25 @@ export const guides: Record<
     photo: "logo_laser",
     services: ["personalizado", "empresas", "letras"],
   },
+  "marcado-industrial": {
+    es: "/guias/marcado-laser-industrial-trazabilidad/",
+    en: "/en/guides/industrial-laser-marking-traceability/",
+    photo: "grabado_laser_placa_hospital",
+    services: ["industrial", "metal", "empresas"],
+  },
+  "joyeria-regalos": {
+    es: "/guias/grabar-joyas-regalos-laser/",
+    en: "/en/guides/engraving-jewellery-gifts/",
+    photo: "collar_perro_laser",
+    services: ["joyeria", "personalizado", "metal"],
+  },
+  "bodas-eventos": {
+    es: "/guias/detalles-bodas-eventos-laser/",
+    en: "/en/guides/personalised-wedding-event-favours/",
+    photo: "grabado_en_crista",
+    services: ["bodas", "madera", "metacrilato"],
+  },
 }
 
 // When the guides were last revised, for readers and for the Article data
-export const guidesUpdated = "2026-11-14"
+export const guidesUpdated = "2026-11-15"

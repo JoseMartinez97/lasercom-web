@@ -135,6 +135,10 @@
   /* Break long words with a hyphen, never mid-word without one */
   overflow-wrap: normal;
   hyphens: auto;
+  /* Only words too long for a phone line: never "ti-rada" */
+  hyphenate-limit-chars: 13 6 5;
+  -webkit-hyphenate-limit-before: 6;
+  -webkit-hyphenate-limit-after: 5;
 }
 /* Machine readouts: small mono labels, the only uppercase on the site */
 @utility readout {

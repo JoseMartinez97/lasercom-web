@@ -22,6 +22,9 @@ export interface Props {
   breadcrumbs?: { name: string; path: string }[]
   // Extra structured data for this page (Service, FAQPage…)
   jsonLd?: Record<string, unknown>[]
+  // The photo shown when the page is shared; the workshop's card by default
+  ogImage?: string
+  ogType?: "website" | "article"
 }
 
 const {
@@ -31,6 +34,8 @@ const {
   breadcrumbs,
   jsonLd = [],
   noindex = false,
+  ogImage,
+  ogType = "website",
 } = Astro.props
 const t = (key: keyof (typeof ui)[typeof defaultLang]) => ui[lang][key]
 // A preview build (PUBLIC_PREVIEW=1, see .github/workflows/deploy.yml) keeps
@@ -176,14 +181,14 @@ const structuredData: Record<string, unknown>[] = noindex
       <link rel="alternate" hreflang="x-default" href={defaultUrl} />
     )}
 
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content={business.name} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={ogImageUrl} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+    <meta property="og:image" content={ogImage ?? ogImageUrl} />
+    {!ogImage && <meta property="og:image:width" content="1200" />}
+    {!ogImage && <meta property="og:image:height" content="630" />}
     <meta property="og:locale" content={ogLocale} />
     {ogAlternateLocales.map((alt) => (
       <meta property="og:locale:alternate" content={alt} />

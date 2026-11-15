@@ -41,6 +41,7 @@ const padClass =
   alt={t(`photo.${name}` as UiKey)}
   widths={[360, 480, 640, 960, 1280].filter((w) => w <= src.width)}
   sizes={sizes}
+  quality={72}
   loading={loading}
   fetchpriority={fetchpriority}
   decoding="async"

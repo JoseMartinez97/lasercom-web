@@ -32,7 +32,7 @@ export const site = {
     "cta.service": "See the service",
     "wa.default": "Hi, I'd like a quote for a laser job.",
 
-    "home.title": "Laser cutting and engraving in Valencia | Lasercom",
+    "home.title": "Laser cutting, engraving and marking in Valencia | Lasercom",
     "home.description":
       "Laser cutting, engraving and marking workshop in Riba-roja de Túria (Valencia). Wood, acrylic, glass, leather and metal, from one piece to full runs.",
     "home.readout": "Workshop in Riba-roja de Túria · Valencia · since 2007",
@@ -46,18 +46,27 @@ export const site = {
     "home.stat.materials": "Materials we work with",
     "home.marquee":
       "Wood · Acrylic · Glass · Leather · Stainless steel · Aluminium · Brass · Silver · Gold · Stone ·",
+    "home.marquee.services":
+      "Laser cutting · Relief engraving · Fibre marking · Riba-roja de Túria · Since 2007 ·",
+    "hero.film.1.scene": "Wood cutting",
+    "hero.film.2.scene": "Detail engraving",
+    "hero.film.2.line":
+      "No file? A photo or a sketch is enough to start: we prepare it.",
+    "hero.film.3.scene": "From file to finished piece",
+    "hero.film.3.line": "No minimum order: a one-off piece or a full run.",
+    "hero.film.scroll": "Scroll to explore the workshop",
     "home.statement":
       "One piece or a full run. A name, your logo or a serial number. We design it, cut it and engrave it in our workshop.",
     "home.materials.title": "Materials we work with",
     "home.materials.lead":
-      "Each material burns, melts or marks differently. We adjust power, speed and focus to each one, so the cut is clean and the engraving lasts.",
+      "Wood, acrylic, glass, leather and metal each react differently to the beam. We tune power, speed and focus to the exact material so cuts stay clean and engravings last.",
     "home.clients.title": "For businesses and for people",
     "home.clients.business.title": "Businesses and industry",
     "home.clients.business.text":
-      "Serial numbers and QR codes on parts, corporate gifts with your logo, corporate letters and signs. Short and long runs.",
+      "Sequential serial numbers, barcodes and QR codes on parts, corporate gifts and bottle stands with your logo, plus cut letters and signs. Short and large runs.",
     "home.clients.people.title": "Individuals",
     "home.clients.people.text":
-      "Wedding favours, an engraved bracelet for an anniversary, a pet tag or a one-off gift. We help you with the design.",
+      "Wedding favours, engraved champagne flutes, an urgent bracelet for an anniversary, portrait medals, pet tags or one-off gifts. We prepare the design with you.",
     "home.work.title": "Work that speaks for us",
     "home.work.lead":
       "Real pieces from the workshop, from a fan for Louis Vuitton to the stand of Ron Barceló's 30th anniversary bottle.",
@@ -102,6 +111,13 @@ export const site = {
     "home.faq.5.q": "Where are you and can I visit the workshop?",
     "home.faq.5.a":
       "We are at Polígono Industrial El Oliveral, calle L, nave 41, in Riba-roja de Túria (Valencia), inside a closed estate. Call us before coming and we'll be waiting for you.",
+    "home.faq.6.q":
+      "Can every piece in a run have a different name, serial number or QR code?",
+    "home.faq.6.a":
+      "Yes. We import guest lists for wedding favours or sequential serial numbers, references and QR codes for industrial batches so every unit is marked uniquely.",
+    "home.faq.7.q": "Are there materials you cannot laser cut or engrave?",
+    "home.faq.7.a":
+      "Yes: PVC, vinyl, polycarbonate, many faux leathers containing PVC and materials with unknown coatings, because they release harmful fumes or melt instead of cutting cleanly.",
 
     "close.title": "Got an idea? Tell us about it.",
     "close.text":
@@ -137,51 +153,51 @@ export const site = {
     "work.barcelo.name": "Ron Barceló anniversary stand",
     "work.barcelo.type": "Wood · Engraving",
     "work.barcelo.text":
-      "Marking on the stand holding the 30th anniversary bottle of Ron Barceló, distributed worldwide. A deep engraving of about 1.5 millimetres.",
+      "Wooden stand holding the 30th anniversary bottle of Ron Barceló Imperial Premium Blend, distributed worldwide. Engraved with a deep ~1.5 mm relief so the lettering catches light and touch without ink.",
     "work.lv.name": "Louis Vuitton exclusive fan",
     "work.lv.type": "Wood · Cutting and engraving",
     "work.lv.text":
-      "A one-off fan for a charity auction: we cut the circles inside the sticks and the lock design, and marked the logos on the sticks and guards.",
+      "One-off charity auction fan: we laser-cut the circular lattice inside each wooden stick and the central lock openwork without splintering, and marked the logos cleanly across sticks and guards.",
     "work.lv2.name": "Louis Vuitton fan run",
     "work.lv2.type": "Wood · Marking",
     "work.lv2.text":
-      "A sizeable run: the logo marked across the sticks to form a 180° circle when the fan opens, and a recess in the guard where the gold lock fits as if inlaid.",
+      "A sizeable brand run: the logo marked across the sticks so it aligns into a 180° semicircle when opened, plus a precision-milled recess in the guard where the gold lock seats flush.",
     "work.maqueta.name": "Scale models",
     "work.maqueta.type": "Acrylic and wood · Cutting",
     "work.maqueta.text":
-      "Scale models and display pieces in acrylic and wood, cut and assembled from the client's plans.",
+      "Architectural scale models and equestrian display pieces cut from plans in clear acrylic and wood, combining glossy laser-polished acrylic edges with exact slot-together timber joints.",
     "work.falla.name": "Falla crest",
     "work.falla.type": "Wood · Cutting",
     "work.falla.text":
-      "A falla commission's crest cut out with all its detail, ready to paint and hang.",
+      "Crest of the Falla Colonia Voltants d'Aldaia cut in wood with all its lettering and inner details cleanly defined in a single pass, ready to paint and hang.",
     "work.chapa.name": "Engraved tag for Iberian ham",
     "work.chapa.type": "Metal · Engraving",
     "work.chapa.text":
-      "A metal tag with the brand engraved in high contrast, part of a product's packaging.",
+      "Round metal packaging tag marked with the Cinco Jotas emblem in crisp high contrast — durable enough to survive cold storage, handling and transport.",
     "work.casfid.name": "Metal business cards",
     "work.casfid.type": "Metal · Engraving",
     "work.casfid.text":
-      "Business cards in metal with the logo and details engraved: a card nobody throws away.",
+      "Brushed metal and black acrylic business cards engraved with the Casfid logo and contact details directly into the material, so nothing rubs off in a pocket or wallet.",
     "work.piel.name": "Crests and logos on leather",
     "work.piel.type": "Leather · Engraving",
     "work.piel.text":
-      "Wallets, card holders and key rings with crests and logos engraved on the leather itself.",
+      "Wallets, card holders and key rings personalised directly on finished leather — including the Valencia CF crest — darkening the fibres without ink or metal stamping dies.",
     "work.guitarra.name": "Engraved guitar headstock",
     "work.guitarra.type": "Wood · Engraving",
     "work.guitarra.text":
-      "Inlay-style decoration engraved on the headstock of a classical guitar.",
+      "Marquetry-style motif engraved onto a classical guitar headstock and wooden castanets: because the beam never touches the wood, finished instruments aren't clamped or scratched.",
     "work.copa.name": "Wedding glasses",
     "work.copa.type": "Glass · Engraving",
     "work.copa.text":
-      "Champagne flutes engraved with the couple's names and date: a frosted finish that doesn't wear off.",
+      "Champagne flutes, wine glasses and restaurant glassware engraved with names, dates or falla crests in a permanent white frosted finish that resists washing.",
     "work.mandala.name": "Cut-out coasters",
     "work.mandala.type": "Wood · Cutting",
     "work.mandala.text":
-      "Mandala coasters with very fine lines, cut in a single pass.",
+      "Mandala coasters and openwork wooden ornaments with fine inner bridges, cut cleanly in one pass with smooth toasted edges.",
     "work.placa.name": "Inventory plates",
     "work.placa.type": "Metal · Marking",
     "work.placa.text":
-      "Plates with a barcode, reference and owner for tracking material.",
+      "Metal inventory and signage plates marked with scannable barcodes, references and brand marks that won't peel like adhesive labels during equipment audits.",
 
     "contact.title": "Contact and quote | Lasercom laser engraving Valencia",
     "contact.description":
@@ -323,6 +339,7 @@ export const site = {
 
     "cta.quote.short": "Get a quote",
     "home.materials.sample": "Laser finish",
+    "home.materials.samples": "Pieces made in the workshop",
     "home.work.service": "Service",
     "home.work.gallery": "Open in gallery",
     "home.process.cta": "Build your quote now",
@@ -500,7 +517,7 @@ export const site = {
     "cta.service": "Ver el servicio",
     "wa.default": "Hola, quería pedir presupuesto para un trabajo de láser.",
 
-    "home.title": "Corte y grabado láser en Valencia | Lasercom, desde 2007",
+    "home.title": "Corte, grabado y marcado láser en Valencia | Lasercom",
     "home.description":
       "Taller de corte, grabado y marcado láser en Riba-roja de Túria (Valencia). Madera, metacrilato, cristal, piel y metal, de una pieza a grandes tiradas.",
     "home.readout": "Taller en Riba-roja de Túria · Valencia · desde 2007",
@@ -514,18 +531,28 @@ export const site = {
     "home.stat.materials": "Materiales que trabajamos",
     "home.marquee":
       "Madera · Metacrilato · Cristal · Piel · Acero inoxidable · Aluminio · Latón · Plata · Oro · Piedra ·",
+    "home.marquee.services":
+      "Corte láser · Grabado en relieve · Marcado de fibra · Riba-roja de Túria · Desde 2007 ·",
+    "hero.film.1.scene": "Corte en madera",
+    "hero.film.2.scene": "Grabado de detalle",
+    "hero.film.2.line":
+      "¿Sin archivo? Con una foto o un boceto basta para empezar: nosotros lo preparamos.",
+    "hero.film.3.scene": "Del archivo a la pieza",
+    "hero.film.3.line":
+      "Sin pedido mínimo: una pieza única o una tirada completa.",
+    "hero.film.scroll": "Desliza para recorrer el taller",
     "home.statement":
       "Una pieza o una tirada entera. Un nombre, tu logotipo o un número de serie. Lo diseñamos, lo cortamos y lo grabamos en nuestro taller.",
     "home.materials.title": "Materiales que trabajamos",
     "home.materials.lead":
-      "Cada material se quema, se funde o se marca de una forma distinta. Ajustamos potencia, velocidad y enfoque a cada uno para que el corte salga limpio y el grabado dure.",
+      "Madera, metacrilato, cristal, piel y metal reaccionan distinto bajo el haz. Ajustamos potencia, velocidad y enfoque a cada material para lograr cortes limpios y grabados que duran.",
     "home.clients.title": "Para empresas y para particulares",
     "home.clients.business.title": "Empresas e industria",
     "home.clients.business.text":
-      "Números de serie y códigos QR en piezas, regalos de empresa con tu logotipo, letras corporativas y rótulos. Tiradas cortas y largas.",
+      "Números de serie correlativos, códigos de barras y QR en piezas, regalos de empresa y peanas con tu logotipo, además de letras corporativas y rótulos. Tiradas cortas y largas.",
     "home.clients.people.title": "Particulares",
     "home.clients.people.text":
-      "Detalles de boda, una pulsera grabada para un aniversario, la chapa de tu mascota o un regalo único. Te ayudamos con el diseño.",
+      "Detalles de boda, copas grabadas, una pulsera urgente para un aniversario, medallas con foto, chapas de mascota o regalos únicos. Preparamos el diseño contigo.",
     "home.work.title": "Trabajos que hablan por nosotros",
     "home.work.lead":
       "Piezas reales del taller, desde un abanico para Louis Vuitton hasta la peana de la botella del 30 aniversario de Ron Barceló.",
@@ -570,6 +597,14 @@ export const site = {
     "home.faq.5.q": "¿Dónde estáis y puedo visitar el taller?",
     "home.faq.5.a":
       "Estamos en el Polígono Industrial El Oliveral, calle L, nave 41, en Riba-roja de Túria (Valencia), dentro de un recinto cerrado. Llámanos antes de venir y te esperamos.",
+    "home.faq.6.q":
+      "¿Cada pieza puede llevar un nombre, número de serie o QR distinto?",
+    "home.faq.6.a":
+      "Sí. Trabajamos con datos variables: desde listas de invitados para detalles de boda hasta numeraciones correlativas, referencias o códigos QR únicos en lotes industriales.",
+    "home.faq.7.q":
+      "¿Hay materiales que no se pueden cortar ni grabar con láser?",
+    "home.faq.7.a":
+      "Sí: PVC, vinilo, policarbonato, muchas polipieles sintéticas con PVC y materiales con recubrimientos desconocidos, ya que desprenden humos nocivos o se funden en lugar de cortar limpio.",
 
     "close.title": "¿Tienes una idea? Cuéntanosla.",
     "close.text":
@@ -604,51 +639,51 @@ export const site = {
     "work.barcelo.name": "Peana aniversario Ron Barceló",
     "work.barcelo.type": "Madera · Grabado",
     "work.barcelo.text":
-      "Marcado de la peana que sujeta la botella del 30 aniversario de Ron Barceló, distribuida a nivel mundial. Un grabado profundo, con una mordida de aproximadamente 1,5 milímetros.",
+      "Peana de madera que sujeta la botella del 30 aniversario de Ron Barceló Imperial Premium Blend, distribuida a nivel mundial. Grabada en relieve profundo (~1,5 mm de mordida) para destacar al tacto y a la luz sin usar tintas.",
     "work.lv.name": "Abanico exclusivo Louis Vuitton",
     "work.lv.type": "Madera · Corte y grabado",
     "work.lv.text":
-      "Un abanico único para una subasta benéfica: calamos los círculos del interior de las varillas y el dibujo de la cerradura, y marcamos los logotipos en varillas y caberas.",
+      "Pieza única para una subasta benéfica: calamos los círculos interiores de las varillas y la cerradura central sin astillar la madera, y marcamos los logotipos con precisión en varillas y caberas.",
     "work.lv2.name": "Tirada de abanicos Louis Vuitton",
     "work.lv2.type": "Madera · Marcado",
     "work.lv2.text":
-      "Una tirada considerable: el logotipo marcado en las varillas formando un círculo de 180 grados al abrir el abanico, y un rebaje en la cabera donde encaja la cerradura de oro como si estuviera incrustada.",
+      "Una tirada considerable: el logotipo marcado a través de las varillas formando un semicírculo de 180 grados al abrir el abanico, más un rebaje exacto en la cabera donde encaja la cerradura dorada como incrustada.",
     "work.maqueta.name": "Maquetas a escala",
     "work.maqueta.type": "Metacrilato y madera · Corte",
     "work.maqueta.text":
-      "Maquetas a escala y piezas de exposición en metacrilato y madera, cortadas y montadas a partir de los planos del cliente.",
+      "Maquetas y piezas de exposición en metacrilato y madera cortadas desde plano, combinando cantos transparentes pulidos por el láser con encajes precisos según el grosor real del material.",
     "work.falla.name": "Escudo de falla",
     "work.falla.type": "Madera · Corte",
     "work.falla.text":
-      "El escudo de una comisión fallera calado con todo su detalle, listo para pintar y colgar.",
+      "Escudo de la Falla Colonia Voltants d'Aldaia calado en madera con todas sus letras y detalles interiores definidos de una sola pasada, listo para pintar y colgar.",
     "work.chapa.name": "Chapa grabada para jamón ibérico",
     "work.chapa.type": "Metal · Grabado",
     "work.chapa.text":
-      "Una chapa metálica con la marca grabada en alto contraste, parte del packaging de un producto.",
+      "Chapa metálica redonda marcada con el emblema de Cinco Jotas en alto contraste como parte del packaging del producto, resistente al frío, la manipulación y el transporte.",
     "work.casfid.name": "Tarjetas de visita metálicas",
     "work.casfid.type": "Metal · Grabado",
     "work.casfid.text":
-      "Tarjetas de visita en metal con el logotipo y los datos grabados: una tarjeta que nadie tira.",
+      "Tarjetas de visita en metal cepillado y metacrilato negro grabadas directamente con el logotipo de Casfid y datos de contacto: una tarjeta duradera que no se borra ni se tira.",
     "work.piel.name": "Escudos y logotipos en piel",
     "work.piel.type": "Piel · Grabado",
     "work.piel.text":
-      "Carteras, tarjeteros y llaveros con escudos y logotipos grabados en la propia piel.",
+      "Carteras, tarjeteros y llaveros personalizados directamente sobre piel ya confeccionada —incluido el escudo del Valencia CF—, oscureciendo la fibra sin tintas ni clichés metálicos.",
     "work.guitarra.name": "Pala de guitarra grabada",
     "work.guitarra.type": "Madera · Grabado",
     "work.guitarra.text":
-      "Decoración tipo marquetería grabada en la pala de una guitarra clásica.",
+      "Motivo tipo marquetería grabado en la pala de una guitarra clásica y en castañuelas de madera: al no haber contacto físico, el instrumento terminado no sufre presión ni arañazos.",
     "work.copa.name": "Copas de boda",
     "work.copa.type": "Cristal · Grabado",
     "work.copa.text":
-      "Copas de cava grabadas con los nombres y la fecha de los novios: un acabado esmerilado que no se borra.",
+      "Copas de cava, copas de vino y cristalería de hostelería grabadas con nombres, fecha o escudos falleros en acabado esmerilado blanco permanente resistente al lavado.",
     "work.mandala.name": "Posavasos calados",
     "work.mandala.type": "Madera · Corte",
     "work.mandala.text":
-      "Posavasos tipo mandala con líneas muy finas, cortados de una sola pasada.",
+      "Posavasos tipo mandala y adornos calados en madera con puentes muy finos, cortados de una sola pasada con cantos tostados limpios.",
     "work.placa.name": "Placas de inventario",
     "work.placa.type": "Metal · Marcado",
     "work.placa.text":
-      "Placas con código de barras, referencia y propietario para controlar el material.",
+      "Placas metálicas y señalética marcadas con códigos de barras legibles con escáner, referencias y logotipos que no se despegan ni borran como una etiqueta adhesiva.",
 
     "contact.title": "Contacto y presupuesto | Lasercom grabado láser Valencia",
     "contact.description":
@@ -791,6 +826,7 @@ export const site = {
 
     "cta.quote.short": "Pedir presupuesto",
     "home.materials.sample": "Acabado láser",
+    "home.materials.samples": "Piezas hechas en el taller",
     "home.work.service": "Ver servicio",
     "home.work.gallery": "Ver en trabajos",
     "home.process.cta": "Configurar tu presupuesto",

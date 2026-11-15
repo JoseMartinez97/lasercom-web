@@ -2,41 +2,42 @@
 title: How to prepare your file for the laser
 ---
 
-The machine doesn't "see" your design the way you do: it follows lines and reads pixels. A well prepared file can go to the machine almost as it is; one with problems has to be redrawn first. This checklist saves back and forth.
+A laser cutter doesn't read a file like an office printer: it follows vector paths line by line for cutting and reads solid fills or bitmaps for engraving. A clean file goes straight to production; an open contour or low-res screenshot has to be redrawn first.
 
-**No file?** No problem. With a photo, a hand sketch or the logo on your company website we can start: we prepare the file.
+**No file yet?** No problem. A photo, a hand-drawn sketch, the text you want or your company website logo is enough to start — we prepare the vector artwork in-house and show you a proof before cutting.
 
-## Vector or image: what each job needs
+## Vector or bitmap: what each process needs
 
-- **Cutting** needs a **vector**: a drawing made of lines and curves, not pixels. The machine follows those lines one by one.
-- **Engraving logos and text** is also best from a vector: edges stay sharp at any size.
-- **Engraving photographs** uses an **image** (JPG or PNG) with good resolution. As a guide, about 300 pixels per inch at the final size.
+- **Cutting** always needs a **vector file**: geometry made of mathematical lines and curves, never pixels.
+- **Engraving logos, crests and text** is also sharpest from a vector, staying crisp at any size.
+- **Engraving photographs or portraits** uses a **bitmap image** (`JPG` or `PNG`) with good lighting and resolution — around 300 pixels per inch at final size as a guide.
 
-## Formats that work
+## Formats that work best
 
-- **Vector:** SVG, DXF, AI (Illustrator), EPS and PDF *if it was exported as vector*.
-- **Images:** JPG or PNG, the larger the better.
+- **Vector formats:** `SVG`, `DXF`, `DWG`, `AI` (Illustrator), `EPS` and `PDF` *when exported as true vector paths*.
+- **Photos for portrait engraving:** original high-resolution `JPG` or `PNG` files, avoiding messaging compression or tiny crops.
 
-A logo pasted into a Word document, or a PDF made from a photo, is not a vector even if the extension is .pdf. If you're unsure, send it anyway and we'll check.
+A screenshot pasted into Word or a PDF saved from a JPEG is still a bitmap even with a `.pdf` extension. To check your PDF, zoom to 800%: if edges turn jagged/pixelated, it isn't vector. Send it anyway and we'll inspect it.
 
-## Checklist
+## Pre-export checklist
 
-1. **Real size.** Draw at 1:1 scale, in millimetres, at the piece's final size.
-2. **Text converted to curves** (or "paths" or "outlines"). That way we don't depend on having your font.
-3. **Closed cut lines.** An open outline doesn't make a piece: the laser follows it but the piece doesn't come loose.
-4. **No duplicate lines.** Two lines on top of each other make the laser pass twice and burn the edge more.
-5. **Cutting and engraving separated.** Put what is cut and what is engraved on different layers or colours, and tell us which is which.
-6. **Details not too fine.** Very narrow areas between two cuts can end up fragile or burnt, especially in thin wood.
-7. **Mind the material.** If the piece must slot into another, tell us the exact material thickness so we can adjust the slots.
+1. **1:1 real scale in millimetres.** Draw at final physical size and always state width or height in millimetres (never pixels).
+2. **Convert all text to curves / outlines** ("Create Outlines" in Illustrator, Corel, Figma or Canva) so missing fonts never shift your layout.
+3. **Closed, continuous cut paths.** An open outline won't release the part from the sheet; also remove stray points or hidden lines.
+4. **No duplicate stacked lines.** Two paths on top of each other cause a double pass that over-burns or widens the kerf.
+5. **Separate cutting from engraving.** Use distinct layers or colours (e.g. red for cut, black for engrave) and tell us which is which.
+6. **Avoid overly fragile bridges.** In thin wood or card, bridges narrower than 1.5–2 mm between two cuts can snap or char.
+7. **Specify real thickness for slots.** For scale models, boxes or stands with interlocking tabs, tell us the measured thickness if you supply the sheet.
 
-## Common mistakes
+## Common pitfalls by source tool
 
-- **Logos taken from a screenshot:** pixelated when engraved and impossible to cut. Ask your designer for the original file, or we vectorise it.
-- **Dark or low-contrast photos:** details get lost when engraved. A bright, sharp photo comes out much better.
-- **Sizes in pixels:** without the size in millimetres we don't know how big to make it.
+- **Logos grabbed from screenshots or social media:** blurry when engraved and unusable for cutting. Ask your designer for the original vector, or we redraw it in the workshop.
+- **Canva or browser exports:** when exporting `PDF Print` or `SVG`, make sure no hidden white rectangle sits behind the artwork and text is outlined.
+- **CAD drawings (`DXF`/`DWG`) with title blocks and dimensions:** send a clean copy containing only the cut geometry and note an overall reference dimension separately (to avoid cm/mm unit mismatches).
+- **Dark or high-shadow portraits:** deep shadows turn overly dark on wood or metal medals; bright, evenly lit photos reproduce far better.
 
 ## How to send it
 
-Ask for a quote through the [contact form](/en/contact/#presupuesto) and, when you send it by WhatsApp or email, **attach the file or photos** to that same message. If it's large, use a file transfer service and paste the link.
+Build your request in the [quote form](/en/contact/#presupuesto) and, when WhatsApp or email opens, **attach your vector file, CAD plan or photos** right there. For large files, paste a transfer link.
 
-Not sure which technique to choose? Read [laser cutting or engraving](/en/guides/laser-cutting-vs-engraving/).
+Not sure which finish fits best? Read [laser cutting or engraving](/en/guides/laser-cutting-vs-engraving/) or [materials for laser work](/en/guides/laser-cutting-engraving-materials/).

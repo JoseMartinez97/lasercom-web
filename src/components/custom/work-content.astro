@@ -82,7 +82,12 @@ const filters: FilterKey[] = [
         id={item.slug}
         data-work-item
         data-cats={cats.join(" ")}
-        class="reveal grid scroll-mt-24 gap-8 border-t border-border px-5 py-14 md:px-8 lg:grid-cols-12 lg:py-20"
+        class={cn(
+          // The first job is in view on arrival: it shows at once, so the
+          // page paints its largest text without waiting for the script.
+          i > 0 && "reveal",
+          "grid scroll-mt-24 gap-8 border-t border-border px-5 py-14 md:px-8 lg:grid-cols-12 lg:py-20"
+        )}
       >
         <div
           class={cn(

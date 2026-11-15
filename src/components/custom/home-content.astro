@@ -1,16 +1,20 @@
 ---
-import { Image } from "astro:assets"
+import { Image, getImage } from "astro:assets"
+import filmPoster from "@/assets/film/hero-film.jpg"
+import filmPosterPhone from "@/assets/film/hero-film-m.jpg"
 import type { Lang } from "@/i18n/ui"
 import { localizePath, useTranslations } from "@/i18n/utils"
 import { buttonVariants } from "@/components/ui/button"
+import { LogoMark } from "@/components/custom/logo"
 import CloseSection from "@/components/custom/close-section.astro"
 import FaqSection from "@/components/custom/faq-section.astro"
 import WorkIndex from "@/components/custom/work-index.astro"
+import WorkPhoto from "@/components/custom/work-photo.astro"
 import OpenStatus from "@/components/custom/open-status.astro"
 import GuideCards from "@/components/custom/guide-cards.astro"
 import { business, whatsappHref } from "@/lib/business"
-import { editorialPhotos, type EditorialPhotoId } from "@/lib/editorial"
-import { guides } from "@/lib/guides"
+import { guideIds } from "@/lib/guides"
+import { homeFaqIndices } from "@/lib/pages"
 import { photo, services, type ServiceId } from "@/lib/services"
 import { cn } from "@/lib/utils"
 import { ArrowRight, ArrowUpRight, Star } from "lucide-react"
@@ -23,30 +27,14 @@ const t = useTranslations(lang)
 const href = (es: string) => localizePath(lang, es)
 const serviceHref = (id: ServiceId) =>
   lang === "en" ? services[id].en : services[id].es
-const guideHref = (id: keyof typeof guides) =>
-  lang === "en" ? guides[id].en : guides[id].es
 
 // Three processes: Cutting, Engraving, Marking — clean visual switch
-const techniques: {
-  id: "cut" | "engrave" | "mark"
-  photo: EditorialPhotoId
-  service: ServiceId
-}[] = [
-  { id: "cut", photo: "technique-wood-beam", service: "madera" },
-  { id: "engrave", photo: "material-glass", service: "personalizado" },
-  { id: "mark", photo: "technique-fiber-mark", service: "industrial" },
-]
-
 // Four core materials: Kaizencode full-screen sticky panels, photography-first
-const materials: {
-  id: ServiceId
-  photo: EditorialPhotoId
-  steel: boolean
-}[] = [
-  { id: "madera", photo: "material-wood", steel: false },
-  { id: "metacrilato", photo: "material-acrylic", steel: true },
-  { id: "metal", photo: "material-metal", steel: false },
-  { id: "piel", photo: "material-leather", steel: true },
+const materials: { id: ServiceId; steel: boolean }[] = [
+  { id: "madera", steel: false },
+  { id: "metacrilato", steel: true },
+  { id: "metal", steel: false },
+  { id: "piel", steel: true },
 ]
 
 const clientGroups: {
@@ -82,7 +70,7 @@ const reviews = [
   { name: "Lorena Tabuenca", text: t("home.reviews.2") },
   { name: "Olga Gomez", text: t("home.reviews.3") },
 ]
-const faqs = ([1, 2, 3, 4, 5] as const).map((n) => ({
+const faqs = homeFaqIndices.map((n) => ({
   q: t(`home.faq.${n}.q`),
   a: t(`home.faq.${n}.a`),
 }))
@@ -108,114 +96,292 @@ const gear = (() => {
   const bore = `M${cx + 46} ${cy}A46 46 0 1 1 ${cx + 46} ${cy - 0.01}`
   return `${ring}${bore}`
 })()
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "")
+// First frame of the hero film, in the cut each screen will play: the wide one
+// and the 9:16 one, so the photo and the video that replaces it line up
+const posterWide = await getImage({
+  src: filmPoster,
+  widths: [840, 1280, 1920],
+  format: "webp",
+  quality: 62,
+})
+const posterPhone = await getImage({
+  src: filmPosterPhone,
+  widths: [420, 640, 828, 1080],
+  format: "webp",
+  quality: 62,
+})
+const heroChars = [...business.name.toUpperCase()]
+const filmChapter1Words = t("hero.film.2.line").split(" ")
+const filmChapter2Words = t("hero.film.3.line").split(" ")
 ---
 
-<!-- 1. HERO: Formal editorial split — clear typography on steel, clean laser craft photo -->
-<section class="steel relative overflow-x-clip border-b border-white/10">
-  <div class="mx-auto flex min-h-[calc(100svh-4rem)] flex-col justify-between gap-10 px-5 pt-6 pb-8 md:px-8 lg:px-12 lg:pt-8 lg:pb-10">
-    <p class="hero-in readout text-muted-foreground" style="--i: 0">
-      {t("home.readout")}
-    </p>
+<!-- 1. IRIS PORTAL FILM HERO: Dimeunrestaurante circular portal + Cepa scrubbed film + Lasercom monumental display -->
+<section
+  data-film
+  class="steel relative overflow-x-clip border-b border-white/10"
+>
+  <div
+    data-film-stage
+    class="relative h-[calc(100svh-4rem)] min-h-[34rem] overflow-hidden bg-[#0b0a09]"
+  >
+    <!-- Optical Iris Portal: starts full-bleed (0ms LCP), contracts to circular lens mid-scroll, expands for fiber metal finale -->
+    <div
+      data-film-media
+      class="pointer-events-none absolute inset-0 overflow-hidden will-change-[clip-path]"
+      style="clip-path: circle(120% at 50% 48%);"
+      aria-hidden="true"
+    >
+      <div
+        data-film-poster
+        class="film-poster absolute inset-0 overflow-hidden transition-opacity duration-700"
+      >
+        <picture>
+          <source
+            media="(max-aspect-ratio: 4/5)"
+            srcset={posterPhone.srcSet.attribute}
+            sizes="100vw"
+            type="image/webp"
+          />
+          <img
+            src={posterWide.src}
+            srcset={posterWide.srcSet.attribute}
+            sizes="100vw"
+            alt=""
+            width={posterWide.attributes.width}
+            height={posterWide.attributes.height}
+            loading="eager"
+            fetchpriority="high"
+            decoding="sync"
+            class="size-full object-cover object-center"
+          />
+        </picture>
+      </div>
 
-    <div class="my-auto grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
-      <div class="flex min-w-0 flex-col gap-5 lg:col-span-6">
-        <h1 class="display min-w-0 text-[clamp(2.1rem,8.4vw,3.4rem)] [font-stretch:100%] sm:text-[clamp(2.9rem,6vw,4.5rem)] sm:[font-stretch:115%] lg:text-[clamp(3.1rem,4.7vw,5.15rem)] lg:[font-stretch:120%]">
-          <span class="hero-in block" style="--i: 0">
-            {t("home.h1.1")}
-          </span>
-          <span class="hero-in block" style="--i: 1">
-            {t("home.h1.2")}
-          </span>
-          <span class="hero-in block text-laser-ink" style="--i: 2">
-            {t("home.h1.3")}
-          </span>
-        </h1>
+      <video
+        data-film-video
+        data-src={`${base}/video/hero-film.mp4`}
+        data-src-phone={`${base}/video/hero-film-m.mp4`}
+        data-src-large={`${base}/video/hero-film-xl.mp4`}
+        muted
+        playsinline
+        preload="none"
+        class="film-video absolute inset-0 size-full object-cover object-center opacity-0 transition-opacity duration-700"
+      ></video>
 
-        <p class="hero-lead max-w-xl text-base leading-relaxed text-foreground/85 sm:text-lg md:text-xl">
-          {t("home.lead")}
+      <!-- Clean top/bottom editorial edge vignette leaving the center laser glow completely unobstructed -->
+      <div
+        class="absolute inset-0"
+        style="background: linear-gradient(180deg, oklch(0.11 0.006 60 / 0.78) 0%, transparent 34%, transparent 50%, oklch(0.11 0.006 60 / 0.92) 100%);"
+      ></div>
+    </div>
+
+    <!-- Glowing Optical Laser Reticule: fades in around the circular iris on mid-scroll -->
+    <svg
+      data-iris-svg
+      viewBox="0 0 240 240"
+      class="pointer-events-none absolute top-[37%] left-1/2 z-10 size-[46vmin] max-w-[26rem] -translate-x-1/2 -translate-y-1/2 opacity-0"
+      aria-hidden="true"
+    >
+      <circle
+        cx="120"
+        cy="120"
+        r="106"
+        fill="none"
+        stroke="rgb(255 255 255 / 0.14)"
+        stroke-width="1"
+      />
+      <circle
+        data-iris-arc
+        cx="120"
+        cy="120"
+        r="106"
+        fill="none"
+        stroke="var(--laser)"
+        stroke-width="2"
+        pathLength="1"
+        stroke-dasharray="1"
+        stroke-dashoffset="1"
+        transform="rotate(-90 120 120)"
+        style="filter: drop-shadow(0 0 10px var(--laser));"
+      />
+      <g data-iris-ticks stroke="rgb(255 255 255 / 0.45)" stroke-width="1.2">
+        <line x1="120" y1="4" x2="120" y2="14" />
+        <line x1="120" y1="226" x2="120" y2="236" />
+        <line x1="4" y1="120" x2="14" y2="120" />
+        <line x1="226" y1="120" x2="236" y2="120" />
+      </g>
+    </svg>
+
+    <!-- Mid-Stage Scrubbed Chapters 1 & 2 (absolute so hidden flex children never push LASERCOM down) -->
+    <div class="pointer-events-none absolute inset-0 z-20 px-5 md:px-8 lg:px-12">
+      <div
+        data-film-line="1"
+        data-at="0.30"
+        data-scene={t("hero.film.2.scene")}
+        aria-hidden="true"
+        class="film-line absolute inset-x-5 top-[62%] hidden flex-col items-center text-center md:inset-x-8 lg:inset-x-12"
+      >
+        <p class="display mx-auto max-w-4xl text-[clamp(1.4rem,3.8vw,3.35rem)] leading-[1.04] text-white">
+          {filmChapter1Words.map((word) => (
+            <span class="film-w-mask">
+              <span class="film-w">{word}</span>
+            </span>
+          ))}
         </p>
+      </div>
 
-        <div
-          class="hero-in flex flex-col gap-3 pt-2 sm:flex-row sm:flex-wrap sm:items-center"
-          style="--i: 3"
-        >
-          <span class="flex sm:-m-3 sm:p-3">
-            <a
-              href={`${href("/contacto/")}#presupuesto`}
-              data-magnetic
-              class={buttonVariants({
-                size: "lg",
-                className:
-                  "h-13 w-full rounded-full px-7 text-base sm:w-auto md:h-14",
-              })}
-            >
-              {t("cta.quote")}
-              <ArrowRight className="size-5" aria-hidden />
-            </a>
-          </span>
+      <div
+        data-film-line="2"
+        data-at="0.72"
+        data-scene={t("hero.film.3.scene")}
+        aria-hidden="true"
+        class="film-line pointer-events-auto absolute inset-0 hidden flex-col items-center justify-center gap-6 px-5 text-center"
+      >
+        <p class="display mx-auto max-w-4xl text-[clamp(1.75rem,4.6vw,4.15rem)] leading-[1.03] text-white drop-shadow-[0_4px_24px_rgb(0_0_0/0.65)]">
+          {filmChapter2Words.map((word) => (
+            <span class="film-w-mask">
+              <span class="film-w">{word}</span>
+            </span>
+          ))}
+        </p>
+        <div class="film-extra flex flex-wrap items-center justify-center gap-3">
           <a
-            href={whatsappHref(t("wa.default"))}
-            target="_blank"
-            rel="noopener"
+            href={`${href("/contacto/")}#presupuesto`}
+            class={buttonVariants({
+              size: "lg",
+              className: "h-12 rounded-full px-6 text-base",
+            })}
+          >
+            {t("cta.quote")}
+            <ArrowRight className="size-4" aria-hidden />
+          </a>
+          <a
+            href={href("/trabajos/")}
             class={buttonVariants({
               variant: "outline",
               size: "lg",
               className:
-                "h-13 rounded-full border-foreground/30 px-7 text-base md:h-14",
+                "h-12 rounded-full border-white/35 bg-black/35 px-6 text-base text-white backdrop-blur-xs hover:bg-white/10",
             })}
           >
-            {t("cta.whatsapp")}
-            <ArrowUpRight className="size-5" aria-hidden />
+            {t("home.work.all")}
           </a>
         </div>
       </div>
+    </div>
 
-      <div class="min-w-0 lg:col-span-6">
-        <div class="overflow-hidden rounded-sm border border-white/12 bg-black/25">
-          <Image
-            src={editorialPhotos["technique-wood-beam"]}
-            alt={t("editorial.technique-wood-beam")}
-            widths={[400, 680, 1080]}
-            sizes="(min-width: 1024px) 46vw, 92vw"
-            loading="eager"
-            fetchpriority="high"
-            decoding="sync"
-            class="aspect-[4/3] size-full object-cover object-center lg:aspect-[5/4]"
-          />
+    <!-- Foreground Architectural Chrome -->
+    <div class="relative z-20 mx-auto flex size-full flex-col justify-between px-5 pt-5 pb-16 sm:pb-6 md:px-8 lg:px-12 lg:pt-7 lg:pb-6">
+      <!-- Top Architectural Metadata Row (visible at 0ms, peels cleanly on scroll) -->
+      <div
+        data-film-chrome
+        class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between"
+      >
+        <div class="flex flex-col items-start gap-2.5">
+          <p class="hero-in readout text-laser-ink" style="--i: 0">
+            {t("home.readout")}
+          </p>
+          <h1 class="display max-w-[19ch] text-[clamp(1.5rem,3.1vw,2.75rem)] leading-[0.98] tracking-tight text-white">
+            {t("home.h1.1")} {t("home.h1.2")}{" "}
+            <span class="text-laser-ink">{t("home.h1.3")}</span>
+          </h1>
+          <div
+            class="hero-in flex flex-wrap items-center gap-4 pt-1"
+            style="--i: 2"
+          >
+            <span class="sm:-m-2 sm:p-2">
+              <a
+                href={`${href("/contacto/")}#presupuesto`}
+                data-magnetic
+                class={buttonVariants({
+                  size: "lg",
+                  className:
+                    "h-11 rounded-full px-6 text-sm font-semibold sm:h-12 sm:text-base",
+                })}
+              >
+                {t("cta.quote")}
+                <ArrowRight className="size-4" aria-hidden />
+              </a>
+            </span>
+            <a
+              href={whatsappHref(t("wa.default"))}
+              target="_blank"
+              rel="noopener"
+              class="inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold text-white/85 underline-offset-4 transition-colors hover:text-white hover:underline"
+            >
+              {t("cta.whatsapp.short")}
+              <ArrowUpRight className="size-4 text-laser-ink" aria-hidden />
+            </a>
+          </div>
+        </div>
+
+        <aside
+          class="hero-in hidden shrink-0 flex-col items-end gap-1 text-right font-mono text-xs tracking-wider text-white/75 uppercase sm:flex"
+          style="--i: 1"
+        >
+          <span>
+            {business.locality} · {business.region}
+          </span>
+          <span>
+            {t("home.stat.since")} {business.founded} ·{" "}
+            {lang === "es" ? "4,5" : "4.5"} ★ Google
+          </span>
+          <OpenStatus lang={lang} class="mt-0.5 text-white/60" />
+        </aside>
+      </div>
+
+      <!-- Bottom Monumental Brand Display + Compact Chapter HUD -->
+      <div class="flex flex-col gap-2.5">
+        <p
+          data-hero-word
+          aria-hidden="true"
+          class="display pointer-events-none flex w-full justify-between overflow-hidden text-[clamp(2.45rem,11.8vw,11.2rem)] leading-[0.82] tracking-[-0.045em] text-[#f6f1e9] select-none [font-stretch:100%] sm:text-[clamp(3.2rem,13.6vw,11.2rem)] sm:[font-stretch:125%]"
+        >
+          {heroChars.map((c, idx) => (
+            <span class="hero-char inline-block" style={`--ci: ${idx}`}>
+              {c}
+            </span>
+          ))}
+        </p>
+
+        <div class="flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-t border-white/15 pt-3 font-mono text-[11px] tracking-wider text-muted-foreground sm:text-xs lg:pr-16">
+          <div class="flex items-center gap-3">
+            <span class="font-semibold text-foreground tabular-nums">
+              <span data-film-n>01</span> / 03
+            </span>
+            <span class="hidden h-px w-8 overflow-hidden bg-white/20 sm:inline-block">
+              <span
+                data-film-bar
+                class="block h-full w-full origin-left scale-x-0 bg-laser-ink"
+              ></span>
+            </span>
+            <span data-film-scene class="uppercase text-white/80">
+              {t("hero.film.1.scene")}
+            </span>
+          </div>
+
+          <p
+            data-film-hint
+            class="hidden items-center gap-2 text-xs text-white/75 lg:inline-flex"
+            aria-hidden="true"
+          >
+            <span class="inline-block h-4 w-2.5 rounded-full border border-white/45 p-0.5">
+              <span class="film-wheel block h-1 w-full rounded-full bg-laser-ink" />
+            </span>
+            <span>{t("hero.film.scroll")}</span>
+          </p>
+
+          <span class="hidden tabular-nums sm:inline">
+            10+ {t("home.stat.materials").toLowerCase()}
+          </span>
         </div>
       </div>
     </div>
-
-    <!-- Quiet single-line facts bar, Kaizencode style -->
-    <div
-      class="hero-in flex flex-wrap items-center justify-between gap-x-8 gap-y-3 border-t border-white/15 pt-5 font-mono text-xs tracking-wide text-muted-foreground sm:text-sm lg:pr-16"
-      style="--i: 4"
-    >
-      <ul class="flex flex-wrap items-center gap-x-8 gap-y-2">
-        <li>
-          <span class="font-semibold text-foreground tabular-nums">
-            {business.founded}
-          </span>{" "}
-          {t("home.stat.since").toLowerCase()}
-        </li>
-        <li class="inline-flex items-center gap-1.5">
-          <span class="font-semibold text-foreground tabular-nums">
-            {lang === "es" ? "4,5" : "4.5"}
-          </span>
-          <Star className="size-3.5 fill-laser text-laser" aria-hidden />
-          <span>Google</span>
-        </li>
-        <li>
-          <span class="font-semibold text-foreground tabular-nums">10+</span>{" "}
-          {t("home.stat.materials").toLowerCase()}
-        </li>
-      </ul>
-      <OpenStatus lang={lang} class="text-muted-foreground" />
-    </div>
   </div>
 </section>
-
-<!-- 2. MANIFESTO: Open space, scroll-lit words & single precision vector cut -->
+<!-- 1b. MANIFESTO: Open space, scroll-lit words & single precision vector cut -->
 <section class="grid items-center gap-12 px-5 py-28 md:px-8 lg:min-h-[75svh] lg:grid-cols-12 lg:px-12 lg:py-36">
   <p
     data-burn
@@ -228,11 +394,21 @@ const gear = (() => {
     aria-hidden="true"
   >
     <svg viewBox="0 0 340 340" class="w-full overflow-visible text-foreground">
+      <g
+        stroke="currentColor"
+        stroke-opacity="0.1"
+        stroke-width="1"
+        fill="none"
+      >
+        <circle cx="170" cy="170" r="168" stroke-dasharray="3 6" />
+        <line x1="170" y1="0" x2="170" y2="340" />
+        <line x1="0" y1="170" x2="340" y2="170" />
+      </g>
       <path
         d={gear}
         fill="none"
         stroke="currentColor"
-        stroke-opacity="0.12"
+        stroke-opacity="0.14"
         stroke-width="1.5"
       ></path>
       <path
@@ -253,8 +429,7 @@ const gear = (() => {
     </svg>
   </div>
 </section>
-
-<!-- 3. SELECTED WORK: Photo-dominant split (ProjectIndex architecture) -->
+<!-- 2. SELECTED WORK: Photo-dominant split (ProjectIndex architecture) -->
 <div class="border-t border-border">
   <WorkIndex
     id="trabajos"
@@ -265,208 +440,74 @@ const gear = (() => {
     more={{ label: t("home.work.all"), href: href("/trabajos/") }}
   />
 </div>
-
-<!-- 4. MATERIALS STACK: Full-screen sticky panels, Kaizencode layout -->
-<section id="materiales" class="scroll-mt-16 pt-8">
-  <div class="grid gap-6 px-5 pb-14 md:px-8 lg:grid-cols-12 lg:px-12">
-    <h2
-      data-title-chars
-      class="display text-[clamp(2.75rem,7vw,6.25rem)] lg:col-span-7"
-    >
-      {t("home.materials.title")}
-    </h2>
-    <p
-      data-lines
-      class="max-w-lg self-end text-lg text-muted-foreground lg:col-span-5"
-    >
-      {t("home.materials.lead")}
-    </p>
-  </div>
-
-  <ol>
-    {materials.map(({ id, photo: matPhoto, steel }, i) => {
-      const uses = t(`svc.${id}.uses`).split(" · ").slice(0, 4)
-      return (
-        <li
-          data-stack-panel
-          class="lg:motion-safe:[@media(min-height:680px)]:sticky lg:motion-safe:[@media(min-height:680px)]:top-16"
-        >
-          <div
-            data-stack-inner
-            class={cn(
-              "relative flex min-h-[calc(100svh-4rem)] origin-top flex-col justify-between gap-8 overflow-hidden border-t border-border px-5 py-8 md:px-8 md:py-12 lg:px-12 lg:py-14",
-              steel ? "steel" : "bg-[#efe6d8]"
-            )}
-          >
-            <div
-              data-stack-shade
-              aria-hidden="true"
-              class="pointer-events-none absolute inset-0 z-10 bg-black opacity-0"
-            />
-
-            <div class="flex items-start justify-between gap-6">
-              <h3
-                data-stack-title
-                class="display min-w-0 text-[clamp(1.85rem,7.2vw,6.5rem)]"
-              >
-                {t(`svc.${id}.name`)}
-              </h3>
-              <span
-                aria-hidden="true"
-                class="display shrink-0 text-[clamp(2rem,7vw,6.5rem)] text-muted-foreground tabular-nums"
-              >
-                {String(i + 1).padStart(2, "0")}
-              </span>
-            </div>
-
-            <div class="grid flex-1 gap-8 border-t border-current/15 pt-6 lg:grid-cols-12 lg:gap-10">
-              <div class="flex flex-col justify-between gap-6 lg:col-span-5">
-                <div class="flex flex-col gap-5">
-                  <p
-                    data-lines
-                    class="max-w-md text-lg leading-relaxed md:text-xl"
-                  >
-                    {t(`svc.${id}.card`)}
-                  </p>
-                  <ul class="max-w-md divide-y divide-current/15 border-y border-current/15 text-sm md:text-base">
-                    {uses.map((use) => (
-                      <li class="py-2.5 opacity-85">{use}</li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div class="flex flex-wrap items-center gap-4 pt-2">
-                  <a
-                    href={serviceHref(id)}
-                    class="inline-flex min-h-11 items-center gap-2 border-b border-current pb-1 text-base font-semibold transition-opacity hover:opacity-75"
-                  >
-                    <span>{t(`svc.${id}.h1`)}</span>
-                    <ArrowRight className="size-4 shrink-0" aria-hidden />
-                  </a>
-                </div>
-              </div>
-
-              <div
-                data-wipe
-                class="relative aspect-[16/10] overflow-hidden rounded-2xl lg:col-span-7 lg:aspect-auto lg:min-h-[24rem]"
-              >
-                <Image
-                  src={editorialPhotos[matPhoto]}
-                  alt={t(`editorial.${matPhoto}`)}
-                  data-stack-photo=""
-                  widths={[640, 1200]}
-                  sizes="(min-width: 1024px) 58vw, 100vw"
-                  loading="lazy"
-                  class="size-full object-cover"
-                />
-              </div>
-            </div>
-          </div>
-        </li>
-      )
-    })}
-  </ol>
-</section>
-
-<!-- 5. THREE FINISHES: Clean large photography beside three simple tabs -->
+<!-- 3. REVIEWS: what Google says, at headline size, right after the work -->
 <section
-  id="acabados"
-  data-technique-studio
-  class="scroll-mt-16 border-t border-border px-5 py-24 md:px-8 lg:px-12 lg:py-32"
+  aria-labelledby="reviews-title"
+  class="steel px-5 py-20 md:px-8 lg:px-12 lg:py-32"
 >
-  <div class="mb-12 grid gap-6 lg:grid-cols-12">
-    <h2
-      data-title-chars
-      class="display text-[clamp(2.5rem,6vw,5.25rem)] lg:col-span-7"
-    >
-      {t("home.technique.title")}
-    </h2>
-    <p
-      data-lines
-      class="max-w-lg self-end text-lg text-muted-foreground lg:col-span-5"
-    >
-      {t("home.technique.lead")}
-    </p>
-  </div>
-
-  <div
-    role="tablist"
-    aria-label={t("home.technique.title")}
-    class="mb-10 flex flex-wrap gap-2 border-b border-border pb-6"
-  >
-    {techniques.map((tech, i) => (
-      <button
-        type="button"
-        role="tab"
-        id={`tab-${tech.id}`}
-        aria-controls={`panel-${tech.id}`}
-        aria-selected={i === 0 ? "true" : "false"}
-        data-tech-tab={tech.id}
-        class="min-h-11 rounded-full border border-border px-5 py-2 text-sm font-semibold transition-colors hover:border-foreground aria-[selected=true]:border-foreground aria-[selected=true]:bg-foreground aria-[selected=true]:text-background sm:text-base"
-      >
-        {t(`home.technique.${tech.id}.tab`)}
-      </button>
-    ))}
-  </div>
-
-  {techniques.map((tech, i) => (
-    <div
-      id={`panel-${tech.id}`}
-      role="tabpanel"
-      aria-labelledby={`tab-${tech.id}`}
-      data-tech-panel={tech.id}
-      hidden={i !== 0}
-      class="grid items-center gap-8 lg:grid-cols-12 lg:gap-12"
-    >
-      <div class="relative aspect-[16/10] overflow-hidden rounded-2xl bg-[#12100f] lg:col-span-7">
-        <Image
-          src={editorialPhotos[tech.photo]}
-          alt={t(`editorial.${tech.photo}`)}
-          widths={[640, 1200]}
-          sizes="(min-width: 1024px) 58vw, 100vw"
-          loading="lazy"
-          class="size-full object-cover"
-        />
-      </div>
-
-      <div class="flex flex-col gap-5 lg:col-span-5">
-        <p data-tech-part class="readout text-laser-ink">
-          {t(`home.technique.${tech.id}.badge`)}
-        </p>
-        <h3 data-tech-part class="display text-[clamp(1.85rem,3.4vw,3rem)]">
-          {t(`home.technique.${tech.id}.title`)}
-        </h3>
-        <p
-          data-tech-part
-          class="text-base leading-relaxed text-muted-foreground md:text-lg"
-        >
-          {t(`home.technique.${tech.id}.text`)}
-        </p>
-        <div data-tech-part class="flex flex-wrap items-center gap-4 pt-2">
-          <a
-            href={`${href("/contacto/")}?servicio=${tech.service}#presupuesto`}
-            class={buttonVariants({
-              size: "lg",
-              className: "h-12 rounded-full px-6 text-base",
-            })}
-          >
-            {t("home.technique.cta")}
-            <ArrowRight className="size-4 shrink-0" aria-hidden />
-          </a>
-          <a
-            href={guideHref("corte-o-grabado")}
-            class="inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold underline-offset-4 hover:text-laser-ink hover:underline"
-          >
-            {t("home.technique.guide")}
-            <ArrowRight className="size-3.5 text-laser-ink" aria-hidden />
-          </a>
-        </div>
-      </div>
+  <h2 id="reviews-title" class="sr-only">
+    {t("home.reviews.title")}
+  </h2>
+  <div class="flex flex-wrap items-end justify-between gap-6">
+    <div class="flex items-end gap-4">
+      <span class="display text-[clamp(5rem,13vw,11rem)] leading-[0.8] tabular-nums">
+        {lang === "es" ? "4,5" : "4.5"}
+      </span>
+      <span class="flex flex-col gap-1.5 pb-1">
+        <span class="flex gap-0.5" aria-hidden="true">
+          {[0, 1, 2, 3, 4].map((i) => (
+            <Star
+              className={cn(
+                "size-6",
+                i < 4 ? "fill-laser text-laser" : "fill-laser/50 text-laser"
+              )}
+            />
+          ))}
+        </span>
+        <span class="readout text-muted-foreground">
+          {t("home.reviews.summary")} · {t("home.reviews.count")}
+        </span>
+      </span>
     </div>
-  ))}
-</section>
+    <a
+      href={business.mapsUrl}
+      target="_blank"
+      rel="noopener"
+      class="inline-flex min-h-11 w-fit items-center gap-2 text-laser-ink underline-offset-4 hover:underline"
+    >
+      {t("home.reviews.link")}
+      <ArrowUpRight className="size-4" aria-hidden />
+    </a>
+  </div>
 
-<!-- 6. WHO IT'S FOR: Clean hairline directory without visual clutter -->
+  <div class="mt-12 grid gap-12 border-t border-white/15 pt-12 lg:grid-cols-12 lg:gap-16">
+    <figure class="flex flex-col gap-6 lg:col-span-7">
+      <blockquote
+        data-lines
+        class="text-[clamp(1.5rem,2.7vw,2.5rem)] leading-[1.18] font-semibold tracking-tight text-balance"
+      >
+        “{reviews[1].text}”
+      </blockquote>
+      <figcaption class="readout text-muted-foreground">
+        {reviews[1].name} · Google
+        {t("home.reviews.translated") && ` · ${t("home.reviews.translated")}`}
+      </figcaption>
+    </figure>
+    <ul class="flex flex-col gap-10 lg:col-span-5" data-stagger>
+      {[reviews[0], reviews[2]].map(({ name, text }) => (
+        <li class="flex flex-col gap-4 border-t border-white/15 pt-6">
+          <p class="text-lg leading-relaxed text-foreground/90">“{text}”</p>
+          <p class="readout text-muted-foreground">
+            {name} · Google
+            {t("home.reviews.translated") &&
+              ` · ${t("home.reviews.translated")}`}
+          </p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+<!-- 4. WHO IT'S FOR: Clean hairline directory without visual clutter -->
 <section
   id="servicios"
   class="scroll-mt-16 border-t border-border px-5 py-24 md:px-8 lg:px-12 lg:py-36"
@@ -521,20 +562,130 @@ const gear = (() => {
     ))}
   </div>
 </section>
+<!-- 5. MATERIALS STACK: Full-screen sticky panels, Kaizencode layout -->
+<section id="materiales" class="scroll-mt-16 pt-8">
+  <div class="grid gap-6 px-5 pb-14 md:px-8 lg:grid-cols-12 lg:px-12">
+    <h2
+      data-title-chars
+      class="display text-[clamp(2.75rem,7vw,6.25rem)] lg:col-span-7"
+    >
+      {t("home.materials.title")}
+    </h2>
+    <p
+      data-lines
+      class="max-w-lg self-end text-lg text-muted-foreground lg:col-span-5"
+    >
+      {t("home.materials.lead")}
+    </p>
+  </div>
 
-<!-- 7. HOW WE WORK: Kaizencode ProcessSteps layout -->
+  <ol>
+    {materials.map(({ id, steel }, i) => {
+      const uses = t(`svc.${id}.uses`).split(" · ").slice(0, 4)
+      // Real pieces from the workshop, never stock or generated images
+      const samples = services[id].photos.slice(0, 3)
+      return (
+        <li
+          data-stack-panel
+          class="lg:motion-safe:[@media(min-height:680px)]:sticky lg:motion-safe:[@media(min-height:680px)]:top-16"
+        >
+          <div
+            data-stack-inner
+            class={cn(
+              "relative flex origin-top lg:min-h-[calc(100svh-4rem)] flex-col justify-between gap-8 overflow-hidden border-t border-border px-5 py-8 md:px-8 md:py-12 lg:px-12 lg:py-14",
+              steel ? "steel" : "bg-[#efe6d8]"
+            )}
+          >
+            <div
+              data-stack-shade
+              aria-hidden="true"
+              class="pointer-events-none absolute inset-0 z-10 bg-black opacity-0"
+            />
+
+            <div class="flex items-start justify-between gap-6">
+              <h3
+                data-stack-title
+                class="display min-w-0 text-[clamp(1.85rem,7.2vw,6.5rem)]"
+              >
+                {t(`svc.${id}.name`)}
+              </h3>
+              <span
+                aria-hidden="true"
+                class="display shrink-0 text-[clamp(2rem,7vw,6.5rem)] text-muted-foreground tabular-nums"
+              >
+                {String(i + 1).padStart(2, "0")}
+              </span>
+            </div>
+
+            <div class="grid flex-1 gap-8 border-t border-current/15 pt-6 lg:grid-cols-12 lg:gap-10">
+              <div class="flex flex-col justify-between gap-6 lg:col-span-5">
+                <div class="flex flex-col gap-5">
+                  <p
+                    data-lines
+                    class="max-w-md text-lg leading-relaxed md:text-xl"
+                  >
+                    {t(`svc.${id}.card`)}
+                  </p>
+                  <ul class="max-w-md divide-y divide-current/15 border-y border-current/15 text-sm md:text-base">
+                    {uses.map((use) => (
+                      <li class="py-2.5 opacity-85">{use}</li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div class="flex flex-wrap items-center gap-4 pt-2">
+                  <a
+                    href={serviceHref(id)}
+                    class="inline-flex min-h-11 items-center gap-2 border-b border-current pb-1 text-base font-semibold transition-opacity hover:opacity-75"
+                  >
+                    <span>{t(`svc.${id}.h1`)}</span>
+                    <ArrowRight className="size-4 shrink-0" aria-hidden />
+                  </a>
+                </div>
+              </div>
+
+              <ul
+                class="grid grid-cols-3 gap-2 sm:gap-3 lg:col-span-7 lg:grid-rows-2"
+                aria-label={t("home.materials.samples")}
+              >
+                {samples.map((name, n) => (
+                  <li
+                    class={cn(
+                      "relative overflow-hidden rounded-xl border border-current/15 bg-[#f6f1e9]",
+                      n === 0
+                        ? "col-span-3 aspect-[16/10] sm:col-span-2 sm:row-span-2 sm:aspect-auto sm:min-h-[18rem]"
+                        : "col-span-1 hidden aspect-square sm:block sm:aspect-auto"
+                    )}
+                  >
+                    <WorkPhoto
+                      lang={lang}
+                      name={name}
+                      pad="compact"
+                      sizes={
+                        n === 0
+                          ? "(min-width: 1024px) 38vw, 100vw"
+                          : "(min-width: 1024px) 19vw, 33vw"
+                      }
+                      class="absolute inset-0 size-full"
+                    />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </li>
+      )
+    })}
+  </ol>
+</section>
+<!-- 6. HOW WE WORK: Kaizencode ProcessSteps layout -->
 <section
   id="proceso"
   class="scroll-mt-16 border-t border-border px-5 py-24 md:px-8 lg:px-12 lg:py-36"
 >
   <div class="grid gap-12 lg:grid-cols-12 lg:gap-8">
     <div class="hidden flex-col gap-10 lg:col-span-3 lg:flex">
-      <span
-        aria-hidden="true"
-        class="display self-start text-[min(10vw,8rem)] leading-none text-laser-ink"
-      >
-        {`/{`}
-      </span>
+      <LogoMark className="h-[min(10vw,8rem)] w-auto self-start" />
       <ul class="flex flex-col gap-2 text-sm text-muted-foreground">
         {processFacts.map((fact) => (
           <li>{fact}</li>
@@ -595,8 +746,7 @@ const gear = (() => {
     </div>
   </div>
 </section>
-
-<!-- 8. WORKSHOP & REVIEWS: Large real workshop photo + quiet hairline reviews -->
+<!-- 7. WORKSHOP: the real front of the workshop and how to get there -->
 <section class="steel px-5 py-24 md:px-8 lg:px-12 lg:py-36">
   <div class="grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
     <div
@@ -642,59 +792,8 @@ const gear = (() => {
       </div>
     </div>
   </div>
-
-  <div class="mt-20 grid gap-12 border-t border-white/15 pt-16 lg:grid-cols-12">
-    <div class="flex flex-col gap-5 lg:col-span-4">
-      <div class="flex items-end gap-4">
-        <span class="display text-7xl leading-none tabular-nums sm:text-8xl">
-          {lang === "es" ? "4,5" : "4.5"}
-        </span>
-        <span class="flex flex-col gap-1 pb-2">
-          <span class="flex gap-0.5" aria-hidden="true">
-            {[0, 1, 2, 3, 4].map((i) => (
-              <Star
-                className={cn(
-                  "size-5",
-                  i < 4 ? "fill-laser text-laser" : "fill-laser/50 text-laser"
-                )}
-              />
-            ))}
-          </span>
-          <span class="text-sm text-muted-foreground">
-            {t("home.reviews.summary")} · {t("home.reviews.count")}
-          </span>
-        </span>
-      </div>
-      <a
-        href={business.mapsUrl}
-        target="_blank"
-        rel="noopener"
-        class="inline-flex min-h-11 w-fit items-center gap-2 text-laser-ink underline-offset-4 hover:underline"
-      >
-        {t("home.reviews.link")}
-        <ArrowUpRight className="size-4" aria-hidden />
-      </a>
-    </div>
-
-    <ul class="grid gap-8 md:grid-cols-3 lg:col-span-8" data-stagger>
-      {reviews.map(({ name, text }) => (
-        <li class="flex flex-col justify-between gap-6 border-t border-white/15 pt-6">
-          <p class="text-base leading-relaxed text-foreground/90">“{text}”</p>
-          <p class="flex flex-col text-sm">
-            <span class="font-semibold">{name}</span>
-            <span class="text-muted-foreground">
-              Google
-              {t("home.reviews.translated") &&
-                ` · ${t("home.reviews.translated")}`}
-            </span>
-          </p>
-        </li>
-      ))}
-    </ul>
-  </div>
 </section>
-
-<!-- 9. GUIDES, FAQ & CLOSE -->
+<!-- 8. GUIDES, FAQ & CLOSE -->
 <section class="px-5 py-24 md:px-8 lg:px-12 lg:py-32">
   <div class="mb-12 grid gap-6 lg:grid-cols-12">
     <h2
@@ -703,81 +802,331 @@ const gear = (() => {
     >
       {t("guides.home.title")}
     </h2>
-    <p
-      data-lines
-      class="max-w-lg self-end text-lg text-muted-foreground lg:col-span-5"
-    >
-      {t("guides.home.lead")}
-    </p>
+    <div class="flex flex-col gap-4 self-end lg:col-span-5">
+      <p data-lines class="max-w-lg text-lg text-muted-foreground">
+        {t("guides.home.lead")}
+      </p>
+      <a
+        href={href("/guias/")}
+        class="group inline-flex w-fit items-center gap-2 font-semibold text-foreground hover:text-laser-ink"
+      >
+        {t("guides.home.all")}
+        <ArrowRight className="size-4 text-laser-ink transition-transform group-hover:translate-x-1" />
+      </a>
+    </div>
   </div>
-  <GuideCards lang={lang} />
+  <GuideCards lang={lang} ids={guideIds.slice(0, 3)} />
 </section>
-
 <FaqSection title={t("home.faq.title")} faqs={faqs} />
-
 <CloseSection lang={lang} />
-
 <script>
-  import { gsap } from "gsap"
+  import type { gsap as Gsap } from "gsap"
+  import type { ScrollTrigger as ScrollTriggerType } from "gsap/ScrollTrigger"
 
-  const setupHomeInteractive = () => {
+  // GSAP stays out of the first paint: it loads once the page has settled or
+  // the visitor moves, like the rest of the motion (see layouts/main.astro)
+  const motion = new Promise<void>((resolve) => {
+    const events = ["scroll", "wheel", "pointerdown", "keydown", "touchstart"]
+    const go = () => {
+      events.forEach((e) => removeEventListener(e, go))
+      resolve()
+    }
+    events.forEach((e) =>
+      addEventListener(e, go, { once: true, passive: true })
+    )
+    const later = () => setTimeout(go, 800)
+    if (document.readyState === "complete") later()
+    else addEventListener("load", later, { once: true })
+  }).then(async () => {
+    const [{ gsap }, { ScrollTrigger }] = await Promise.all([
+      import("gsap"),
+      import("gsap/ScrollTrigger"),
+    ])
+    gsap.registerPlugin(ScrollTrigger)
+    return { gsap, ScrollTrigger }
+  })
+
+  const setupHomeInteractive = ({
+    gsap,
+    ScrollTrigger,
+  }: {
+    gsap: typeof Gsap
+    ScrollTrigger: typeof ScrollTriggerType
+  }) => {
     const cleanups: (() => void)[] = []
     const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches
 
-    // Three techniques tabs with clean GSAP transition
-    const studio = document.querySelector<HTMLElement>(
-      "[data-technique-studio]"
+    // 1. Pinned Iris Portal Film Hero (Dimeunrestaurante lens shrink + Cepa scrubbed video)
+    const filmSection = document.querySelector<HTMLElement>("[data-film]")
+    const filmStage = document.querySelector<HTMLElement>("[data-film-stage]")
+    const filmMedia = document.querySelector<HTMLElement>("[data-film-media]")
+    const filmVideo =
+      document.querySelector<HTMLVideoElement>("[data-film-video]")
+    const filmPoster = document.querySelector<HTMLElement>("[data-film-poster]")
+    const filmChrome = document.querySelector<HTMLElement>("[data-film-chrome]")
+    const heroWord = document.querySelector<HTMLElement>("[data-hero-word]")
+    const irisSvg = document.querySelector<SVGSVGElement>("[data-iris-svg]")
+    const irisArc = document.querySelector<SVGCircleElement>("[data-iris-arc]")
+    const irisTicks = document.querySelector<SVGGElement>("[data-iris-ticks]")
+    const filmLines = Array.from(
+      document.querySelectorAll<HTMLElement>("[data-film-line]")
     )
-    if (studio) {
-      const tabs = Array.from(
-        studio.querySelectorAll<HTMLButtonElement>("[data-tech-tab]")
-      )
-      const panels = Array.from(
-        studio.querySelectorAll<HTMLElement>("[data-tech-panel]")
-      )
 
-      tabs.forEach((tab) => {
-        const onClick = () => {
-          const id = tab.dataset.techTab
-          tabs.forEach((t) =>
-            t.setAttribute("aria-selected", String(t === tab))
-          )
-          panels.forEach((p) => {
-            const isMatch = p.dataset.techPanel === id
-            p.hidden = !isMatch
-            if (isMatch && !reducedMotion) {
-              const parts = p.querySelectorAll("[data-tech-part]")
-              const img = p.querySelector("img")
-              gsap.killTweensOf([p, ...parts, img])
-              gsap.fromTo(
-                p,
-                { opacity: 0.3 },
-                { opacity: 1, duration: 0.5, ease: "expo.out" }
-              )
-              if (img) {
-                gsap.fromTo(
-                  img,
-                  { scale: 1.06 },
-                  { scale: 1, duration: 0.85, ease: "expo.out" }
-                )
-              }
-              gsap.fromTo(
-                parts,
-                { y: 14, opacity: 0 },
-                {
-                  y: 0,
-                  opacity: 1,
-                  stagger: 0.06,
-                  duration: 0.55,
-                  ease: "expo.out",
-                }
-              )
-            }
-          })
-          window.dispatchEvent(new Event("lasercom:refresh"))
+    if (filmSection && filmStage && filmMedia && !reducedMotion) {
+      filmLines.forEach((line) => {
+        line.classList.remove("hidden")
+        gsap.set(line, { autoAlpha: 0 })
+      })
+
+      const ats = filmLines.map((l) => Number(l.dataset.at ?? 0))
+      const countEl = filmSection.querySelector<HTMLElement>("[data-film-n]")
+      const sceneEl =
+        filmSection.querySelector<HTMLElement>("[data-film-scene]")
+      const barEl = filmSection.querySelector<HTMLElement>("[data-film-bar]")
+      const hintEl = filmSection.querySelector<HTMLElement>("[data-film-hint]")
+      const openingScene = sceneEl?.textContent ?? ""
+
+      let stageW = filmStage.clientWidth || window.innerWidth
+      let stageH = filmStage.clientHeight || window.innerHeight
+      let fullR = Math.round(Math.hypot(stageW * 0.5, stageH * 0.54) + 12)
+      let lensR = Math.round(Math.min(stageW, stageH) * 0.24)
+
+      const measureStage = () => {
+        stageW = filmStage.clientWidth || window.innerWidth
+        stageH = filmStage.clientHeight || window.innerHeight
+        fullR = Math.round(Math.hypot(stageW * 0.5, stageH * 0.54) + 12)
+        lensR = Math.round(Math.min(stageW, stageH) * 0.24)
+        if (irisSvg) {
+          const box = Math.round(lensR * (240 / 106))
+          irisSvg.style.width = `${box}px`
+          irisSvg.style.height = `${box}px`
         }
-        tab.addEventListener("click", onClick)
-        cleanups.push(() => tab.removeEventListener("click", onClick))
+      }
+      measureStage()
+      window.addEventListener("resize", measureStage, { passive: true })
+      cleanups.push(() => window.removeEventListener("resize", measureStage))
+
+      // -1 = Chapter 0 (hero open state); 0 = Chapter 1 (lens); 1 = Chapter 2 (finale)
+      let shown = -1
+      const showOverlayChapter = (i: number) => {
+        if (i === shown) return
+        const prev = shown >= 0 ? filmLines[shown] : undefined
+        const next = i >= 0 ? filmLines[i] : undefined
+        const dir = i > shown ? 1 : -1
+        shown = i
+
+        if (prev) {
+          const prevWords = prev.querySelectorAll(".film-w")
+          const prevExtra = prev.querySelectorAll(".film-extra")
+          gsap.killTweensOf([prev, ...prevWords, ...prevExtra])
+          gsap.to(prevWords, {
+            yPercent: -115 * dir,
+            stagger: 0.014,
+            duration: 0.32,
+            ease: "power3.in",
+            onComplete: () => {
+              gsap.set(prev, { autoAlpha: 0 })
+              prev.setAttribute("aria-hidden", "true")
+            },
+          })
+          if (prevExtra.length) {
+            gsap.to(prevExtra, { y: -16 * dir, opacity: 0, duration: 0.24 })
+          }
+        }
+
+        if (next) {
+          const nextWords = next.querySelectorAll(".film-w")
+          const nextExtra = next.querySelectorAll(".film-extra")
+          gsap.killTweensOf([next, ...nextWords, ...nextExtra])
+          gsap.set(next, { autoAlpha: 1 })
+          next.removeAttribute("aria-hidden")
+          gsap.fromTo(
+            nextWords,
+            { yPercent: 115 * dir },
+            {
+              yPercent: 0,
+              stagger: 0.03,
+              duration: 0.72,
+              ease: "expo.out",
+              delay: 0.06,
+            }
+          )
+          if (nextExtra.length) {
+            gsap.fromTo(
+              nextExtra,
+              { y: 18 * dir, opacity: 0 },
+              {
+                y: 0,
+                opacity: 1,
+                stagger: 0.06,
+                duration: 0.6,
+                ease: "expo.out",
+                delay: 0.14,
+              }
+            )
+          }
+        }
+
+        if (countEl) countEl.textContent = String(i + 2).padStart(2, "0")
+        const targetScene = next?.dataset.scene ?? openingScene
+        if (sceneEl && targetScene) {
+          sceneEl.textContent = targetScene
+          gsap.fromTo(
+            sceneEl,
+            { y: 6 * dir, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.35, ease: "expo.out" }
+          )
+        }
+      }
+
+      const easeInOut = (t: number) =>
+        t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2
+      const clamp01 = (v: number) => Math.max(0, Math.min(1, v))
+
+      // Deferred blob load so LCP photo paints immediately at 0 ms
+      let filmTarget = 0
+      let filmTime = 0
+      let filmReady = false
+      let blobUrl = ""
+      let videoStarted = false
+
+      const tickFilm = () => {
+        if (!filmReady || !filmVideo) return
+        filmTime += (filmTarget - filmTime) * 0.22
+        if (
+          !filmVideo.seeking &&
+          Math.abs(filmVideo.currentTime - filmTime) > 0.016
+        ) {
+          filmVideo.currentTime = filmTime
+        }
+      }
+      gsap.ticker.add(tickFilm)
+      cleanups.push(() => gsap.ticker.remove(tickFilm))
+
+      const st = ScrollTrigger.create({
+        trigger: filmSection,
+        start: "top 64px",
+        end: () => `+=${Math.round(window.innerHeight * 3)}`,
+        pin: true,
+        refreshPriority: 10,
+        onUpdate: (self) => {
+          const p = self.progress
+          if (filmVideo?.duration) filmTarget = p * (filmVideo.duration - 0.05)
+
+          // Continuous iris aperture choreography: full -> lens (0..0.28) -> hold (0.28..0.64) -> full (0.64..0.86)
+          const shrinkT = easeInOut(clamp01(p / 0.28))
+          const expandT = easeInOut(clamp01((p - 0.64) / 0.22))
+          const lensMix = shrinkT * (1 - expandT)
+          const r = Math.round(fullR - (fullR - lensR) * lensMix)
+          const cy = Math.round(48 - 11 * lensMix)
+          filmMedia.style.clipPath = `circle(${r}px at 50% ${cy}%)`
+          if (irisSvg) irisSvg.style.top = `${cy}%`
+
+          if (!filmReady && filmPoster) {
+            gsap.set(filmPoster, { scale: 1 + p * 0.08 })
+          }
+
+          // Hero top chrome + monumental LASERCOM peel smoothly out as the portal closes
+          const heroOut = clamp01(p / 0.2)
+          if (filmChrome) {
+            filmChrome.style.opacity = String(1 - heroOut)
+            filmChrome.style.transform = `translate3d(0, ${-24 * heroOut}px, 0)`
+            filmChrome.style.pointerEvents = heroOut > 0.5 ? "none" : "auto"
+          }
+          if (heroWord) {
+            heroWord.style.opacity = String(1 - heroOut)
+            heroWord.style.transform = `translate3d(0, ${32 * heroOut}px, 0) scale(${1 + 0.08 * heroOut})`
+          }
+
+          // Glowing laser reticle appears precisely when the circular lens locks
+          const irisAlpha = clamp01((lensMix - 0.35) / 0.65)
+          if (irisSvg) irisSvg.style.opacity = String(irisAlpha)
+          if (irisArc) {
+            const trace = clamp01((p - 0.14) / 0.48)
+            irisArc.style.strokeDashoffset = String(1 - trace)
+          }
+          if (irisTicks) {
+            irisTicks.setAttribute(
+              "transform",
+              `rotate(${(p * 120).toFixed(1)} 120 120)`
+            )
+          }
+
+          if (barEl) barEl.style.transform = `scaleX(${p})`
+          if (hintEl) hintEl.style.opacity = p > 0.06 ? "0" : "1"
+
+          let nextIdx = -1
+          for (let k = ats.length - 1; k >= 0; k--) {
+            if (p >= ats[k]) {
+              nextIdx = k
+              break
+            }
+          }
+          showOverlayChapter(nextIdx)
+        },
+      })
+      cleanups.push(() => st.kill())
+
+      const loadFilmBlob = async () => {
+        if (videoStarted || !filmVideo?.dataset.src) return
+        const conn = (
+          navigator as Navigator & {
+            connection?: { saveData?: boolean; effectiveType?: string }
+          }
+        ).connection
+        if (conn?.saveData) return
+        videoStarted = true
+        try {
+          // Portrait screens get the 9:16 cut: a third of the bytes, no wasted pixels
+          const portrait = window.matchMedia("(max-aspect-ratio: 4/5)").matches
+          // Wide screens with more than 2400 real pixels across (a retina
+          // laptop, a large monitor) get the 2560 px cut, on a fast connection
+          const large =
+            !portrait &&
+            innerWidth * devicePixelRatio >= 2400 &&
+            !/(^|-)[23]g$/.test(conn?.effectiveType ?? "")
+          const src =
+            (portrait && filmVideo.dataset.srcPhone) ||
+            (large && filmVideo.dataset.srcLarge) ||
+            filmVideo.dataset.src
+          const blob = await (await fetch(src)).blob()
+          blobUrl = URL.createObjectURL(blob)
+          filmVideo.src = blobUrl
+          await new Promise<void>((ok) =>
+            filmVideo.addEventListener("loadeddata", () => ok(), { once: true })
+          )
+          await filmVideo.play().catch(() => {})
+          filmVideo.pause()
+          filmTarget = st.progress * (filmVideo.duration - 0.05)
+          filmTime = filmTarget
+          filmVideo.currentTime = filmTime
+          filmReady = true
+          filmVideo.classList.remove("opacity-0")
+          filmVideo.classList.add("opacity-100")
+        } catch {
+          /* poster remains intact */
+        }
+      }
+
+      const onInteract = () => void loadFilmBlob()
+      ;(["scroll", "wheel", "pointerdown", "touchstart"] as const).forEach(
+        (ev) => {
+          window.addEventListener(ev, onInteract, { once: true, passive: true })
+          cleanups.push(() => window.removeEventListener(ev, onInteract))
+        }
+      )
+      // The film is several megabytes: it waits for the page to finish loading
+      // and settle, unless the visitor moves first
+      let idleTimer = 0
+      const whenIdle = () => {
+        idleTimer = window.setTimeout(() => void loadFilmBlob(), 3000)
+      }
+      if (document.readyState === "complete") whenIdle()
+      else window.addEventListener("load", whenIdle, { once: true })
+      cleanups.push(() => {
+        window.removeEventListener("load", whenIdle)
+        window.clearTimeout(idleTimer)
+        if (blobUrl) URL.revokeObjectURL(blobUrl)
       })
     }
 
@@ -785,12 +1134,47 @@ const gear = (() => {
   }
 
   let cleanupHome: (() => void) | undefined
+  let visit = 0
   document.addEventListener("astro:page-load", () => {
     cleanupHome?.()
-    cleanupHome = setupHomeInteractive()
+    cleanupHome = undefined
+    const current = ++visit
+    void motion.then((libs) => {
+      if (current === visit) cleanupHome = setupHomeInteractive(libs)
+    })
   })
   document.addEventListener("astro:before-swap", () => {
+    visit++
     cleanupHome?.()
     cleanupHome = undefined
   })
 </script>
+<style>
+  .film-w-mask {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: bottom;
+    padding: 0.06em 0.04em 0.14em;
+    margin: -0.06em 0.14em -0.14em -0.04em;
+  }
+  .film-w {
+    will-change: transform;
+  }
+  .film-w:not(.block) {
+    display: inline-block;
+  }
+  .film-wheel {
+    animation: film-wheel 1.8s ease-in-out infinite;
+  }
+  @keyframes film-wheel {
+    0%,
+    100% {
+      transform: translateY(0);
+      opacity: 0.9;
+    }
+    60% {
+      transform: translateY(5px);
+      opacity: 0.25;
+    }
+  }
+</style>

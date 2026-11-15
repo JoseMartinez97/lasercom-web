@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>B · Muestrario real · Lasercom</title>
+<link rel="stylesheet" href="proto.css">
+<style>
+  .head{padding:clamp(56px,8vw,120px) 0 28px}
+  .head h1{font-size:clamp(40px,7.4vw,120px);max-width:13ch}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-top:32px}
+  .tab{height:44px;padding:0 20px;border-radius:999px;border:1px solid var(--line);background:none;font:600 15px Archivo;cursor:pointer;color:var(--ink)}
+  .tab[aria-pressed=true]{background:var(--ink);color:var(--ply);border-color:var(--ink)}
+  .board{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(8px,1vw,16px);padding-bottom:clamp(64px,9vw,120px)}
+  .s{position:relative;grid-column:span 4;aspect-ratio:4/5;border:1px solid var(--line);border-radius:8px;background:oklch(0.985 0.008 80);overflow:hidden;display:flex;flex-direction:column;transition:opacity .35s,transform .35s,border-color .2s}
+  .s.w{grid-column:span 8;aspect-ratio:auto;min-height:0}.s.w .ph{position:relative}.s.w .ph img{position:absolute;inset:0}
+  .s.dim{opacity:.16;transform:scale(.985)}
+  .s:hover{border-color:var(--laser)}
+  .s .ph{flex:1;min-height:0;display:grid;place-items:center;padding:8%}
+  .s .ph img{max-height:100%;width:auto;object-fit:contain;mix-blend-mode:multiply;transition:transform .7s cubic-bezier(.2,.7,.1,1)}
+  .s.full .ph{padding:0}
+  .s.full .ph img{width:100%;height:100%;object-fit:cover;mix-blend-mode:normal}
+  .s:hover .ph img{transform:scale(1.05)}
+  .tag{border-top:1px dashed var(--line);padding:12px 14px;display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:baseline;background:oklch(0.985 0.008 80)}
+  .tag .n{color:var(--laser-ink)}
+  .tag b{font-weight:700;font-size:15px}
+  .tag .m{color:var(--mut)}
+  .hole{position:absolute;top:12px;left:12px;width:12px;height:12px;border-radius:50%;border:1px solid var(--line);background:var(--ply);z-index:2}
+  @media(max-width:860px){.s,.s.w{grid-column:span 6}.tag{grid-template-columns:auto 1fr}.tag .m{display:none}}
+  @media(max-width:520px){.s,.s.w{grid-column:span 12}}
+  .compare{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:28px 0 8px}
+  .compare figure{margin:0}
+  .compare img{border-radius:8px;aspect-ratio:16/10;object-fit:cover;width:100%}
+  .compare figcaption{font-size:13px;color:var(--mut);margin-top:8px}
+</style>
+
+<div class="protobar"><b>PROTOTIPO B</b><a href="index.html">Índice</a><a href="a-portada.html">A · Portada de pruebas</a><a class="on" href="b-muestrario.html">B · Muestrario real</a><a href="c-caso.html">C · Ficha de caso</a></div>
+
+<section class="wrap head">
+  <p class="readout" style="color:var(--laser-ink)">Materiales que trabajamos</p>
+  <h1 class="display" style="margin-top:14px">El muestrario del taller</h1>
+  <p style="max-width:56ch;color:var(--mut);margin-top:22px;font-size:19px">Cada muestra es una pieza real que ha salido de nuestras máquinas. Elige un material para ver qué se puede hacer con él.</p>
+
+  <div class="note">Por qué: las ocho imágenes de «Materiales» y «Tres acabados» de la portada actual están generadas con IA (el propio archivo lo declara en sus metadatos) y enseñan máquinas y piezas que no son del taller. Abajo, la de metal frente a una placa real.</div>
+  <div class="compare">
+    <figure><img src="../../src/assets/editorial/technique-fiber-mark.jpg" alt=""><figcaption>Ahora: imagen generada, con una máquina que no es la del taller.</figcaption></figure>
+    <figure><img src="../../src/assets/work/grabado_laser_placa_hospital.webp" alt=""><figcaption>Propuesta: una placa real marcada en el taller.</figcaption></figure>
+  </div>
+
+  <div class="tabs" role="group" aria-label="Material">
+    <button class="tab" aria-pressed="true" data-f="all">Todo</button>
+    <button class="tab" aria-pressed="false" data-f="madera">Madera</button>
+    <button class="tab" aria-pressed="false" data-f="metacrilato">Metacrilato y cristal</button>
+    <button class="tab" aria-pressed="false" data-f="metal">Metal</button>
+    <button class="tab" aria-pressed="false" data-f="piel">Piel</button>
+  </div>
+</section>
+
+<section class="wrap board">
+  <a class="s w full" data-m="madera" href="c-caso.html"><span class="hole"></span><div class="ph"><img src="../../src/assets/work/abanico_exclusivo_louis_vuitton_3.webp" alt="Abanico con varillas de madera caladas con láser"></div><div class="tag"><span class="readout n">M-01</span><b>Abanico calado</b><span class="readout m">Madera · corte</span></div></a>
+  <div class="s" data-m="madera"><span class="hole"></span><div class="ph"><img src="../../src/assets/work/mandala_cortado_laser.webp" alt="Posavasos de madera calados con láser"></div><div class="tag"><span class="readout n">M-02</span><b>Posavasos calados</b><span class="readout m">Madera · corte</span></div></div>
+  <div class="s" data-m="metal"><span class="hole"></span><div class="ph"><img src="../../src/assets/work/chapa_5j_sin_fondo.webp" alt="Chapa metálica marcada con láser"></div><div class="tag"><span class="readout n">T-01</span><b>Chapa para jamón</b><span class="readout m">Metal · marcado</span></div></div>
+  <div class="s full" data-m="metacrilato"><span class="hole"></span><div class="ph"><img src="../../src/assets/work/grabado_en_crista.webp" alt="Copa de cristal grabada con láser"></div><div class="tag"><span class="readout n">C-01</span><b>Copa grabada</b><span class="readout m">Cristal · grabado</span></div></div>
+  <div class="s" data-m="madera"><span class="hole"></span><div class="ph"><img src="../../src/assets/work/falla_colonia_sin_fondo.webp" alt="Escudo de falla calado en madera"></div><div class="tag"><span class="readout n">M-03</span><b>Escudo de falla</b><span class="readout m">Madera · corte</span></div></div>
+  <div class="s full" data-m="piel"><span class="hole"></span><div class="ph"><img src="../../src/assets/work/cortar_grabar_piel_laser_1.webp" alt="Escudo grabado con láser sobre piel"></div><div class="tag"><span class="readout n">P-01</span><b>Escudo en piel</b><span class="readout m">Piel · grabado</span></div></div>
+  <div class="s" data-m="metal"><span class="hole"></span><div class="ph"><img src="../../src/assets/work/tarjeta_casfid.webp" alt="Tarjeta de visita metálica grabada"></div><div class="tag"><span class="readout n">T-02</span><b>Tarjeta metálica</b><span class="readout m">Metal · grabado</span></div></div>
+  <div class="s full" data-m="metacrilato"><span class="hole"></span><div class="ph"><img src="../../src/assets/work/maqueta_escala_metacrilato_2.webp" alt="Maqueta de metacrilato y madera cortada con láser"></div><div class="tag"><span class="readout n">C-02</span><b>Maqueta a escala</b><span class="readout m">Metacrilato · corte</span></div></div>
+  <div class="s" data-m="metal"><span class="hole"></span><div class="ph"><img src="../../src/assets/work/collar_perro_laser.webp" alt="Chapa de mascota grabada con láser"></div><div class="tag"><span class="readout n">T-03</span><b>Chapa de mascota</b><span class="readout m">Metal · grabado</span></div></div>
+  <div class="s full" data-m="madera"><span class="hole"></span><div class="ph"><img src="../../src/assets/work/peana_grabada.webp" alt="Peana de madera grabada en relieve"></div><div class="tag"><span class="readout n">M-04</span><b>Peana en relieve</b><span class="readout m">Madera · grabado</span></div></div>
+  <div class="s" data-m="madera"><span class="hole"></span><div class="ph"><img src="../../src/assets/work/nombre_madera_laser.webp" alt="Nombre cortado en madera con láser"></div><div class="tag"><span class="readout n">M-05</span><b>Nombre cortado</b><span class="readout m">Madera · corte</span></div></div>
+</section>
+
+<section class="steel" style="padding:clamp(48px,7vw,96px) 0">
+  <div class="wrap">
+    <h2 class="display" style="font-size:clamp(30px,4.6vw,64px);max-width:18ch">Lo que haría redondo este muestrario</h2>
+    <p style="max-width:60ch;margin-top:18px;color:oklch(0.84 0.008 80)">Una tarde de fotos en el taller: una muestra pequeña de cada material sobre el mismo fondo y con la misma luz, y 10 segundos de vídeo de cada máquina trabajando. Con eso desaparecen las fotos de móvil con tono amarillo y todo el sitio gana de golpe. <span class="ask">preguntar al dueño</span></p>
+  </div>
+</section>
+
+<script>
+  const tabs=[...document.querySelectorAll('.tab')],cards=[...document.querySelectorAll('.s')]
+  tabs.forEach(t=>t.addEventListener('click',()=>{
+    tabs.forEach(x=>x.setAttribute('aria-pressed',x===t))
+    cards.forEach(c=>c.classList.toggle('dim',t.dataset.f!=='all'&&c.dataset.m!==t.dataset.f))
+  }))
+</script>
+</html>

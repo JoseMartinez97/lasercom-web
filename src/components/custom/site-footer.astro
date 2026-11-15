@@ -24,9 +24,9 @@ const year = new Date().getFullYear()
     </div>
 
     <nav aria-labelledby="footer-services" class="lg:col-span-4">
-      <h2 id="footer-services" class="readout mb-4 text-muted-foreground">
+      <p id="footer-services" class="readout mb-4 text-muted-foreground">
         {t("footer.services")}
-      </h2>
+      </p>
       <ul class="grid gap-x-6 gap-y-2 sm:grid-cols-2">
         {serviceIds.map((id) => (
           <li>
@@ -43,9 +43,9 @@ const year = new Date().getFullYear()
 
     <div class="flex flex-col gap-8 sm:flex-row lg:col-span-4 lg:justify-end lg:gap-14">
       <nav aria-labelledby="footer-company">
-        <h2 id="footer-company" class="readout mb-4 text-muted-foreground">
+        <p id="footer-company" class="readout mb-4 text-muted-foreground">
           {t("footer.company")}
-        </h2>
+        </p>
         <ul class="flex flex-col gap-2">
           <li>
             <a
@@ -74,9 +74,7 @@ const year = new Date().getFullYear()
         </ul>
       </nav>
       <address class="flex flex-col gap-2 not-italic">
-        <h2 class="readout mb-2 text-muted-foreground">
-          {t("footer.contact")}
-        </h2>
+        <p class="readout mb-2 text-muted-foreground">{t("footer.contact")}</p>
         <a href={business.mapsUrl} class="hover:text-laser-ink">
           {business.street}
           <br />
