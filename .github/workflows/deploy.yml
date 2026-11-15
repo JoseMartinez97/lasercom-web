@@ -41,11 +41,14 @@ jobs:
     needs: check
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
-    # While the repository variable SITE_PREVIEW is 1 the site is a preview
-    # on its own subdomain: every page noindex and no IndexNow. Delete the
-    # variable when the site goes live on lasercom.es
+    # While the repository variable SITE_PREVIEW is 1 the site is a preview:
+    # every page noindex and no IndexNow. SITE_URL and BASE_PATH place it in
+    # a folder of github.io (https://josemartinez97.github.io/lasercom-web/).
+    # Delete the three variables when the site goes live on lasercom.es
     env:
       PUBLIC_PREVIEW: ${{ vars.SITE_PREVIEW }}
+      SITE_URL: ${{ vars.SITE_URL }}
+      BASE_PATH: ${{ vars.BASE_PATH }}
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v7

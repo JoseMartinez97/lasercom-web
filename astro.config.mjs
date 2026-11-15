@@ -4,10 +4,14 @@ import tailwindcss from "@tailwindcss/vite"
 import { defineConfig } from "astro/config"
 import react from "@astrojs/react"
 import sitemap from "@astrojs/sitemap"
-import { writeFile } from "node:fs/promises"
+import { readFile, readdir, writeFile } from "node:fs/promises"
 import { pages } from "./src/lib/pages"
 
 const site = "https://lasercom.es"
+// The site lives at the root of lasercom.es. A preview build can live in a
+// folder of another host instead, like GitHub Pages without a domain:
+// SITE_URL=https://josemartinez97.github.io BASE_PATH=/lasercom-web
+const base = (process.env.BASE_PATH || "").replace(/\/$/, "")
 // Each page and its translation, both ways, for the sitemap's hreflang links.
 // Slugs differ between languages, so the sitemap's own i18n option (which
 // pairs identical paths) cannot match them
@@ -70,13 +74,51 @@ const redirectsFile = {
       for (const [from, to] of Object.entries(redirects))
         if (from.endsWith(".htm"))
           await writeFile(new URL(from.slice(1), dir), refreshPage(from, to))
+      if (base) await prefixBase(dir)
     },
   },
 }
 
+// Addresses in the code are written from the root ("/contacto/"). In a build
+// for a folder, every root address in the HTML gets the folder in front;
+// Astro's own assets already carry it
+/** @param {URL} dir */
+async function prefixBase(dir) {
+  /** @param {string} url */
+  const fix = (url) =>
+    url.startsWith("/") &&
+    !url.startsWith("//") &&
+    url !== base &&
+    !url.startsWith(`${base}/`)
+      ? base + url
+      : url
+  const files = (await readdir(dir, { recursive: true })).filter((f) =>
+    /\.html?$/.test(f)
+  )
+  for (const file of files) {
+    const path = new URL(file, dir)
+    const html = (await readFile(path, "utf8"))
+      .replace(
+        /(\s(?:href|src|poster|action|data-[\w-]+)=")(\/[^"]*)"/g,
+        (_, attr, url) => `${attr}${fix(url)}"`
+      )
+      .replace(
+        /(\ssrcset=")([^"]*)"/g,
+        (_, attr, set) =>
+          `${attr}${set.replace(/(^|,\s*)(\/[^\s,]+)/g, (/** @type {string} */ _, /** @type {string} */ sep, /** @type {string} */ url) => sep + fix(url))}"`
+      )
+      .replace(
+        /(content="\d+;url=)(\/[^"]*)"/g,
+        (_, attr, url) => `${attr}${fix(url)}"`
+      )
+    await writeFile(path, html)
+  }
+}
+
 // https://astro.build/config
 export default defineConfig({
-  site,
+  site: process.env.SITE_URL || site,
+  base: base || "/",
   // Every page ships its CSS in the HTML: no render-blocking request
   build: {
     inlineStylesheets: "always",

@@ -470,7 +470,8 @@ export function LaserPreview({ lang }: Props) {
     .join(" · ")
     .slice(0, 60)
 
-  const quoteHref = `${localizePath(lang, "/contacto/")}?servicio=${currentMat.serviceId}${
+  // Built in the browser, so the folder of a preview build goes in by hand
+  const quoteHref = `${import.meta.env.BASE_URL.replace(/\/$/, "")}${localizePath(lang, "/contacto/")}?servicio=${currentMat.serviceId}${
     combinedText ? `&texto=${encodeURIComponent(combinedText)}` : ""
   }#presupuesto`
 
