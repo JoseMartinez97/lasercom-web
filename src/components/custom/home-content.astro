@@ -1,0 +1,796 @@
+---
+import { Image } from "astro:assets"
+import type { Lang } from "@/i18n/ui"
+import { localizePath, useTranslations } from "@/i18n/utils"
+import { buttonVariants } from "@/components/ui/button"
+import CloseSection from "@/components/custom/close-section.astro"
+import FaqSection from "@/components/custom/faq-section.astro"
+import WorkIndex from "@/components/custom/work-index.astro"
+import OpenStatus from "@/components/custom/open-status.astro"
+import GuideCards from "@/components/custom/guide-cards.astro"
+import { business, whatsappHref } from "@/lib/business"
+import { editorialPhotos, type EditorialPhotoId } from "@/lib/editorial"
+import { guides } from "@/lib/guides"
+import { photo, services, type ServiceId } from "@/lib/services"
+import { cn } from "@/lib/utils"
+import { ArrowRight, ArrowUpRight, Star } from "lucide-react"
+
+interface Props {
+  lang: Lang
+}
+const { lang } = Astro.props
+const t = useTranslations(lang)
+const href = (es: string) => localizePath(lang, es)
+const serviceHref = (id: ServiceId) =>
+  lang === "en" ? services[id].en : services[id].es
+const guideHref = (id: keyof typeof guides) =>
+  lang === "en" ? guides[id].en : guides[id].es
+
+// Three processes: Cutting, Engraving, Marking — clean visual switch
+const techniques: {
+  id: "cut" | "engrave" | "mark"
+  photo: EditorialPhotoId
+  service: ServiceId
+}[] = [
+  { id: "cut", photo: "technique-wood-beam", service: "madera" },
+  { id: "engrave", photo: "material-glass", service: "personalizado" },
+  { id: "mark", photo: "technique-fiber-mark", service: "industrial" },
+]
+
+// Four core materials: Kaizencode full-screen sticky panels, photography-first
+const materials: {
+  id: ServiceId
+  photo: EditorialPhotoId
+  steel: boolean
+}[] = [
+  { id: "madera", photo: "material-wood", steel: false },
+  { id: "metacrilato", photo: "material-acrylic", steel: true },
+  { id: "metal", photo: "material-metal", steel: false },
+  { id: "piel", photo: "material-leather", steel: true },
+]
+
+const clientGroups: {
+  anchor: string
+  title: string
+  text: string
+  ids: ServiceId[]
+}[] = [
+  {
+    anchor: "servicios-empresa",
+    title: t("home.clients.business.title"),
+    text: t("home.clients.business.text"),
+    ids: ["industrial", "empresas", "letras"],
+  },
+  {
+    anchor: "servicios-particular",
+    title: t("home.clients.people.title"),
+    text: t("home.clients.people.text"),
+    ids: ["bodas", "joyeria", "personalizado", "decoracion"],
+  },
+]
+
+const processSteps = [1, 2, 3, 4] as const
+const processFacts = [
+  t("home.process.fact.1"),
+  t("home.process.fact.2"),
+  t("home.process.fact.3"),
+  t("home.process.fact.4"),
+]
+
+const reviews = [
+  { name: "Pau Pastor", text: t("home.reviews.1") },
+  { name: "Lorena Tabuenca", text: t("home.reviews.2") },
+  { name: "Olga Gomez", text: t("home.reviews.3") },
+]
+const faqs = ([1, 2, 3, 4, 5] as const).map((n) => ({
+  q: t(`home.faq.${n}.q`),
+  a: t(`home.faq.${n}.a`),
+}))
+
+// Clean mechanical gear vector drawn by scroll progress
+const gear = (() => {
+  const teeth = 14
+  const [r1, r2, cx, cy] = [128, 156, 170, 170]
+  const pts: string[] = []
+  for (let i = 0; i < teeth; i++) {
+    const a = (i / teeth) * Math.PI * 2
+    const step = (Math.PI * 2) / teeth
+    const at = (r: number, ang: number) =>
+      `${(cx + r * Math.cos(ang)).toFixed(1)} ${(cy + r * Math.sin(ang)).toFixed(1)}`
+    pts.push(
+      at(r1, a),
+      at(r2, a + step * 0.12),
+      at(r2, a + step * 0.42),
+      at(r1, a + step * 0.54)
+    )
+  }
+  const ring = `M${pts.join("L")}Z`
+  const bore = `M${cx + 46} ${cy}A46 46 0 1 1 ${cx + 46} ${cy - 0.01}`
+  return `${ring}${bore}`
+})()
+---
+
+<!-- 1. HERO: Formal editorial split — clear typography on steel, clean laser craft photo -->
+<section class="steel relative overflow-x-clip border-b border-white/10">
+  <div class="mx-auto flex min-h-[calc(100svh-4rem)] flex-col justify-between gap-10 px-5 pt-6 pb-8 md:px-8 lg:px-12 lg:pt-8 lg:pb-10">
+    <p class="hero-in readout text-muted-foreground" style="--i: 0">
+      {t("home.readout")}
+    </p>
+
+    <div class="my-auto grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
+      <div class="flex min-w-0 flex-col gap-5 lg:col-span-6">
+        <h1 class="display min-w-0 text-[clamp(2.1rem,8.4vw,3.4rem)] [font-stretch:100%] sm:text-[clamp(2.9rem,6vw,4.5rem)] sm:[font-stretch:115%] lg:text-[clamp(3.1rem,4.7vw,5.15rem)] lg:[font-stretch:120%]">
+          <span class="hero-in block" style="--i: 0">
+            {t("home.h1.1")}
+          </span>
+          <span class="hero-in block" style="--i: 1">
+            {t("home.h1.2")}
+          </span>
+          <span class="hero-in block text-laser-ink" style="--i: 2">
+            {t("home.h1.3")}
+          </span>
+        </h1>
+
+        <p class="hero-lead max-w-xl text-base leading-relaxed text-foreground/85 sm:text-lg md:text-xl">
+          {t("home.lead")}
+        </p>
+
+        <div
+          class="hero-in flex flex-col gap-3 pt-2 sm:flex-row sm:flex-wrap sm:items-center"
+          style="--i: 3"
+        >
+          <span class="flex sm:-m-3 sm:p-3">
+            <a
+              href={`${href("/contacto/")}#presupuesto`}
+              data-magnetic
+              class={buttonVariants({
+                size: "lg",
+                className:
+                  "h-13 w-full rounded-full px-7 text-base sm:w-auto md:h-14",
+              })}
+            >
+              {t("cta.quote")}
+              <ArrowRight className="size-5" aria-hidden />
+            </a>
+          </span>
+          <a
+            href={whatsappHref(t("wa.default"))}
+            target="_blank"
+            rel="noopener"
+            class={buttonVariants({
+              variant: "outline",
+              size: "lg",
+              className:
+                "h-13 rounded-full border-foreground/30 px-7 text-base md:h-14",
+            })}
+          >
+            {t("cta.whatsapp")}
+            <ArrowUpRight className="size-5" aria-hidden />
+          </a>
+        </div>
+      </div>
+
+      <div class="min-w-0 lg:col-span-6">
+        <div class="overflow-hidden rounded-sm border border-white/12 bg-black/25">
+          <Image
+            src={editorialPhotos["technique-wood-beam"]}
+            alt={t("editorial.technique-wood-beam")}
+            widths={[400, 680, 1080]}
+            sizes="(min-width: 1024px) 46vw, 92vw"
+            loading="eager"
+            fetchpriority="high"
+            decoding="sync"
+            class="aspect-[4/3] size-full object-cover object-center lg:aspect-[5/4]"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Quiet single-line facts bar, Kaizencode style -->
+    <div
+      class="hero-in flex flex-wrap items-center justify-between gap-x-8 gap-y-3 border-t border-white/15 pt-5 font-mono text-xs tracking-wide text-muted-foreground sm:text-sm lg:pr-16"
+      style="--i: 4"
+    >
+      <ul class="flex flex-wrap items-center gap-x-8 gap-y-2">
+        <li>
+          <span class="font-semibold text-foreground tabular-nums">
+            {business.founded}
+          </span>{" "}
+          {t("home.stat.since").toLowerCase()}
+        </li>
+        <li class="inline-flex items-center gap-1.5">
+          <span class="font-semibold text-foreground tabular-nums">
+            {lang === "es" ? "4,5" : "4.5"}
+          </span>
+          <Star className="size-3.5 fill-laser text-laser" aria-hidden />
+          <span>Google</span>
+        </li>
+        <li>
+          <span class="font-semibold text-foreground tabular-nums">10+</span>{" "}
+          {t("home.stat.materials").toLowerCase()}
+        </li>
+      </ul>
+      <OpenStatus lang={lang} class="text-muted-foreground" />
+    </div>
+  </div>
+</section>
+
+<!-- 2. MANIFESTO: Open space, scroll-lit words & single precision vector cut -->
+<section class="grid items-center gap-12 px-5 py-28 md:px-8 lg:min-h-[75svh] lg:grid-cols-12 lg:px-12 lg:py-36">
+  <p
+    data-burn
+    class="display text-[clamp(2rem,4.6vw,4.5rem)] leading-[1.03] lg:col-span-8"
+  >
+    {t("home.statement")}
+  </p>
+  <div
+    class="relative mx-auto w-full max-w-[18rem] lg:col-span-4"
+    aria-hidden="true"
+  >
+    <svg viewBox="0 0 340 340" class="w-full overflow-visible text-foreground">
+      <path
+        d={gear}
+        fill="none"
+        stroke="currentColor"
+        stroke-opacity="0.12"
+        stroke-width="1.5"
+      ></path>
+      <path
+        data-cut
+        d={gear}
+        fill="none"
+        stroke="var(--laser-ink)"
+        stroke-width="2.5"
+        stroke-linejoin="round"
+      ></path>
+      <circle
+        data-cut-dot
+        r="6"
+        fill="var(--laser)"
+        opacity="0"
+        class="drop-shadow-[0_0_8px_var(--laser)]"
+      ></circle>
+    </svg>
+  </div>
+</section>
+
+<!-- 3. SELECTED WORK: Photo-dominant split (ProjectIndex architecture) -->
+<div class="border-t border-border">
+  <WorkIndex
+    id="trabajos"
+    lang={lang}
+    slugs={["barcelo", "lv", "lv2", "maqueta", "placa"]}
+    title={t("home.work.title")}
+    lead={t("home.work.lead")}
+    more={{ label: t("home.work.all"), href: href("/trabajos/") }}
+  />
+</div>
+
+<!-- 4. MATERIALS STACK: Full-screen sticky panels, Kaizencode layout -->
+<section id="materiales" class="scroll-mt-16 pt-8">
+  <div class="grid gap-6 px-5 pb-14 md:px-8 lg:grid-cols-12 lg:px-12">
+    <h2
+      data-title-chars
+      class="display text-[clamp(2.75rem,7vw,6.25rem)] lg:col-span-7"
+    >
+      {t("home.materials.title")}
+    </h2>
+    <p
+      data-lines
+      class="max-w-lg self-end text-lg text-muted-foreground lg:col-span-5"
+    >
+      {t("home.materials.lead")}
+    </p>
+  </div>
+
+  <ol>
+    {materials.map(({ id, photo: matPhoto, steel }, i) => {
+      const uses = t(`svc.${id}.uses`).split(" · ").slice(0, 4)
+      return (
+        <li
+          data-stack-panel
+          class="lg:motion-safe:[@media(min-height:680px)]:sticky lg:motion-safe:[@media(min-height:680px)]:top-16"
+        >
+          <div
+            data-stack-inner
+            class={cn(
+              "relative flex min-h-[calc(100svh-4rem)] origin-top flex-col justify-between gap-8 overflow-hidden border-t border-border px-5 py-8 md:px-8 md:py-12 lg:px-12 lg:py-14",
+              steel ? "steel" : "bg-[#efe6d8]"
+            )}
+          >
+            <div
+              data-stack-shade
+              aria-hidden="true"
+              class="pointer-events-none absolute inset-0 z-10 bg-black opacity-0"
+            />
+
+            <div class="flex items-start justify-between gap-6">
+              <h3
+                data-stack-title
+                class="display min-w-0 text-[clamp(1.85rem,7.2vw,6.5rem)]"
+              >
+                {t(`svc.${id}.name`)}
+              </h3>
+              <span
+                aria-hidden="true"
+                class="display shrink-0 text-[clamp(2rem,7vw,6.5rem)] text-muted-foreground tabular-nums"
+              >
+                {String(i + 1).padStart(2, "0")}
+              </span>
+            </div>
+
+            <div class="grid flex-1 gap-8 border-t border-current/15 pt-6 lg:grid-cols-12 lg:gap-10">
+              <div class="flex flex-col justify-between gap-6 lg:col-span-5">
+                <div class="flex flex-col gap-5">
+                  <p
+                    data-lines
+                    class="max-w-md text-lg leading-relaxed md:text-xl"
+                  >
+                    {t(`svc.${id}.card`)}
+                  </p>
+                  <ul class="max-w-md divide-y divide-current/15 border-y border-current/15 text-sm md:text-base">
+                    {uses.map((use) => (
+                      <li class="py-2.5 opacity-85">{use}</li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div class="flex flex-wrap items-center gap-4 pt-2">
+                  <a
+                    href={serviceHref(id)}
+                    class="inline-flex min-h-11 items-center gap-2 border-b border-current pb-1 text-base font-semibold transition-opacity hover:opacity-75"
+                  >
+                    <span>{t(`svc.${id}.h1`)}</span>
+                    <ArrowRight className="size-4 shrink-0" aria-hidden />
+                  </a>
+                </div>
+              </div>
+
+              <div
+                data-wipe
+                class="relative aspect-[16/10] overflow-hidden rounded-2xl lg:col-span-7 lg:aspect-auto lg:min-h-[24rem]"
+              >
+                <Image
+                  src={editorialPhotos[matPhoto]}
+                  alt={t(`editorial.${matPhoto}`)}
+                  data-stack-photo=""
+                  widths={[640, 1200]}
+                  sizes="(min-width: 1024px) 58vw, 100vw"
+                  loading="lazy"
+                  class="size-full object-cover"
+                />
+              </div>
+            </div>
+          </div>
+        </li>
+      )
+    })}
+  </ol>
+</section>
+
+<!-- 5. THREE FINISHES: Clean large photography beside three simple tabs -->
+<section
+  id="acabados"
+  data-technique-studio
+  class="scroll-mt-16 border-t border-border px-5 py-24 md:px-8 lg:px-12 lg:py-32"
+>
+  <div class="mb-12 grid gap-6 lg:grid-cols-12">
+    <h2
+      data-title-chars
+      class="display text-[clamp(2.5rem,6vw,5.25rem)] lg:col-span-7"
+    >
+      {t("home.technique.title")}
+    </h2>
+    <p
+      data-lines
+      class="max-w-lg self-end text-lg text-muted-foreground lg:col-span-5"
+    >
+      {t("home.technique.lead")}
+    </p>
+  </div>
+
+  <div
+    role="tablist"
+    aria-label={t("home.technique.title")}
+    class="mb-10 flex flex-wrap gap-2 border-b border-border pb-6"
+  >
+    {techniques.map((tech, i) => (
+      <button
+        type="button"
+        role="tab"
+        id={`tab-${tech.id}`}
+        aria-controls={`panel-${tech.id}`}
+        aria-selected={i === 0 ? "true" : "false"}
+        data-tech-tab={tech.id}
+        class="min-h-11 rounded-full border border-border px-5 py-2 text-sm font-semibold transition-colors hover:border-foreground aria-[selected=true]:border-foreground aria-[selected=true]:bg-foreground aria-[selected=true]:text-background sm:text-base"
+      >
+        {t(`home.technique.${tech.id}.tab`)}
+      </button>
+    ))}
+  </div>
+
+  {techniques.map((tech, i) => (
+    <div
+      id={`panel-${tech.id}`}
+      role="tabpanel"
+      aria-labelledby={`tab-${tech.id}`}
+      data-tech-panel={tech.id}
+      hidden={i !== 0}
+      class="grid items-center gap-8 lg:grid-cols-12 lg:gap-12"
+    >
+      <div class="relative aspect-[16/10] overflow-hidden rounded-2xl bg-[#12100f] lg:col-span-7">
+        <Image
+          src={editorialPhotos[tech.photo]}
+          alt={t(`editorial.${tech.photo}`)}
+          widths={[640, 1200]}
+          sizes="(min-width: 1024px) 58vw, 100vw"
+          loading="lazy"
+          class="size-full object-cover"
+        />
+      </div>
+
+      <div class="flex flex-col gap-5 lg:col-span-5">
+        <p data-tech-part class="readout text-laser-ink">
+          {t(`home.technique.${tech.id}.badge`)}
+        </p>
+        <h3 data-tech-part class="display text-[clamp(1.85rem,3.4vw,3rem)]">
+          {t(`home.technique.${tech.id}.title`)}
+        </h3>
+        <p
+          data-tech-part
+          class="text-base leading-relaxed text-muted-foreground md:text-lg"
+        >
+          {t(`home.technique.${tech.id}.text`)}
+        </p>
+        <div data-tech-part class="flex flex-wrap items-center gap-4 pt-2">
+          <a
+            href={`${href("/contacto/")}?servicio=${tech.service}#presupuesto`}
+            class={buttonVariants({
+              size: "lg",
+              className: "h-12 rounded-full px-6 text-base",
+            })}
+          >
+            {t("home.technique.cta")}
+            <ArrowRight className="size-4 shrink-0" aria-hidden />
+          </a>
+          <a
+            href={guideHref("corte-o-grabado")}
+            class="inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold underline-offset-4 hover:text-laser-ink hover:underline"
+          >
+            {t("home.technique.guide")}
+            <ArrowRight className="size-3.5 text-laser-ink" aria-hidden />
+          </a>
+        </div>
+      </div>
+    </div>
+  ))}
+</section>
+
+<!-- 6. WHO IT'S FOR: Clean hairline directory without visual clutter -->
+<section
+  id="servicios"
+  class="scroll-mt-16 border-t border-border px-5 py-24 md:px-8 lg:px-12 lg:py-36"
+>
+  <h2
+    class="display mb-14 max-w-[16ch] text-[clamp(2.75rem,7vw,6rem)]"
+    data-title-chars
+  >
+    {t("home.clients.title")}
+  </h2>
+  <div class="grid gap-16 lg:grid-cols-2 lg:gap-12">
+    {clientGroups.map((group) => (
+      <div id={group.anchor} class="flex scroll-mt-20 flex-col gap-6" data-rows>
+        <div class="flex flex-col gap-2">
+          <h3 class="text-2xl font-bold tracking-tight md:text-3xl">
+            {group.title}
+          </h3>
+          <p class="max-w-lg text-muted-foreground">{group.text}</p>
+        </div>
+        <ul class="border-b border-border">
+          {group.ids.map((id) => (
+            <li data-row class="relative">
+              <span
+                data-row-line
+                class="absolute inset-x-0 top-0 h-px origin-left bg-border"
+              />
+              <a
+                href={serviceHref(id)}
+                data-cursor={t("cursor.service")}
+                class="group flex items-center justify-between gap-4 py-5 transition-[padding] duration-500 ease-out hover:pl-3"
+              >
+                <span class="flex min-w-0 flex-col gap-1">
+                  <span
+                    data-row-cell
+                    class="text-xl font-semibold tracking-tight transition-colors group-hover:text-laser-ink md:text-2xl"
+                  >
+                    {t(`svc.${id}.name`)}
+                  </span>
+                  <span
+                    data-row-cell
+                    class="text-sm text-muted-foreground md:text-base"
+                  >
+                    {t(`svc.${id}.card`)}
+                  </span>
+                </span>
+                <ArrowRight className="size-5 shrink-0 text-laser-ink transition-transform group-hover:translate-x-1" />
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+</section>
+
+<!-- 7. HOW WE WORK: Kaizencode ProcessSteps layout -->
+<section
+  id="proceso"
+  class="scroll-mt-16 border-t border-border px-5 py-24 md:px-8 lg:px-12 lg:py-36"
+>
+  <div class="grid gap-12 lg:grid-cols-12 lg:gap-8">
+    <div class="hidden flex-col gap-10 lg:col-span-3 lg:flex">
+      <span
+        aria-hidden="true"
+        class="display self-start text-[min(10vw,8rem)] leading-none text-laser-ink"
+      >
+        {`/{`}
+      </span>
+      <ul class="flex flex-col gap-2 text-sm text-muted-foreground">
+        {processFacts.map((fact) => (
+          <li>{fact}</li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="lg:col-span-9" data-rows>
+      <div class="mb-10 flex flex-wrap items-end justify-between gap-6 lg:mb-14">
+        <h2 class="display text-[clamp(2.75rem,7vw,6rem)]" data-title-chars>
+          {t("home.process.title")}
+        </h2>
+        <a
+          href={`${href("/contacto/")}#presupuesto`}
+          class={buttonVariants({
+            size: "lg",
+            className: "h-12 rounded-full px-6 text-base",
+          })}
+        >
+          {t("home.process.cta")}
+          <ArrowRight className="size-4" aria-hidden />
+        </a>
+      </div>
+
+      <ol class="border-b border-border">
+        {processSteps.map((n) => (
+          <li
+            data-row
+            class="group relative grid gap-2 py-6 md:grid-cols-9 md:gap-6 lg:py-8"
+          >
+            <div
+              data-row-line
+              aria-hidden="true"
+              class="absolute inset-x-0 top-0 h-px origin-left bg-border"
+            />
+            <span
+              data-row-cell
+              aria-hidden="true"
+              class="font-mono text-base text-muted-foreground tabular-nums md:col-span-1"
+            >
+              {String(n).padStart(3, "0")}
+            </span>
+            <h3
+              data-row-cell
+              class="text-xl font-semibold tracking-tight transition-[translate] duration-500 ease-out group-hover:translate-x-2 md:col-span-3 lg:text-2xl"
+            >
+              {t(`home.process.${n}.t`)}
+            </h3>
+            <p
+              data-row-cell
+              class="text-base text-muted-foreground transition-colors duration-300 group-hover:text-foreground md:col-span-5 lg:text-lg"
+            >
+              {t(`home.process.${n}.d`)}
+            </p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- 8. WORKSHOP & REVIEWS: Large real workshop photo + quiet hairline reviews -->
+<section class="steel px-5 py-24 md:px-8 lg:px-12 lg:py-36">
+  <div class="grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
+    <div
+      data-wipe
+      class="relative aspect-[16/10] overflow-hidden rounded-2xl lg:col-span-6"
+    >
+      <Image
+        src={photo("fachada_lasercom")}
+        alt={t("photo.fachada_lasercom")}
+        widths={[640, 1200]}
+        sizes="(min-width: 1024px) 48vw, 100vw"
+        loading="lazy"
+        class="size-full object-cover"
+      />
+    </div>
+
+    <div class="flex flex-col gap-5 lg:col-span-6">
+      <p class="readout text-laser-ink">{t("home.reviews.workshop.label")}</p>
+      <h2 data-title-chars class="display text-[clamp(2.25rem,4.5vw,3.75rem)]">
+        {t("home.reviews.workshop.title")}
+      </h2>
+      <p data-lines class="max-w-xl text-base text-muted-foreground md:text-lg">
+        {t("home.reviews.workshop.text")}
+      </p>
+      <div class="flex flex-wrap items-center gap-4 pt-1">
+        <a
+          href={business.mapsUrl}
+          target="_blank"
+          rel="noopener"
+          class={buttonVariants({
+            variant: "outline",
+            size: "lg",
+            className:
+              "h-12 rounded-full border-foreground/30 bg-transparent px-6",
+          })}
+        >
+          {t("cta.directions")}
+          <ArrowUpRight className="size-4" aria-hidden />
+        </a>
+        <span class="readout text-muted-foreground">
+          {t("home.reviews.workshop.note")}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-20 grid gap-12 border-t border-white/15 pt-16 lg:grid-cols-12">
+    <div class="flex flex-col gap-5 lg:col-span-4">
+      <div class="flex items-end gap-4">
+        <span class="display text-7xl leading-none tabular-nums sm:text-8xl">
+          {lang === "es" ? "4,5" : "4.5"}
+        </span>
+        <span class="flex flex-col gap-1 pb-2">
+          <span class="flex gap-0.5" aria-hidden="true">
+            {[0, 1, 2, 3, 4].map((i) => (
+              <Star
+                className={cn(
+                  "size-5",
+                  i < 4 ? "fill-laser text-laser" : "fill-laser/50 text-laser"
+                )}
+              />
+            ))}
+          </span>
+          <span class="text-sm text-muted-foreground">
+            {t("home.reviews.summary")} · {t("home.reviews.count")}
+          </span>
+        </span>
+      </div>
+      <a
+        href={business.mapsUrl}
+        target="_blank"
+        rel="noopener"
+        class="inline-flex min-h-11 w-fit items-center gap-2 text-laser-ink underline-offset-4 hover:underline"
+      >
+        {t("home.reviews.link")}
+        <ArrowUpRight className="size-4" aria-hidden />
+      </a>
+    </div>
+
+    <ul class="grid gap-8 md:grid-cols-3 lg:col-span-8" data-stagger>
+      {reviews.map(({ name, text }) => (
+        <li class="flex flex-col justify-between gap-6 border-t border-white/15 pt-6">
+          <p class="text-base leading-relaxed text-foreground/90">“{text}”</p>
+          <p class="flex flex-col text-sm">
+            <span class="font-semibold">{name}</span>
+            <span class="text-muted-foreground">
+              Google
+              {t("home.reviews.translated") &&
+                ` · ${t("home.reviews.translated")}`}
+            </span>
+          </p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<!-- 9. GUIDES, FAQ & CLOSE -->
+<section class="px-5 py-24 md:px-8 lg:px-12 lg:py-32">
+  <div class="mb-12 grid gap-6 lg:grid-cols-12">
+    <h2
+      data-title-chars
+      class="display text-[clamp(2.5rem,6vw,5.5rem)] lg:col-span-7"
+    >
+      {t("guides.home.title")}
+    </h2>
+    <p
+      data-lines
+      class="max-w-lg self-end text-lg text-muted-foreground lg:col-span-5"
+    >
+      {t("guides.home.lead")}
+    </p>
+  </div>
+  <GuideCards lang={lang} />
+</section>
+
+<FaqSection title={t("home.faq.title")} faqs={faqs} />
+
+<CloseSection lang={lang} />
+
+<script>
+  import { gsap } from "gsap"
+
+  const setupHomeInteractive = () => {
+    const cleanups: (() => void)[] = []
+    const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches
+
+    // Three techniques tabs with clean GSAP transition
+    const studio = document.querySelector<HTMLElement>(
+      "[data-technique-studio]"
+    )
+    if (studio) {
+      const tabs = Array.from(
+        studio.querySelectorAll<HTMLButtonElement>("[data-tech-tab]")
+      )
+      const panels = Array.from(
+        studio.querySelectorAll<HTMLElement>("[data-tech-panel]")
+      )
+
+      tabs.forEach((tab) => {
+        const onClick = () => {
+          const id = tab.dataset.techTab
+          tabs.forEach((t) =>
+            t.setAttribute("aria-selected", String(t === tab))
+          )
+          panels.forEach((p) => {
+            const isMatch = p.dataset.techPanel === id
+            p.hidden = !isMatch
+            if (isMatch && !reducedMotion) {
+              const parts = p.querySelectorAll("[data-tech-part]")
+              const img = p.querySelector("img")
+              gsap.killTweensOf([p, ...parts, img])
+              gsap.fromTo(
+                p,
+                { opacity: 0.3 },
+                { opacity: 1, duration: 0.5, ease: "expo.out" }
+              )
+              if (img) {
+                gsap.fromTo(
+                  img,
+                  { scale: 1.06 },
+                  { scale: 1, duration: 0.85, ease: "expo.out" }
+                )
+              }
+              gsap.fromTo(
+                parts,
+                { y: 14, opacity: 0 },
+                {
+                  y: 0,
+                  opacity: 1,
+                  stagger: 0.06,
+                  duration: 0.55,
+                  ease: "expo.out",
+                }
+              )
+            }
+          })
+          window.dispatchEvent(new Event("lasercom:refresh"))
+        }
+        tab.addEventListener("click", onClick)
+        cleanups.push(() => tab.removeEventListener("click", onClick))
+      })
+    }
+
+    return () => cleanups.forEach((fn) => fn())
+  }
+
+  let cleanupHome: (() => void) | undefined
+  document.addEventListener("astro:page-load", () => {
+    cleanupHome?.()
+    cleanupHome = setupHomeInteractive()
+  })
+  document.addEventListener("astro:before-swap", () => {
+    cleanupHome?.()
+    cleanupHome = undefined
+  })
+</script>

@@ -1,0 +1,32 @@
+---
+import type { Lang } from "@/i18n/ui"
+import { useTranslations } from "@/i18n/utils"
+import CloseSection from "@/components/custom/close-section.astro"
+import GuideCards from "@/components/custom/guide-cards.astro"
+
+interface Props {
+  lang: Lang
+}
+const { lang } = Astro.props
+const t = useTranslations(lang)
+---
+
+<section class="flex flex-col gap-8 px-5 pt-10 pb-16 md:px-8 lg:pt-16">
+  <h1 class="display text-[clamp(3rem,10vw,10rem)]">
+    <span class="engrave" style="--i: 0">
+      <span class="engrave-text">{t("guides.h1")}</span>
+    </span>
+  </h1>
+  <p
+    class="hero-lead max-w-2xl text-lg text-muted-foreground md:text-xl"
+    style="--i: 2"
+  >
+    {t("guides.lead")}
+  </p>
+</section>
+
+<section class="px-5 pb-24 md:px-8 lg:pb-32">
+  <GuideCards lang={lang} headingLevel="h2" />
+</section>
+
+<CloseSection lang={lang} />

@@ -1,0 +1,302 @@
+---
+import "@/styles/global.css"
+import { ClientRouter } from "astro:transitions"
+import { ui, languages, defaultLang, type Lang } from "@/i18n/ui"
+import { getAlternatePath, localizePath } from "@/i18n/utils"
+import Header from "@/components/custom/header.astro"
+import SiteFooter from "@/components/custom/site-footer.astro"
+import WhatsappButton from "@/components/custom/whatsapp-button.astro"
+import ActionBar from "@/components/custom/action-bar.astro"
+import { business } from "@/lib/business"
+import { serviceIds, services } from "@/lib/services"
+// The display face, fetched with the HTML instead of after the CSS is parsed
+import archivoFont from "@fontsource-variable/archivo/files/archivo-latin-wdth-normal.woff2?url"
+
+export interface Props {
+  // Pages that should stay out of search results (the 404)
+  noindex?: boolean
+  lang?: Lang
+  title: string
+  description: string
+  // Trail under the home page, for the BreadcrumbList data
+  breadcrumbs?: { name: string; path: string }[]
+  // Extra structured data for this page (Service, FAQPage…)
+  jsonLd?: Record<string, unknown>[]
+}
+
+const {
+  lang = defaultLang,
+  title,
+  description,
+  breadcrumbs,
+  jsonLd = [],
+  noindex = false,
+} = Astro.props
+const t = (key: keyof (typeof ui)[typeof defaultLang]) => ui[lang][key]
+
+const siteOrigin = Astro.site?.origin ?? "https://lasercom.es"
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href
+const ogImageUrl = `${siteOrigin}/og/og-image.jpg`
+
+// hreflang alternates: Spanish at the root, English under /en/
+const alternates = (Object.keys(languages) as Lang[]).flatMap((code) => {
+  const path = getAlternatePath(Astro.url.pathname, code)
+  return path ? [{ code, href: `${siteOrigin}${path}` }] : []
+})
+const defaultUrl = alternates.find(({ code }) => code === defaultLang)?.href
+const ogLocale = { es: "es_ES", en: "en_GB" }[lang]
+const ogAlternateLocales = alternates
+  .filter(({ code }) => code !== lang)
+  .map(({ code }) => ({ es: "es_ES", en: "en_GB" })[code])
+const isHome = Astro.url.pathname === "/" || Astro.url.pathname === "/en/"
+
+// The business, as Google should understand it: the same name, address and
+// phone as the Business Profile (src/lib/business.ts)
+const businessId = `${siteOrigin}/#business`
+const localBusiness = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": businessId,
+  name: business.name,
+  description: ui[lang]["home.description"],
+  url: `${siteOrigin}/`,
+  logo: `${siteOrigin}/favicon/apple-touch-icon.png`,
+  image: [ogImageUrl, `${siteOrigin}/og/fachada.jpg`],
+  telephone: business.phone,
+  email: business.email,
+  foundingDate: String(business.founded),
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: business.street,
+    postalCode: business.postalCode,
+    addressLocality: business.locality,
+    addressRegion: business.region,
+    addressCountry: business.country,
+  },
+  geo: { "@type": "GeoCoordinates", ...business.geo },
+  hasMap: business.mapsUrl,
+  sameAs: [business.mapsUrl],
+  openingHoursSpecification: business.hours.map(({ days, opens, closes }) => ({
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: days,
+    opens,
+    closes,
+  })),
+  areaServed: business.areaServed.map((name) => ({ "@type": "City", name })),
+  knowsAbout: [
+    ui[lang]["svc.madera.h1"],
+    ui[lang]["svc.metacrilato.h1"],
+    ui[lang]["svc.piel.h1"],
+    ui[lang]["svc.metal.h1"],
+    ui[lang]["svc.industrial.h1"],
+  ],
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: ui[lang]["footer.services"],
+    itemListElement: serviceIds.map((id) => ({
+      "@type": "Offer",
+      itemOffered: {
+        "@type": "Service",
+        name: ui[lang][`svc.${id}.h1`],
+        url: `${siteOrigin}${lang === "en" ? services[id].en : services[id].es}`,
+      },
+    })),
+  },
+}
+
+const structuredData: Record<string, unknown>[] = noindex
+  ? []
+  : [
+      localBusiness,
+      ...(isHome
+        ? [
+            {
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "@id": `${siteOrigin}/#website`,
+              name: business.name,
+              alternateName: ["LASERCOM", "Laser Com", "lasercom.es"],
+              url: `${siteOrigin}/`,
+              inLanguage: ["es", "en"],
+              publisher: { "@id": businessId },
+            },
+          ]
+        : []),
+      ...(breadcrumbs
+        ? [
+            {
+              "@context": "https://schema.org",
+              "@type": "BreadcrumbList",
+              itemListElement: [
+                { name: t("crumb.home"), path: localizePath(lang, "/") },
+                ...breadcrumbs,
+              ].map(({ name, path }, i) => ({
+                "@type": "ListItem",
+                position: i + 1,
+                name,
+                item: `${siteOrigin}${path}`,
+              })),
+            },
+          ]
+        : []),
+      ...jsonLd,
+    ]
+---
+
+<!doctype html>
+<html lang={lang} class="motion-safe:scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#f3eee6" />
+
+    <link
+      rel="preload"
+      href={archivoFont}
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    {noindex ? (
+      <meta name="robots" content="noindex" />
+    ) : (
+      <link rel="canonical" href={canonicalUrl} />
+    )}
+    {alternates.length > 1 &&
+      alternates.map(({ code, href }) => (
+        <link rel="alternate" hreflang={code} href={href} />
+      ))}
+    {alternates.length > 1 && defaultUrl && (
+      <link rel="alternate" hreflang="x-default" href={defaultUrl} />
+    )}
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={business.name} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content={ogLocale} />
+    {ogAlternateLocales.map((alt) => (
+      <meta property="og:locale:alternate" content={alt} />
+    ))}
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <meta name="geo.region" content="ES-V" />
+    <meta name="geo.placename" content={business.locality} />
+    <meta
+      name="geo.position"
+      content={`${business.geo.latitude};${business.geo.longitude}`}
+    />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="96x96"
+      href="/favicon/favicon-96x96.png"
+    />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/favicon/apple-touch-icon.png"
+    />
+
+    <ClientRouter />
+    <script is:inline>
+      ;(function () {
+        const html = document.documentElement
+        const mark = () => {
+          // "js": reveal blocks start hidden until GSAP brings them in
+          html.classList.add("js")
+          // Failsafe: if the animations never start, show everything
+          setTimeout(() => {
+            if (!html.dataset.reveal) html.classList.remove("js")
+          }, 4000)
+        }
+        mark()
+        document.addEventListener("astro:after-swap", () => {
+          html.classList.add("vt-ready")
+          mark()
+        })
+      })()
+    </script>
+    {structuredData.map((data) => (
+      <script
+        is:inline
+        type="application/ld+json"
+        set:html={JSON.stringify(data)}
+      />
+    ))}
+  </head>
+  <body>
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-md focus:bg-background focus:px-4 focus:py-2 focus:ring-2 focus:ring-ring"
+    >
+      {t("a11y.skip")}
+    </a>
+    <Header lang={lang} path={Astro.url.pathname} />
+    <main id="main-content">
+      <slot />
+    </main>
+    <SiteFooter lang={lang} />
+    <WhatsappButton lang={lang} />
+    <ActionBar lang={lang} />
+    <div class="laser-cursor" data-cursor-dot aria-hidden="true">
+      <span></span>
+    </div>
+    <script>
+      import { mountOpenStatus } from "@/lib/open-status"
+
+      // GSAP and the animations load once the first screen has painted, so
+      // they never hold back the hero photo (the LCP): shortly after the page
+      // loads, or at the visitor's first scroll, touch or key if sooner.
+      // Nothing on the first screen needs them, and the failsafe above shows
+      // the reveal blocks anyway
+      const painted = new Promise<void>((resolve) => {
+        const events = [
+          "scroll",
+          "wheel",
+          "pointerdown",
+          "keydown",
+          "touchstart",
+        ]
+        const go = () => {
+          events.forEach((e) => removeEventListener(e, go))
+          resolve()
+        }
+        events.forEach((e) =>
+          addEventListener(e, go, { once: true, passive: true })
+        )
+        const later = () => setTimeout(go, 800)
+        if (document.readyState === "complete") later()
+        else addEventListener("load", later, { once: true })
+      })
+      const animations = painted.then(() => import("@/lib/animations"))
+
+      let cleanups: (() => void)[] = []
+      let visit = 0
+      const stop = () => {
+        visit++
+        cleanups.forEach((fn) => fn())
+        cleanups = []
+      }
+      document.addEventListener("astro:page-load", () => {
+        stop()
+        const current = visit
+        cleanups = [mountOpenStatus()]
+        animations.then(({ initAnimations }) => {
+          // The visitor may have moved on while the module loaded
+          if (current === visit) cleanups.push(initAnimations())
+        })
+      })
+      document.addEventListener("astro:before-swap", stop)
+    </script>
+  </body>
+</html>

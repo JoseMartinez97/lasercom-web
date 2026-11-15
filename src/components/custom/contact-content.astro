@@ -1,0 +1,135 @@
+---
+import type { Lang } from "@/i18n/ui"
+import { useTranslations } from "@/i18n/utils"
+import { Image } from "astro:assets"
+import OpenStatus from "@/components/custom/open-status.astro"
+import { QuoteBuilder } from "@/components/custom/quote-builder"
+import { business, mailHref, telHref, whatsappHref } from "@/lib/business"
+import { photo, serviceIds } from "@/lib/services"
+import { ArrowDown, ArrowUpRight } from "lucide-react"
+
+interface Props {
+  lang: Lang
+}
+const { lang } = Astro.props
+const t = useTranslations(lang)
+const serviceNames = Object.fromEntries(
+  serviceIds.map((id) => [id, t(`svc.${id}.name`)])
+)
+const direct = [
+  {
+    label: t("cta.whatsapp.short"),
+    value: business.phoneDisplay,
+    href: whatsappHref(t("wa.default")),
+    external: true,
+  },
+  {
+    label: t("close.phone"),
+    value: `${business.phoneDisplay} · ${business.landlineDisplay}`,
+    href: telHref,
+  },
+  {
+    label: t("close.email"),
+    value: business.email,
+    href: mailHref(t("quote.subject")),
+  },
+]
+---
+
+<section class="px-5 pt-8 pb-20 md:px-8 lg:pt-12 lg:pb-28">
+  <div class="grid gap-8 border-b border-border pb-8 lg:grid-cols-12 lg:items-end">
+    <div class="flex flex-col gap-5 lg:col-span-7">
+      <h1 class="display text-[clamp(2.4rem,5vw,5rem)]">
+        <span class="engrave" style="--i: 0">
+          <span class="engrave-text">{t("contact.h1")}</span>
+        </span>
+      </h1>
+      <p
+        class="hero-lead max-w-2xl text-base text-muted-foreground sm:text-lg md:text-xl"
+        style="--i: 2"
+      >
+        {t("contact.lead")}
+      </p>
+      <div class="hero-in flex flex-wrap items-center gap-4" style="--i: 3">
+        <OpenStatus lang={lang} class="text-muted-foreground" />
+        <a
+          href="#presupuesto"
+          class="inline-flex min-h-11 items-center gap-2 rounded-full bg-foreground px-5 py-2 text-sm font-semibold text-background md:hidden"
+        >
+          {t("contact.jump.builder")}
+          <ArrowDown className="size-4" aria-hidden />
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-in flex flex-col gap-1 lg:col-span-5" style="--i: 3">
+      <h2 class="readout mb-2 text-muted-foreground">{t("contact.direct")}</h2>
+      {direct.map(({ label, value, href, external }) => (
+        <a
+          href={href}
+          target={external ? "_blank" : undefined}
+          rel={external ? "noopener" : undefined}
+          class="group flex min-h-11 items-baseline justify-between gap-4 border-t border-border py-2.5"
+        >
+          <span class="text-sm text-muted-foreground">{label}</span>
+          <span class="text-right font-semibold group-hover:text-laser-ink">
+            {value}
+          </span>
+        </a>
+      ))}
+    </div>
+  </div>
+
+  <div
+    id="presupuesto"
+    class="hero-in mt-8 scroll-mt-24 rounded-[1.75rem] border border-border bg-card p-5 md:p-8 lg:p-10"
+    style="--i: 2"
+  >
+    <QuoteBuilder client:idle lang={lang} serviceNames={serviceNames} />
+  </div>
+</section>
+
+<section class="steel grid gap-10 px-5 py-24 md:px-8 lg:grid-cols-12 lg:py-32">
+  <div class="relative aspect-[4/5] overflow-hidden rounded-[1.75rem] lg:col-span-5">
+    <Image
+      src={photo("fachada_lasercom")}
+      alt={t("photo.fachada_lasercom")}
+      widths={[480, 800, 1200]}
+      sizes="(min-width: 1024px) 40vw, 100vw"
+      class="absolute inset-0 size-full object-cover"
+    />
+  </div>
+  <div class="reveal flex flex-col justify-center gap-10 lg:col-span-6 lg:col-start-7">
+    <div class="flex flex-col gap-4">
+      <h2 class="display text-[clamp(2.25rem,5vw,4.5rem)]">
+        {t("contact.visit.title")}
+      </h2>
+      <p class="text-lg text-muted-foreground">{t("contact.visit.text")}</p>
+      <address class="text-xl not-italic">
+        {business.street}
+        <br />
+        {business.postalCode} {business.locality} ({business.region})
+      </address>
+      <p class="text-muted-foreground">
+        {t("close.hours.weekdays")}
+        <br />
+        {t("close.hours.friday")}
+      </p>
+      <a
+        href={business.mapsUrl}
+        target="_blank"
+        rel="noopener"
+        class="inline-flex min-h-11 w-fit items-center gap-2 text-lg font-semibold text-laser-ink underline-offset-4 hover:underline"
+      >
+        {t("cta.directions")}
+        <ArrowUpRight className="size-5" />
+      </a>
+    </div>
+    <div class="flex flex-col gap-3 border-t border-border pt-8">
+      <h2 class="text-2xl font-bold tracking-tight">
+        {t("contact.area.title")}
+      </h2>
+      <p class="text-muted-foreground">{t("contact.area.text")}</p>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,45 @@
+---
+import type { Lang } from "@/i18n/ui"
+import { localizePath, useTranslations } from "@/i18n/utils"
+import { telHref, whatsappHref } from "@/lib/business"
+import { FileText, MessageCircle, Phone } from "lucide-react"
+
+// Phones only: the three ways in, always under the thumb. Most jobs here start
+// with a call or a photo on WhatsApp. Larger screens keep the round WhatsApp
+// button (whatsapp-button.astro) and the header's phone and quote button
+interface Props {
+  lang: Lang
+}
+const { lang } = Astro.props
+const t = useTranslations(lang)
+const item =
+  "flex min-h-14 flex-1 flex-col items-center justify-center gap-1 text-xs font-semibold"
+---
+
+<nav
+  aria-label={t("bar.label")}
+  transition:persist={`action-bar-${lang}`}
+  class="hero-in fixed inset-x-0 bottom-0 z-40 flex border-t border-white/10 bg-[oklch(0.2_0.01_60)] pb-[env(safe-area-inset-bottom)] text-white md:hidden"
+  style="--i: 8"
+>
+  <a href={telHref} class={item}>
+    <Phone className="size-5" />
+    {t("bar.call")}
+  </a>
+  <a
+    href={whatsappHref(t("wa.default"))}
+    target="_blank"
+    rel="noopener"
+    class={item}
+  >
+    <MessageCircle className="size-5 text-[#25d366]" />
+    {t("cta.whatsapp.short")}
+  </a>
+  <a
+    href={`${localizePath(lang, "/contacto/")}#presupuesto`}
+    class={`${item} bg-primary text-primary-foreground`}
+  >
+    <FileText className="size-5" />
+    {t("bar.quote")}
+  </a>
+</nav>

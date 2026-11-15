@@ -1,0 +1,216 @@
+---
+import type { Lang } from "@/i18n/ui"
+import { useTranslations } from "@/i18n/utils"
+import { ChevronLeft, ChevronRight, X } from "lucide-react"
+
+interface Props {
+  lang: Lang
+}
+
+const { lang } = Astro.props
+const t = useTranslations(lang)
+---
+
+<dialog
+  data-photo-lightbox
+  aria-label={t("lightbox.open")}
+  class="laser-dialog steel fixed inset-0 z-50 m-0 h-dvh w-screen max-w-none bg-transparent p-4 sm:p-8"
+>
+  <div
+    data-lightbox-frame
+    class="mx-auto flex h-full max-w-5xl flex-col justify-between gap-4 rounded-[1.75rem] border border-white/12 bg-[oklch(0.14_0.008_60)] p-4 text-foreground shadow-2xl sm:p-6"
+  >
+    <div class="flex items-center justify-between gap-4">
+      <p data-lightbox-counter class="readout text-laser-ink">
+        01 / 01
+      </p>
+      <div class="flex items-center gap-2">
+        <button
+          type="button"
+          data-lightbox-prev
+          class="inline-flex size-11 items-center justify-center rounded-full border border-white/15 text-foreground transition-colors hover:border-white/50 disabled:opacity-35"
+          aria-label={t("lightbox.prev")}
+        >
+          <ChevronLeft className="size-5" aria-hidden />
+        </button>
+        <button
+          type="button"
+          data-lightbox-next
+          class="inline-flex size-11 items-center justify-center rounded-full border border-white/15 text-foreground transition-colors hover:border-white/50 disabled:opacity-35"
+          aria-label={t("lightbox.next")}
+        >
+          <ChevronRight className="size-5" aria-hidden />
+        </button>
+        <button
+          type="button"
+          data-lightbox-close
+          class="inline-flex size-11 items-center justify-center rounded-full bg-white/10 text-foreground transition-colors hover:bg-laser hover:text-white"
+          aria-label={t("lightbox.close")}
+        >
+          <X className="size-5" aria-hidden />
+        </button>
+      </div>
+    </div>
+
+    <div class="relative flex min-h-0 flex-1 items-center justify-center overflow-hidden rounded-2xl bg-[#f9f4eb] p-4 sm:p-6">
+      <img
+        data-lightbox-img
+        src=""
+        alt=""
+        class="max-h-full max-w-full rounded-lg object-contain"
+      />
+    </div>
+
+    <p
+      data-lightbox-caption
+      class="text-center text-sm text-muted-foreground sm:text-base"
+    ></p>
+  </div>
+</dialog>
+
+<script>
+  const bestSrc = (img: HTMLImageElement) => {
+    const raw = img.getAttribute("srcset")
+    if (!raw) return img.currentSrc || img.src
+    const parts = raw
+      .split(",")
+      .map((s) => s.trim().split(/\s+/)[0])
+      .filter(Boolean)
+    return parts.at(-1) || img.currentSrc || img.src
+  }
+
+  const setupLightbox = () => {
+    const dialog = document.querySelector<HTMLDialogElement>(
+      "[data-photo-lightbox]"
+    )
+    if (!dialog) return () => {}
+
+    const frame = dialog.querySelector<HTMLElement>("[data-lightbox-frame]")
+    const imgEl = dialog.querySelector<HTMLImageElement>("[data-lightbox-img]")
+    const captionEl = dialog.querySelector<HTMLElement>(
+      "[data-lightbox-caption]"
+    )
+    const counterEl = dialog.querySelector<HTMLElement>(
+      "[data-lightbox-counter]"
+    )
+    const prevBtn = dialog.querySelector<HTMLButtonElement>(
+      "[data-lightbox-prev]"
+    )
+    const nextBtn = dialog.querySelector<HTMLButtonElement>(
+      "[data-lightbox-next]"
+    )
+    const closeBtn = dialog.querySelector<HTMLButtonElement>(
+      "[data-lightbox-close]"
+    )
+
+    const triggers = [
+      ...document.querySelectorAll<HTMLButtonElement>(
+        "[data-lightbox-trigger]"
+      ),
+    ]
+    if (!imgEl || triggers.length === 0) return () => {}
+
+    let groupItems: { src: string; alt: string }[] = []
+    let index = 0
+    let lastTrigger: HTMLElement | null = null
+
+    const render = () => {
+      const item = groupItems[index]
+      if (!item) return
+      imgEl.src = item.src
+      imgEl.alt = item.alt
+      if (captionEl) captionEl.textContent = item.alt
+      if (counterEl) {
+        counterEl.textContent = `${String(index + 1).padStart(2, "0")} / ${String(
+          groupItems.length
+        ).padStart(2, "0")}`
+      }
+      if (prevBtn) prevBtn.disabled = groupItems.length <= 1
+      if (nextBtn) nextBtn.disabled = groupItems.length <= 1
+    }
+
+    const openAt = (trigger: HTMLButtonElement) => {
+      const group = trigger.dataset.lightboxGroup ?? ""
+      const members = triggers.filter(
+        (btn) => (btn.dataset.lightboxGroup ?? "") === group
+      )
+      groupItems = members
+        .map((btn) => {
+          const img = btn.querySelector("img")
+          return img ? { src: bestSrc(img), alt: img.alt || "" } : null
+        })
+        .filter((x): x is { src: string; alt: string } => x !== null)
+
+      if (groupItems.length === 0) return
+      index = Math.max(0, members.indexOf(trigger))
+      lastTrigger = trigger
+      render()
+      if (!dialog.open) dialog.showModal()
+      closeBtn?.focus()
+    }
+
+    const closeModal = () => {
+      if (dialog.open) dialog.close()
+    }
+
+    const step = (delta: number) => {
+      if (groupItems.length <= 1) return
+      index = (index + delta + groupItems.length) % groupItems.length
+      render()
+    }
+
+    const onTriggerClick = (e: Event) => {
+      openAt(e.currentTarget as HTMLButtonElement)
+    }
+    const onPrev = () => step(-1)
+    const onNext = () => step(1)
+    const onBackdropClick = (e: MouseEvent) => {
+      if (frame && !frame.contains(e.target as Node)) closeModal()
+    }
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (!dialog.open) return
+      if (e.key === "ArrowLeft") {
+        e.preventDefault()
+        step(-1)
+      } else if (e.key === "ArrowRight") {
+        e.preventDefault()
+        step(1)
+      }
+    }
+    const onClose = () => {
+      lastTrigger?.focus()
+      lastTrigger = null
+    }
+
+    triggers.forEach((btn) => btn.addEventListener("click", onTriggerClick))
+    prevBtn?.addEventListener("click", onPrev)
+    nextBtn?.addEventListener("click", onNext)
+    closeBtn?.addEventListener("click", closeModal)
+    dialog.addEventListener("click", onBackdropClick)
+    dialog.addEventListener("close", onClose)
+    document.addEventListener("keydown", onKeyDown)
+
+    return () => {
+      triggers.forEach((btn) =>
+        btn.removeEventListener("click", onTriggerClick)
+      )
+      prevBtn?.removeEventListener("click", onPrev)
+      nextBtn?.removeEventListener("click", onNext)
+      closeBtn?.removeEventListener("click", closeModal)
+      dialog.removeEventListener("click", onBackdropClick)
+      dialog.removeEventListener("close", onClose)
+      document.removeEventListener("keydown", onKeyDown)
+      if (dialog.open) dialog.close()
+    }
+  }
+
+  let cleanupLightbox: (() => void) | undefined
+  document.addEventListener("astro:page-load", () => {
+    cleanupLightbox?.()
+    cleanupLightbox = setupLightbox()
+  })
+  document.addEventListener("astro:before-swap", () => {
+    cleanupLightbox?.()
+    cleanupLightbox = undefined
+  })
+</script>

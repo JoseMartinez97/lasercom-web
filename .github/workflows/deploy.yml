@@ -1,0 +1,79 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: package.json
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
+      - run: pnpm format:check
+      - run: pnpm typecheck
+      # Builds dist/ and checks it: pages, SEO rules, links and redirects
+      - run: pnpm test
+      # Speed, accessibility and SEO on mobile, against lighthouserc.json;
+      # a page under budget stops the publish
+      - run: pnpm lighthouse
+      - if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: lighthouse
+          path: .lighthouseci
+          if-no-files-found: ignore
+
+  build:
+    needs: check
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout your repository using git
+        uses: actions/checkout@v7
+      - name: Install, build, and upload your site
+        uses: withastro/action@v6
+      # Which pages changed against the live site, before it's replaced
+      - name: Pages to announce to search engines
+        run: node scripts/indexnow.mjs diff
+      - uses: actions/upload-artifact@v7
+        with:
+          name: indexnow
+          path: indexnow-changed.json
+
+  deploy:
+    needs: build
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
+      # IndexNow (Bing, Yandex…): recrawl the changed pages now. Waits until
+      # the new version is live and does nothing while the domain still
+      # serves another site; a refusal never undoes the publish
+      - uses: actions/checkout@v7
+        with:
+          sparse-checkout: scripts
+      - uses: actions/download-artifact@v8
+        with:
+          name: indexnow
+      - name: Announce changed pages to search engines
+        continue-on-error: true
+        run: node scripts/indexnow.mjs submit

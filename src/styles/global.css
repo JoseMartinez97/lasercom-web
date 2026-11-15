@@ -1,0 +1,532 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/archivo/wdth.css";
+@import "@fontsource-variable/jetbrains-mono";
+
+@theme inline {
+  --font-sans: "Archivo Variable", system-ui, sans-serif;
+  --font-heading: "Archivo Variable", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
+  --color-laser: var(--laser);
+  --color-laser-ink: var(--laser-ink);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+}
+
+/* Plywood: the page is a warm birch board, the type is burnt into it. Photos
+   shot on white are multiplied in (.cutout), so only the object remains */
+:root {
+  color-scheme: light;
+  --background: oklch(0.955 0.014 78);
+  --foreground: oklch(0.2 0.012 55);
+  --card: oklch(0.985 0.008 80);
+  --card-foreground: oklch(0.2 0.012 55);
+  --popover: oklch(0.985 0.008 80);
+  --popover-foreground: oklch(0.2 0.012 55);
+  /* The laser: one hue for the beam, the call to action and nothing else */
+  --laser: oklch(0.64 0.23 33);
+  /* The laser as text or fill under white text: 4.5:1 or more */
+  --laser-ink: oklch(0.51 0.2 32);
+  --primary: var(--laser-ink);
+  --primary-foreground: oklch(0.99 0.004 80);
+  --secondary: oklch(0.91 0.018 76);
+  --secondary-foreground: oklch(0.2 0.012 55);
+  --muted: oklch(0.91 0.018 76);
+  --muted-foreground: oklch(0.45 0.02 60);
+  --accent: oklch(0.91 0.018 76);
+  --accent-foreground: oklch(0.2 0.012 55);
+  --destructive: oklch(0.55 0.22 27);
+  --border: oklch(0.2 0.012 55 / 14%);
+  --input: oklch(0.2 0.012 55 / 22%);
+  --ring: var(--laser);
+  --radius: 0.5rem;
+}
+
+/* Steel: the machine's bed. Sections that need drama (hero, materials,
+   closing panel) switch the tokens, and every utility follows */
+.steel {
+  color-scheme: dark;
+  --background: oklch(0.175 0.006 255);
+  --foreground: oklch(0.965 0.008 80);
+  --card: oklch(0.22 0.007 255);
+  --card-foreground: oklch(0.965 0.008 80);
+  --popover: oklch(0.22 0.007 255);
+  --popover-foreground: oklch(0.965 0.008 80);
+  --laser-ink: oklch(0.7 0.2 36);
+  --primary: oklch(0.56 0.22 33);
+  --primary-foreground: oklch(0.99 0.004 80);
+  --secondary: oklch(0.27 0.008 255);
+  --secondary-foreground: oklch(0.965 0.008 80);
+  --muted: oklch(0.27 0.008 255);
+  --muted-foreground: oklch(0.74 0.012 255);
+  --accent: oklch(0.27 0.008 255);
+  --accent-foreground: oklch(0.965 0.008 80);
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 18%);
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/60;
+  }
+  html {
+    @apply font-sans;
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    @apply bg-background text-foreground;
+    overflow-wrap: break-word;
+    /* Edge-to-edge sections are 100vw. clip, not hidden: hidden would break
+       position: sticky */
+    overflow-x: clip;
+  }
+  a,
+  button,
+  [role="radio"],
+  label {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+  ::selection {
+    background: var(--laser);
+    color: white;
+  }
+}
+
+/* Wide, heavy and tight: the voice of the wordmark */
+@utility display {
+  font-family: var(--font-heading);
+  font-stretch: 125%;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 0.95;
+  /* Break long words with a hyphen, never mid-word without one */
+  overflow-wrap: normal;
+  hyphens: auto;
+}
+/* Machine readouts: small mono labels, the only uppercase on the site */
+@utility readout {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.4;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+@utility cutout {
+  mix-blend-mode: multiply;
+}
+
+/* Page entrance, in CSS so it starts on first paint. Elements stagger by --i */
+@media (prefers-reduced-motion: no-preference) {
+  html:not(.vt-ready) .header-in {
+    animation: header-in 0.5s cubic-bezier(0.215, 0.61, 0.355, 1) backwards;
+  }
+  .hero-in {
+    animation: hero-in 0.65s cubic-bezier(0.215, 0.61, 0.355, 1) backwards;
+    animation-delay: calc(var(--i, 0) * 0.05s);
+  }
+  /* The hero's lead paragraph is usually the largest thing on a phone's first
+     screen: it only rises, never starts invisible, so it paints at once */
+  .hero-lead {
+    animation: hero-rise 0.65s cubic-bezier(0.215, 0.61, 0.355, 1) backwards;
+  }
+  /* Hidden from first paint so GSAP's reveal (src/lib/animations.ts) brings
+     them in instead of moving blocks that are already showing */
+  .js .reveal > :not([data-stagger]),
+  .js [data-stagger] > * {
+    opacity: 0;
+  }
+}
+@keyframes header-in {
+  from {
+    transform: translateY(-100%);
+  }
+}
+@keyframes hero-rise {
+  from {
+    transform: translateY(14px);
+  }
+}
+@keyframes hero-in {
+  from {
+    transform: translateY(14px);
+  }
+}
+
+/* The engraving: a beam crosses each line and leaves the letters behind it,
+   glowing hot and cooling to the ink colour. Lines run one after the other
+   (--i). Without motion, the text is simply there */
+.engrave {
+  position: relative;
+  display: block;
+  width: fit-content;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .engrave {
+    --start: calc(0.3s + var(--i, 0) * 0.62s);
+  }
+  .engrave-text {
+    display: inline-block;
+    animation:
+      engrave-cut 0.62s cubic-bezier(0.45, 0, 0.55, 1) var(--start) both,
+      engrave-cool 1.6s ease-out var(--start) both;
+  }
+  .engrave::after {
+    content: "";
+    position: absolute;
+    top: 6%;
+    bottom: 10%;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(
+      90deg,
+      oklch(0.98 0.03 80) 0px,
+      var(--laser) 3px,
+      transparent 4px
+    );
+    filter: drop-shadow(0 0 8px var(--laser));
+    opacity: 0;
+    will-change: transform, opacity;
+    animation: engrave-beam 0.62s cubic-bezier(0.45, 0, 0.55, 1) var(--start)
+      both;
+    pointer-events: none;
+  }
+}
+@keyframes engrave-cut {
+  from {
+    clip-path: inset(-20% 100% -20% 0);
+  }
+  to {
+    clip-path: inset(-20% 0 -20% 0);
+  }
+}
+@keyframes engrave-cool {
+  from {
+    color: oklch(0.85 0.17 60);
+    text-shadow:
+      0 0 18px var(--laser),
+      0 0 2px oklch(0.95 0.1 70);
+  }
+  to {
+    text-shadow: 0 0 0 transparent;
+  }
+}
+@keyframes engrave-beam {
+  0% {
+    transform: translateX(0%);
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  92% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+/* The laser head's dot: pulses gently where a cut is happening */
+@media (prefers-reduced-motion: no-preference) {
+  .beam-dot {
+    animation: beam-dot 1.4s ease-in-out infinite;
+  }
+}
+@keyframes beam-dot {
+  50% {
+    opacity: 0.55;
+    transform: scale(0.8);
+  }
+}
+
+/* Moving between pages: the old page sinks out of focus while the new one
+   opens over it as a growing circle, the spot of the beam widening */
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root) {
+    animation: page-sink 0.7s cubic-bezier(0.76, 0, 0.24, 1) both;
+  }
+  ::view-transition-new(root) {
+    animation: page-spot 0.8s cubic-bezier(0.76, 0, 0.24, 1) both;
+  }
+}
+@keyframes page-sink {
+  to {
+    scale: 0.95;
+    opacity: 0.3;
+    filter: blur(6px);
+  }
+}
+@keyframes page-spot {
+  from {
+    clip-path: circle(0% at 50% 50%);
+  }
+  to {
+    clip-path: circle(75% at 50% 50%);
+  }
+}
+
+/* The pointer as the beam (initPointer): a laser dot that grows into a
+   label over links with data-cursor. Fine pointers only */
+.laser-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 90;
+  display: grid;
+  place-items: center;
+  width: 10px;
+  height: 10px;
+  margin: -5px 0 0 -5px;
+  border-radius: 9999px;
+  background: var(--laser);
+  box-shadow: 0 0 12px 2px color-mix(in oklab, var(--laser) 60%, transparent);
+  pointer-events: none;
+  opacity: 0;
+  transition:
+    width 0.35s cubic-bezier(0.2, 0.7, 0.1, 1),
+    height 0.35s cubic-bezier(0.2, 0.7, 0.1, 1),
+    margin 0.35s cubic-bezier(0.2, 0.7, 0.1, 1),
+    opacity 0.3s ease-out;
+}
+.laser-cursor[data-on] {
+  opacity: 1;
+}
+.laser-cursor[data-big] {
+  width: 96px;
+  height: 96px;
+  margin: -48px 0 0 -48px;
+}
+.laser-cursor span {
+  font: 600 0.75rem/1.1 var(--font-sans);
+  color: white;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.2s ease-out;
+}
+.laser-cursor[data-big] span {
+  opacity: 1;
+  transition-delay: 0.12s;
+}
+@media not ((hover: hover) and (pointer: fine)) {
+  .laser-cursor {
+    display: none;
+  }
+}
+
+/* The work index: one photo at a time follows the row in use. Colour means
+   "this one, now": the other rows step back to a muted ink */
+.work-shot {
+  opacity: 0;
+  transform: scale(1.04);
+  transition:
+    opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.work-shot[data-active] {
+  opacity: 1;
+  transform: scale(1);
+}
+[data-work-list]:has(> li[data-on]) > li:not([data-on]) {
+  opacity: 0.55;
+}
+[data-work-list] > li[data-on] h3 {
+  color: var(--laser-ink);
+}
+[data-work-list] h3 {
+  transition:
+    color 0.4s ease-out,
+    translate 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Legal texts rendered from Markdown */
+.prose-legal {
+  max-width: 46rem;
+  color: var(--muted-foreground);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+.prose-legal h2 {
+  margin: 2.5rem 0 0.75rem;
+  color: var(--foreground);
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+.prose-legal p,
+.prose-legal ul {
+  margin-bottom: 1rem;
+}
+.prose-legal ul {
+  padding-left: 1.25rem;
+  list-style: disc;
+}
+.prose-legal a {
+  color: var(--laser-ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Guide bodies rendered from Markdown: a comfortable reading column */
+.prose-guide {
+  max-width: 44rem;
+  font-size: 1.125rem;
+  line-height: 1.75;
+  color: color-mix(in oklab, var(--foreground) 82%, transparent);
+}
+.prose-guide > * + * {
+  margin-top: 1.25rem;
+}
+.prose-guide h2 {
+  margin-top: 3.5rem;
+  color: var(--foreground);
+  font-size: clamp(1.6rem, 2.6vw, 2.25rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+.prose-guide h2 + * {
+  margin-top: 1rem;
+}
+.prose-guide strong {
+  color: var(--foreground);
+  font-weight: 700;
+}
+.prose-guide ul,
+.prose-guide ol {
+  display: grid;
+  gap: 0.6rem;
+  padding-left: 1.4rem;
+}
+.prose-guide ul {
+  list-style: none;
+}
+.prose-guide ul > li {
+  position: relative;
+}
+.prose-guide ul > li::before {
+  content: "";
+  position: absolute;
+  top: 0.7em;
+  left: -1.2rem;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 9999px;
+  background: var(--laser);
+}
+.prose-guide ol {
+  list-style: decimal-leading-zero;
+}
+.prose-guide ol > li::marker {
+  color: var(--laser-ink);
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+}
+.prose-guide a {
+  color: var(--laser-ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+.prose-guide a:hover {
+  text-decoration-thickness: 2px;
+}
+
+/* The hero's mark, cut out by the beam after the title is engraved: the
+   outline is drawn, the dot rides its edge (SMIL), then the faces fill in */
+@media (prefers-reduced-motion: no-preference) {
+  .mark-cut {
+    stroke-dasharray: 1;
+    animation: mark-cut 1.8s linear 0.6s both;
+  }
+  .mark-face {
+    animation: mark-face 0.9s ease-out 2.3s both;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .beam-follow {
+    display: none;
+  }
+}
+@keyframes mark-cut {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes mark-face {
+  from {
+    opacity: 0;
+  }
+}
+
+/* The machine bed: a faint grid of points under the steel sections */
+.bed {
+  background-image: radial-gradient(
+    color-mix(in oklab, var(--foreground) 16%, transparent) 1px,
+    transparent 1.5px
+  );
+  background-size: 22px 22px;
+  mask-image: linear-gradient(to bottom, black, transparent 85%);
+}
+
+/* Native dialogs: mobile navigation drawer & workshop photo lightbox */
+dialog.laser-dialog {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  max-width: 100vw;
+  max-height: 100dvh;
+  background: transparent;
+  color: var(--foreground);
+}
+dialog.laser-dialog::backdrop {
+  background: oklch(0.12 0.008 60 / 0.8);
+  backdrop-filter: blur(8px);
+}
+@media (prefers-reduced-motion: no-preference) {
+  dialog.laser-dialog[open] {
+    animation: dialog-in 0.25s cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+}
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}

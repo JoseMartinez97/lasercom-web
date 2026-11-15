@@ -1,0 +1,271 @@
+---
+import type { Lang } from "@/i18n/ui"
+import { localizePath, useTranslations } from "@/i18n/utils"
+import { buttonVariants } from "@/components/ui/button"
+import CloseSection from "@/components/custom/close-section.astro"
+import FaqSection from "@/components/custom/faq-section.astro"
+import GuideCards from "@/components/custom/guide-cards.astro"
+import PhotoLightbox from "@/components/custom/photo-lightbox.astro"
+import WorkPhoto from "@/components/custom/work-photo.astro"
+import { whatsappHref } from "@/lib/business"
+import { guideIds, guides, type GuideId } from "@/lib/guides"
+import { services, type ServiceId } from "@/lib/services"
+import { cn } from "@/lib/utils"
+import { ArrowRight, ArrowUpRight, ZoomIn } from "lucide-react"
+
+interface Props {
+  lang: Lang
+  id: ServiceId
+}
+const { lang, id } = Astro.props
+const t = useTranslations(lang)
+const service = services[id]
+const serviceHref = (s: ServiceId) =>
+  lang === "en" ? services[s].en : services[s].es
+const [lead, ...gallery] = service.photos
+const points = [1, 2, 3, 4] as const
+const faqs = ([1, 2, 3] as const).map((n) => ({
+  q: t(`svc.${id}.faq.${n}.q`),
+  a: t(`svc.${id}.faq.${n}.a`),
+}))
+const message = `${t("svc.common.wa")} ${t(`svc.${id}.name`).toLowerCase()}.`
+
+// Prioritise guides tagged with this service, padded up to 3 for a clean grid
+const matchedGuides = guideIds.filter((g) => guides[g].services.includes(id))
+const relatedGuideIds: GuideId[] = [
+  ...matchedGuides,
+  ...guideIds.filter((g) => !matchedGuides.includes(g)),
+].slice(0, 3)
+---
+
+<section class="grid gap-10 px-5 pt-8 pb-16 md:px-8 lg:grid-cols-12 lg:pt-12 lg:pb-24">
+  <div class="flex flex-col gap-8 lg:col-span-7">
+    <nav
+      aria-label={t("a11y.breadcrumb")}
+      class="hero-in text-sm text-muted-foreground"
+      style="--i: 0"
+    >
+      <ol class="flex flex-wrap items-center gap-2">
+        <li>
+          <a
+            href={localizePath(lang, "/")}
+            class="-my-3 inline-block py-3 hover:text-foreground"
+          >
+            {t("crumb.home")}
+          </a>
+        </li>
+        <li aria-hidden="true">/</li>
+        <li aria-current="page" class="text-foreground">
+          {t(`svc.${id}.name`)}
+        </li>
+      </ol>
+    </nav>
+    <p
+      class="readout hero-in flex items-center gap-3 text-muted-foreground"
+      style="--i: 1"
+    >
+      <span class="beam-dot inline-block size-2 rounded-full bg-laser"></span>
+      {t("svc.common.label")}
+    </p>
+    <h1 class="display text-[clamp(2.4rem,6.2vw,6.25rem)] [font-stretch:110%] sm:[font-stretch:125%]">
+      <span class="engrave" style="--i: 0">
+        <span class="engrave-text">{t(`svc.${id}.h1`)}</span>
+      </span>
+    </h1>
+    <p
+      class="hero-lead max-w-2xl text-lg text-muted-foreground md:text-xl"
+      style="--i: 3"
+    >
+      {t(`svc.${id}.lead`)}
+    </p>
+    <div class="hero-in flex flex-col gap-3 sm:flex-row" style="--i: 4">
+      <a
+        href={`${localizePath(lang, "/contacto/")}?servicio=${id}#presupuesto`}
+        class={buttonVariants({
+          size: "lg",
+          className: "h-14 rounded-full px-7 text-base",
+        })}
+      >
+        {t("cta.quote")}
+        <ArrowRight className="size-5" />
+      </a>
+      <a
+        href={whatsappHref(message)}
+        target="_blank"
+        rel="noopener"
+        class={buttonVariants({
+          variant: "outline",
+          size: "lg",
+          className: "h-14 rounded-full bg-transparent px-7 text-base",
+        })}
+      >
+        {t("cta.whatsapp")}
+        <ArrowUpRight className="size-5" />
+      </a>
+    </div>
+  </div>
+  <div class="hero-in lg:col-span-5" style="--i: 2">
+    <button
+      type="button"
+      data-lightbox-trigger
+      data-lightbox-group={`svc-${id}`}
+      aria-label={t("lightbox.open")}
+      class="group relative block aspect-[4/5] w-full overflow-hidden rounded-[1.75rem] border border-border/75 bg-[#f9f4eb] lg:aspect-[5/6]"
+    >
+      <WorkPhoto
+        lang={lang}
+        name={lead}
+        loading="eager"
+        sizes="(min-width: 1024px) 40vw, 100vw"
+        data-parallax=""
+        class="absolute inset-0 size-full transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+      />
+      <span
+        aria-hidden="true"
+        class="absolute right-4 bottom-4 inline-flex size-10 items-center justify-center rounded-full bg-background/85 text-foreground shadow-sm backdrop-blur-sm transition-transform group-hover:scale-105"
+      >
+        <ZoomIn className="size-4" />
+      </span>
+    </button>
+  </div>
+</section>
+
+<section class="reveal grid gap-8 border-t border-border px-5 py-20 md:px-8 lg:grid-cols-12 lg:py-28">
+  <p class="text-xl leading-relaxed md:text-2xl lg:col-span-7">
+    {t(`svc.${id}.intro`)}
+  </p>
+  <p class="text-muted-foreground md:text-lg lg:col-span-5 lg:pt-1.5">
+    {t(`svc.${id}.body`)}
+  </p>
+</section>
+
+<section class="steel px-5 py-24 md:px-8 lg:py-32">
+  <h2 class="display mb-12 text-[clamp(2.5rem,6vw,5.5rem)]" data-title-chars>
+    {t(`svc.${id}.points`)}
+  </h2>
+  <ol data-rows class="grid lg:grid-cols-2 lg:gap-x-10">
+    {points.map((n) => (
+      <li data-row class="relative grid grid-cols-[3rem_1fr] gap-4 py-8">
+        <span
+          data-row-line
+          class="absolute inset-x-0 top-0 h-px origin-left bg-border"
+        />
+        <span data-row-cell class="readout pt-2 text-laser-ink">
+          {String(n).padStart(2, "0")}
+        </span>
+        <div class="flex flex-col gap-2">
+          <h3 data-row-cell class="text-2xl font-bold tracking-tight">
+            {t(`svc.${id}.p${n}.t`)}
+          </h3>
+          <p data-row-cell class="text-muted-foreground md:text-lg">
+            {t(`svc.${id}.p${n}.d`)}
+          </p>
+        </div>
+      </li>
+    ))}
+  </ol>
+</section>
+
+<section class="px-5 py-24 md:px-8 lg:py-32">
+  <h2 class="display mb-10 text-[clamp(2.5rem,6vw,5.5rem)]" data-title-chars>
+    {t("svc.common.uses")}
+  </h2>
+  <ul class="flex flex-wrap gap-3" data-stagger>
+    {t(`svc.${id}.uses`)
+      .split(" · ")
+      .map((use) => (
+        <li class="rounded-full border border-foreground/25 px-5 py-2.5 text-lg md:text-xl">
+          {use}
+        </li>
+      ))}
+  </ul>
+</section>
+
+{gallery.length > 0 && (
+  <section class="px-5 pb-24 md:px-8 lg:pb-32">
+    <div class="mb-6 flex items-center justify-between gap-4">
+      <h2 class="readout text-muted-foreground">{t("svc.common.gallery")}</h2>
+      <span class="readout text-muted-foreground">{t("lightbox.open")}</span>
+    </div>
+    <ul class="grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-4">
+      {gallery.map((name, i) => (
+        <li
+          data-wipe
+          class={cn(
+            "relative overflow-hidden rounded-2xl border border-border/75 bg-[#f9f4eb]",
+            i === 0 ? "col-span-2 row-span-2 aspect-square" : "aspect-square"
+          )}
+        >
+          <button
+            type="button"
+            data-lightbox-trigger
+            data-lightbox-group={`svc-${id}`}
+            aria-label={t("lightbox.open")}
+            class="group relative block size-full"
+          >
+            <WorkPhoto
+              lang={lang}
+              name={name}
+              sizes={
+                i === 0
+                  ? "(min-width: 1024px) 50vw, 100vw"
+                  : "(min-width: 1024px) 25vw, 50vw"
+              }
+              class="absolute inset-0 size-full transition-transform duration-700 ease-out group-hover:scale-105"
+            />
+            <span
+              aria-hidden="true"
+              class="absolute right-3 bottom-3 inline-flex size-9 items-center justify-center rounded-full bg-background/85 text-foreground opacity-0 shadow-sm backdrop-blur-sm transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100"
+            >
+              <ZoomIn className="size-4" />
+            </span>
+          </button>
+        </li>
+      ))}
+    </ul>
+  </section>
+)}
+
+<section class="border-t border-border px-5 py-20 md:px-8 lg:py-24">
+  <div class="reveal mb-10 flex flex-wrap items-end justify-between gap-4">
+    <div>
+      <h2 class="text-2xl font-bold tracking-tight md:text-3xl">
+        {t("svc.common.guides")}
+      </h2>
+      <p class="mt-2 max-w-2xl text-muted-foreground">
+        {t("svc.common.guides.lead")}
+      </p>
+    </div>
+  </div>
+  <GuideCards lang={lang} ids={relatedGuideIds} />
+</section>
+
+<div class="border-t border-border">
+  <FaqSection title={t("svc.common.faq")} faqs={faqs} />
+</div>
+
+<section class="px-5 pb-24 md:px-8 lg:pb-32">
+  <h2 class="readout mb-6 text-muted-foreground">{t("svc.common.related")}</h2>
+  <ul class="grid gap-4 md:grid-cols-3" data-stagger>
+    {service.related.map((r) => (
+      <li>
+        <a
+          href={serviceHref(r)}
+          data-cursor={t("cursor.service")}
+          class="group flex h-full flex-col justify-between gap-10 rounded-2xl border border-border bg-card p-6 transition-colors hover:border-foreground hover:bg-foreground hover:text-background"
+        >
+          <span class="flex flex-col gap-2">
+            <span class="text-2xl font-bold tracking-tight">
+              {t(`svc.${r}.name`)}
+            </span>
+            <span class="opacity-75">{t(`svc.${r}.card`)}</span>
+          </span>
+          <ArrowRight className="size-5 text-laser-ink transition-transform group-hover:translate-x-1 group-hover:text-laser" />
+        </a>
+      </li>
+    ))}
+  </ul>
+</section>
+
+<CloseSection lang={lang} message={message} />
+<PhotoLightbox lang={lang} />

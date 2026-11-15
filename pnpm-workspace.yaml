@@ -1,0 +1,14 @@
+packages: []
+
+allowBuilds:
+  esbuild: true
+  sharp: true
+  msw: false
+
+
+
+
+# Patched transitive deps (audit): source-map-js DoS, esbuild file read
+overrides:
+  source-map-js: ">=1.2.2"
+  esbuild: ">=0.28.1"

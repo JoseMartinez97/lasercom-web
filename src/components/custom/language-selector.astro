@@ -1,0 +1,31 @@
+---
+import { toggleVariants } from "@/components/ui/toggle"
+import { languages, type Lang } from "@/i18n/ui"
+import { getAlternatePath, localizePath } from "@/i18n/utils"
+import { cn } from "@/lib/utils"
+
+interface Props {
+  currentLang: Lang
+  path: string
+}
+
+const { currentLang, path } = Astro.props
+---
+
+<div class="flex w-fit rounded-2xl">
+  {(Object.entries(languages) as [Lang, string][]).map(([code, label]) => (
+    <a
+      href={getAlternatePath(path, code) ?? localizePath(code, "/")}
+      hreflang={code}
+      lang={code}
+      aria-label={`${code.toUpperCase()} – ${label}`}
+      aria-current={code === currentLang ? "page" : undefined}
+      class={cn(
+        toggleVariants({ variant: "outline", size: "sm" }),
+        "relative rounded-none px-2.5 font-mono text-xs no-underline not-first:border-l-0 after:absolute after:inset-x-0 after:-inset-y-2 first:rounded-l-2xl last:rounded-r-2xl focus-visible:z-10 aria-[current=page]:bg-muted"
+      )}
+    >
+      {code.toUpperCase()}
+    </a>
+  ))}
+</div>

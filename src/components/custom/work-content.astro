@@ -1,0 +1,260 @@
+---
+import type { Lang } from "@/i18n/ui"
+import { localizePath, useTranslations } from "@/i18n/utils"
+import CloseSection from "@/components/custom/close-section.astro"
+import PhotoLightbox from "@/components/custom/photo-lightbox.astro"
+import WorkPhoto from "@/components/custom/work-photo.astro"
+import { services } from "@/lib/services"
+import { work, type WorkFilter } from "@/lib/work"
+import { cn } from "@/lib/utils"
+import { ArrowRight, ZoomIn } from "lucide-react"
+
+interface Props {
+  lang: Lang
+}
+const { lang } = Astro.props
+const t = useTranslations(lang)
+const href = (es: string) => localizePath(lang, es)
+
+type FilterKey = "all" | WorkFilter
+
+const filters: FilterKey[] = [
+  "all",
+  "business",
+  "wood",
+  "acrylic_glass",
+  "metal",
+  "leather",
+]
+---
+
+<section class="flex flex-col gap-8 px-5 pt-10 pb-12 md:px-8 lg:pt-16 lg:pb-16">
+  <h1 class="display text-[clamp(3rem,10vw,10rem)]">
+    <span class="engrave" style="--i: 0">
+      <span class="engrave-text">{t("work.h1")}</span>
+    </span>
+  </h1>
+  <p
+    class="hero-lead max-w-2xl text-lg text-muted-foreground md:text-xl"
+    style="--i: 2"
+  >
+    {t("work.lead")}
+  </p>
+
+  <div
+    data-work-filters
+    class="hero-in flex flex-wrap items-center justify-between gap-4 border-t border-border pt-6"
+    style="--i: 3"
+  >
+    <div
+      role="group"
+      aria-label={t("work.filter.label")}
+      class="flex flex-wrap gap-2"
+    >
+      {filters.map((key, i) => (
+        <button
+          type="button"
+          data-work-filter={key}
+          aria-pressed={i === 0 ? "true" : "false"}
+          class="min-h-11 rounded-full border border-border px-4 py-2 text-sm font-semibold transition-colors hover:border-foreground aria-[pressed=true]:border-foreground aria-[pressed=true]:bg-foreground aria-[pressed=true]:text-background"
+        >
+          {t(`work.filter.${key}`)}
+        </button>
+      ))}
+    </div>
+    <p
+      data-work-count
+      data-template={t("work.count.shown")}
+      class="readout text-muted-foreground"
+    >
+      {t("work.count.shown").replace("{n}", String(work.length))}
+    </p>
+  </div>
+</section>
+
+<ol data-work-items class="flex flex-col">
+  {work.map((item, i) => {
+    const [first, ...rest] = item.photos
+    const service = services[item.service]
+    const cats = item.filters
+    return (
+      <li
+        id={item.slug}
+        data-work-item
+        data-cats={cats.join(" ")}
+        class="reveal grid scroll-mt-24 gap-8 border-t border-border px-5 py-14 md:px-8 lg:grid-cols-12 lg:py-20"
+      >
+        <div
+          class={cn(
+            "flex flex-col gap-4 lg:col-span-4",
+            i % 2 === 1 && "lg:order-2"
+          )}
+        >
+          <span class="readout text-laser-ink">
+            {String(i + 1).padStart(2, "0")}
+          </span>
+          <span class="readout text-muted-foreground">
+            {t(`work.${item.slug}.type`)}
+          </span>
+          <h2 class="text-[clamp(1.75rem,3.4vw,3rem)] leading-tight font-bold tracking-tight">
+            {t(`work.${item.slug}.name`)}
+          </h2>
+          <p class="max-w-md text-muted-foreground md:text-lg">
+            {t(`work.${item.slug}.text`)}
+          </p>
+          <div class="mt-2 flex flex-wrap items-center gap-3">
+            <a
+              href={`${href("/contacto/")}?servicio=${item.service}#presupuesto`}
+              class="inline-flex min-h-11 items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-sm font-semibold text-background transition-opacity hover:opacity-90"
+            >
+              {t("work.ask.similar")}
+              <ArrowRight className="size-4" aria-hidden />
+            </a>
+            <a
+              href={lang === "en" ? service.en : service.es}
+              class="group inline-flex min-h-11 items-center gap-1.5 px-2 font-semibold text-foreground/85 hover:text-laser-ink"
+            >
+              {t(`svc.${item.service}.name`)}
+              <ArrowRight className="size-4 text-laser-ink transition-transform group-hover:translate-x-1" />
+            </a>
+          </div>
+        </div>
+        <div
+          class={cn(
+            "grid gap-3 lg:col-span-8",
+            rest.length > 0 ? "grid-cols-2 md:grid-cols-3" : "grid-cols-1"
+          )}
+        >
+          <div
+            data-wipe
+            class={cn(
+              "relative overflow-hidden rounded-2xl border border-border/75 bg-[#f9f4eb]",
+              rest.length > 0
+                ? "col-span-2 row-span-2 aspect-square md:aspect-auto"
+                : "aspect-[16/10]"
+            )}
+          >
+            <button
+              type="button"
+              data-lightbox-trigger
+              data-lightbox-group={`work-${item.slug}`}
+              aria-label={t("lightbox.open")}
+              class="group relative block size-full"
+            >
+              <WorkPhoto
+                lang={lang}
+                name={first}
+                sizes="(min-width: 1024px) 45vw, 100vw"
+                class="absolute inset-0 size-full transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+              />
+              <span
+                aria-hidden="true"
+                class="absolute right-3 bottom-3 inline-flex size-9 items-center justify-center rounded-full bg-background/85 text-foreground opacity-0 shadow-sm backdrop-blur-sm transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100"
+              >
+                <ZoomIn className="size-4" />
+              </span>
+            </button>
+          </div>
+          {rest.slice(0, 2).map((name) => (
+            <div
+              data-wipe
+              class="relative aspect-square overflow-hidden rounded-2xl border border-border/75 bg-[#f9f4eb]"
+            >
+              <button
+                type="button"
+                data-lightbox-trigger
+                data-lightbox-group={`work-${item.slug}`}
+                aria-label={t("lightbox.open")}
+                class="group relative block size-full"
+              >
+                <WorkPhoto
+                  lang={lang}
+                  name={name}
+                  sizes="(min-width: 1024px) 22vw, 50vw"
+                  class="absolute inset-0 size-full transition-transform duration-700 ease-out group-hover:scale-105"
+                />
+                <span
+                  aria-hidden="true"
+                  class="absolute right-3 bottom-3 inline-flex size-9 items-center justify-center rounded-full bg-background/85 text-foreground opacity-0 shadow-sm backdrop-blur-sm transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100"
+                >
+                  <ZoomIn className="size-4" />
+                </span>
+              </button>
+            </div>
+          ))}
+        </div>
+      </li>
+    )
+  })}
+</ol>
+
+<CloseSection lang={lang} />
+<PhotoLightbox lang={lang} />
+
+<script>
+  const setupWorkFilters = () => {
+    const bar = document.querySelector<HTMLElement>("[data-work-filters]")
+    const list = document.querySelector<HTMLElement>("[data-work-items]")
+    if (!bar || !list) return () => {}
+
+    const buttons =
+      bar.querySelectorAll<HTMLButtonElement>("[data-work-filter]")
+    const countEl = bar.querySelector<HTMLElement>("[data-work-count]")
+    const items = [...list.querySelectorAll<HTMLElement>("[data-work-item]")]
+    const cleanups: (() => void)[] = []
+
+    const apply = (cat: string) => {
+      let visible = 0
+      items.forEach((li) => {
+        const cats = (li.dataset.cats ?? "").split(/\s+/)
+        const show = cat === "all" || cats.includes(cat)
+        li.hidden = !show
+        if (show) {
+          li.classList.remove("reveal")
+          ;[...li.children].forEach((el) => {
+            const node = el as HTMLElement
+            node.dataset.shown = ""
+            node.style.opacity = "1"
+            node.style.transform = "none"
+          })
+          li.querySelectorAll<HTMLElement>("[data-wipe]").forEach((frame) => {
+            frame.style.clipPath = "inset(0%)"
+            frame.style.opacity = "1"
+          })
+          window.dispatchEvent(
+            new CustomEvent("lasercom:reveal-item", { detail: li })
+          )
+          visible++
+        }
+      })
+      buttons.forEach((btn) =>
+        btn.setAttribute("aria-pressed", String(btn.dataset.workFilter === cat))
+      )
+      if (countEl && countEl.dataset.template) {
+        countEl.textContent = countEl.dataset.template.replace(
+          "{n}",
+          String(visible)
+        )
+      }
+      window.dispatchEvent(new Event("lasercom:refresh"))
+    }
+
+    buttons.forEach((btn) => {
+      const onClick = () => apply(btn.dataset.workFilter ?? "all")
+      btn.addEventListener("click", onClick)
+      cleanups.push(() => btn.removeEventListener("click", onClick))
+    })
+
+    return () => cleanups.forEach((fn) => fn())
+  }
+
+  let cleanupFilters: (() => void) | undefined
+  document.addEventListener("astro:page-load", () => {
+    cleanupFilters?.()
+    cleanupFilters = setupWorkFilters()
+  })
+  document.addEventListener("astro:before-swap", () => {
+    cleanupFilters?.()
+    cleanupFilters = undefined
+  })
+</script>

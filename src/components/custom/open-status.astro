@@ -1,0 +1,36 @@
+---
+import type { Lang } from "@/i18n/ui"
+import { useTranslations } from "@/i18n/utils"
+import { cn } from "@/lib/utils"
+
+// Whether the workshop is open right now, worked out in the browser
+// (lib/open-status.ts). Its line is kept from the start, so nothing jumps
+// when it fills in; without JavaScript it stays an empty line
+interface Props {
+  lang: Lang
+  class?: string
+}
+const { lang, class: className } = Astro.props
+const t = useTranslations(lang)
+const strings = {
+  open: t("open.now"),
+  closes: t("open.closes"),
+  closed: t("open.closed"),
+  today: t("open.today"),
+  tomorrow: t("open.tomorrow"),
+  day: t("open.day"),
+}
+---
+
+<p
+  data-open-status={JSON.stringify(strings)}
+  class={cn(
+    "group/open readout flex min-h-[1.05rem] items-center gap-2.5 not-data-ready:invisible",
+    className
+  )}
+  title={t("open.note")}
+>
+  <span class="size-2 shrink-0 rounded-full bg-muted-foreground group-data-open/open:bg-[#2fbf71] group-data-open/open:shadow-[0_0_0_4px_rgb(47_191_113/0.2)]"></span>
+  <span data-open-text></span>
+  <span class="sr-only">({t("open.note")})</span>
+</p>

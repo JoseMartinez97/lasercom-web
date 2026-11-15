@@ -1,0 +1,414 @@
+---
+import LanguageSelector from "@/components/custom/language-selector.astro"
+import { Logo } from "@/components/custom/logo"
+import { buttonVariants } from "@/components/ui/button"
+import { defaultLang, type Lang } from "@/i18n/ui"
+import { localizePath, useTranslations } from "@/i18n/utils"
+import { business, telHref } from "@/lib/business"
+import { serviceIds, services, type ServiceId } from "@/lib/services"
+import { cn } from "@/lib/utils"
+import { ArrowRight, ChevronDown, Menu, Phone, X } from "lucide-react"
+
+interface Props {
+  lang?: Lang
+  path: string
+}
+
+const { lang = defaultLang, path } = Astro.props
+const t = useTranslations(lang)
+const href = (es: string) => localizePath(lang, es)
+const serviceHref = (id: ServiceId) =>
+  lang === "en" ? services[id].en : services[id].es
+
+const materialServices = serviceIds.filter(
+  (id) => services[id].kind === "material"
+)
+const clientServices = serviceIds.filter((id) => services[id].kind === "client")
+
+const navLinks = [
+  { label: t("nav.materials"), href: href("/#materiales"), mega: false },
+  { label: t("nav.services"), href: href("/#servicios"), mega: true },
+  { label: t("nav.work"), href: href("/trabajos/"), mega: false },
+  { label: t("nav.guides"), href: href("/guias/"), mega: false },
+  { label: t("nav.contact"), href: href("/contacto/"), mega: false },
+]
+
+const isCurrent = (target: string) => {
+  if (target.includes("#")) return false
+  return path === target
+}
+---
+
+<header
+  data-site-header
+  transition:name="site-header"
+  class="header-in sticky top-0 z-50 border-b border-border bg-background/92 backdrop-blur-md"
+>
+  <div class="relative flex min-h-16 items-center justify-between gap-4 px-5 md:px-8">
+    <a
+      href={href("/")}
+      aria-label={t("nav.home")}
+      class="inline-flex min-h-11 items-center no-underline"
+    >
+      <Logo />
+    </a>
+
+    <nav
+      aria-label={t("nav.services")}
+      class="hidden items-center gap-6 text-[0.95rem] font-medium lg:flex"
+    >
+      {navLinks.map((link) =>
+        link.mega ? (
+          <div data-mega-wrap class="relative">
+            <div class="flex items-center">
+              <a
+                href={link.href}
+                class="inline-flex min-h-11 items-center py-2 text-muted-foreground transition-colors hover:text-foreground"
+              >
+                {link.label}
+              </a>
+              <button
+                type="button"
+                data-mega-trigger
+                aria-expanded="false"
+                aria-controls="header-services-menu"
+                aria-label={t("nav.services.open")}
+                class="inline-flex size-11 items-center justify-center rounded-full text-muted-foreground transition-colors hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring"
+              >
+                <ChevronDown
+                  data-mega-chevron
+                  className="size-4 transition-transform duration-200"
+                  aria-hidden
+                />
+              </button>
+            </div>
+
+            <div
+              id="header-services-menu"
+              data-mega-panel
+              hidden
+              class="absolute top-[calc(100%+0.5rem)] left-1/2 z-50 w-[min(92vw,46rem)] -translate-x-1/2 rounded-[1.5rem] border border-border bg-card p-6 text-card-foreground shadow-2xl"
+            >
+              <div class="grid gap-6 md:grid-cols-12">
+                <div class="flex flex-col gap-3 md:col-span-5">
+                  <p class="readout text-laser-ink">
+                    {t("nav.services.materials")}
+                  </p>
+                  <ul class="flex flex-col gap-1">
+                    {materialServices.map((id) => (
+                      <li>
+                        <a
+                          href={serviceHref(id)}
+                          class="group flex flex-col gap-0.5 rounded-xl p-2.5 transition-colors hover:bg-secondary/80"
+                        >
+                          <span class="flex items-center justify-between text-sm font-semibold text-foreground group-hover:text-laser-ink">
+                            {t(`svc.${id}.name`)}
+                            <ArrowRight
+                              className="size-3.5 text-laser-ink opacity-0 transition-all group-hover:translate-x-0.5 group-hover:opacity-100"
+                              aria-hidden
+                            />
+                          </span>
+                          <span class="line-clamp-1 text-xs text-muted-foreground">
+                            {t(`svc.${id}.card`)}
+                          </span>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div class="flex flex-col gap-3 border-t border-border pt-4 md:col-span-7 md:border-t-0 md:border-l md:pt-0 md:pl-6">
+                  <p class="readout text-laser-ink">
+                    {t("nav.services.clients")}
+                  </p>
+                  <ul class="grid grid-cols-2 gap-1">
+                    {clientServices.map((id) => (
+                      <li>
+                        <a
+                          href={serviceHref(id)}
+                          class="group flex flex-col gap-0.5 rounded-xl p-2.5 transition-colors hover:bg-secondary/80"
+                        >
+                          <span class="flex items-center justify-between text-sm font-semibold text-foreground group-hover:text-laser-ink">
+                            {t(`svc.${id}.name`)}
+                          </span>
+                          <span class="line-clamp-1 text-xs text-muted-foreground">
+                            {t(`svc.${id}.card`)}
+                          </span>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+              <div class="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-4">
+                <a
+                  href={href("/trabajos/")}
+                  class="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-foreground hover:text-laser-ink"
+                >
+                  {t("home.work.all")}
+                  <ArrowRight className="size-4 text-laser-ink" aria-hidden />
+                </a>
+                <a
+                  href={`${href("/contacto/")}#presupuesto`}
+                  class={buttonVariants({
+                    size: "sm",
+                    className: "h-11 rounded-full px-5",
+                  })}
+                >
+                  {t("nav.quote")}
+                  <ArrowRight className="size-4" aria-hidden />
+                </a>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <a
+            href={link.href}
+            aria-current={isCurrent(link.href) ? "page" : undefined}
+            class={cn(
+              "inline-flex min-h-11 items-center py-2 transition-colors hover:text-foreground",
+              isCurrent(link.href)
+                ? "font-semibold text-foreground underline decoration-laser decoration-2 underline-offset-8"
+                : "text-muted-foreground"
+            )}
+          >
+            {link.label}
+          </a>
+        )
+      )}
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <a
+        href={telHref}
+        class="hidden min-h-11 items-center gap-2 px-2 readout text-foreground transition-colors hover:text-laser-ink xl:inline-flex"
+      >
+        <Phone className="size-3.5 text-laser-ink" aria-hidden />
+        {business.phoneDisplay}
+      </a>
+      <div class="hidden sm:block">
+        <LanguageSelector currentLang={lang} path={path} />
+      </div>
+      <a
+        href={`${href("/contacto/")}#presupuesto`}
+        class={cn(
+          buttonVariants({ size: "lg" }),
+          "hidden h-11 rounded-full px-5 sm:inline-flex"
+        )}
+      >
+        {t("nav.quote")}
+      </a>
+
+      <button
+        type="button"
+        data-drawer-open
+        class="inline-flex size-11 items-center justify-center rounded-md text-foreground transition-colors hover:bg-secondary lg:hidden"
+        aria-label={t("nav.menu")}
+        aria-controls="mobile-nav-drawer"
+      >
+        <Menu className="size-6" aria-hidden />
+      </button>
+    </div>
+  </div>
+
+  <!-- --scroll-progress is set on <html> by GSAP (src/lib/animations.ts) -->
+  <div
+    aria-hidden="true"
+    class="absolute bottom-0 left-0 h-0.5 w-full origin-left scale-x-(--scroll-progress,0) bg-laser"
+  ></div>
+</header>
+
+<dialog
+  id="mobile-nav-drawer"
+  data-mobile-drawer
+  aria-label={t("nav.menu")}
+  class="laser-dialog fixed inset-y-0 right-0 ml-auto h-dvh w-full overflow-y-auto sm:max-w-md"
+>
+  <div class="steel flex min-h-full flex-col gap-8 bg-background px-6 pt-4 pb-8 text-foreground">
+    <div class="flex items-center justify-between">
+      <Logo />
+      <button
+        type="button"
+        data-drawer-close
+        class="inline-flex size-11 items-center justify-center rounded-md text-foreground hover:bg-secondary"
+        aria-label={t("nav.menu.close")}
+      >
+        <X className="size-6" aria-hidden />
+      </button>
+    </div>
+
+    <nav aria-label={t("nav.services")} class="flex flex-col gap-4">
+      {navLinks.map((link) => (
+        <a
+          href={link.href}
+          data-drawer-link
+          class="display py-1 text-4xl text-foreground transition-colors hover:text-laser-ink"
+        >
+          {link.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="border-t border-border pt-5">
+      <p class="readout mb-3 text-laser-ink">{t("nav.services.explore")}</p>
+      <ul class="grid grid-cols-1 gap-x-4 text-sm text-muted-foreground sm:grid-cols-2">
+        {serviceIds.map((id) => (
+          <li>
+            <a
+              href={serviceHref(id)}
+              data-drawer-link
+              class="flex min-h-11 items-center transition-colors hover:text-foreground"
+            >
+              {t(`svc.${id}.name`)}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="mt-auto flex flex-col gap-3">
+      <a
+        href={`${href("/contacto/")}#presupuesto`}
+        data-drawer-link
+        class={cn(
+          buttonVariants({ size: "lg" }),
+          "h-12 rounded-full text-base"
+        )}
+      >
+        {t("nav.quote")}
+        <ArrowRight className="size-4" aria-hidden />
+      </a>
+      <a
+        href={telHref}
+        class="inline-flex h-12 items-center justify-center gap-2 rounded-full border border-border px-5 text-base font-medium text-foreground transition-colors hover:border-foreground"
+      >
+        <Phone className="size-4 text-laser-ink" aria-hidden />
+        {t("nav.call")} {business.phoneDisplay}
+      </a>
+      <div class="pt-1">
+        <LanguageSelector currentLang={lang} path={path} />
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<script>
+  const setupHeader = () => {
+    const cleanups: (() => void)[] = []
+
+    const wrap = document.querySelector<HTMLElement>("[data-mega-wrap]")
+    const trigger = document.querySelector<HTMLButtonElement>(
+      "[data-mega-trigger]"
+    )
+    const panel = document.querySelector<HTMLElement>("[data-mega-panel]")
+    const chevron = document.querySelector<HTMLElement>("[data-mega-chevron]")
+
+    if (wrap && trigger && panel) {
+      let closeTimer: number | undefined
+      let pinned = false
+      let openedByHover = false
+
+      const setOpen = (open: boolean) => {
+        window.clearTimeout(closeTimer)
+        trigger.setAttribute("aria-expanded", String(open))
+        panel.hidden = !open
+        if (chevron) chevron.style.transform = open ? "rotate(180deg)" : ""
+        if (!open) {
+          pinned = false
+          openedByHover = false
+        }
+      }
+
+      const onTriggerClick = () => {
+        const currentlyOpen = !panel.hidden
+        if (currentlyOpen && openedByHover && !pinned) {
+          pinned = true
+          openedByHover = false
+          return
+        }
+        pinned = !currentlyOpen
+        openedByHover = false
+        setOpen(!currentlyOpen)
+      }
+      const onMouseEnter = () => {
+        window.clearTimeout(closeTimer)
+        if (panel.hidden) {
+          openedByHover = true
+          setOpen(true)
+        }
+      }
+      const onMouseLeave = () => {
+        if (pinned) return
+        closeTimer = window.setTimeout(() => setOpen(false), 160)
+      }
+      const onDocClick = (e: MouseEvent) => {
+        if (!wrap.contains(e.target as Node)) setOpen(false)
+      }
+      const onKeyDown = (e: KeyboardEvent) => {
+        if (e.key === "Escape" && !panel.hidden) {
+          setOpen(false)
+          trigger.focus()
+        }
+      }
+
+      trigger.addEventListener("click", onTriggerClick)
+      wrap.addEventListener("mouseenter", onMouseEnter)
+      wrap.addEventListener("mouseleave", onMouseLeave)
+      document.addEventListener("click", onDocClick)
+      document.addEventListener("keydown", onKeyDown)
+      cleanups.push(() => {
+        window.clearTimeout(closeTimer)
+        trigger.removeEventListener("click", onTriggerClick)
+        wrap.removeEventListener("mouseenter", onMouseEnter)
+        wrap.removeEventListener("mouseleave", onMouseLeave)
+        document.removeEventListener("click", onDocClick)
+        document.removeEventListener("keydown", onKeyDown)
+      })
+    }
+
+    const drawer = document.querySelector<HTMLDialogElement>(
+      "[data-mobile-drawer]"
+    )
+    const openBtn =
+      document.querySelector<HTMLButtonElement>("[data-drawer-open]")
+    const closeBtn = document.querySelector<HTMLButtonElement>(
+      "[data-drawer-close]"
+    )
+
+    if (drawer && openBtn && closeBtn) {
+      const openDrawer = () => {
+        if (!drawer.open) drawer.showModal()
+      }
+      const closeDrawer = () => {
+        if (drawer.open) drawer.close()
+      }
+      const onBackdrop = (e: MouseEvent) => {
+        if (e.target === drawer) closeDrawer()
+      }
+
+      openBtn.addEventListener("click", openDrawer)
+      closeBtn.addEventListener("click", closeDrawer)
+      drawer.addEventListener("click", onBackdrop)
+      drawer.querySelectorAll("[data-drawer-link]").forEach((el) => {
+        el.addEventListener("click", closeDrawer)
+      })
+      cleanups.push(() => {
+        openBtn.removeEventListener("click", openDrawer)
+        closeBtn.removeEventListener("click", closeDrawer)
+        drawer.removeEventListener("click", onBackdrop)
+        if (drawer.open) drawer.close()
+      })
+    }
+
+    return () => cleanups.forEach((fn) => fn())
+  }
+
+  let cleanupHeader: (() => void) | undefined
+  document.addEventListener("astro:page-load", () => {
+    cleanupHeader?.()
+    cleanupHeader = setupHeader()
+  })
+  document.addEventListener("astro:before-swap", () => {
+    cleanupHeader?.()
+    cleanupHeader = undefined
+  })
+</script>

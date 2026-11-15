@@ -1,0 +1,134 @@
+---
+import type { GetStaticPaths } from "astro"
+import Layout from "@/layouts/main.astro"
+import HomeContent from "@/components/custom/home-content.astro"
+import ServiceContent from "@/components/custom/service-content.astro"
+import WorkContent from "@/components/custom/work-content.astro"
+import ContactContent from "@/components/custom/contact-content.astro"
+import LegalContent from "@/components/custom/legal-content.astro"
+import GuidesContent from "@/components/custom/guides-content.astro"
+import GuideContent from "@/components/custom/guide-content.astro"
+import { getImage } from "astro:assets"
+import { guides, guidesUpdated } from "@/lib/guides"
+import { business } from "@/lib/business"
+import { photo, services } from "@/lib/services"
+import type { Lang } from "@/i18n/ui"
+import { useTranslations } from "@/i18n/utils"
+import { pages } from "@/lib/pages"
+
+// Every page in both languages from the table in src/lib/pages.ts
+export const getStaticPaths = (() =>
+  Object.entries(pages).flatMap(([es, page]) =>
+    (
+      [
+        ["es", es],
+        ["en", page.en],
+      ] as [Lang, string | null][]
+    )
+      .filter((entry): entry is [Lang, string] => entry[1] !== null)
+      .map(([lang, path]) => ({
+        params: { path: path.replace(/^\/|\/$/g, "") || undefined },
+        props: { lang, path, page },
+      }))
+  )) satisfies GetStaticPaths
+
+const { lang, path, page } = Astro.props
+const t = useTranslations(lang)
+const origin = Astro.site?.origin ?? ""
+
+// Each page's own structured data: what the service is, and its questions
+const jsonLd: Record<string, unknown>[] = []
+// A page's lead photo as a full address, for its structured data
+const imageUrl = async (name: string) =>
+  `${origin}${(await getImage({ src: photo(name), width: 1200, format: "jpg" })).src}`
+if (page.service) {
+  const id = page.service
+  jsonLd.push(
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      name: t(`svc.${id}.h1`),
+      description: t(`svc.${id}.description`),
+      url: `${origin}${path}`,
+      provider: { "@id": `${origin}/#business` },
+      areaServed: business.areaServed.map((name) => ({
+        "@type": "City",
+        name,
+      })),
+      serviceType: t(`svc.${id}.name`),
+      image: await imageUrl(services[id].photos[0]),
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: ([1, 2, 3] as const).map((n) => ({
+        "@type": "Question",
+        name: t(`svc.${id}.faq.${n}.q`),
+        acceptedAnswer: { "@type": "Answer", text: t(`svc.${id}.faq.${n}.a`) },
+      })),
+    }
+  )
+}
+if (page.kind === "home") {
+  jsonLd.push({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: ([1, 2, 3, 4, 5] as const).map((n) => ({
+      "@type": "Question",
+      name: t(`home.faq.${n}.q`),
+      acceptedAnswer: { "@type": "Answer", text: t(`home.faq.${n}.a`) },
+    })),
+  })
+}
+if (page.guide) {
+  jsonLd.push({
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: t(`guide.${page.guide}.h1`),
+    description: t(page.description),
+    inLanguage: lang,
+    url: `${origin}${path}`,
+    mainEntityOfPage: `${origin}${path}`,
+    image: await imageUrl(guides[page.guide].photo),
+    datePublished: guidesUpdated,
+    dateModified: guidesUpdated,
+    author: { "@id": `${origin}/#business` },
+    publisher: { "@id": `${origin}/#business` },
+  })
+}
+const guidesPath = lang === "en" ? "/en/guides/" : "/guias/"
+const crumbName = page.service
+  ? t(`svc.${page.service}.name`)
+  : page.kind === "work"
+    ? t("nav.work")
+    : page.kind === "contact"
+      ? t("nav.contact")
+      : page.kind === "guides"
+        ? t("nav.guides")
+        : undefined
+---
+
+<Layout
+  lang={lang}
+  title={t(page.title)}
+  description={t(page.description)}
+  breadcrumbs={
+    page.guide
+      ? [
+          { name: t("nav.guides"), path: guidesPath },
+          { name: t(`guide.${page.guide}.h1`), path },
+        ]
+      : crumbName
+        ? [{ name: crumbName, path }]
+        : undefined
+  }
+  jsonLd={jsonLd}
+>
+  {page.kind === "home" && <HomeContent lang={lang} />}
+  {page.service && <ServiceContent lang={lang} id={page.service} />}
+  {page.kind === "work" && <WorkContent lang={lang} />}
+  {page.kind === "contact" && <ContactContent lang={lang} />}
+  {page.legal && <LegalContent slug={page.legal} />}
+  {page.kind === "guides" && <GuidesContent lang={lang} />}
+  {page.guide && <GuideContent lang={lang} id={page.guide} />}
+</Layout>

@@ -1,0 +1,347 @@
+---
+import { Image } from "astro:assets"
+import type { Lang } from "@/i18n/ui"
+import { localizePath, useTranslations } from "@/i18n/utils"
+import { buttonVariants } from "@/components/ui/button"
+import CloseSection from "@/components/custom/close-section.astro"
+import { whatsappHref } from "@/lib/business"
+import { photo } from "@/lib/services"
+import { ArrowRight, ArrowUpRight, RotateCcw } from "lucide-react"
+
+// "The beam, live": the design prototype for the home page. The laser
+// engraves the headline into a plywood board, cuts a piece out with the
+// scroll and engraves the visitor's own text (src/lib/laser/lab.ts).
+// Without JavaScript or with reduced motion, the finished state shows
+interface Props {
+  lang: Lang
+}
+const { lang } = Astro.props
+const t = useTranslations(lang)
+const contact = localizePath(lang, "/contacto/")
+
+// The cut: a flower-edged disc around the surfboard engraving in the photo
+const cx = 385
+const cy = 540
+const steps = 360
+const piece =
+  Array.from({ length: steps }, (_, i) => {
+    const a = (i / steps) * Math.PI * 2
+    const r = 262 + 14 * Math.sin(a * 10)
+    return `${i ? "L" : "M"}${(cx + r * Math.cos(a)).toFixed(1)} ${(cy + r * Math.sin(a)).toFixed(1)}`
+  }).join(" ") + " Z"
+
+const materials = [
+  { id: "wood", service: "madera", label: t("quote.mat.wood") },
+  { id: "acrylic", service: "metacrilato", label: t("quote.mat.acrylic") },
+  { id: "leather", service: "piel", label: t("quote.mat.leather") },
+  { id: "metal", service: "metal", label: t("quote.mat.metal") },
+] as const
+---
+
+<p class="readout border-b border-border bg-secondary px-5 py-2 text-center text-muted-foreground md:px-8">
+  {t("lab.banner")}
+</p>
+
+<!-- Hero: the headline engraved live into a plywood board -->
+<section
+  data-lab-hero
+  class="relative isolate flex min-h-[calc(100svh-4rem)] flex-col justify-between overflow-hidden bg-[#e9d5b0] px-5 pt-10 pb-8 md:px-8 md:pt-14"
+>
+  <canvas
+    data-lab-canvas
+    aria-hidden="true"
+    class="pointer-events-none absolute inset-0 -z-10 size-full opacity-0 transition-opacity duration-700"
+  ></canvas>
+  <div class="flex flex-col gap-8">
+    <p class="readout flex items-center gap-3 text-[#5a4630]">
+      <span class="size-2 rounded-full bg-laser shadow-[0_0_12px_2px_var(--laser)]"></span>
+      {t("lab.hero.eyebrow")}
+    </p>
+    <h1
+      data-lab-title
+      class="display max-w-[12ch] text-[clamp(3.4rem,11.5vw,11.5rem)] leading-[0.92] text-[#2b1a0e]"
+    >
+      <span class="block">{t("home.h1.1")}</span>
+      <span class="block">{t("home.h1.2")}</span>
+      <span class="block">{t("home.h1.3")}</span>
+    </h1>
+  </div>
+  <div class="mt-12 grid items-end gap-8 lg:grid-cols-12">
+    <div class="flex flex-col gap-6 lg:col-span-7">
+      <p class="max-w-xl text-lg text-[#3d2c1c] md:text-xl">{t("home.lead")}</p>
+      <div class="flex flex-col gap-3 sm:flex-row">
+        <a
+          href={`${contact}#presupuesto`}
+          class={buttonVariants({
+            size: "lg",
+            className: "h-14 rounded-full px-7 text-base",
+          })}
+        >
+          {t("cta.quote")}
+          <ArrowRight className="size-5" />
+        </a>
+        <a
+          href={whatsappHref(t("wa.default"))}
+          target="_blank"
+          rel="noopener"
+          class={buttonVariants({
+            size: "lg",
+            variant: "outline",
+            className:
+              "h-14 rounded-full border-[#2b1a0e]/30 bg-transparent px-7 text-base text-[#2b1a0e] hover:bg-[#2b1a0e]/5",
+          })}
+        >
+          {t("cta.whatsapp")}
+          <ArrowUpRight className="size-5" />
+        </a>
+      </div>
+    </div>
+    <div class="readout flex flex-wrap items-center gap-x-6 gap-y-2 text-[#5a4630] lg:col-span-5 lg:justify-end">
+      <span class="hidden [@media(pointer:fine)]:inline">
+        {t("lab.hero.hint")}
+      </span>
+      <span data-lab-coords class="tabular-nums" aria-hidden="true">
+        X 000.0 · Y 000.0
+      </span>
+      <button
+        type="button"
+        data-lab-replay
+        class="inline-flex min-h-11 items-center gap-2 underline-offset-4 hover:underline"
+      >
+        <RotateCcw className="size-3.5" />
+        {t("lab.hero.replay")}
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- The cut: the scroll drives the beam round the piece, then it drops out -->
+<section data-lab-cut class="steel relative lg:h-[260svh]">
+  <div class="grid gap-10 px-5 py-16 md:px-8 lg:sticky lg:top-16 lg:h-[calc(100svh-4rem)] lg:grid-cols-12 lg:items-center lg:py-0">
+    <div class="flex flex-col gap-6 lg:col-span-5">
+      <p class="readout flex items-center gap-3 text-laser-ink">
+        <span class="h-px w-8 bg-current"></span>
+        {t("lab.cut.label")}
+      </p>
+      <h2 class="display text-[clamp(2.5rem,5.5vw,5.5rem)] leading-[0.95]">
+        {t("lab.cut.h2")}
+      </h2>
+      <p class="max-w-md text-lg text-muted-foreground">{t("lab.cut.lead")}</p>
+      <p class="readout hidden text-muted-foreground lg:block">
+        {t("lab.cut.scroll")} ↓
+        <span data-lab-cut-pct class="ml-3 tabular-nums text-foreground">
+          000%
+        </span>
+      </p>
+    </div>
+    <div class="lg:col-span-7 lg:flex lg:justify-center">
+      <div class="relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden rounded-[1.75rem] bg-black lg:h-[min(78svh,44rem)] lg:w-auto lg:max-w-none">
+        <Image
+          src={photo("grabado_laser_pieza_madera")}
+          alt={t("photo.grabado_laser_pieza_madera")}
+          widths={[480, 768]}
+          sizes="(min-width: 1024px) 36rem, 100vw"
+          class="absolute inset-0 size-full object-cover"
+        />
+        <svg
+          viewBox="0 0 800 1000"
+          preserveAspectRatio="xMidYMid slice"
+          class="absolute inset-0 size-full"
+          aria-hidden="true"
+        >
+          <defs>
+            <pattern
+              id="lab-board"
+              patternUnits="userSpaceOnUse"
+              width="800"
+              height="1000"
+            >
+              <rect width="800" height="1000" fill="#dcc39a"></rect>
+              <image
+                data-lab-board
+                width="800"
+                height="1000"
+                preserveAspectRatio="xMidYMid slice"
+              />
+            </pattern>
+            <mask id="lab-hole">
+              <rect width="800" height="1000" fill="#fff"></rect>
+              <path d={piece} fill="#000"></path>
+            </mask>
+            <filter id="lab-lift" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow
+                dx="0"
+                dy="10"
+                stdDeviation="14"
+                flood-color="#000"
+                flood-opacity="0.45"
+              ></feDropShadow>
+            </filter>
+            <filter id="lab-hot" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="6"></feGaussianBlur>
+            </filter>
+          </defs>
+          <!-- The board with the hole, then the piece that fills it -->
+          <rect
+            width="800"
+            height="1000"
+            fill="url(#lab-board)"
+            data-lab-holed
+          ></rect>
+          <g data-lab-piece>
+            <path d={piece} fill="url(#lab-board)"></path>
+          </g>
+          <path
+            data-lab-kerf
+            d={piece}
+            fill="none"
+            stroke="#2a160a"
+            stroke-width="3"
+            stroke-linecap="round"
+          ></path>
+          <g data-lab-head opacity="0">
+            <circle r="26" fill="#ff6a2a" filter="url(#lab-hot)"></circle>
+            <circle r="7" fill="#fff6e8"></circle>
+          </g>
+        </svg>
+        <canvas
+          data-lab-sparks
+          aria-hidden="true"
+          class="pointer-events-none absolute inset-0 size-full"
+        ></canvas>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Engrave your own text on any of the four materials -->
+<section
+  data-lab-try
+  id="graba"
+  class="grid scroll-mt-16 gap-10 px-5 py-20 md:px-8 md:py-28 lg:grid-cols-12 lg:items-center"
+>
+  <div class="flex flex-col gap-8 lg:col-span-5">
+    <div class="flex flex-col gap-5">
+      <p class="readout flex items-center gap-3 text-laser-ink">
+        <span class="h-px w-8 bg-current"></span>
+        {t("lab.try.label")}
+      </p>
+      <h2 class="display text-[clamp(2.5rem,5.5vw,5.5rem)] leading-[0.95]">
+        {t("lab.try.h2")}
+      </h2>
+      <p class="max-w-md text-lg text-muted-foreground">{t("lab.try.lead")}</p>
+    </div>
+    <label class="flex flex-col gap-3">
+      <span class="readout text-muted-foreground">{t("lab.try.input")}</span>
+      <input
+        data-lab-text
+        value={t("lab.try.default")}
+        maxlength="24"
+        autocomplete="off"
+        class="min-h-14 w-full rounded-2xl border border-input bg-card px-5 text-xl font-semibold outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/40"
+      />
+    </label>
+    <fieldset class="flex flex-col gap-3">
+      <legend class="readout mb-3 text-muted-foreground">
+        {t("lab.try.material")}
+      </legend>
+      <div class="grid grid-cols-2 gap-2 sm:grid-cols-4">
+        {materials.map((m, i) => (
+          <label class="relative">
+            <input
+              type="radio"
+              name="lab-material"
+              value={m.id}
+              data-service={m.service}
+              checked={i === 0}
+              class="peer sr-only"
+            />
+            <span class="flex min-h-12 cursor-pointer items-center justify-center rounded-full border border-input px-4 text-sm font-semibold transition-colors peer-checked:border-foreground peer-checked:bg-foreground peer-checked:text-background peer-focus-visible:ring-3 peer-focus-visible:ring-ring/40 hover:border-foreground">
+              {m.label}
+            </span>
+          </label>
+        ))}
+      </div>
+    </fieldset>
+    <div class="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+      <a
+        data-lab-cta
+        href={`${contact}?servicio=madera#presupuesto`}
+        class={buttonVariants({
+          size: "lg",
+          className: "h-14 rounded-full px-7 text-base",
+        })}
+      >
+        {t("lab.try.cta")}
+        <ArrowRight className="size-5" />
+      </a>
+      <button
+        type="button"
+        data-lab-again
+        class={buttonVariants({
+          size: "lg",
+          variant: "outline",
+          className: "h-14 rounded-full bg-transparent px-7 text-base",
+        })}
+      >
+        <RotateCcw className="size-4" />
+        {t("lab.try.again")}
+      </button>
+    </div>
+    <p class="text-sm text-muted-foreground">{t("lab.try.note")}</p>
+  </div>
+  <div class="lg:col-span-7">
+    <div
+      data-lab-plate-wrap
+      class="relative aspect-[4/3] overflow-hidden rounded-[1.75rem] bg-[#e9d5b0] shadow-[0_30px_80px_-30px_rgb(0_0_0/0.45)]"
+    >
+      <canvas
+        data-lab-plate
+        role="img"
+        aria-label={t("lab.try.plate")}
+        class="absolute inset-0 size-full"
+      ></canvas>
+      <div
+        data-lab-sheen
+        aria-hidden="true"
+        class="pointer-events-none absolute inset-0 mix-blend-soft-light"
+      ></div>
+    </div>
+  </div>
+</section>
+
+<CloseSection lang={lang} />
+
+<style>
+  /* With the laser running, the canvas shows the engraved headline; the text
+     stays in the page for search engines and screen readers */
+  [data-lab-hero][data-live] [data-lab-title] {
+    color: transparent;
+  }
+  [data-lab-sheen] {
+    background: radial-gradient(
+      circle at var(--lx, 70%) var(--ly, 30%),
+      rgb(255 255 255 / 0.55),
+      transparent 45%
+    );
+  }
+  [data-lab-plate-wrap][data-material="acrylic"] [data-lab-sheen],
+  [data-lab-plate-wrap][data-material="metal"] [data-lab-sheen] {
+    mix-blend-mode: screen;
+    opacity: 0.55;
+  }
+</style>
+
+<script>
+  import { initLab } from "@/lib/laser/lab"
+
+  let stop: (() => void) | undefined
+  document.addEventListener("astro:page-load", () => {
+    stop?.()
+    stop = document.querySelector("[data-lab-hero]") ? initLab() : undefined
+  })
+  document.addEventListener("astro:before-swap", () => {
+    stop?.()
+    stop = undefined
+  })
+</script>

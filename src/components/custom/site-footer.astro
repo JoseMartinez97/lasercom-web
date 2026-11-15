@@ -1,0 +1,160 @@
+---
+import type { Lang } from "@/i18n/ui"
+import { localizePath, useTranslations } from "@/i18n/utils"
+import { Logo } from "@/components/custom/logo"
+import { business, mailHref, telHref } from "@/lib/business"
+import { serviceIds, services } from "@/lib/services"
+
+interface Props {
+  lang: Lang
+}
+const { lang } = Astro.props
+const t = useTranslations(lang)
+const href = (es: string) => localizePath(lang, es)
+const year = new Date().getFullYear()
+---
+
+<footer class="steel border-t border-border">
+  <div class="grid gap-12 px-5 py-16 md:px-8 lg:grid-cols-12">
+    <div class="flex flex-col gap-5 lg:col-span-4">
+      <a href={href("/")} aria-label={t("nav.home")} class="w-fit">
+        <Logo className="[&_svg:first-child]:h-9 [&_svg:last-child]:h-[1.1rem]" />
+      </a>
+      <p class="max-w-xs text-muted-foreground">{t("footer.tagline")}</p>
+    </div>
+
+    <nav aria-labelledby="footer-services" class="lg:col-span-4">
+      <h2 id="footer-services" class="readout mb-4 text-muted-foreground">
+        {t("footer.services")}
+      </h2>
+      <ul class="grid gap-x-6 gap-y-2 sm:grid-cols-2">
+        {serviceIds.map((id) => (
+          <li>
+            <a
+              href={lang === "en" ? services[id].en : services[id].es}
+              class="inline-flex min-h-11 min-w-11 items-center -my-1.5 transition-colors hover:text-laser-ink md:min-h-8 md:my-0 md:py-1"
+            >
+              {t(`svc.${id}.name`)}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="flex flex-col gap-8 sm:flex-row lg:col-span-4 lg:justify-end lg:gap-14">
+      <nav aria-labelledby="footer-company">
+        <h2 id="footer-company" class="readout mb-4 text-muted-foreground">
+          {t("footer.company")}
+        </h2>
+        <ul class="flex flex-col gap-2">
+          <li>
+            <a
+              href={href("/trabajos/")}
+              class="inline-block py-2.5 hover:text-laser-ink md:py-1"
+            >
+              {t("nav.work")}
+            </a>
+          </li>
+          <li>
+            <a
+              href={href("/guias/")}
+              class="inline-block py-2.5 hover:text-laser-ink md:py-1"
+            >
+              {t("nav.guides")}
+            </a>
+          </li>
+          <li>
+            <a
+              href={href("/contacto/")}
+              class="inline-block py-2.5 hover:text-laser-ink md:py-1"
+            >
+              {t("nav.quote")}
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <address class="flex flex-col gap-2 not-italic">
+        <h2 class="readout mb-2 text-muted-foreground">
+          {t("footer.contact")}
+        </h2>
+        <a href={business.mapsUrl} class="hover:text-laser-ink">
+          {business.street}
+          <br />
+          {`${business.postalCode} ${business.locality} (${business.region})`}
+        </a>
+        <a href={telHref} class="py-2.5 hover:text-laser-ink md:py-1">
+          {business.phoneDisplay}
+        </a>
+        <a
+          href={`tel:${business.landline}`}
+          class="py-2.5 hover:text-laser-ink md:py-1"
+        >
+          {business.landlineDisplay}
+        </a>
+        <a href={mailHref()} class="py-2.5 hover:text-laser-ink md:py-1">
+          {business.email}
+        </a>
+      </address>
+    </div>
+  </div>
+
+  <div class="flex flex-col gap-6 border-t border-border px-5 pt-8 pb-24 text-sm text-muted-foreground md:px-8 md:pb-8 lg:pr-28">
+    <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+      <div class="flex max-w-3xl flex-col gap-2 text-xs leading-relaxed">
+        <p>{t("footer.grant.dana")}</p>
+        <p>{t("footer.grant.ivace")}</p>
+      </div>
+      <img
+        src="/plan-endavant-2026.webp"
+        alt="Plan ARA EMPRESES 2025 · IVACE · Generalitat Valenciana"
+        width="721"
+        height="150"
+        loading="lazy"
+        class="h-10 w-auto rounded bg-white p-1"
+      />
+    </div>
+    <div class="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+      <p>
+        © {year} {business.name}
+      </p>
+      <ul class="flex flex-wrap gap-x-5 gap-y-1">
+        <li>
+          <a
+            href="/aviso-legal/"
+            hreflang="es"
+            class="inline-block py-2.5 hover:text-foreground md:py-0"
+          >
+            {t("footer.legal.notice")}
+          </a>
+        </li>
+        <li>
+          <a
+            href="/politica-de-privacidad/"
+            hreflang="es"
+            class="inline-block py-2.5 hover:text-foreground md:py-0"
+          >
+            {t("footer.legal.privacy")}
+          </a>
+        </li>
+        <li>
+          <a
+            href="/politica-de-cookies/"
+            hreflang="es"
+            class="inline-block py-2.5 hover:text-foreground md:py-0"
+          >
+            {t("footer.legal.cookies")}
+          </a>
+        </li>
+      </ul>
+      <p>
+        {t("footer.credit")}{" "}
+        <a
+          href="https://www.kaizencode.es/"
+          class="-my-3 inline-flex min-h-11 items-center text-foreground underline underline-offset-4 hover:text-laser-ink"
+        >
+          Kaizencode
+        </a>
+      </p>
+    </div>
+  </div>
+</footer>

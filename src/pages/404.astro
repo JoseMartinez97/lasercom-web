@@ -1,0 +1,70 @@
+---
+import Layout from "@/layouts/main.astro"
+import { languages, type Lang } from "@/i18n/ui"
+import { localizePath, useTranslations } from "@/i18n/utils"
+import { buttonVariants } from "@/components/ui/button"
+import { ArrowLeft } from "lucide-react"
+
+// The host serves this one file for every missing address, in either
+// language. It is written in both, and a line of script keeps the one that
+// matches the address (/en/… is English); without script, Spanish shows
+const t = useTranslations("es")
+const langs = Object.keys(languages) as Lang[]
+---
+
+<Layout
+  lang="es"
+  title={t("notfound.title")}
+  description={t("notfound.description")}
+  noindex
+>
+  <script
+    is:inline
+    define:vars={{ enTitle: useTranslations("en")("notfound.title") }}
+  >
+    if (location.pathname.startsWith("/en/")) {
+      document.title = enTitle
+      document.documentElement.lang = "en"
+      document.documentElement.dataset.notfound = "en"
+    }
+  </script>
+  {langs.map((lang) => {
+    const tl = useTranslations(lang)
+    return (
+      <section
+        data-notfound-lang={lang}
+        class="flex min-h-[calc(100svh-4rem)] flex-col items-start justify-center gap-8 px-5 py-16 md:px-8"
+      >
+        <h1 class="display max-w-[14ch] text-[clamp(2.75rem,8vw,8rem)]">
+          <span class="engrave" style="--i: 0">
+            <span class="engrave-text">{tl("notfound.heading")}</span>
+          </span>
+        </h1>
+        <p
+          class="hero-lead max-w-xl text-lg text-muted-foreground"
+          style="--i: 2"
+        >
+          {tl("notfound.description")}
+        </p>
+        <a
+          href={localizePath(lang, "/")}
+          class={buttonVariants({
+            size: "lg",
+            className: "hero-in h-14 rounded-full px-7 text-base",
+          })}
+          style="--i: 3"
+        >
+          <ArrowLeft className="size-5" />
+          {tl("notfound.home")}
+        </a>
+      </section>
+    )
+  })}
+</Layout>
+
+<style is:global>
+  html:not([data-notfound="en"]) [data-notfound-lang="en"],
+  html[data-notfound="en"] [data-notfound-lang="es"] {
+    display: none;
+  }
+</style>

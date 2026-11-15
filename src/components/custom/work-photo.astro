@@ -1,0 +1,58 @@
+---
+import { Image } from "astro:assets"
+import type { Lang, UiKey } from "@/i18n/ui"
+import { useTranslations } from "@/i18n/utils"
+import { cutouts, photo } from "@/lib/services"
+import { cn } from "@/lib/utils"
+
+interface Props {
+  lang: Lang
+  // File name in src/assets/work, without extension
+  name: string
+  class?: string
+  sizes?: string
+  loading?: "eager" | "lazy"
+  fetchpriority?: "high" | "low" | "auto"
+  // A cutout over steel would show its white square: contain it on paper
+  surface?: "paper" | "steel"
+  pad?: "default" | "compact" | "none"
+  [key: `data-${string}`]: string | undefined
+}
+const {
+  lang,
+  name,
+  class: className,
+  sizes = "(min-width: 1024px) 40vw, 100vw",
+  loading = "lazy",
+  fetchpriority,
+  surface = "paper",
+  pad = "default",
+  ...rest
+} = Astro.props
+const t = useTranslations(lang)
+const isCutout = cutouts.has(name)
+const src = photo(name)
+const padClass =
+  pad === "compact" ? "p-1.5" : pad === "none" ? "" : "p-5 sm:p-8"
+---
+
+<Image
+  src={src}
+  alt={t(`photo.${name}` as UiKey)}
+  widths={[360, 480, 640, 960, 1280].filter((w) => w <= src.width)}
+  sizes={sizes}
+  loading={loading}
+  fetchpriority={fetchpriority}
+  decoding="async"
+  class={cn(
+    isCutout
+      ? cn("object-contain transition-transform duration-500", padClass)
+      : "object-cover",
+    isCutout &&
+      surface === "paper" &&
+      "cutout brightness-[1.04] contrast-[1.04]",
+    isCutout && surface === "steel" && "bg-[#f6f1e9]",
+    className
+  )}
+  {...rest}
+/>
