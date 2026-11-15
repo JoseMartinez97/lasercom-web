@@ -50,6 +50,9 @@ function fingerprint(html) {
 }
 
 function hashes() {
+  // A preview build (PUBLIC_PREVIEW=1) is never announced to search engines
+  if (process.env.PUBLIC_PREVIEW === "1")
+    return console.log("indexnow: preview build, no fingerprints")
   if (readFileSync(`${dist}${KEY}.txt`, "utf8").trim() !== KEY)
     throw new Error(`public/${KEY}.txt must hold the key`)
   const sitemap = readFileSync(`${dist}sitemap-0.xml`, "utf8")
