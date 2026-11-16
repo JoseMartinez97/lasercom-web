@@ -40,14 +40,14 @@ export const site = {
     "home.h1.2": "and engraving",
     "home.h1.3": "in Valencia",
     "home.lead":
-      "We cut, engrave and mark wood, acrylic, glass, leather and metal in our own workshop: a name for a wedding, your company logo or the serial number on an industrial part.",
+      "We cut and engrave wood, acrylic and leather, engrave glass and mark metal in our own workshop: a name for a wedding, your company logo or the serial number on an industrial part.",
     "home.stat.since": "Own workshop since",
     "home.stat.rating": "Rating on Google",
     "home.stat.materials": "Materials we work with",
     "home.marquee":
       "Wood · Acrylic · Glass · Leather · Stainless steel · Aluminium · Brass · Silver · Gold · Stone ·",
     "home.marquee.services":
-      "Laser cutting · Relief engraving · Fibre marking · Riba-roja de Túria · Since 2007 ·",
+      "Laser cutting · Relief engraving · Metal marking · Riba-roja de Túria · Since 2007 ·",
     "hero.film.1.scene": "Wood cutting",
     "hero.film.2.scene": "Detail engraving",
     "hero.film.2.line":
@@ -59,7 +59,7 @@ export const site = {
       "Your name, your logo or a serial number, cut and engraved in our workshop.",
     "home.materials.title": "Materials we work with",
     "home.materials.lead":
-      "Wood, acrylic, glass, leather and metal each react differently to the beam. We tune power, speed and focus to the exact material so cuts stay clean and engravings last.",
+      "Each material needs its own settings. We adjust power, speed and focus so the cut comes out clean and the engraving lasts.",
     "home.clients.title": "For businesses and for people",
     "home.clients.business.title": "Businesses and industry",
     "home.clients.business.text":
@@ -67,7 +67,7 @@ export const site = {
     "home.clients.people.title": "Individuals",
     "home.clients.people.text":
       "Wedding favours, engraved champagne flutes, an urgent bracelet for an anniversary, portrait medals, pet tags or one-off gifts. We prepare the design with you.",
-    "home.work.title": "Work that speaks for us",
+    "home.work.title": "Made in our workshop",
     "home.work.lead":
       "Real pieces from the workshop, from a fan for Louis Vuitton to the stand of Ron Barceló's 30th anniversary bottle.",
     "home.work.all": "See all our work",
@@ -284,27 +284,6 @@ export const site = {
     "nav.services.open": "Toggle services menu",
     "nav.services.explore": "All 11 workshop services",
 
-    "hero.bed.caption": "Laser bench · Finishes & motion",
-    "hero.bed.note": "Pick a process or material to explore the finish",
-    "hero.bed.cta": "See this service",
-    "hero.bed.cta.laser": "Explore materials",
-    "hero.bed.item.laser": "Laser in motion",
-    "hero.bed.detail.laser":
-      "Sheet cutting, wood carving and high-contrast fibre marking",
-    "hero.bed.item.metal": "Steel & brass",
-    "hero.bed.detail.metal": "Permanent contrast mark with no ink or stickers",
-    "hero.bed.item.madera": "Wood",
-    "hero.bed.detail.madera":
-      "Clean cut profiles and warm toasted depth on birch or MDF",
-    "hero.bed.item.maqueta": "Acrylic",
-    "hero.bed.detail.maqueta":
-      "Optical clear acrylic with glossy flame-polished laser edges",
-    "hero.bed.item.piel": "Leather",
-    "hero.bed.detail.piel":
-      "Clean detailed engraving directly into natural leather",
-    "hero.bed.item.cristal": "Glass",
-    "hero.bed.detail.cristal":
-      "Permanent frosted engraving on glassware and trophies",
     "hero.video.pause": "Pause video background",
     "hero.video.play": "Play video background",
     "hero.video.pause.short": "Pause video",
@@ -314,28 +293,6 @@ export const site = {
     "hero.trust.3": "Free quote with no obligation",
     "hero.segment.business": "I'm a business",
     "hero.segment.people": "For an individual",
-
-    "home.technique.eyebrow": "The beam on the material",
-    "home.technique.title": "Three finishes from the same workshop",
-    "home.technique.lead":
-      "By adjusting power, speed and focus, the laser cuts clean through a sheet, carves relief or leaves a permanent mark on metal.",
-    "home.technique.cut.tab": "Cutting",
-    "home.technique.cut.title": "Cuts clean through the sheet",
-    "home.technique.cut.text":
-      "For cutout names, letters, scale models and detailed filigree. Acrylic comes out with polished glossy edges; wood keeps a warm toasted outline with no chips.",
-    "home.technique.cut.badge": "Wood · Acrylic · Board · Leather",
-    "home.technique.engrave.tab": "Engraving",
-    "home.technique.engrave.title": "Carves relief that never wears off",
-    "home.technique.engrave.text":
-      "Vaporises surface material cleanly — like the 1.5 mm depth on the Ron Barceló stand, wedding champagne flutes or leather crests.",
-    "home.technique.engrave.badge": "Wood · Glass · Leather · Stone",
-    "home.technique.mark.tab": "Marking",
-    "home.technique.mark.title": "High-contrast traceability on metal",
-    "home.technique.mark.text":
-      "Marks stainless steel, aluminium, brass, silver and gold without ink or stickers. Ideal for serial numbers, QR codes, inventory plates and company gifts.",
-    "home.technique.mark.badge": "Steel · Aluminium · Brass · Precious metals",
-    "home.technique.cta": "Request a quote for this finish",
-    "home.technique.guide": "Read our cutting vs engraving guide",
 
     "cta.quote.short": "Get a quote",
     "home.materials.sample": "Laser finish",
@@ -434,7 +391,6 @@ export const site = {
     "preview.note":
       "Visual preview only — we prepare your final vector file in the workshop and confirm depth, size and quote before cutting.",
     "preview.wa.intro": "Hi, I tried an engraving design on your website:",
-    "home.technique.try": "Try engraving live below",
 
     "home.meta.00.left": "00 / Laser cutting, engraving and marking",
     "home.meta.00.right": "Pol. Ind. El Oliveral · Valencia · Since 2007",
@@ -525,14 +481,14 @@ export const site = {
     "home.h1.2": "láser",
     "home.h1.3": "en Valencia",
     "home.lead":
-      "Cortamos, grabamos y marcamos madera, metacrilato, cristal, piel y metal en nuestro propio taller: un nombre para una boda, el logotipo de tu empresa o el número de serie de una pieza industrial.",
+      "Cortamos y grabamos madera, metacrilato y piel, grabamos cristal y marcamos metal en nuestro propio taller: un nombre para una boda, el logotipo de tu empresa o el número de serie de una pieza industrial.",
     "home.stat.since": "Taller propio desde",
     "home.stat.rating": "Valoración en Google",
     "home.stat.materials": "Materiales que trabajamos",
     "home.marquee":
       "Madera · Metacrilato · Cristal · Piel · Acero inoxidable · Aluminio · Latón · Plata · Oro · Piedra ·",
     "home.marquee.services":
-      "Corte láser · Grabado en relieve · Marcado de fibra · Riba-roja de Túria · Desde 2007 ·",
+      "Corte láser · Grabado en relieve · Marcado en metal · Riba-roja de Túria · Desde 2007 ·",
     "hero.film.1.scene": "Corte en madera",
     "hero.film.2.scene": "Grabado de detalle",
     "hero.film.2.line":
@@ -545,7 +501,7 @@ export const site = {
       "Tu nombre, tu logotipo o un número de serie, cortado y grabado en nuestro taller.",
     "home.materials.title": "Materiales que trabajamos",
     "home.materials.lead":
-      "Madera, metacrilato, cristal, piel y metal reaccionan distinto bajo el haz. Ajustamos potencia, velocidad y enfoque a cada material para lograr cortes limpios y grabados que duran.",
+      "Cada material pide un ajuste distinto. Regulamos potencia, velocidad y enfoque para que el corte salga limpio y el grabado dure.",
     "home.clients.title": "Para empresas y para particulares",
     "home.clients.business.title": "Empresas e industria",
     "home.clients.business.text":
@@ -553,7 +509,7 @@ export const site = {
     "home.clients.people.title": "Particulares",
     "home.clients.people.text":
       "Detalles de boda, copas grabadas, una pulsera urgente para un aniversario, medallas con foto, chapas de mascota o regalos únicos. Preparamos el diseño contigo.",
-    "home.work.title": "Trabajos que hablan por nosotros",
+    "home.work.title": "Hecho en nuestro taller",
     "home.work.lead":
       "Piezas reales del taller, desde un abanico para Louis Vuitton hasta la peana de la botella del 30 aniversario de Ron Barceló.",
     "home.work.all": "Ver todos los trabajos",
@@ -770,28 +726,6 @@ export const site = {
     "nav.services.open": "Mostrar servicios",
     "nav.services.explore": "Los 11 servicios del taller",
 
-    "hero.bed.caption": "Bancada · El láser en acción",
-    "hero.bed.note": "Elige un proceso o material para ver el acabado",
-    "hero.bed.cta": "Ver este servicio",
-    "hero.bed.cta.laser": "Explorar materiales",
-    "hero.bed.item.laser": "En directo",
-    "hero.bed.detail.laser":
-      "Corte en chapa, grabado en madera y marcado directo en acero",
-    "hero.bed.item.metal": "Acero y latón",
-    "hero.bed.detail.metal":
-      "Marcado directo permanente, sin tintas ni etiquetas",
-    "hero.bed.item.madera": "Madera",
-    "hero.bed.detail.madera":
-      "Cortes limpios y grabados con relieve sobre abedul o DM",
-    "hero.bed.item.maqueta": "Metacrilato",
-    "hero.bed.detail.maqueta":
-      "Cantos transparentes pulidos al salir del corte láser",
-    "hero.bed.item.piel": "Piel",
-    "hero.bed.detail.piel":
-      "Grabado fino y oscuro en piel sin quemar alrededor",
-    "hero.bed.item.cristal": "Cristal",
-    "hero.bed.detail.cristal":
-      "Esmerilado permanente de alta precisión en copas y piezas",
     "hero.video.pause": "Pausar vídeo láser de fondo",
     "hero.video.play": "Ver vídeo láser de fondo",
     "hero.video.pause.short": "Pausar vídeo",
@@ -801,28 +735,6 @@ export const site = {
     "hero.trust.3": "Presupuesto sin compromiso",
     "hero.segment.business": "Soy empresa",
     "hero.segment.people": "Soy particular",
-
-    "home.technique.eyebrow": "El haz sobre el material",
-    "home.technique.title": "Tres acabados desde el mismo taller",
-    "home.technique.lead":
-      "Ajustando potencia, velocidad y enfoque, el láser atraviesa la plancha, rebaja la superficie o marca el metal de forma permanente.",
-    "home.technique.cut.tab": "Corte láser",
-    "home.technique.cut.title": "Atraviesa la plancha con bordes limpios",
-    "home.technique.cut.text":
-      "Para nombres calados, letras corpóreas, maquetas y piezas a medida. El metacrilato sale con el canto brillante sin repasos y la madera con un perfil limpio y tostado.",
-    "home.technique.cut.badge": "Madera · Metacrilato · Cartón · Piel",
-    "home.technique.engrave.tab": "Grabado",
-    "home.technique.engrave.title": "Rebaja el material con relieve duradero",
-    "home.technique.engrave.text":
-      "Vaporiza capas de material —desde la mordida de 1,5 mm en la peana de Ron Barceló hasta copas de cristal o escudos en piel— sin usar tintas.",
-    "home.technique.engrave.badge": "Madera · Cristal · Piel · Piedra",
-    "home.technique.mark.tab": "Marcado",
-    "home.technique.mark.title": "Marcado directo e imborrable en metal",
-    "home.technique.mark.text":
-      "Cambia el contraste en acero inoxidable, aluminio, latón, plata u oro para números de serie, códigos QR, placas de inventario o regalos de empresa.",
-    "home.technique.mark.badge": "Acero · Aluminio · Latón · Metales preciosos",
-    "home.technique.cta": "Pedir presupuesto de este acabado",
-    "home.technique.guide": "Leer la guía: corte o grabado",
 
     "cta.quote.short": "Pedir presupuesto",
     "home.materials.sample": "Acabado láser",
@@ -924,7 +836,6 @@ export const site = {
       "Simulación orientativa: en el taller preparamos tu archivo vectorial definitivo y te confirmamos acabado, medida y presupuesto antes de fabricar.",
     "preview.wa.intro":
       "Hola, he probado un diseño de grabado láser en vuestra web:",
-    "home.technique.try": "Probar el grabador en vivo abajo",
 
     "home.meta.00.left": "00 / Taller de corte, grabado y marcado láser",
     "home.meta.00.right": "Pol. Ind. El Oliveral · Valencia · Desde 2007",

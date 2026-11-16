@@ -51,10 +51,10 @@ export const materials = {
     "svc.metacrilato.card":
       "Signs, plaques, trophies, displays and engraved glasses with polished edges.",
     "svc.metacrilato.title":
-      "Acrylic and glass laser cutting in Valencia | Lasercom",
+      "Acrylic laser cutting and glass engraving in Valencia | Lasercom",
     "svc.metacrilato.description":
       "Acrylic laser cutting with polished edges and frosted glass engraving in Valencia: signs, plaques, trophies, displays, glasses and bottles.",
-    "svc.metacrilato.h1": "Laser cutting and engraving on acrylic and glass",
+    "svc.metacrilato.h1": "Acrylic laser cutting and glass engraving",
     "svc.metacrilato.lead":
       "Signs, plaques, trophies, scale models, glasses and bottles. Acrylic comes off the laser with bright, flame-polished edges; glass keeps a frosted engraving that never wears off.",
     "svc.metacrilato.intro":
@@ -226,10 +226,9 @@ export const materials = {
       "What is the difference between CO2 and fibre marking on metal?",
     "svc.metal.faq.4.a":
       "CO2 works cleanly on anodised or lacquered metals by stripping the coloured coating, while our fibre laser marks bare metals such as stainless steel, brass, copper, silver and gold directly.",
-    "svc.metal.faq.5.q":
-      "Can you cut metal sheets to shape as well as mark them?",
+    "svc.metal.faq.5.q": "Can I bring my own metal piece to be engraved?",
     "svc.metal.faq.5.a":
-      "Tell us the exact alloy, thickness and dimensions you need — we'll review your plans or sample and tell you straight away how we can make it.",
+      "Usually, yes: tools, tags, jewellery or plates. Tell us what it is and what metal it is made of, and we will confirm that it can be marked safely.",
   },
   es: {
     "svc.madera.name": "Madera",
@@ -283,10 +282,10 @@ export const materials = {
     "svc.metacrilato.card":
       "Rótulos, placas, trofeos, expositores y copas grabadas, con cantos pulidos.",
     "svc.metacrilato.title":
-      "Corte láser de metacrilato y cristal en Valencia | Lasercom",
+      "Corte de metacrilato y grabado de cristal en Valencia | Lasercom",
     "svc.metacrilato.description":
       "Corte láser de metacrilato con cantos pulidos y grabado esmerilado en cristal en Valencia: rótulos, placas, trofeos, copas y botellas.",
-    "svc.metacrilato.h1": "Corte y grabado láser de metacrilato y cristal",
+    "svc.metacrilato.h1": "Corte láser de metacrilato y grabado en cristal",
     "svc.metacrilato.lead":
       "Rótulos, placas, trofeos, maquetas, copas y botellas. El metacrilato sale del láser con los cantos brillantes y pulidos; el cristal queda con un grabado esmerilado que no se borra.",
     "svc.metacrilato.intro":
@@ -462,8 +461,8 @@ export const materials = {
       "¿Qué diferencia hay entre marcar con CO2 y con fibra en metal?",
     "svc.metal.faq.4.a":
       "El CO2 se utiliza sobre aluminio anodizado y metales lacados para descubrir el contraste bajo la capa de color; el láser de fibra marca directamente metales desnudos como acero inoxidable, latón, cobre, plata u oro.",
-    "svc.metal.faq.5.q": "¿También cortáis chapas metálicas a medida?",
+    "svc.metal.faq.5.q": "¿Puedo traer mi propia pieza de metal para grabarla?",
     "svc.metal.faq.5.a":
-      "Indícanos la aleación, el grosor y las medidas que necesitas; revisamos tu plano o pieza de muestra y te confirmamos cómo lo fabricamos.",
+      "Normalmente sí: herramientas, chapas, joyas o placas. Cuéntanos qué es y de qué metal está hecha, y te confirmamos que se puede marcar con seguridad.",
   },
 } as const
