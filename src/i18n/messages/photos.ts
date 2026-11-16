@@ -34,15 +34,12 @@ export const photos = {
       "Ron Barceló 30th anniversary bottle on its engraved wooden stand",
     "photo.corte_grabado_laser_decorar_3":
       "Ron Barceló Imperial Premium Blend 30th anniversary box",
-    "photo.corte_laser_industrai":
-      "Metal sheet being cut by a laser, with sparks",
     "photo.corte_laser_metacrilato_cristal_online_1":
       "Champagne flute engraved with a restaurant logo",
     "photo.fachada_lasercom":
       "Front of the Lasercom workshop in Riba-roja de Túria",
     "photo.falla_colonia_sin_fondo":
       "Laser-cut wooden crest of the Falla Colonia Voltants d'Aldaia",
-    "photo.grabado_con_laser": "Laser head cutting a sheet of plywood",
     "photo.grabado_en_crista":
       "Wedding flute engraved with names and date in a frosted finish",
     "photo.grabado_laser_castaneulas":
@@ -126,16 +123,12 @@ export const photos = {
       "Botella del 30 aniversario de Ron Barceló sobre su peana de madera grabada",
     "photo.corte_grabado_laser_decorar_3":
       "Estuche de Ron Barceló Imperial Premium Blend 30 aniversario",
-    "photo.corte_laser_industrai":
-      "Chapa de metal cortándose con láser, con chispas",
     "photo.corte_laser_metacrilato_cristal_online_1":
       "Copa de cava grabada con el logotipo de un restaurante",
     "photo.fachada_lasercom":
       "Fachada del taller de Lasercom en Riba-roja de Túria",
     "photo.falla_colonia_sin_fondo":
       "Escudo de madera de la Falla Colonia Voltants d'Aldaia cortado con láser",
-    "photo.grabado_con_laser":
-      "Cabezal láser cortando una plancha de contrachapado",
     "photo.grabado_en_crista":
       "Copa de boda grabada con nombres y fecha en acabado esmerilado",
     "photo.grabado_laser_castaneulas":
