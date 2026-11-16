@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Superseded on the site by film-veo.sh (a sharper Veo shot); kept to rebuild
+# the earlier cut.
 # Hero film for the home page: one CO2 laser at work, from the wide shot to the
 # head cutting, one grade, crossfades. Only machines like the workshop's (CO2
 # and fibre lasers): no diode engravers.

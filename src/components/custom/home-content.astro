@@ -161,9 +161,9 @@ const filmChapter2Words = t("hero.film.3.line").split(" ")
 
       <video
         data-film-video
-        data-src={`${base}/video/hero-film.mp4`}
-        data-src-phone={`${base}/video/hero-film-m.mp4`}
-        data-src-large={`${base}/video/hero-film-xl.mp4`}
+        data-src={`${base}/video/hero-film.mp4?v=2`}
+        data-src-phone={`${base}/video/hero-film-m.mp4?v=2`}
+        data-src-large={`${base}/video/hero-film-xl.mp4?v=2`}
         muted
         playsinline
         preload="none"
@@ -249,6 +249,13 @@ const filmChapter2Words = t("hero.film.3.line").split(" ")
         aria-hidden="true"
         class="film-line pointer-events-auto absolute inset-0 hidden flex-col items-center justify-center gap-6 px-5 text-center tall:justify-end tall:pb-28"
       >
+        <!-- The film ends on light plywood: a soft shade behind the closing
+             line keeps the white text legible. Portrait screens have the veil -->
+        <div
+          aria-hidden="true"
+          class="film-extra pointer-events-none absolute inset-0 -z-10 tall:hidden"
+          style="background: radial-gradient(ellipse 50% 42% at 50% 50%, oklch(0.11 0.006 60 / 0.62), transparent 78%);"
+        ></div>
         <p class="display mx-auto max-w-4xl text-[clamp(1.75rem,4.6vw,4.15rem)] leading-[1.03] text-white drop-shadow-[0_4px_24px_rgb(0_0_0/0.65)]">
           {filmChapter2Words.map((word) => (
             <span class="film-w-mask">
