@@ -120,11 +120,11 @@ const filmChapter2Words = t("hero.film.3.line").split(" ")
 <!-- 1. IRIS PORTAL FILM HERO: Dimeunrestaurante circular portal + Cepa scrubbed film + Lasercom monumental display -->
 <section
   data-film
-  class="steel relative overflow-x-clip border-b border-white/10"
+  class="film-track steel relative overflow-x-clip border-b border-white/10"
 >
   <div
     data-film-stage
-    class="relative h-[calc(100svh-4rem)] min-h-[34rem] overflow-hidden bg-[#0b0a09]"
+    class="film-stage relative h-[calc(100svh-4rem)] min-h-[34rem] overflow-hidden bg-[#0b0a09]"
   >
     <!-- Optical Iris Portal: starts full-bleed (0ms LCP), contracts to circular lens mid-scroll, expands for fiber metal finale -->
     <div
@@ -1024,12 +1024,11 @@ const filmChapter2Words = t("hero.film.3.line").split(" ")
       const st = ScrollTrigger.create({
         trigger: filmSection,
         start: "top 64px",
-        // On a phone the stage height (svh) stays put when the address bar
-        // moves, and a shorter pin keeps the film from dragging
-        end: () =>
-          `+=${Math.round(portrait ? filmStage.clientHeight * 2.4 : window.innerHeight * 3)}`,
-        pin: true,
-        anticipatePin: 1,
+        // The stage holds itself with CSS (position: sticky, .film-track
+        // below), so nothing is pinned or inserted by script: the page never
+        // jumps when the library arrives mid-scroll, and phones scroll it on
+        // their own thread. The film runs while the stage is held
+        end: () => `bottom ${64 + filmStage.offsetHeight}px`,
         refreshPriority: 10,
         onUpdate: (self) => {
           const p = self.progress
@@ -1194,6 +1193,24 @@ const filmChapter2Words = t("hero.film.3.line").split(" ")
   }
   .film-w:not(.block) {
     display: inline-block;
+  }
+  /* The scroll the hero film plays over, reserved by CSS from the first paint:
+     the stage sticks under the 4rem header while the track scrolls past.
+     Three screens on wide screens, 2.4 stages on phones. Without JS or with
+     reduced motion the hero is a plain screen */
+  @media (prefers-reduced-motion: no-preference) {
+    :global(html.js) .film-track {
+      height: calc(max(100svh - 4rem, 34rem) + 300svh);
+    }
+    :global(html.js) .film-stage {
+      position: sticky;
+      top: 4rem;
+    }
+  }
+  @media (prefers-reduced-motion: no-preference) and (max-aspect-ratio: 4/5) {
+    :global(html.js) .film-track {
+      height: calc(max(100svh - 4rem, 34rem) * 3.4);
+    }
   }
   /* The beam: a hot core with a red glow, sitting on the veil's top edge */
   .film-scan-line {
