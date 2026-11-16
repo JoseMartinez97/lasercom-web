@@ -42,7 +42,7 @@ export const work = [
   {
     slug: "maqueta",
     filters: ["acrylic_glass", "wood", "business"],
-    photos: ["maqueta_escala_metacrilato_1", "maqueta_escala_metacrilato_2"],
+    photos: ["maqueta_escala_metacrilato_2", "maqueta_escala_metacrilato_1"],
     service: "decoracion",
   },
   {
