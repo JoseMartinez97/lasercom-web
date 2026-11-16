@@ -56,7 +56,7 @@ export const site = {
     "hero.film.3.line": "No minimum order: a one-off piece or a full run.",
     "hero.film.scroll": "Scroll to explore the workshop",
     "home.statement":
-      "One piece or a full run. A name, your logo or a serial number. We design it, cut it and engrave it in our workshop.",
+      "Your name, your logo or a serial number, cut and engraved in our workshop.",
     "home.materials.title": "Materials we work with",
     "home.materials.lead":
       "Wood, acrylic, glass, leather and metal each react differently to the beam. We tune power, speed and focus to the exact material so cuts stay clean and engravings last.",
@@ -542,7 +542,7 @@ export const site = {
       "Sin pedido mínimo: una pieza única o una tirada completa.",
     "hero.film.scroll": "Desliza para recorrer el taller",
     "home.statement":
-      "Una pieza o una tirada entera. Un nombre, tu logotipo o un número de serie. Lo diseñamos, lo cortamos y lo grabamos en nuestro taller.",
+      "Tu nombre, tu logotipo o un número de serie, cortado y grabado en nuestro taller.",
     "home.materials.title": "Materiales que trabajamos",
     "home.materials.lead":
       "Madera, metacrilato, cristal, piel y metal reaccionan distinto bajo el haz. Ajustamos potencia, velocidad y enfoque a cada material para lograr cortes limpios y grabados que duran.",
