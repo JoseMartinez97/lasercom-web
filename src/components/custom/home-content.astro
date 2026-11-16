@@ -1129,10 +1129,18 @@ const filmChapter2Words = t("hero.film.3.line").split(" ")
             filmVideo.dataset.src
           const blob = await (await fetch(src)).blob()
           blobUrl = URL.createObjectURL(blob)
+          // preload="none" keeps the page from fetching it early, but iOS
+          // Safari then never decodes a frame (no loadeddata): lift it here
+          filmVideo.preload = "auto"
           filmVideo.src = blobUrl
-          await new Promise<void>((ok) =>
-            filmVideo.addEventListener("loadeddata", () => ok(), { once: true })
-          )
+          filmVideo.load()
+          if (filmVideo.readyState < 2)
+            await new Promise<void>((ok) => {
+              filmVideo.addEventListener("loadeddata", () => ok(), {
+                once: true,
+              })
+              window.setTimeout(ok, 4000)
+            })
           await filmVideo.play().catch(() => {})
           filmVideo.pause()
           filmTarget = st.progress * (filmVideo.duration - 0.05)
