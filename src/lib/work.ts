@@ -22,7 +22,6 @@ export const work = [
     filters: ["wood", "business"],
     photos: [
       "abanico_exclusivo_louis_vuitton-2",
-      "abanico_exclusivo_louis_vuitton_2",
       "abanico_exclusivo_louis_vuitton_4",
       "abanico_exclusivo_louis_vuitton_3",
     ],
@@ -31,12 +30,7 @@ export const work = [
   {
     slug: "lv2",
     filters: ["wood", "business"],
-    photos: [
-      "abanico_amarillo_logotipo_varillas_2",
-      "abanico_amarillo_logotipo_varillas_1",
-      "abanico_amarillo_logotipo_varillas_4",
-      "abanico_amarillo_logotipo_varillas_3",
-    ],
+    photos: ["abanico_amarillo_logotipo_varillas_1"],
     service: "empresas",
   },
   {
@@ -77,10 +71,10 @@ export const work = [
     slug: "piel",
     filters: ["leather"],
     photos: [
-      "cortar_grabar_piel_laser_2-1",
-      "cortar_grabar_piel_laser_4-1",
       "cortar_grabar_piel_laser_1",
       "cortar_grabar_piel_laser_3",
+      "cortar_grabar_piel_laser_2-1",
+      "cortar_grabar_piel_laser_4-1",
     ],
     service: "piel",
   },
