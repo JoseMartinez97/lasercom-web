@@ -1105,6 +1105,34 @@ const filmChapter2Words = t("hero.film.3.line").split(" ")
       })
       cleanups.push(() => st.kill())
 
+      // ?debug on the URL prints the film's loading steps on screen, to
+      // diagnose a phone that cannot be inspected
+      const filmLog = new URLSearchParams(location.search).has("debug")
+        ? (() => {
+            const box = document.createElement("pre")
+            box.style.cssText =
+              "position:fixed;left:0;right:0;bottom:0;z-index:9999;margin:0;padding:8px;max-height:40vh;overflow:auto;font:11px/1.3 monospace;color:#0f0;background:rgb(0 0 0/.85);white-space:pre-wrap;pointer-events:none"
+            document.body.append(box)
+            const t0 = performance.now()
+            return (line: string) => {
+              box.textContent += `${((performance.now() - t0) / 1000).toFixed(1)}s ${line}\n`
+            }
+          })()
+        : undefined
+      filmLog?.(navigator.userAgent)
+      if (filmLog && filmVideo) {
+        let seeks = 0
+        filmVideo.addEventListener("seeked", () => {
+          if (++seeks % 15 === 1)
+            filmLog(
+              `seek #${seeks} t=${filmVideo.currentTime.toFixed(2)} rs=${filmVideo.readyState}`
+            )
+        })
+        filmVideo.addEventListener("error", () =>
+          filmLog(`video error ${filmVideo.error?.code}`)
+        )
+      }
+
       const loadFilmBlob = async () => {
         if (videoStarted || !filmVideo?.dataset.src) return
         const conn = (
@@ -1112,7 +1140,10 @@ const filmChapter2Words = t("hero.film.3.line").split(" ")
             connection?: { saveData?: boolean; effectiveType?: string }
           }
         ).connection
-        if (conn?.saveData) return
+        if (conn?.saveData) {
+          filmLog?.("saveData: no film")
+          return
+        }
         videoStarted = true
         try {
           // Portrait screens get the 9:16 cut: a third of the bytes, no wasted pixels
@@ -1127,29 +1158,57 @@ const filmChapter2Words = t("hero.film.3.line").split(" ")
             (portrait && filmVideo.dataset.srcPhone) ||
             (large && filmVideo.dataset.srcLarge) ||
             filmVideo.dataset.src
+          filmLog?.(`fetch ${src}`)
           const blob = await (await fetch(src)).blob()
+          filmLog?.(`got ${(blob.size / 1e6).toFixed(1)} MB`)
           blobUrl = URL.createObjectURL(blob)
           // preload="none" keeps the page from fetching it early, but iOS
           // Safari then never decodes a frame (no loadeddata): lift it here
           filmVideo.preload = "auto"
           filmVideo.src = blobUrl
           filmVideo.load()
-          if (filmVideo.readyState < 2)
-            await new Promise<void>((ok) => {
-              filmVideo.addEventListener("loadeddata", () => ok(), {
-                once: true,
-              })
-              window.setTimeout(ok, 4000)
+          const waitFor = (event: string, ms: number) =>
+            new Promise<void>((ok) => {
+              filmVideo.addEventListener(event, () => ok(), { once: true })
+              window.setTimeout(ok, ms)
             })
-          await filmVideo.play().catch(() => {})
+          if (filmVideo.readyState < 2) await waitFor("loadeddata", 4000)
+          filmLog?.(`data rs=${filmVideo.readyState} d=${filmVideo.duration}`)
+          // A short muted play wakes the decoder on iOS. Never wait on it:
+          // Low Power Mode and some in-app browsers leave it pending
+          await Promise.race([
+            filmVideo.play().then(
+              () => filmLog?.("play ok"),
+              (e: Error) => filmLog?.(`play ${e.name}`)
+            ),
+            new Promise((ok) => window.setTimeout(ok, 1000)),
+          ])
           filmVideo.pause()
-          filmTarget = st.progress * (filmVideo.duration - 0.05)
+          if (!Number.isFinite(filmVideo.duration))
+            await waitFor("loadedmetadata", 4000)
+          const duration = filmVideo.duration
+          if (!Number.isFinite(duration) || duration <= 0) {
+            filmLog?.("no duration: poster stays")
+            return
+          }
+          filmTarget = st.progress * (duration - 0.05)
           filmTime = filmTarget
           filmVideo.currentTime = filmTime
           filmReady = true
-          filmVideo.classList.remove("opacity-0")
-          filmVideo.classList.add("opacity-100")
-        } catch {
+          // Shown once a frame is really there, so a video that cannot
+          // decode never covers the poster with black
+          const reveal = () => {
+            filmLog?.(`shown rs=${filmVideo.readyState}`)
+            filmVideo.classList.remove("opacity-0")
+            filmVideo.classList.add("opacity-100")
+          }
+          if (filmVideo.readyState >= 2) reveal()
+          else
+            filmVideo.addEventListener("seeked", reveal, {
+              once: true,
+            })
+        } catch (e) {
+          filmLog?.(`error ${(e as Error).name}: ${(e as Error).message}`)
           /* poster remains intact */
         }
       }
