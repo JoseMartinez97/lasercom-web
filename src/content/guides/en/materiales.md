@@ -37,12 +37,16 @@ See [leather engraving and cutting](/en/laser-engraving-leather/).
 
 ## Metal: stainless steel, aluminium, brass and precious metals
 
-On metal, the standard job is **permanent marking and engraving**, matching CO2 or fibre lasers to the alloy:
+Metal goes on our **fibre laser**, which marks and engraves every kind of metal:
 
-- **Anodised or lacquered aluminium (CO2 or fibre):** strips away the coloured surface layer to expose bright aluminium beneath — crisp contrast for rating plates, barcodes and QR codes.
-- **Stainless steel, brass, copper, titanium, sterling silver and gold (fibre):** marks bare metal directly; on stainless steel, laser annealing produces a dark, surface-level mark without removing metal or reducing corrosion resistance.
+- **Anodised or lacquered aluminium:** strips away the coloured surface layer to expose bright aluminium beneath — crisp contrast for rating plates, barcodes and QR codes.
+- **Stainless steel, brass, copper, titanium, sterling silver and gold:** marks bare metal directly; on stainless steel, laser annealing produces a dark, surface-level mark without removing metal or reducing corrosion resistance.
 
-If you also need sheet metal cut to size, let us know the exact alloy and thickness so we can review it. See [metal laser engraving](/en/laser-engraving-metal-stainless-steel/).
+The same laser **cuts sheet metal up to 4 mm** thick: tell us the metal, thickness and measurements and we will quote it.
+
+## Plastics
+
+The fibre laser also **engraves and marks plastics**: logos, references, serial numbers or codes on parts, housings and plates. Each plastic reacts differently, so tell us which one it is or send us a part and we will confirm the finish. See [metal laser engraving](/en/laser-engraving-metal-stainless-steel/).
 
 ## Other laser-friendly materials
 
@@ -51,9 +55,9 @@ If you also need sheet metal cut to size, let us know the exact alloy and thickn
 - **Fabric and felt:** synthetic fibres seal along the cut line so edges don't fray.
 - **Stone, slate and ceramic:** surface engraving (not cutting) with a light, distinctive mark on dark tones.
 
-## Materials we never laser
+## Materials we never cut or engrave on the CO2 laser
 
-For operator safety, optics care and finish quality, we turn down:
+For operator safety, optics care and finish quality, on the CO2 laser we turn down:
 
 - **PVC and vinyl:** when heated they release toxic chlorine gas that corrodes mirrors, lenses and rails. Many faux leathers and banners are PVC.
 - **Polycarbonate:** instead of cutting cleanly, it melts, yellows and gives off dense smoke. For tough clear plastic parts, acrylic (PMMA) is the right choice.

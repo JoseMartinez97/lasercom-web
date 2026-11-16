@@ -189,14 +189,14 @@ export const materials = {
       "Plaques, tags, serial numbers and QR codes on steel, aluminium, brass and more.",
     "svc.metal.title": "Metal and steel laser engraving in Valencia | Lasercom",
     "svc.metal.description":
-      "Laser marking on stainless steel, anodised aluminium, brass, copper, silver and gold in Valencia. Permanent plaques, tags, serial numbers and QR codes.",
+      "Laser engraving and marking on stainless steel, aluminium, brass, copper, silver and gold in Valencia, plus sheet metal cut up to 4 mm. Plates, serials and QR.",
     "svc.metal.h1": "Laser engraving and marking on metal",
     "svc.metal.lead":
       "Plaques, tags, serial numbers, barcodes and logos on stainless steel, anodised aluminium, brass, copper, silver or gold. A permanent mark built to withstand wear and the outdoors.",
     "svc.metal.intro":
       "Laser marking gives metals a crisp, permanent finish without inks, acids or mechanical stamping. Applications range from industrial traceability — serial numbers, DataMatrix/QR codes and rating plates — to metal business cards, trophies, pet tags and personalised jewellery.",
     "svc.metal.body":
-      "We choose the laser source for each alloy: CO2 laser for anodised aluminium and lacquered or coated metals (removing the surface coating cleanly to reveal high-contrast base metal), and fibre laser for bare stainless steel, brass, copper, titanium, sterling silver and gold. With laser annealing on stainless steel, we produce a dark, high-contrast mark right at the surface without removing material or compromising corrosion resistance.",
+      "We mark and engrave every metal with our fibre laser: stainless steel, anodised or lacquered aluminium, brass, copper, titanium, sterling silver and gold. With laser annealing on stainless steel we produce a dark, high-contrast mark right at the surface without removing material or compromising corrosion resistance. The same laser also cuts sheet metal up to 4 mm thick.",
     "svc.metal.points": "Why laser on metal",
     "svc.metal.p1.t": "Truly permanent",
     "svc.metal.p1.d":
@@ -222,13 +222,56 @@ export const materials = {
       "Can you mark sequential serial numbers, barcodes and QR codes?",
     "svc.metal.faq.3.a":
       "Yes. We generate and mark variable numbering, barcodes and QR codes with high contrast for reliable scanning. See also our industrial marking service.",
-    "svc.metal.faq.4.q":
-      "What is the difference between CO2 and fibre marking on metal?",
+    "svc.metal.faq.4.q": "Can you cut metal too?",
     "svc.metal.faq.4.a":
-      "CO2 works cleanly on anodised or lacquered metals by stripping the coloured coating, while our fibre laser marks bare metals such as stainless steel, brass, copper, silver and gold directly.",
+      "Yes. Our fibre laser cuts sheet metal up to 4 mm thick. Send us the drawing or the measurements, the metal and the quantity, and we will quote it.",
     "svc.metal.faq.5.q": "Can I bring my own metal piece to be engraved?",
     "svc.metal.faq.5.a":
       "Usually, yes: tools, tags, jewellery or plates. Tell us what it is and what metal it is made of, and we will confirm that it can be marked safely.",
+    "svc.plastico.name": "Plastic",
+    "svc.plastico.card":
+      "Logos, serial numbers, references and QR codes engraved on plastic parts and housings.",
+    "svc.plastico.title": "Laser engraving on plastic in Valencia | Lasercom",
+    "svc.plastico.description":
+      "Laser engraving and marking on plastic in Valencia with a fibre laser: logos, serial numbers, references and QR codes on parts, housings and plates.",
+    "svc.plastico.h1": "Laser engraving and marking on plastic",
+    "svc.plastico.lead":
+      "Logos, serial numbers, references and QR codes on plastic parts, housings and plates. A clean, permanent mark with no ink or stickers.",
+    "svc.plastico.intro":
+      "Our fibre laser engraves and marks plastic just as it does metal: the beam changes the colour of the surface or takes it down slightly, so the mark sits in the material itself. It works both for identifying the parts of an industrial run and for personalising a single item with a name or a logo.",
+    "svc.plastico.body":
+      "Each plastic reacts to the laser in its own way: depending on its make-up and colour, the mark comes out lighter, darker or slightly raised. So before a run, tell us which plastic it is or bring us a part to confirm the finish. To cut plastic sheet we use the CO2 laser, which leaves acrylic with a polished edge.",
+    "svc.plastico.points": "Why engrave plastic with a laser",
+    "svc.plastico.p1.t": "No ink or labels",
+    "svc.plastico.p1.d":
+      "The mark is part of the plastic itself: it doesn't peel like a sticker or rub off with handling.",
+    "svc.plastico.p2.t": "Different data on every part",
+    "svc.plastico.p2.d":
+      "Sequential serial numbers, batches, references or QR codes that change from one unit to the next.",
+    "svc.plastico.p3.t": "Fine detail",
+    "svc.plastico.p3.d":
+      "Small text, logos and codes stay sharp even on small parts.",
+    "svc.plastico.p4.t": "Nothing touches the part",
+    "svc.plastico.p4.d":
+      "The laser doesn't touch or press on the plastic, so it doesn't scratch it.",
+    "svc.plastico.uses":
+      "Industrial parts and components · Housings · ID plates · Serial numbers and QR codes · Company logos · Personalised gifts",
+    "svc.plastico.faq.1.q": "Which plastics can you engrave?",
+    "svc.plastico.faq.1.a":
+      "We work all kinds of plastic on the fibre laser. As each one reacts differently, tell us which it is (or send a photo with whatever you know about it) and we will confirm how it comes out.",
+    "svc.plastico.faq.2.q": "Will the mark wear off with use?",
+    "svc.plastico.faq.2.a":
+      "No. The laser changes the surface of the plastic itself, so it doesn't peel or rub off with handling or cleaning the way ink or a sticker does.",
+    "svc.plastico.faq.3.q":
+      "Can you mark a different serial number or QR code on every part?",
+    "svc.plastico.faq.3.a":
+      "Yes. We mark sequential numbering, batches, references and QR codes or barcodes that change from one unit to the next. See also our industrial marking service.",
+    "svc.plastico.faq.4.q": "Do you cut plastic as well?",
+    "svc.plastico.faq.4.a":
+      "We cut acrylic sheet on the CO2 laser, with a polished edge. Other plastics, such as PVC or polycarbonate, are not laser cut because they give off harmful fumes or melt.",
+    "svc.plastico.faq.5.q": "Can I bring my own plastic parts?",
+    "svc.plastico.faq.5.a":
+      "Yes. Tell us what the part is, what plastic it is made of and how many you need, and we will confirm how to mark it.",
   },
   es: {
     "svc.madera.name": "Madera",
@@ -423,14 +466,14 @@ export const materials = {
     "svc.metal.title":
       "Grabado y marcado láser en metal en Valencia | Lasercom",
     "svc.metal.description":
-      "Marcado y grabado láser permanente en acero inoxidable, aluminio anodizado, latón, cobre, plata y oro en Valencia. Placas, chapas, series y QR.",
+      "Grabado y marcado láser en acero inoxidable, aluminio, latón, cobre, plata y oro en Valencia, y corte de chapa de hasta 4 mm. Placas, series y QR.",
     "svc.metal.h1": "Grabado y marcado láser en metal",
     "svc.metal.lead":
       "Placas, chapas, números de serie, códigos de barras y logotipos en acero inoxidable, aluminio anodizado, latón, cobre, plata u oro. Un marcado permanente que aguanta el uso y la intemperie.",
     "svc.metal.intro":
       "El marcado láser permite identificar y personalizar metales blandos y duros de forma limpia y definitiva, sin tintas, etiquetas ni punzones. Trabajamos desde trazabilidad industrial —números de serie, códigos QR, códigos de barras y placas de características— hasta tarjetas metálicas de visita, trofeos, chapas para mascotas y joyería.",
     "svc.metal.body":
-      "Elegimos la fuente láser adecuada para cada metal: láser de CO2 para aluminio anodizado y superficies lacadas o revestidas (eliminando el recubrimiento para sacar un contraste limpio), y láser de fibra para acero inoxidable, latón, cobre, titanio, plata de ley y oro. Con el recocido láser en acero inoxidable logramos una marca oscura de alto contraste a ras de superficie, sin arrancar material ni reducir su resistencia a la corrosión.",
+      "Marcamos y grabamos todos los metales con nuestro láser de fibra: acero inoxidable, aluminio anodizado o lacado, latón, cobre, titanio, plata de ley y oro. Con el recocido láser en acero inoxidable logramos una marca oscura de alto contraste a ras de superficie, sin arrancar material ni reducir su resistencia a la corrosión. El mismo láser corta además chapa metálica de hasta 4 mm de grosor.",
     "svc.metal.points": "Por qué marcar metal con láser",
     "svc.metal.p1.t": "Marcado permanente",
     "svc.metal.p1.d":
@@ -457,12 +500,55 @@ export const materials = {
       "¿Marcáis números de serie correlativos, códigos de barras y QR?",
     "svc.metal.faq.3.a":
       "Sí. Marcamos numeración variable, referencias, códigos de barras y códigos QR con el contraste necesario para su lectura con escáner. Mira también nuestro servicio de marcado industrial.",
-    "svc.metal.faq.4.q":
-      "¿Qué diferencia hay entre marcar con CO2 y con fibra en metal?",
+    "svc.metal.faq.4.q": "¿También cortáis metal?",
     "svc.metal.faq.4.a":
-      "El CO2 se utiliza sobre aluminio anodizado y metales lacados para descubrir el contraste bajo la capa de color; el láser de fibra marca directamente metales desnudos como acero inoxidable, latón, cobre, plata u oro.",
+      "Sí. Con el láser de fibra cortamos chapa metálica de hasta 4 mm de grosor. Mándanos el plano o las medidas, el metal y la cantidad, y te damos precio.",
     "svc.metal.faq.5.q": "¿Puedo traer mi propia pieza de metal para grabarla?",
     "svc.metal.faq.5.a":
       "Normalmente sí: herramientas, chapas, joyas o placas. Cuéntanos qué es y de qué metal está hecha, y te confirmamos que se puede marcar con seguridad.",
+    "svc.plastico.name": "Plástico",
+    "svc.plastico.card":
+      "Logotipos, números de serie, referencias y QR grabados en piezas y carcasas de plástico.",
+    "svc.plastico.title": "Grabado láser en plástico en Valencia | Lasercom",
+    "svc.plastico.description":
+      "Grabado y marcado láser en plástico en Valencia con láser de fibra: logotipos, números de serie, referencias y códigos QR en piezas, carcasas y placas.",
+    "svc.plastico.h1": "Grabado y marcado láser en plástico",
+    "svc.plastico.lead":
+      "Logotipos, números de serie, referencias y códigos QR en piezas, carcasas y placas de plástico. Una marca limpia y permanente, sin tinta ni pegatinas.",
+    "svc.plastico.intro":
+      "Con nuestro láser de fibra grabamos y marcamos el plástico igual que el metal: el haz cambia el color de la superficie o la rebaja ligeramente, y la marca queda en el propio material. Sirve tanto para identificar las piezas de una tirada industrial como para personalizar un objeto suelto con un nombre o un logotipo.",
+    "svc.plastico.body":
+      "Cada plástico reacciona al láser a su manera: según su composición y su color, la marca sale más clara, más oscura o con un ligero relieve. Por eso, antes de una tirada, cuéntanos qué plástico es o tráenos una pieza para confirmar el acabado. Para cortar plancha de plástico usamos el láser de CO2, que deja el metacrilato con el canto pulido.",
+    "svc.plastico.points": "Por qué grabar plástico con láser",
+    "svc.plastico.p1.t": "Sin tintas ni etiquetas",
+    "svc.plastico.p1.d":
+      "La marca forma parte del propio plástico: no se despega como una pegatina ni se borra con el roce.",
+    "svc.plastico.p2.t": "Datos distintos en cada pieza",
+    "svc.plastico.p2.d":
+      "Números de serie correlativos, lotes, referencias o códigos QR que cambian de una unidad a otra.",
+    "svc.plastico.p3.t": "Detalle fino",
+    "svc.plastico.p3.d":
+      "Textos pequeños, logotipos y códigos nítidos incluso en piezas pequeñas.",
+    "svc.plastico.p4.t": "Sin tocar la pieza",
+    "svc.plastico.p4.d":
+      "El láser no toca ni presiona el plástico, así que no lo raya.",
+    "svc.plastico.uses":
+      "Piezas y componentes industriales · Carcasas · Placas identificativas · Números de serie y QR · Logotipos de empresa · Regalos personalizados",
+    "svc.plastico.faq.1.q": "¿Qué plásticos podéis grabar?",
+    "svc.plastico.faq.1.a":
+      "Trabajamos todo tipo de plásticos con el láser de fibra. Como cada uno reacciona distinto, cuéntanos cuál es (o mándanos una foto con lo que sepas de él) y te confirmamos cómo queda.",
+    "svc.plastico.faq.2.q": "¿La marca se borra con el uso?",
+    "svc.plastico.faq.2.a":
+      "No. El láser modifica la superficie del propio plástico, así que no se despega ni se borra con el roce o la limpieza como una tinta o una pegatina.",
+    "svc.plastico.faq.3.q":
+      "¿Podéis marcar un número de serie o un código QR distinto en cada pieza?",
+    "svc.plastico.faq.3.a":
+      "Sí. Marcamos numeración correlativa, lotes, referencias y códigos QR o de barras que cambian de una unidad a otra. Mira también nuestro servicio de marcado industrial.",
+    "svc.plastico.faq.4.q": "¿También cortáis plástico?",
+    "svc.plastico.faq.4.a":
+      "Cortamos plancha de metacrilato con el láser de CO2, con el canto pulido. Otros plásticos, como el PVC o el policarbonato, no se cortan con láser porque desprenden humos nocivos o se funden.",
+    "svc.plastico.faq.5.q": "¿Puedo traer mis propias piezas de plástico?",
+    "svc.plastico.faq.5.a":
+      "Sí. Cuéntanos qué pieza es, de qué plástico está hecha y cuántas unidades necesitas, y te confirmamos cómo marcarla.",
   },
 } as const

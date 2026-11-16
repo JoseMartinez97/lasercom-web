@@ -27,7 +27,7 @@ export const guides: Record<
     es: "/guias/materiales-corte-grabado-laser/",
     en: "/en/guides/laser-cutting-engraving-materials/",
     photo: "corte_laser_metacrilato_cristal_online_1",
-    services: ["madera", "metacrilato", "piel", "metal"],
+    services: ["madera", "metacrilato", "piel", "metal", "plastico"],
   },
   "preparar-archivo": {
     es: "/guias/preparar-archivo-corte-laser/",
@@ -39,7 +39,7 @@ export const guides: Record<
     es: "/guias/marcado-laser-industrial-trazabilidad/",
     en: "/en/guides/industrial-laser-marking-traceability/",
     photo: "grabado_laser_placa_hospital",
-    services: ["industrial", "metal", "empresas"],
+    services: ["industrial", "metal", "plastico", "empresas"],
   },
   "joyeria-regalos": {
     es: "/guias/grabar-joyas-regalos-laser/",

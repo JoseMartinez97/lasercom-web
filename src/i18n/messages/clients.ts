@@ -11,9 +11,9 @@ export const clients = {
     "svc.industrial.lead":
       "Sequential serial numbers, barcodes, QR codes and your logo on every part, for reliable traceability and clear branding. Plus parts cut to plan for your assembly line.",
     "svc.industrial.intro":
-      "We laser-mark components, tools, inventory plates and rating plates with your logo, consecutive serial numbers, barcodes or QR codes. Because the mark is created directly in the material without ink, labels or rivets, it survives handling, grease, cleaning and the working life of the part.",
+      "We laser-mark metal and plastic components, tools, inventory plates and rating plates with your logo, consecutive serial numbers, barcodes or QR codes. Because the mark is created directly in the material without ink, labels or rivets, it survives handling, grease, cleaning and the working life of the part.",
     "svc.industrial.body":
-      "Alongside marking, we cut custom gaskets, spacers, panels and assembly components in acrylic, wood, leather and other sheet materials from your CAD plans (DXF, DWG, SVG or vector PDF). Because the laser never touches the part mechanically, we achieve the same accuracy and placement from the first piece to the last in a batch — and keep your settings on file for repeat orders.",
+      "Alongside marking, we cut parts from your CAD plans (DXF, DWG, SVG or vector PDF): sheet metal up to 4 mm on the fibre laser, and gaskets, spacers and panels in acrylic, wood, leather and other sheet materials on the CO2 laser. Because the laser never touches the part mechanically, we achieve the same accuracy and placement from the first piece to the last in a batch, and keep your settings on file for repeat orders.",
     "svc.industrial.points": "What industrial marking gives you",
     "svc.industrial.p1.t": "Permanent traceability",
     "svc.industrial.p1.d":
@@ -26,7 +26,7 @@ export const clients = {
       "Saved parameters and jigs keep every mark and cut dimension consistent across repeat production orders.",
     "svc.industrial.p4.t": "Parts cut to CAD plan",
     "svc.industrial.p4.d":
-      "Custom-cut parts ready to drop straight into your sub-assemblies without manual trimming.",
+      "Parts cut 1:1 in sheet metal up to 4 mm, acrylic, wood or leather, ready to drop straight into your sub-assemblies.",
     "svc.industrial.uses":
       "Sequential serial numbers · Barcodes and QR codes · Inventory plates · Logos on parts · Rating plates · Parts cut to CAD plan · Tool identification",
     "svc.industrial.faq.1.q":
@@ -322,11 +322,11 @@ export const clients = {
       "Yes. Tell us what you're picturing and the approximate dimensions; we prepare the digital design and show it to you to approve.",
     "svc.personalizado.faq.3.q": "Which materials do you work with?",
     "svc.personalizado.faq.3.a":
-      "Solid wood, plywood, MDF, acrylic, glass, natural leather, stainless steel, anodised aluminium, brass, copper, silver, gold, cork, card and stone, among others.",
+      "Stainless steel, aluminium, brass, copper, silver, gold and plastics on the fibre laser; solid wood, plywood, MDF, acrylic, glass, natural leather, cork, card and stone on the CO2 laser, among others.",
     "svc.personalizado.faq.4.q":
       "Are there materials you cannot laser cut or engrave?",
     "svc.personalizado.faq.4.a":
-      "Yes: PVC, vinyl, many synthetic faux leathers that contain PVC, polycarbonate and materials with unknown coatings, for safety and finish quality.",
+      "On the CO2 laser we never cut or engrave PVC, vinyl, faux leathers that contain PVC, polycarbonate or materials with unknown coatings, for safety and finish quality. Plastics are engraved on the fibre laser: tell us which plastic it is and we will confirm.",
     "svc.personalizado.faq.5.q":
       "Can I see material samples or visit the workshop in Valencia?",
     "svc.personalizado.faq.5.a":
@@ -343,9 +343,9 @@ export const clients = {
     "svc.industrial.lead":
       "Números de serie correlativos, códigos de barras, códigos QR y tu logotipo en cada pieza para asegurar la trazabilidad. Además, corte de piezas a medida según plano.",
     "svc.industrial.intro":
-      "Marcamos con láser componentes mecánicos, herramientas, placas de inventario y placas de características con el logotipo de tu empresa, numeración correlativa, códigos de barras o códigos QR. Al quedar grabado directamente sobre el material sin tintas, etiquetas adhesivas ni remaches, el marcado resiste el roce, aceites, disolventes de limpieza y toda la vida útil del producto.",
+      "Marcamos con láser componentes de metal y de plástico, herramientas, placas de inventario y placas de características con el logotipo de tu empresa, numeración correlativa, códigos de barras o códigos QR. Al quedar grabado directamente sobre el material sin tintas, etiquetas adhesivas ni remaches, el marcado resiste el roce, aceites, disolventes de limpieza y toda la vida útil del producto.",
     "svc.industrial.body":
-      "También aplicamos el corte láser a procesos industriales: cortamos juntas, separadores, paneles y piezas a medida desde tus planos CAD (DXF, DWG, SVG o PDF vectorial) listas para entrar en cadena de montaje. Como el haz no ejerce presión mecánica, repetimos exactamente la misma posición y calidad en todo el lote y conservamos tus ajustes para futuros pedidos periódicos.",
+      "También cortamos piezas a medida desde tus planos CAD (DXF, DWG, SVG o PDF vectorial): chapa metálica de hasta 4 mm con el láser de fibra, y juntas, separadores y paneles en metacrilato, madera, piel y otros materiales en plancha con el láser de CO2. Como el haz no ejerce presión mecánica, repetimos exactamente la misma posición y calidad en todo el lote y conservamos tus ajustes para futuros pedidos periódicos.",
     "svc.industrial.points": "Qué aporta el marcado láser industrial",
     "svc.industrial.p1.t": "Trazabilidad permanente",
     "svc.industrial.p1.d":
@@ -358,7 +358,7 @@ export const clients = {
       "Guardamos plantillas, numeración y parámetros para que cada reposición salga idéntica a la primera.",
     "svc.industrial.p4.t": "Corte a medida según plano",
     "svc.industrial.p4.d":
-      "Piezas cortadas a escala 1:1 en metacrilato, madera, piel o materiales técnicos listas para ensamblar.",
+      "Piezas cortadas a escala 1:1 en chapa metálica de hasta 4 mm, metacrilato, madera o piel, listas para ensamblar.",
     "svc.industrial.uses":
       "Números de serie correlativos · Códigos de barras y QR · Placas de inventario · Logotipos en piezas · Placas de características · Piezas cortadas según plano · Marcado de herramienta",
     "svc.industrial.faq.1.q":
@@ -662,11 +662,11 @@ export const clients = {
       "Sí. Cuéntanos lo que imaginas y las medidas aproximadas; preparamos el archivo vectorial y te lo enseñamos antes de pasar a máquina.",
     "svc.personalizado.faq.3.q": "¿Entre qué materiales puedo elegir?",
     "svc.personalizado.faq.3.a":
-      "Madera maciza, contrachapado, DM, metacrilato, cristal, piel natural, acero inoxidable, aluminio anodizado, latón, cobre, plata, oro, corcho, cartón y piedra, entre otros.",
+      "Acero inoxidable, aluminio, latón, cobre, plata, oro y plásticos con el láser de fibra; madera maciza, contrachapado, DM, metacrilato, cristal, piel natural, corcho, cartón y piedra con el láser de CO2, entre otros.",
     "svc.personalizado.faq.4.q":
       "¿Qué materiales NO se pueden trabajar con láser?",
     "svc.personalizado.faq.4.a":
-      "Por seguridad y acabado rechazamos PVC, vinilo, muchas polipieles sintéticas con PVC, policarbonato y materiales con recubrimientos desconocidos.",
+      "Con el láser de CO2 no cortamos ni grabamos PVC, vinilo, polipieles con PVC, policarbonato ni materiales con recubrimientos desconocidos, por seguridad y acabado. Los plásticos los grabamos con el láser de fibra: cuéntanos qué plástico es y te lo confirmamos.",
     "svc.personalizado.faq.5.q":
       "¿Puedo ver muestras o acercarme al taller en Valencia?",
     "svc.personalizado.faq.5.a":

@@ -26,7 +26,7 @@ export const guides = {
     "guide.corte-o-grabado.h1":
       "Laser cutting or engraving: which one do you need?",
     "guide.corte-o-grabado.lead":
-      "The same machine can cut a shape out, engrave a design into the surface or just mark metal. Knowing the difference helps you ask for exactly what you want.",
+      "A laser can cut a shape out, engrave a design into the surface or just mark metal. Knowing the difference helps you ask for exactly what you want.",
     "guide.corte-o-grabado.minutes": "5",
     "guide.materiales.title":
       "Which materials can be laser cut and engraved? | Lasercom",
@@ -96,7 +96,7 @@ export const guides = {
       "Qué diferencia el corte, el grabado y el marcado láser: cómo quedan en madera, metacrilato, piel o metal, qué influye en el coste y cuál pedir.",
     "guide.corte-o-grabado.h1": "Corte o grabado láser: ¿cuál necesitas?",
     "guide.corte-o-grabado.lead":
-      "La misma máquina puede recortar una forma, grabar un diseño en la superficie o marcar metal. Conocer la diferencia te ayuda a pedir justo lo que quieres.",
+      "Un láser puede recortar una forma, grabar un diseño en la superficie o marcar metal. Conocer la diferencia te ayuda a pedir justo lo que quieres.",
     "guide.corte-o-grabado.minutes": "5",
     "guide.materiales.title":
       "Materiales para corte y grabado láser | Lasercom",

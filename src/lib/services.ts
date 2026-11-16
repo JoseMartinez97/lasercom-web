@@ -42,6 +42,7 @@ export const serviceIds = [
   "cristal",
   "piel",
   "metal",
+  "plastico",
   "industrial",
   "empresas",
   "bodas",
@@ -57,7 +58,9 @@ export type Service = {
   es: string
   en: string
   kind: "material" | "client"
-  // Photo names in src/assets/work, the first one leads the page
+  // Photo names in src/assets/work, the first one leads the page. Empty
+  // until the workshop has real photos of that kind of job: never stock or
+  // generated images
   photos: string[]
   related: ServiceId[]
 }
@@ -126,7 +129,14 @@ export const services: Record<ServiceId, Service> = {
       "grabado_laser_placa_hospital",
       "logo_laser",
     ],
-    related: ["industrial", "joyeria", "empresas"],
+    related: ["industrial", "plastico", "joyeria"],
+  },
+  plastico: {
+    es: "/grabado-laser-plastico/",
+    en: "/en/laser-engraving-plastic/",
+    kind: "material",
+    photos: [],
+    related: ["industrial", "metal", "empresas"],
   },
   industrial: {
     es: "/marcado-laser-industrial/",
@@ -138,7 +148,7 @@ export const services: Record<ServiceId, Service> = {
       "grabado_placa_laser",
       "logo_laser",
     ],
-    related: ["metal", "empresas", "letras"],
+    related: ["metal", "plastico", "empresas"],
   },
   empresas: {
     es: "/merchandising-grabado-laser-empresas/",

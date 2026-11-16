@@ -17,6 +17,7 @@ const materials = [
   "glass",
   "leather",
   "metal",
+  "plastic",
   "other",
 ] as const
 const quantities = ["1", "2", "3", "4"] as const
@@ -33,6 +34,7 @@ const serviceMaterial: Record<string, (typeof materials)[number]> = {
   cristal: "glass",
   piel: "leather",
   metal: "metal",
+  plastico: "plastic",
 }
 
 const presets: {

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Hero film for the home page: one CO2 laser at work, from the wide shot to the
-# head cutting, one grade, crossfades. Only a CO2 machine like the workshop's:
-# no diode engravers, no fibre sheet-metal cutters.
+# head cutting, one grade, crossfades. Only machines like the workshop's (CO2
+# and fibre lasers): no diode engravers.
 # Source (free licence, not committed, see render/src/):
 #   A  Pixabay 305027  CO2 laser with two heads engraving and cutting plywood (4K)
 #      https://pixabay.com/videos/laser-engraving-laser-wood-cutting-305027/

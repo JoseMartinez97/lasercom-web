@@ -13,10 +13,10 @@ En industria, una etiqueta adhesiva se despega con la grasa o el calor y la tint
 
 ## Cómo reacciona cada metal al marcado
 
-Elegimos la máquina y técnica según la aleación y el uso que vaya a tener la pieza:
+Todo el metal lo marcamos con el láser de fibra, ajustando la técnica a la aleación y al uso que vaya a tener la pieza:
 
-- **Acero inoxidable (recocido con láser de fibra):** mediante recocido térmico generamos una marca negra o gris muy oscura a ras de superficie, sin arrancar metal ni perforar la capa pasiva, conservando su resistencia a la corrosión.
-- **Aluminio anodizado (láser CO2 o fibra):** el haz retira la capa de anodizado coloreado y deja ver el aluminio claro debajo. Ofrece uno de los contrastes más nítidos posibles para códigos QR, barras y texto pequeño.
+- **Acero inoxidable (recocido láser):** mediante recocido térmico generamos una marca negra o gris muy oscura a ras de superficie, sin arrancar metal ni perforar la capa pasiva, conservando su resistencia a la corrosión.
+- **Aluminio anodizado:** el haz retira la capa de anodizado coloreado y deja ver el aluminio claro debajo. Ofrece uno de los contrastes más nítidos posibles para códigos QR, barras y texto pequeño.
 - **Latón, cobre, titanio y aceros lacados:** marcado directo permanente con alta definición sin deformar chapas finas ni marcar piezas cilíndricas por presión.
 
 ## Piezas cortadas a medida desde plano CAD

@@ -39,8 +39,10 @@ const origin = Astro.site?.origin ?? ""
 // Each page's own structured data: what the service is, and its questions
 const jsonLd: Record<string, unknown>[] = []
 // A page's lead photo as a full address, for its structured data
-const imageUrl = async (name: string) =>
-  `${origin}${(await getImage({ src: photo(name), width: 1200, format: "jpg" })).src}`
+const imageUrl = async (name: string | undefined) =>
+  name
+    ? `${origin}${(await getImage({ src: photo(name), width: 1200, format: "jpg" })).src}`
+    : undefined
 if (page.service) {
   const id = page.service
   jsonLd.push(

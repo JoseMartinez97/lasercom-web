@@ -37,12 +37,16 @@ Más en [corte y grabado láser en piel y cuero](/corte-grabado-laser-piel-cuero
 
 ## Metal: acero inoxidable, aluminio, latón y metales preciosos
 
-En metal trabajamos habitualmente con **marcado y grabado permanente**, combinando láser de CO2 y láser de fibra según la aleación:
+El metal lo trabajamos con el **láser de fibra**, que marca y graba todo tipo de metales:
 
-- **Aluminio anodizado o lacado (CO2 o fibra):** el rayo retira la capa coloreada superficial dejando ver el aluminio claro, con contraste altísimo para placas y códigos de barras.
-- **Acero inoxidable, latón, cobre, titanio, plata de ley y oro (fibra):** el láser marca directamente el metal desnudo; en acero inoxidable permite además el recocido superficial sin arrancar material ni afectar a la protección anticorrosión.
+- **Aluminio anodizado o lacado:** el rayo retira la capa coloreada superficial dejando ver el aluminio claro, con contraste altísimo para placas y códigos de barras.
+- **Acero inoxidable, latón, cobre, titanio, plata de ley y oro:** el láser marca directamente el metal desnudo; en acero inoxidable permite además el recocido superficial sin arrancar material ni afectar a la protección anticorrosión.
 
-Si necesitas además piezas metálicas cortadas a medida, indícanos la aleación y el grosor para estudiar el trabajo. Más en [grabado y marcado láser en metal](/corte-grabado-laser-metal-acero/).
+El mismo láser **corta chapa metálica de hasta 4 mm** de grosor: indícanos el metal, el grosor y las medidas para darte precio.
+
+## Plásticos
+
+Con el láser de fibra también **grabamos y marcamos plásticos**: logotipos, referencias, números de serie o códigos en piezas, carcasas y placas. Cada plástico reacciona distinto, así que cuéntanos cuál es o mándanos una pieza y te confirmamos el acabado. Más en [grabado y marcado láser en metal](/corte-grabado-laser-metal-acero/).
 
 ## Otros materiales que admiten láser
 
@@ -51,9 +55,9 @@ Si necesitas además piezas metálicas cortadas a medida, indícanos la aleació
 - **Tela y fieltro:** muchas fibras sintéticas se cortan sellando el borde para que no se deshilachen.
 - **Piedra, pizarra y cerámica:** admiten grabado (no corte) con una marca clara y muy visible sobre tonos oscuros.
 
-## Materiales que NO se trabajan con láser
+## Materiales que no cortamos ni grabamos con CO2
 
-Por seguridad de las personas, cuidado de la máquina y calidad de acabado, rechazamos siempre:
+Por seguridad de las personas, cuidado de la máquina y calidad de acabado, en el láser de CO2 rechazamos siempre:
 
 - **PVC y vinilo:** al calentarse liberan gas cloro, tóxico y altamente corrosivo para espejos, lentes y guías. Muchas polipieles y lonas son PVC.
 - **Policarbonato:** en lugar de cortarse limpio, se funde, amarillea y desprende humo denso. Cuando se busca un plástico transparente resistente, la alternativa correcta es el metacrilato (PMMA).

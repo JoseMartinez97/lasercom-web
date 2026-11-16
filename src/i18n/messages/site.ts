@@ -34,13 +34,13 @@ export const site = {
 
     "home.title": "Laser cutting, engraving and marking in Valencia | Lasercom",
     "home.description":
-      "Laser cutting, engraving and marking workshop in Riba-roja de Túria (Valencia). Wood, acrylic, glass, leather and metal, from one piece to full runs.",
+      "Laser workshop in Riba-roja de Túria (Valencia): engraving on all metals and plastics, metal cut up to 4 mm, and cutting and engraving in wood, acrylic and leather.",
     "home.readout": "Workshop in Riba-roja de Túria · Valencia · since 2007",
     "home.h1.1": "Laser cutting",
     "home.h1.2": "and engraving",
     "home.h1.3": "in Valencia",
     "home.lead":
-      "We cut and engrave wood, acrylic and leather, engrave glass and mark metal in our own workshop: a name for a wedding, your company logo or the serial number on an industrial part.",
+      "We engrave every kind of metal and plastic, cut metal up to 4 mm, and cut and engrave wood, acrylic and leather in our own workshop: a name for a wedding, your company logo or the serial number on an industrial part.",
     "home.stat.since": "Own workshop since",
     "home.stat.rating": "Rating on Google",
     "home.stat.materials": "Materials we work with",
@@ -115,9 +115,9 @@ export const site = {
       "Can every piece in a run have a different name, serial number or QR code?",
     "home.faq.6.a":
       "Yes. We import guest lists for wedding favours or sequential serial numbers, references and QR codes for industrial batches so every unit is marked uniquely.",
-    "home.faq.7.q": "Are there materials you cannot laser cut or engrave?",
+    "home.faq.7.q": "Are there materials you do not work with?",
     "home.faq.7.a":
-      "Yes: PVC, vinyl, polycarbonate, many faux leathers containing PVC and materials with unknown coatings, because they release harmful fumes or melt instead of cutting cleanly.",
+      "On the CO2 laser we never cut or engrave PVC, vinyl, polycarbonate, faux leathers that contain PVC or materials with unknown coatings, because they release harmful fumes or melt instead of cutting cleanly. Plastics are engraved on the fibre laser: tell us which plastic it is and we will confirm.",
 
     "close.title": "Got an idea? Tell us about it.",
     "close.text":
@@ -224,6 +224,7 @@ export const site = {
     "quote.mat.glass": "Glass",
     "quote.mat.leather": "Leather",
     "quote.mat.metal": "Metal",
+    "quote.mat.plastic": "Plastic",
     "quote.mat.other": "Other",
     "quote.qty": "How many units?",
     "quote.qty.1": "1",
@@ -475,13 +476,13 @@ export const site = {
 
     "home.title": "Corte, grabado y marcado láser en Valencia | Lasercom",
     "home.description":
-      "Taller de corte, grabado y marcado láser en Riba-roja de Túria (Valencia). Madera, metacrilato, cristal, piel y metal, de una pieza a grandes tiradas.",
+      "Taller láser en Riba-roja (Valencia): grabado de todo tipo de metales y plásticos, corte de metal hasta 4 mm, y corte y grabado de madera, metacrilato y piel.",
     "home.readout": "Taller en Riba-roja de Túria · Valencia · desde 2007",
     "home.h1.1": "Corte y grabado",
     "home.h1.2": "láser",
     "home.h1.3": "en Valencia",
     "home.lead":
-      "Cortamos y grabamos madera, metacrilato y piel, grabamos cristal y marcamos metal en nuestro propio taller: un nombre para una boda, el logotipo de tu empresa o el número de serie de una pieza industrial.",
+      "Grabamos todo tipo de metales y plásticos, cortamos metal de hasta 4 mm, y cortamos y grabamos madera, metacrilato y piel en nuestro propio taller: un nombre para una boda, el logotipo de tu empresa o el número de serie de una pieza industrial.",
     "home.stat.since": "Taller propio desde",
     "home.stat.rating": "Valoración en Google",
     "home.stat.materials": "Materiales que trabajamos",
@@ -557,10 +558,9 @@ export const site = {
       "¿Cada pieza puede llevar un nombre, número de serie o QR distinto?",
     "home.faq.6.a":
       "Sí. Trabajamos con datos variables: desde listas de invitados para detalles de boda hasta numeraciones correlativas, referencias o códigos QR únicos en lotes industriales.",
-    "home.faq.7.q":
-      "¿Hay materiales que no se pueden cortar ni grabar con láser?",
+    "home.faq.7.q": "¿Hay materiales que no trabajáis?",
     "home.faq.7.a":
-      "Sí: PVC, vinilo, policarbonato, muchas polipieles sintéticas con PVC y materiales con recubrimientos desconocidos, ya que desprenden humos nocivos o se funden en lugar de cortar limpio.",
+      "Con el láser de CO2 no cortamos ni grabamos PVC, vinilo, policarbonato, polipieles con PVC ni materiales con recubrimientos desconocidos, porque desprenden humos nocivos o se funden en lugar de cortar limpio. Los plásticos los grabamos con el láser de fibra: cuéntanos qué plástico es y te lo confirmamos.",
 
     "close.title": "¿Tienes una idea? Cuéntanosla.",
     "close.text":
@@ -666,6 +666,7 @@ export const site = {
     "quote.mat.glass": "Cristal",
     "quote.mat.leather": "Piel",
     "quote.mat.metal": "Metal",
+    "quote.mat.plastic": "Plástico",
     "quote.mat.other": "Otro",
     "quote.qty": "¿Cuántas unidades?",
     "quote.qty.1": "1",
