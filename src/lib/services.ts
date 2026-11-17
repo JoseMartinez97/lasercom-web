@@ -34,6 +34,15 @@ export const cutouts = new Set([
   "grabado_laser_placa_hospital",
 ])
 
+// Workshop clips: public/video/metal/<name>.{webm,mp4}, poster in
+// src/assets/film/<name>.jpg, caption in film.<name>. Phone footage from the
+// workshop, upscaled with Real-ESRGAN and sped up into short timelapses
+export const films = {
+  "rotulo-disco": { folder: "metal", shape: "portrait" },
+  "dibujo-chapa": { folder: "metal", shape: "landscape" },
+} as const
+export type FilmName = keyof typeof films
+
 export const serviceFaqIndices = [1, 2, 3, 4, 5] as const
 
 export const serviceIds = [
@@ -62,6 +71,8 @@ export type Service = {
   // until the workshop has real photos of that kind of job: never stock or
   // generated images
   photos: string[]
+  // Real footage from the workshop's own machines (see filmNames)
+  films?: FilmName[]
   related: ServiceId[]
 }
 
@@ -129,6 +140,7 @@ export const services: Record<ServiceId, Service> = {
       "grabado_laser_placa_hospital",
       "logo_laser",
     ],
+    films: ["rotulo-disco", "dibujo-chapa"],
     related: ["industrial", "plastico", "joyeria"],
   },
   plastico: {

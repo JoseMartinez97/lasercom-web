@@ -270,6 +270,11 @@ export const site = {
     "svc.common.label": "Workshop in Riba-roja de Túria · Valencia",
     "svc.common.uses": "What we make",
     "svc.common.gallery": "Real work from the workshop",
+    "svc.common.films": "At the machine",
+    "svc.common.films.lead":
+      "Real footage of our fibre laser at work, sped up.",
+    "film.rotulo-disco": "Engraving a name on a metal disc",
+    "film.dibujo-chapa": "Marking a line drawing on a metal sheet",
     "svc.common.related": "You may also be interested in",
     "svc.common.faq": "Frequently asked questions",
     "svc.common.wa": "Hi, I'd like a quote for",
@@ -712,6 +717,11 @@ export const site = {
     "svc.common.label": "Taller en Riba-roja de Túria · Valencia",
     "svc.common.uses": "Qué hacemos",
     "svc.common.gallery": "Trabajos reales del taller",
+    "svc.common.films": "En la máquina",
+    "svc.common.films.lead":
+      "Grabaciones reales de nuestro láser de fibra trabajando, aceleradas.",
+    "film.rotulo-disco": "Grabando un nombre en un disco de metal",
+    "film.dibujo-chapa": "Marcando un dibujo en una chapa metálica",
     "svc.common.related": "También te puede interesar",
     "svc.common.faq": "Preguntas frecuentes",
     "svc.common.wa": "Hola, quería pedir presupuesto para",

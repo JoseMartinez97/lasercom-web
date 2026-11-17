@@ -5,6 +5,7 @@ import { buttonVariants } from "@/components/ui/button"
 import CloseSection from "@/components/custom/close-section.astro"
 import FaqSection from "@/components/custom/faq-section.astro"
 import GuideCards from "@/components/custom/guide-cards.astro"
+import MachineFilms from "@/components/custom/machine-films.astro"
 import PhotoLightbox from "@/components/custom/photo-lightbox.astro"
 import WorkPhoto from "@/components/custom/work-photo.astro"
 import { whatsappHref } from "@/lib/business"
@@ -169,6 +170,10 @@ const relatedGuideIds: GuideId[] = [
     ))}
   </ol>
 </section>
+
+{service.films && service.films.length > 0 && (
+  <MachineFilms lang={lang} names={service.films} />
+)}
 
 <section class="px-5 py-24 md:px-8 lg:py-32">
   <h2 class="display mb-10 text-[clamp(2.5rem,6vw,5.5rem)]" data-title-chars>
