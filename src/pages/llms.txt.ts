@@ -25,6 +25,7 @@ export const GET: APIRoute = ({ site }) => {
 
 - [Home](${origin}/) ([English](${origin}/en/)): services, materials, recent work, reviews and FAQ
 - [Work](${origin}/trabajos/) ([English](${origin}/en/work/)): real jobs from the workshop
+- [Try your engraving](${origin}/prueba-tu-grabado/) ([English](${origin}/en/try-your-engraving/)): type a name or upload a logo, pick a material and watch the laser engrave it in 3D
 - [Guides](${origin}/guias/) ([English](${origin}/en/guides/))
 - [Contact and quote](${origin}/contacto/) ([English](${origin}/en/contact/))
 

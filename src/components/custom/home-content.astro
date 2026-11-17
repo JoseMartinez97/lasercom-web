@@ -5,11 +5,10 @@ import filmPosterPhone from "@/assets/film/hero-film-m.jpg"
 import type { Lang } from "@/i18n/ui"
 import { localizePath, useTranslations } from "@/i18n/utils"
 import { buttonVariants } from "@/components/ui/button"
-import { LogoMark } from "@/components/custom/logo"
 import CloseSection from "@/components/custom/close-section.astro"
 import FaqSection from "@/components/custom/faq-section.astro"
-import WorkIndex from "@/components/custom/work-index.astro"
-import WorkPhoto from "@/components/custom/work-photo.astro"
+import BenchTeaser from "@/components/custom/bench-teaser.astro"
+import WorkCurtains from "@/components/custom/work-curtains.astro"
 import OpenStatus from "@/components/custom/open-status.astro"
 import GuideCards from "@/components/custom/guide-cards.astro"
 import { business, whatsappHref } from "@/lib/business"
@@ -27,15 +26,6 @@ const t = useTranslations(lang)
 const href = (es: string) => localizePath(lang, es)
 const serviceHref = (id: ServiceId) =>
   lang === "en" ? services[id].en : services[id].es
-
-// Three processes: Cutting, Engraving, Marking — clean visual switch
-// Four core materials: Kaizencode full-screen sticky panels, photography-first
-const materials: { id: ServiceId; steel: boolean }[] = [
-  { id: "madera", steel: false },
-  { id: "metacrilato", steel: true },
-  { id: "metal", steel: false },
-  { id: "piel", steel: true },
-]
 
 const clientGroups: {
   anchor: string
@@ -58,12 +48,6 @@ const clientGroups: {
 ]
 
 const processSteps = [1, 2, 3, 4] as const
-const processFacts = [
-  t("home.process.fact.1"),
-  t("home.process.fact.2"),
-  t("home.process.fact.3"),
-  t("home.process.fact.4"),
-]
 
 const reviews = [
   { name: "Pau Pastor", text: t("home.reviews.1") },
@@ -74,28 +58,6 @@ const faqs = homeFaqIndices.map((n) => ({
   q: t(`home.faq.${n}.q`),
   a: t(`home.faq.${n}.a`),
 }))
-
-// Clean mechanical gear vector drawn by scroll progress
-const gear = (() => {
-  const teeth = 14
-  const [r1, r2, cx, cy] = [128, 156, 170, 170]
-  const pts: string[] = []
-  for (let i = 0; i < teeth; i++) {
-    const a = (i / teeth) * Math.PI * 2
-    const step = (Math.PI * 2) / teeth
-    const at = (r: number, ang: number) =>
-      `${(cx + r * Math.cos(ang)).toFixed(1)} ${(cy + r * Math.sin(ang)).toFixed(1)}`
-    pts.push(
-      at(r1, a),
-      at(r2, a + step * 0.12),
-      at(r2, a + step * 0.42),
-      at(r1, a + step * 0.54)
-    )
-  }
-  const ring = `M${pts.join("L")}Z`
-  const bore = `M${cx + 46} ${cy}A46 46 0 1 1 ${cx + 46} ${cy - 0.01}`
-  return `${ring}${bore}`
-})()
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "")
 // First frame of the hero film, in the cut each screen will play: the wide one
@@ -398,66 +360,11 @@ const filmChapter2Words = t("hero.film.3.line").split(" ")
     </div>
   </div>
 </section>
-<!-- 1b. MANIFESTO: Open space, scroll-lit words & single precision vector cut -->
-<section class="grid items-center gap-12 px-5 py-28 md:px-8 lg:min-h-[75svh] lg:grid-cols-12 lg:px-12 lg:py-36">
-  <p
-    data-burn
-    class="display text-[clamp(2rem,4.6vw,4.5rem)] leading-[1.03] lg:col-span-8"
-  >
-    {t("home.statement")}
-  </p>
-  <div
-    class="relative mx-auto w-full max-w-[18rem] lg:col-span-4"
-    aria-hidden="true"
-  >
-    <svg viewBox="0 0 340 340" class="w-full overflow-visible text-foreground">
-      <g
-        stroke="currentColor"
-        stroke-opacity="0.1"
-        stroke-width="1"
-        fill="none"
-      >
-        <circle cx="170" cy="170" r="168" stroke-dasharray="3 6" />
-        <line x1="170" y1="0" x2="170" y2="340" />
-        <line x1="0" y1="170" x2="340" y2="170" />
-      </g>
-      <path
-        d={gear}
-        fill="none"
-        stroke="currentColor"
-        stroke-opacity="0.14"
-        stroke-width="1.5"
-      ></path>
-      <path
-        data-cut
-        d={gear}
-        fill="none"
-        stroke="var(--laser-ink)"
-        stroke-width="2.5"
-        stroke-linejoin="round"
-      ></path>
-      <circle
-        data-cut-dot
-        r="6"
-        fill="var(--laser)"
-        opacity="0"
-        class="drop-shadow-[0_0_8px_var(--laser)]"
-      ></circle>
-    </svg>
-  </div>
-</section>
-<!-- 2. SELECTED WORK: Photo-dominant split (ProjectIndex architecture) -->
-<div class="border-t border-border">
-  <WorkIndex
-    id="trabajos"
-    lang={lang}
-    slugs={["barcelo", "lv", "lv2", "maqueta", "placa"]}
-    title={t("home.work.title")}
-    lead={t("home.work.lead")}
-    more={{ label: t("home.work.all"), href: href("/trabajos/") }}
-  />
-</div>
-<!-- 3. REVIEWS: what Google says, at headline size, right after the work -->
+<!-- 2. THE LASER BED: three pieces from it, and the way to its own page -->
+<BenchTeaser lang={lang} />
+<!-- 3. THE PIECES: real work opening like a cut -->
+<WorkCurtains lang={lang} />
+<!-- 4. PROOF: what Google says, at headline size, right after the work -->
 <section
   aria-labelledby="reviews-title"
   class="steel px-5 py-20 md:px-8 lg:px-12 lg:py-32"
@@ -524,7 +431,7 @@ const filmChapter2Words = t("hero.film.3.line").split(" ")
     </ul>
   </div>
 </section>
-<!-- 4. WHO IT'S FOR: Clean hairline directory without visual clutter -->
+<!-- 4b. WHO IT IS FOR: two audiences, one directory -->
 <section
   id="servicios"
   class="scroll-mt-16 border-t border-border px-5 py-24 md:px-8 lg:px-12 lg:py-36"
@@ -579,142 +486,93 @@ const filmChapter2Words = t("hero.film.3.line").split(" ")
     ))}
   </div>
 </section>
-<!-- 5. MATERIALS STACK: Full-screen sticky panels, Kaizencode layout -->
-<section id="materiales" class="scroll-mt-16 pt-8">
-  <div class="grid gap-6 px-5 pb-14 md:px-8 lg:grid-cols-12 lg:px-12">
-    <h2
-      data-title-chars
-      class="display text-[clamp(2.75rem,7vw,6.25rem)] lg:col-span-7"
-    >
-      {t("home.materials.title")}
-    </h2>
-    <p
-      data-lines
-      class="max-w-lg self-end text-lg text-muted-foreground lg:col-span-5"
-    >
-      {t("home.materials.lead")}
-    </p>
-  </div>
-
-  <ol>
-    {materials.map(({ id, steel }, i) => {
-      const uses = t(`svc.${id}.uses`).split(" · ").slice(0, 4)
-      // Real pieces from the workshop, never stock or generated images
-      const samples = services[id].photos.slice(0, 3)
-      return (
-        <li
-          data-stack-panel
-          class="lg:motion-safe:[@media(min-height:680px)]:sticky lg:motion-safe:[@media(min-height:680px)]:top-16"
-        >
-          <div
-            data-stack-inner
-            class={cn(
-              "relative flex origin-top lg:min-h-[calc(100svh-4rem)] flex-col justify-between gap-8 overflow-hidden border-t border-border px-5 py-8 md:px-8 md:py-12 lg:px-12 lg:py-14",
-              steel ? "steel" : "bg-[#efe6d8]"
-            )}
-          >
-            <div
-              data-stack-shade
-              aria-hidden="true"
-              class="pointer-events-none absolute inset-0 z-10 bg-black opacity-0"
-            />
-
-            <div class="flex items-start justify-between gap-6">
-              <h3
-                data-stack-title
-                class="display min-w-0 text-[clamp(1.85rem,7.2vw,6.5rem)]"
-              >
-                {t(`svc.${id}.name`)}
-              </h3>
-              <span
-                aria-hidden="true"
-                class="display shrink-0 text-[clamp(2rem,7vw,6.5rem)] text-muted-foreground tabular-nums"
-              >
-                {String(i + 1).padStart(2, "0")}
-              </span>
-            </div>
-
-            <div class="grid flex-1 gap-8 border-t border-current/15 pt-6 lg:grid-cols-12 lg:gap-10">
-              <div class="flex flex-col justify-between gap-6 lg:col-span-5">
-                <div class="flex flex-col gap-5">
-                  <p
-                    data-lines
-                    class="max-w-md text-lg leading-relaxed md:text-xl"
-                  >
-                    {t(`svc.${id}.card`)}
-                  </p>
-                  <ul class="max-w-md divide-y divide-current/15 border-y border-current/15 text-sm md:text-base">
-                    {uses.map((use) => (
-                      <li class="py-2.5 opacity-85">{use}</li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div class="flex flex-wrap items-center gap-4 pt-2">
-                  <a
-                    href={serviceHref(id)}
-                    class="inline-flex min-h-11 items-center gap-2 border-b border-current pb-1 text-base font-semibold transition-opacity hover:opacity-75"
-                  >
-                    <span>{t(`svc.${id}.h1`)}</span>
-                    <ArrowRight className="size-4 shrink-0" aria-hidden />
-                  </a>
-                </div>
-              </div>
-
-              <ul
-                class="grid grid-cols-3 gap-2 sm:gap-3 lg:col-span-7 lg:grid-rows-2"
-                aria-label={t("home.materials.samples")}
-              >
-                {samples.map((name, n) => (
-                  <li
-                    class={cn(
-                      "relative overflow-hidden rounded-xl border border-current/15 bg-[#f6f1e9]",
-                      n === 0
-                        ? "col-span-3 aspect-[16/10] sm:col-span-2 sm:row-span-2 sm:aspect-auto sm:min-h-[18rem]"
-                        : "col-span-1 hidden aspect-square sm:block sm:aspect-auto"
-                    )}
-                  >
-                    <WorkPhoto
-                      lang={lang}
-                      name={name}
-                      pad="compact"
-                      sizes={
-                        n === 0
-                          ? "(min-width: 1024px) 38vw, 100vw"
-                          : "(min-width: 1024px) 19vw, 33vw"
-                      }
-                      class="absolute inset-0 size-full"
-                    />
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </li>
-      )
-    })}
-  </ol>
-</section>
-<!-- 6. HOW WE WORK: Kaizencode ProcessSteps layout -->
+<!-- 4c. FROM MESSAGE TO PIECE: the workshop as it is, and the four steps -->
 <section
   id="proceso"
   class="scroll-mt-16 border-t border-border px-5 py-24 md:px-8 lg:px-12 lg:py-36"
 >
-  <div class="grid gap-12 lg:grid-cols-12 lg:gap-8">
-    <div class="hidden flex-col gap-10 lg:col-span-3 lg:flex">
-      <LogoMark className="h-[min(10vw,8rem)] w-auto self-start" />
-      <ul class="flex flex-col gap-2 text-sm text-muted-foreground">
-        {processFacts.map((fact) => (
-          <li>{fact}</li>
-        ))}
-      </ul>
+  <div class="grid gap-14 lg:grid-cols-12 lg:gap-12">
+    <div class="flex flex-col gap-6 lg:col-span-5">
+      <div
+        data-wipe
+        class="relative aspect-[4/3] overflow-hidden rounded-[22px] lg:aspect-[4/5]"
+      >
+        <Image
+          src={photo("fachada_lasercom")}
+          alt={t("photo.fachada_lasercom")}
+          widths={[640, 960, 1200]}
+          sizes="(min-width: 1024px) 40vw, 100vw"
+          loading="lazy"
+          class="size-full object-cover"
+        />
+      </div>
+      <div class="flex flex-col gap-3">
+        <p class="readout text-laser-ink">{t("home.reviews.workshop.label")}</p>
+        <p class="text-xl font-semibold tracking-tight">
+          {t("home.reviews.workshop.title")}
+        </p>
+        <p class="max-w-md text-muted-foreground">
+          {t("home.reviews.workshop.text")}
+        </p>
+        <div class="flex flex-wrap items-center gap-4 pt-1">
+          <a
+            href={business.mapsUrl}
+            target="_blank"
+            rel="noopener"
+            class="inline-flex min-h-11 items-center gap-1.5 font-semibold underline-offset-4 hover:text-laser-ink hover:underline"
+          >
+            {t("cta.directions")}
+            <ArrowUpRight className="size-4 text-laser-ink" aria-hidden />
+          </a>
+          <span class="readout text-muted-foreground">
+            {t("home.reviews.workshop.note")}
+          </span>
+        </div>
+      </div>
     </div>
 
-    <div class="lg:col-span-9" data-rows>
+    <div class="lg:col-span-7" data-rows>
       <div class="mb-10 flex flex-wrap items-end justify-between gap-6 lg:mb-14">
         <h2 class="display text-[clamp(2.75rem,7vw,6rem)]" data-title-chars>
           {t("home.process.title")}
         </h2>
+      </div>
+
+      <ol class="border-b border-border">
+        {processSteps.map((n) => (
+          <li
+            data-row
+            class="group relative grid gap-2 py-6 md:grid-cols-7 md:gap-6 lg:py-8"
+          >
+            <div
+              data-row-line
+              aria-hidden="true"
+              class="absolute inset-x-0 top-0 h-px origin-left bg-border"
+            />
+            <span
+              data-row-cell
+              aria-hidden="true"
+              class="font-mono text-base text-laser-ink tabular-nums md:col-span-1"
+            >
+              {String(n).padStart(3, "0")}
+            </span>
+            <h3
+              data-row-cell
+              class="text-xl font-semibold tracking-tight transition-[translate] duration-500 ease-out group-hover:translate-x-2 md:col-span-2 lg:text-2xl"
+            >
+              {t(`home.process.${n}.t`)}
+            </h3>
+            <p
+              data-row-cell
+              class="text-base text-muted-foreground transition-colors duration-300 group-hover:text-foreground md:col-span-4 lg:text-lg"
+            >
+              {t(`home.process.${n}.d`)}
+            </p>
+          </li>
+        ))}
+      </ol>
+
+      <div class="mt-10 flex flex-wrap items-center gap-4">
         <a
           href={`${href("/contacto/")}#presupuesto`}
           class={buttonVariants({
@@ -726,91 +584,10 @@ const filmChapter2Words = t("hero.film.3.line").split(" ")
           <ArrowRight className="size-4" aria-hidden />
         </a>
       </div>
-
-      <ol class="border-b border-border">
-        {processSteps.map((n) => (
-          <li
-            data-row
-            class="group relative grid gap-2 py-6 md:grid-cols-9 md:gap-6 lg:py-8"
-          >
-            <div
-              data-row-line
-              aria-hidden="true"
-              class="absolute inset-x-0 top-0 h-px origin-left bg-border"
-            />
-            <span
-              data-row-cell
-              aria-hidden="true"
-              class="font-mono text-base text-muted-foreground tabular-nums md:col-span-1"
-            >
-              {String(n).padStart(3, "0")}
-            </span>
-            <h3
-              data-row-cell
-              class="text-xl font-semibold tracking-tight transition-[translate] duration-500 ease-out group-hover:translate-x-2 md:col-span-3 lg:text-2xl"
-            >
-              {t(`home.process.${n}.t`)}
-            </h3>
-            <p
-              data-row-cell
-              class="text-base text-muted-foreground transition-colors duration-300 group-hover:text-foreground md:col-span-5 lg:text-lg"
-            >
-              {t(`home.process.${n}.d`)}
-            </p>
-          </li>
-        ))}
-      </ol>
     </div>
   </div>
 </section>
-<!-- 7. WORKSHOP: the real front of the workshop and how to get there -->
-<section class="steel px-5 py-24 md:px-8 lg:px-12 lg:py-36">
-  <div class="grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
-    <div
-      data-wipe
-      class="relative aspect-[16/10] overflow-hidden rounded-2xl lg:col-span-6"
-    >
-      <Image
-        src={photo("fachada_lasercom")}
-        alt={t("photo.fachada_lasercom")}
-        widths={[640, 1200]}
-        sizes="(min-width: 1024px) 48vw, 100vw"
-        loading="lazy"
-        class="size-full object-cover"
-      />
-    </div>
-
-    <div class="flex flex-col gap-5 lg:col-span-6">
-      <p class="readout text-laser-ink">{t("home.reviews.workshop.label")}</p>
-      <h2 data-title-chars class="display text-[clamp(2.25rem,4.5vw,3.75rem)]">
-        {t("home.reviews.workshop.title")}
-      </h2>
-      <p data-lines class="max-w-xl text-base text-muted-foreground md:text-lg">
-        {t("home.reviews.workshop.text")}
-      </p>
-      <div class="flex flex-wrap items-center gap-4 pt-1">
-        <a
-          href={business.mapsUrl}
-          target="_blank"
-          rel="noopener"
-          class={buttonVariants({
-            variant: "outline",
-            size: "lg",
-            className:
-              "h-12 rounded-full border-foreground/30 bg-transparent px-6",
-          })}
-        >
-          {t("cta.directions")}
-          <ArrowUpRight className="size-4" aria-hidden />
-        </a>
-        <span class="readout text-muted-foreground">
-          {t("home.reviews.workshop.note")}
-        </span>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- 8. GUIDES, FAQ & CLOSE -->
+<!-- 6. THE WAY IN: guides, FAQ and the closing panel -->
 <section class="px-5 py-24 md:px-8 lg:px-12 lg:py-32">
   <div class="mb-12 grid gap-6 lg:grid-cols-12">
     <h2

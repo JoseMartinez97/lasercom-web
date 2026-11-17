@@ -1,0 +1,92 @@
+---
+import { Image } from "astro:assets"
+import type { Lang } from "@/i18n/ui"
+import { localizePath, useTranslations } from "@/i18n/utils"
+import { buttonVariants } from "@/components/ui/button"
+import acero from "@/assets/bench/acero.jpg"
+import madera from "@/assets/bench/madera.jpg"
+import laton from "@/assets/bench/laton.jpg"
+import { ArrowRight } from "lucide-react"
+
+// The laser bed's door on the home: three pieces rendered by it, and the
+// way to its own page. No WebGL here; the bed loads only where it lives
+interface Props {
+  lang: Lang
+}
+const { lang } = Astro.props
+const t = useTranslations(lang)
+const page = localizePath(lang, "/prueba-tu-grabado/")
+const pieces = [
+  { src: acero, id: "acero" },
+  { src: madera, id: "madera" },
+  { src: laton, id: "laton" },
+] as const
+const alt = (id: string) =>
+  t("bench.teaser.alt").replace(
+    "{material}",
+    t(`bench.m.${id}.name` as "bench.m.acero.name").toLocaleLowerCase(lang)
+  )
+---
+
+<section
+  id="materiales"
+  aria-labelledby="bench-teaser-title"
+  class="steel scroll-mt-16 border-t border-white/10 px-5 py-20 md:px-8 lg:px-12 lg:py-32"
+>
+  <div class="grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-10">
+    <div class="flex flex-col gap-6 lg:col-span-5">
+      <p class="readout text-laser-ink">{t("bench.readout")}</p>
+      <h2
+        id="bench-teaser-title"
+        data-title-chars
+        class="display max-w-[14ch] text-[clamp(2.25rem,4.6vw,4.25rem)] leading-[0.98]"
+      >
+        {t("bench.teaser.title")}
+      </h2>
+      <p data-lines class="max-w-md text-base text-muted-foreground md:text-lg">
+        {t("bench.teaser.lead")}
+      </p>
+      <a
+        href={page}
+        class={buttonVariants({
+          size: "lg",
+          className: "h-12 w-fit rounded-full px-6 text-base",
+        })}
+      >
+        {t("bench.teaser.cta")}
+        <ArrowRight className="size-4" aria-hidden />
+      </a>
+    </div>
+
+    <a
+      href={page}
+      aria-label={t("bench.teaser.cta")}
+      class="bench-teaser group grid grid-cols-3 gap-2 sm:gap-3 lg:col-span-7"
+    >
+      {pieces.map((piece, i) => (
+        <Image
+          src={piece.src}
+          alt={alt(piece.id)}
+          widths={[320, 480, 720]}
+          sizes="(min-width: 1024px) 19vw, 32vw"
+          loading="lazy"
+          class="aspect-square w-full rounded-[18px] object-cover transition-transform duration-500 ease-out group-hover:-translate-y-1"
+          style={`--i: ${i}`}
+        />
+      ))}
+    </a>
+  </div>
+</section>
+
+<style>
+  /* The middle piece sits lower, like pieces laid out on the bed */
+  .bench-teaser :global(img:nth-child(2)) {
+    translate: 0 8%;
+  }
+  .bench-teaser :global(img) {
+    transition-delay: calc(var(--i) * 60ms);
+    box-shadow:
+      inset 0 0 0 1px rgb(255 255 255 / 0.06),
+      0 30px 60px -30px rgb(0 0 0 / 0.9);
+  }
+</style>

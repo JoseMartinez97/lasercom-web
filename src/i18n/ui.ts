@@ -3,6 +3,7 @@ import { materials } from "./messages/materials"
 import { clients } from "./messages/clients"
 import { photos } from "./messages/photos"
 import { guides } from "./messages/guides"
+import { home } from "./messages/home"
 
 export const languages = {
   es: "Español",
@@ -22,6 +23,7 @@ export const ui = {
     ...clients.en,
     ...photos.en,
     ...guides.en,
+    ...home.en,
   },
   es: {
     ...site.es,
@@ -30,6 +32,7 @@ export const ui = {
     ...clients.es,
     ...photos.es,
     ...guides.es,
+    ...home.es,
   },
 } as const
 

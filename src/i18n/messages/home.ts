@@ -1,0 +1,148 @@
+// Home page movements added with the continuous redesign: the laser bed
+// (engrave-bench.astro) and the pieces that open like a cut (work-curtains.astro)
+export const home = {
+  en: {
+    "bench.readout": "The laser bed",
+    "bench.page.title": "Try your laser engraving online | Lasercom Valencia",
+    "bench.page.description":
+      "Type a name or upload your logo, pick the material and watch the laser engrave it in 3D. Then ask us for a quote on WhatsApp.",
+    "bench.page.crumb": "Try your engraving",
+    "bench.teaser.title": "Type a name and watch it engraved.",
+    "bench.teaser.lead":
+      "Steel, wood, brass, leather or acrylic, or your own logo: the laser engraves it in front of you, in 3D, before you ask us for anything.",
+    "bench.teaser.cta": "Try the laser bed",
+    "bench.teaser.alt": "“Lucía & Marcos” engraved on {material}, 3D preview",
+    "bench.title": "Type a name. Pick the material.",
+    "bench.lead":
+      "The fibre laser engraves every metal and plastic; the CO2 lasers cut and engrave wood, leather and acrylic. Try it here before you ask us.",
+    "bench.input.label": "Your text",
+    "bench.input.default": "Lucía & Marcos",
+    "bench.material": "Material",
+    "bench.again": "Engrave again",
+    "bench.cta": "Get a quote for this text",
+    "bench.cta.logo": "Get a quote for this logo",
+    "bench.wa":
+      "Hi, I'd like to engrave “{text}” on {material}, in {font} lettering. Could you send me a quote?",
+    "bench.wa.logo":
+      "Hi, I'd like to engrave our logo on {material}. I'll send it to you here. Could you send me a quote?",
+    "bench.font": "Lettering",
+    "bench.font.sans": "Modern",
+    "bench.font.serif": "Classic",
+    "bench.font.script": "Script",
+    "bench.logo.add": "Try it with your logo",
+    "bench.logo.remove": "Remove the logo",
+    "bench.logo.hint": "PNG, SVG or JPG. Your file never leaves your browser.",
+    "bench.logo.error": "We couldn't read that image. Try a PNG, SVG or JPG.",
+    "bench.plate.logo": "Your logo engraved on {material}",
+    "bench.save": "Save the preview",
+    "bench.save.title": "My piece, previewed at Lasercom",
+    "bench.save.tag": "Approximate preview",
+    "bench.note":
+      "An approximate preview: the real finish depends on the piece and the design.",
+    "bench.laser.fibre": "Fibre laser",
+    "bench.laser.co2": "CO2 laser",
+    "bench.status.ready": "Ready",
+    "bench.status.burn": "Engraving",
+    "bench.status.done": "Done",
+    "bench.plate": "“{text}” engraved on {material}",
+    "bench.m.acero.name": "Stainless steel",
+    "bench.m.acero.does":
+      "Permanent engraving and marking. We also cut it up to 4 mm.",
+    "bench.m.aluminio.name": "Anodised aluminium",
+    "bench.m.aluminio.does":
+      "The beam lifts the anodising and leaves a bright, clean mark.",
+    "bench.m.laton.name": "Brass",
+    "bench.m.laton.does": "Fine engraving for plates, flasks and jewellery.",
+    "bench.m.plastico.name": "Plastic",
+    "bench.m.plastico.does": "Crisp marking for parts, housings and runs.",
+    "bench.m.madera.name": "Wood",
+    "bench.m.madera.does":
+      "Cutting and engraving: the beam toasts the grain, no inks.",
+    "bench.m.piel.name": "Leather",
+    "bench.m.piel.does": "Engraving without inks, darkening the fibre.",
+    "bench.m.metacrilato.name": "Acrylic",
+    "bench.m.metacrilato.does":
+      "Cut with a polished edge, engraved with a frosted finish.",
+
+    "pieces.readout": "Real pieces, our own photos",
+    "pieces.pause": "Every material asks for its own power, speed and focus.",
+    "pieces.flask.name": "Engraved brass flask",
+    "pieces.flask.type": "Brass · Engraving",
+    "pieces.flask.text":
+      "Our own logo engraved on a brass hip flask: the same fine line we use for plates, jewellery and corporate gifts.",
+    "pieces.see": "See the job",
+  },
+  es: {
+    "bench.readout": "La mesa del láser",
+    "bench.page.title": "Prueba tu grabado láser online | Lasercom Valencia",
+    "bench.page.description":
+      "Escribe un nombre o sube tu logo, elige el material y mira cómo lo graba el láser en 3D. Después, pídenos presupuesto por WhatsApp.",
+    "bench.page.crumb": "Prueba tu grabado",
+    "bench.teaser.title": "Escribe un nombre y míralo grabado.",
+    "bench.teaser.lead":
+      "Acero, madera, latón, piel o metacrilato, o tu propio logo: el láser lo graba delante de ti, en 3D, antes de pedirnos nada.",
+    "bench.teaser.cta": "Probar la mesa del láser",
+    "bench.teaser.alt":
+      "«Lucía & Marcos» grabado en {material}, vista previa en 3D",
+    "bench.title": "Escribe un nombre. Elige el material.",
+    "bench.lead":
+      "El láser de fibra graba todos los metales y plásticos; los de CO2 cortan y graban madera, piel y metacrilato. Pruébalo aquí antes de pedírnoslo.",
+    "bench.input.label": "Tu texto",
+    "bench.input.default": "Lucía & Marcos",
+    "bench.material": "Material",
+    "bench.again": "Grabar otra vez",
+    "bench.cta": "Pedir presupuesto con este texto",
+    "bench.cta.logo": "Pedir presupuesto con este logo",
+    "bench.wa":
+      "Hola, me gustaría grabar «{text}» en {material}, con letra {font}. ¿Me podéis dar presupuesto?",
+    "bench.wa.logo":
+      "Hola, me gustaría grabar nuestro logo en {material}. Os lo envío por aquí. ¿Me podéis dar presupuesto?",
+    "bench.font": "Letra",
+    "bench.font.sans": "Moderna",
+    "bench.font.serif": "Clásica",
+    "bench.font.script": "Manuscrita",
+    "bench.logo.add": "Probar con tu logo",
+    "bench.logo.remove": "Quitar el logo",
+    "bench.logo.hint": "PNG, SVG o JPG. Tu archivo no sale de tu navegador.",
+    "bench.logo.error":
+      "No hemos podido leer esa imagen. Prueba con un PNG, SVG o JPG.",
+    "bench.plate.logo": "Tu logo grabado en {material}",
+    "bench.save": "Guardar la vista previa",
+    "bench.save.title": "Mi pieza, vista previa en Lasercom",
+    "bench.save.tag": "Vista orientativa",
+    "bench.note":
+      "Vista orientativa: el acabado real depende de la pieza y del diseño.",
+    "bench.laser.fibre": "Láser de fibra",
+    "bench.laser.co2": "Láser CO2",
+    "bench.status.ready": "Listo",
+    "bench.status.burn": "Grabando",
+    "bench.status.done": "Terminado",
+    "bench.plate": "«{text}» grabado en {material}",
+    "bench.m.acero.name": "Acero inoxidable",
+    "bench.m.acero.does":
+      "Grabado y marcado permanente. También lo cortamos hasta 4 mm.",
+    "bench.m.aluminio.name": "Aluminio anodizado",
+    "bench.m.aluminio.does":
+      "El haz levanta el anodizado y deja una marca clara y limpia.",
+    "bench.m.laton.name": "Latón",
+    "bench.m.laton.does": "Grabado fino para placas, petacas y joyería.",
+    "bench.m.plastico.name": "Plástico",
+    "bench.m.plastico.does": "Marcado nítido para piezas, carcasas y series.",
+    "bench.m.madera.name": "Madera",
+    "bench.m.madera.does":
+      "Corte y grabado: el haz tuesta la veta, sin tintas.",
+    "bench.m.piel.name": "Piel",
+    "bench.m.piel.does": "Grabado sin tintas, oscureciendo la fibra.",
+    "bench.m.metacrilato.name": "Metacrilato",
+    "bench.m.metacrilato.does":
+      "Corte con canto pulido y grabado de acabado esmerilado.",
+
+    "pieces.readout": "Piezas reales, fotos propias",
+    "pieces.pause": "Cada material pide su potencia, su velocidad y su foco.",
+    "pieces.flask.name": "Petaca de latón grabada",
+    "pieces.flask.type": "Latón · Grabado",
+    "pieces.flask.text":
+      "Nuestro propio logotipo grabado en una petaca de latón: el mismo trazo fino que usamos en placas, joyería y regalos de empresa.",
+    "pieces.see": "Ver el trabajo",
+  },
+} as const

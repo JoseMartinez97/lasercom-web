@@ -295,6 +295,39 @@ const isCurrent = (target: string) => {
   const setupHeader = () => {
     const cleanups: (() => void)[] = []
 
+    // The bar takes the ground under it: over a steel section it turns steel
+    // too. A 1px band at the bar's middle is watched, so nothing is measured
+    // on scroll and lazy images never leave it stale
+    const bar = document.querySelector<HTMLElement>("[data-site-header]")
+    const grounds = [...document.querySelectorAll<HTMLElement>("main .steel")]
+    if (bar && grounds.length) {
+      const under = new Set<Element>()
+      const band = () =>
+        new IntersectionObserver(
+          (entries) => {
+            entries.forEach((e) =>
+              e.isIntersecting ? under.add(e.target) : under.delete(e.target)
+            )
+            bar.classList.toggle("steel", under.size > 0)
+          },
+          { rootMargin: `-32px 0px -${Math.max(innerHeight - 33, 0)}px 0px` }
+        )
+      let io = band()
+      grounds.forEach((g) => io.observe(g))
+      const onResize = () => {
+        io.disconnect()
+        under.clear()
+        io = band()
+        grounds.forEach((g) => io.observe(g))
+      }
+      window.addEventListener("resize", onResize, { passive: true })
+      cleanups.push(() => {
+        io.disconnect()
+        window.removeEventListener("resize", onResize)
+        bar.classList.remove("steel")
+      })
+    }
+
     const wrap = document.querySelector<HTMLElement>("[data-mega-wrap]")
     const trigger = document.querySelector<HTMLButtonElement>(
       "[data-mega-trigger]"
