@@ -277,7 +277,7 @@ function animateWipes() {
 // The pointer as the beam: a laser dot that grows into a label over anything
 // with data-cursor, and a button that leans toward it ([data-magnetic]).
 // Fine pointers only; returns its cleanup
-function initPointer() {
+function initPointer(lenis?: Lenis) {
   if (!matchMedia("(hover: hover) and (pointer: fine)").matches) return
   const offs: (() => void)[] = []
   const on = <K extends keyof DocumentEventMap>(
@@ -292,6 +292,9 @@ function initPointer() {
   const dot = document.querySelector<HTMLElement>("[data-cursor-dot]")
   if (dot) {
     const label = dot.querySelector("span")
+    const ticks = Array.from(
+      dot.querySelectorAll<HTMLElement>("[data-cursor-vernier] i")
+    )
     const xTo = gsap.quickTo(dot, "x", { duration: 0.3, ease: "power3" })
     const yTo = gsap.quickTo(dot, "y", { duration: 0.3, ease: "power3" })
     on(document, "pointermove", (e) => {
@@ -305,6 +308,76 @@ function initPointer() {
       if (target && label) label.textContent = target.dataset.cursor ?? ""
     })
     on(document, "pointerleave", () => delete dot.dataset.on)
+
+    // Vernier scroll-velocity ruler (Immersive Garden HomeScrollCursor pattern):
+    // during fast scroll, micro-ticks fan out symmetrically along the travel
+    // axis and settle cleanly back into the 10px laser dot on stop
+    if (ticks.length) {
+      let targetVel = 0
+      let smoothVel = 0
+      let lastY = window.scrollY
+      let settled = true
+
+      const onLenisScroll = (e: { velocity: number }) => {
+        targetVel = Math.max(-1, Math.min(1, e.velocity / 28))
+      }
+      const onNativeScroll = () => {
+        const y = window.scrollY
+        targetVel = Math.max(-1, Math.min(1, (y - lastY) / 48))
+        lastY = y
+      }
+
+      if (lenis) {
+        lenis.on("scroll", onLenisScroll)
+        offs.push(() => lenis.off("scroll", onLenisScroll))
+      } else {
+        window.addEventListener("scroll", onNativeScroll, { passive: true })
+        offs.push(() => window.removeEventListener("scroll", onNativeScroll))
+      }
+
+      const tickVernier = (_t: number, dtMs: number) => {
+        const dt = Math.min(dtMs || 16.6, 50) / 16.6
+        const decay = 1 - Math.exp(-0.18 * dt)
+        smoothVel += (targetVel - smoothVel) * decay
+        targetVel *= Math.pow(0.84, dt)
+
+        const mag = Math.abs(smoothVel)
+        if (mag < 0.008) {
+          if (!settled) {
+            settled = true
+            for (let i = 0; i < ticks.length; i++) {
+              ticks[i].style.opacity = "0"
+              ticks[i].style.transform = "translate3d(0,0,0)"
+            }
+          }
+          return
+        }
+
+        settled = false
+        const spread = mag * 4.2
+        const lag = -smoothVel * 14
+        for (let i = 0; i < ticks.length; i++) {
+          const pair = Math.floor(i / 2) + 1
+          const sign = i % 2 === 0 ? 1 : -1
+          const y = sign * spread * pair + lag
+          const falloff = 1 - pair / (ticks.length / 2 + 1)
+          const alpha = Math.min(0.85, mag * 1.4) * falloff
+          const sx = (0.45 + 0.55 * falloff).toFixed(3)
+          ticks[i].style.opacity = alpha.toFixed(3)
+          ticks[i].style.transform =
+            `translate3d(0,${y.toFixed(1)}px,0) scaleX(${sx})`
+        }
+      }
+      gsap.ticker.add(tickVernier)
+      offs.push(() => {
+        gsap.ticker.remove(tickVernier)
+        for (let i = 0; i < ticks.length; i++) {
+          ticks[i].style.opacity = "0"
+          ticks[i].style.transform = ""
+        }
+      })
+    }
+
     offs.push(() => {
       delete dot.dataset.on
       dot.removeAttribute("data-big")
@@ -424,7 +497,7 @@ export function initAnimations() {
       gsap.ticker.lagSmoothing(0)
     }
 
-    const pointerOff = initPointer()
+    const pointerOff = initPointer(lenis)
     const timers: number[] = []
     const defer = (fn: () => void, ms: number) => {
       timers.push(window.setTimeout(fn, ms))

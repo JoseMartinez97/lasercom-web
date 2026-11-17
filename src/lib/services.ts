@@ -84,6 +84,7 @@ export const services: Record<ServiceId, Service> = {
     photos: [
       "nombre_madera_laser",
       "mandala_cortado_laser",
+      "madring_1",
       "grabado_laser_pieza_madera",
       "nombre_corte_laser",
       "grabado_laser_castaneulas",
@@ -97,6 +98,8 @@ export const services: Record<ServiceId, Service> = {
     kind: "material",
     photos: [
       "tarjeta_grabado_laser_nobg",
+      "pawnees_1",
+      "fotograbado_1",
       "grabado_en_crista",
       "maqueta_escala_metacrilato_2",
       "corte_laser_metacrilato_cristal_online_1",
@@ -156,6 +159,8 @@ export const services: Record<ServiceId, Service> = {
     kind: "client",
     photos: [
       "grabado_laser_placa_hospital",
+      "torrejon_1",
+      "torrejon_2",
       "grabado_laser_marcas_material",
       "grabado_placa_laser",
       "logo_laser",
@@ -170,6 +175,7 @@ export const services: Record<ServiceId, Service> = {
       "peana_grabada",
       "tarjeta_casfid",
       "chapa_5j_sin_fondo",
+      "madring_1",
       "cortar_grabar_piel_laser_4-1",
       "abanico_exclusivo_louis_vuitton_4",
     ],
@@ -227,6 +233,7 @@ export const services: Record<ServiceId, Service> = {
     kind: "client",
     photos: [
       "nombre_corte_laser",
+      "fotograbado_1",
       "grabado_laser_castaneulas",
       "tarjeta_grabado_laser_nobg",
       "collar_perro_laser",

@@ -349,9 +349,129 @@
   opacity: 1;
   transition-delay: 0.12s;
 }
+.laser-vernier {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  pointer-events: none;
+  transition: opacity 0.2s ease-out;
+}
+.laser-cursor[data-big] .laser-vernier {
+  opacity: 0;
+}
+.laser-vernier i {
+  position: absolute;
+  left: -3px;
+  top: -1px;
+  width: 6px;
+  height: 2px;
+  border-radius: 9999px;
+  background: var(--laser);
+  opacity: 0;
+  will-change: transform, opacity;
+}
+.laser-vernier i:nth-child(4n + 1) {
+  left: -5px;
+  width: 10px;
+}
 @media not ((hover: hover) and (pointer: fine)) {
   .laser-cursor {
     display: none;
+  }
+}
+
+/* Dual-layer roll link with left-to-right laser underline (Bulletproof) */
+.roll-link {
+  position: relative;
+}
+.roll-link-mask {
+  position: relative;
+  display: inline-grid;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+.roll-link-mask > span {
+  grid-area: 1 / 1;
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.roll-link-mask > span[aria-hidden="true"] {
+  transform: translateY(115%);
+  color: var(--laser-ink);
+}
+@media (hover: hover) {
+  .roll-link:hover .roll-link-mask > span:first-child,
+  .roll-link:focus-visible .roll-link-mask > span:first-child {
+    transform: translateY(-115%);
+  }
+  .roll-link:hover .roll-link-mask > span[aria-hidden="true"],
+  .roll-link:focus-visible .roll-link-mask > span[aria-hidden="true"] {
+    transform: translateY(0%);
+  }
+  .roll-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0.35rem;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.22;
+    pointer-events: none;
+  }
+  .roll-link::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0.35rem;
+    height: 1.5px;
+    background: var(--laser-ink);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.55s cubic-bezier(0.19, 1, 0.22, 1);
+    pointer-events: none;
+  }
+  .roll-link:hover::before,
+  .roll-link:focus-visible::before {
+    transform: scaleX(1);
+  }
+  /* Sibling dimming via CSS :has() on lists and filter bars (Bulletproof) */
+  [data-rows] ul > li,
+  [data-rows] ol > li,
+  [data-work-filters] [data-work-filter] {
+    transition:
+      opacity 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+      color 0.25s ease,
+      border-color 0.25s ease,
+      background-color 0.25s ease;
+  }
+  [data-rows] ul:has(> li:hover) > li:not(:hover),
+  [data-rows] ol:has(> li:hover) > li:not(:hover) {
+    opacity: 0.5;
+  }
+  [data-work-filters]
+    [role="group"]:has([data-work-filter]:hover)
+    [data-work-filter]:not(:hover):not([aria-pressed="true"]) {
+    opacity: 0.45;
+  }
+}
+
+/* Optical focus settle for numeric readouts (Santalarch pattern) */
+@media (prefers-reduced-motion: no-preference) {
+  .optic-tick {
+    animation: optic-tick 0.34s cubic-bezier(0.19, 1, 0.22, 1);
+  }
+}
+@keyframes optic-tick {
+  from {
+    opacity: 0.25;
+    filter: blur(2.5px);
+    transform: translateY(3px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
   }
 }
 

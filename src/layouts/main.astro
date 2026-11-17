@@ -258,6 +258,11 @@ const structuredData: Record<string, unknown>[] = noindex
     <WhatsappButton lang={lang} />
     <ActionBar lang={lang} />
     <div class="laser-cursor" data-cursor-dot aria-hidden="true">
+      <div class="laser-vernier" data-cursor-vernier aria-hidden="true">
+        {Array.from({ length: 16 }).map(() => (
+          <i></i>
+        ))}
+      </div>
       <span></span>
     </div>
     <script>

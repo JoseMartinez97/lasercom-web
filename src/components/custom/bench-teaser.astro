@@ -21,11 +21,13 @@ const pieces = [
   { src: madera, id: "madera" },
   { src: laton, id: "laton" },
 ] as const
-const alt = (id: string) =>
+const pieceAlt = (id: string) =>
   t("bench.teaser.alt").replace(
     "{material}",
     t(`bench.m.${id}.name` as "bench.m.acero.name").toLocaleLowerCase(lang)
   )
+const pieceName = (id: string) =>
+  t(`bench.m.${id}.name` as "bench.m.acero.name")
 ---
 
 <section
@@ -58,35 +60,142 @@ const alt = (id: string) =>
       </a>
     </div>
 
-    <a
-      href={page}
-      aria-label={t("bench.teaser.cta")}
-      class="bench-teaser group grid grid-cols-3 gap-2 sm:gap-3 lg:col-span-7"
-    >
-      {pieces.map((piece, i) => (
-        <Image
-          src={piece.src}
-          alt={alt(piece.id)}
-          widths={[320, 480, 720]}
-          sizes="(min-width: 1024px) 19vw, 32vw"
-          loading="lazy"
-          class="aspect-square w-full rounded-[18px] object-cover transition-transform duration-500 ease-out group-hover:-translate-y-1"
-          style={`--i: ${i}`}
-        />
-      ))}
-    </a>
+    <div class="bench-teaser grid grid-cols-3 gap-2 sm:gap-3 lg:col-span-7">
+      {pieces.map((piece, i) => {
+        const name = pieceName(piece.id)
+        return (
+          <a
+            href={`${page}?m=${piece.id}`}
+            data-bench-pick={piece.id}
+            data-cursor={name}
+            aria-label={`${t("bench.teaser.cta")} · ${name}`}
+            class="bench-piece-link group relative block aspect-square w-full overflow-hidden rounded-[18px]"
+            style={`--i: ${i}`}
+          >
+            <Image
+              src={piece.src}
+              alt={pieceAlt(piece.id)}
+              widths={[320, 480, 720]}
+              sizes="(min-width: 1024px) 19vw, 32vw"
+              loading="lazy"
+              class="size-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+            />
+            <svg
+              class="bench-comet pointer-events-none absolute inset-0 size-full"
+              viewBox="0 0 100 100"
+              preserveAspectRatio="none"
+              aria-hidden="true"
+            >
+              <rect
+                x="1"
+                y="1"
+                width="98"
+                height="98"
+                rx="10"
+                pathLength="1"
+                fill="none"
+              />
+            </svg>
+            <span
+              aria-hidden="true"
+              class="readout pointer-events-none absolute inset-x-2.5 bottom-2.5 flex items-center justify-between text-[10px] text-white/80 opacity-0 transition-opacity duration-300 group-hover:opacity-100 max-sm:hidden"
+            >
+              <span>{name}</span>
+              <span class="size-1.5 rounded-full bg-laser shadow-[0_0_8px_var(--laser)]"></span>
+            </span>
+          </a>
+        )
+      })}
+    </div>
   </div>
 </section>
 
+<script>
+  // Tag only the clicked piece with view-transition-name so it morphs cleanly
+  // into the 3D bench plate without duplicate transition names on the page
+  const setupTeaserMorph = () => {
+    const picks =
+      document.querySelectorAll<HTMLAnchorElement>("[data-bench-pick]")
+    const onPick = (e: Event) => {
+      picks.forEach((a) => (a.style.viewTransitionName = ""))
+      ;(e.currentTarget as HTMLAnchorElement).style.viewTransitionName =
+        "bench-plate-morph"
+    }
+    picks.forEach((a) => a.addEventListener("click", onPick))
+    return () => {
+      picks.forEach((a) => {
+        a.removeEventListener("click", onPick)
+        a.style.viewTransitionName = ""
+      })
+    }
+  }
+
+  let cleanupTeaser: (() => void) | undefined
+  document.addEventListener("astro:page-load", () => {
+    cleanupTeaser?.()
+    cleanupTeaser = setupTeaserMorph()
+  })
+  document.addEventListener("astro:before-swap", () => {
+    cleanupTeaser?.()
+    cleanupTeaser = undefined
+  })
+</script>
+
 <style>
   /* The middle piece sits lower, like pieces laid out on the bed */
-  .bench-teaser :global(img:nth-child(2)) {
+  .bench-piece-link:nth-child(2) {
     translate: 0 8%;
   }
-  .bench-teaser :global(img) {
-    transition-delay: calc(var(--i) * 60ms);
+  .bench-piece-link {
     box-shadow:
-      inset 0 0 0 1px rgb(255 255 255 / 0.06),
+      inset 0 0 0 1px rgb(255 255 255 / 0.08),
       0 30px 60px -30px rgb(0 0 0 / 0.9);
+    transition: transform 0.55s cubic-bezier(0.19, 1, 0.22, 1);
+  }
+  @media (hover: hover) {
+    .bench-piece-link:hover {
+      transform: translateY(-4px);
+    }
+    /* Sibling dimming on hover (Bulletproof pattern) */
+    .bench-teaser:has(.bench-piece-link:hover) .bench-piece-link:not(:hover) {
+      opacity: 0.62;
+    }
+  }
+  .bench-piece-link {
+    transition:
+      transform 0.55s cubic-bezier(0.19, 1, 0.22, 1),
+      opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  /* Perimeter laser framing comet (Santalarch #philosophy pattern) */
+  .bench-comet rect {
+    stroke: var(--laser);
+    stroke-width: 1.35;
+    stroke-linecap: round;
+    stroke-dasharray: 0.14 0.86;
+    stroke-dashoffset: 1;
+    opacity: 0.45;
+    filter: drop-shadow(0 0 5px var(--laser));
+    transition: opacity 0.35s ease;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .bench-comet rect {
+      animation: bench-comet 5.4s linear infinite;
+      animation-delay: calc(var(--i, 0) * -1.8s);
+    }
+    .bench-piece-link:hover .bench-comet rect {
+      opacity: 0.95;
+      animation-duration: 2.2s;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .bench-comet {
+      display: none;
+    }
+  }
+  @keyframes bench-comet {
+    to {
+      stroke-dashoffset: 0;
+    }
   }
 </style>

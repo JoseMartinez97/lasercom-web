@@ -397,9 +397,12 @@ const filmChapter2Words = t("hero.film.3.line").split(" ")
       href={business.mapsUrl}
       target="_blank"
       rel="noopener"
-      class="inline-flex min-h-11 w-fit items-center gap-2 text-laser-ink underline-offset-4 hover:underline"
+      class="roll-link inline-flex min-h-11 w-fit items-center gap-2 pb-1.5 text-laser-ink"
     >
-      {t("home.reviews.link")}
+      <span class="roll-link-mask">
+        <span>{t("home.reviews.link")}</span>
+        <span aria-hidden="true">{t("home.reviews.link")}</span>
+      </span>
       <ArrowUpRight className="size-4" aria-hidden />
     </a>
   </div>
@@ -519,9 +522,12 @@ const filmChapter2Words = t("hero.film.3.line").split(" ")
             href={business.mapsUrl}
             target="_blank"
             rel="noopener"
-            class="inline-flex min-h-11 items-center gap-1.5 font-semibold underline-offset-4 hover:text-laser-ink hover:underline"
+            class="roll-link inline-flex min-h-11 items-center gap-1.5 pb-1.5 font-semibold"
           >
-            {t("cta.directions")}
+            <span class="roll-link-mask">
+              <span>{t("cta.directions")}</span>
+              <span aria-hidden="true">{t("cta.directions")}</span>
+            </span>
             <ArrowUpRight className="size-4 text-laser-ink" aria-hidden />
           </a>
           <span class="readout text-muted-foreground">
@@ -602,9 +608,12 @@ const filmChapter2Words = t("hero.film.3.line").split(" ")
       </p>
       <a
         href={href("/guias/")}
-        class="group inline-flex w-fit items-center gap-2 font-semibold text-foreground hover:text-laser-ink"
+        class="roll-link group inline-flex min-h-11 w-fit items-center gap-2 pb-1.5 font-semibold text-foreground"
       >
-        {t("guides.home.all")}
+        <span class="roll-link-mask">
+          <span>{t("guides.home.all")}</span>
+          <span aria-hidden="true">{t("guides.home.all")}</span>
+        </span>
         <ArrowRight className="size-4 text-laser-ink transition-transform group-hover:translate-x-1" />
       </a>
     </div>
@@ -769,14 +778,35 @@ const filmChapter2Words = t("hero.film.3.line").split(" ")
           }
         }
 
-        if (countEl) countEl.textContent = String(i + 2).padStart(2, "0")
+        if (countEl) {
+          countEl.textContent = String(i + 2).padStart(2, "0")
+          gsap.fromTo(
+            countEl,
+            { y: 5 * dir, opacity: 0.2, filter: "blur(2.5px)" },
+            {
+              y: 0,
+              opacity: 1,
+              filter: "blur(0px)",
+              duration: 0.38,
+              ease: "expo.out",
+              clearProps: "filter,transform",
+            }
+          )
+        }
         const targetScene = next?.dataset.scene ?? openingScene
         if (sceneEl && targetScene) {
           sceneEl.textContent = targetScene
           gsap.fromTo(
             sceneEl,
-            { y: 6 * dir, opacity: 0 },
-            { y: 0, opacity: 1, duration: 0.35, ease: "expo.out" }
+            { y: 6 * dir, opacity: 0, filter: "blur(2.5px)" },
+            {
+              y: 0,
+              opacity: 1,
+              filter: "blur(0px)",
+              duration: 0.38,
+              ease: "expo.out",
+              clearProps: "filter,transform",
+            }
           )
         }
       }

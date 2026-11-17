@@ -1,6 +1,16 @@
 // Alt text for every photo in src/assets/work, by file name
 export const photos = {
   en: {
+    "photo.torrejon_1":
+      "Yellow ribbed industrial profile laser-marked with Agrupación B.A. Torrejón in white",
+    "photo.torrejon_2":
+      "Stacked yellow ribbed profiles laser-marked with B.A. Torrejón in crisp white",
+    "photo.madring_1":
+      "Two varnished wooden fan ribs laser-engraved with the Madring logo",
+    "photo.pawnees_1":
+      "Clear rectangular acrylic plaque laser-engraved in white with Pawnees Holanda lettering and crest",
+    "photo.fotograbado_1":
+      "Clear acrylic plaque laser photo-engraved with a baby portrait and Bautizo Mia 3 Junio 2018 text",
     "photo.abanico":
       "White wooden fan with a laser-engraved dedication on the guard",
     "photo.abanico_amarillo_logotipo_varillas_1":
@@ -89,6 +99,16 @@ export const photos = {
       "Crystal glass tumbler and beveled glass block with delicate frosted laser-etched filigree",
   },
   es: {
+    "photo.torrejon_1":
+      "Perfil industrial amarillo estriado marcado con láser con el texto Agrupación B.A. Torrejón en blanco",
+    "photo.torrejon_2":
+      "Perfiles amarillos estriados apilados y marcados con láser con el texto B.A. Torrejón en blanco",
+    "photo.madring_1":
+      "Dos varillas de abanico de madera barnizada grabadas con láser con el logotipo de Madring",
+    "photo.pawnees_1":
+      "Placa rectangular de metacrilato transparente grabada en blanco con las letras Pawnees Holanda y un emblema",
+    "photo.fotograbado_1":
+      "Placa de metacrilato transparente fotograbada con láser con el retrato de un bebé y el texto Bautizo Mia 3 Junio 2018",
     "photo.abanico":
       "Abanico de madera blanca con una dedicatoria grabada con láser en la cabera",
     "photo.abanico_amarillo_logotipo_varillas_1":

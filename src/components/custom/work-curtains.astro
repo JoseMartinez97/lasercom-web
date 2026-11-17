@@ -86,9 +86,12 @@ const total = String(scenes.length).padStart(2, "0")
       </p>
       <a
         href={href("/trabajos/")}
-        class="group inline-flex min-h-11 w-fit items-center gap-2 font-semibold hover:text-laser-ink"
+        class="roll-link group inline-flex min-h-11 w-fit items-center gap-2 pb-1.5 font-semibold"
       >
-        {t("home.work.all")}
+        <span class="roll-link-mask">
+          <span>{t("home.work.all")}</span>
+          <span aria-hidden="true">{t("home.work.all")}</span>
+        </span>
         <ArrowRight className="size-4 text-laser-ink transition-transform group-hover:translate-x-1" />
       </a>
     </div>
@@ -152,10 +155,13 @@ const total = String(scenes.length).padStart(2, "0")
             </p>
             <a
               href={scene.link}
-              class="group inline-flex min-h-11 w-fit items-center gap-2 border-b border-current pb-1 text-sm font-semibold hover:text-laser-ink"
+              class="roll-link group inline-flex min-h-11 w-fit items-center gap-2 pb-1.5 text-sm font-semibold"
             >
-              {t("pieces.see")}
-              <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+              <span class="roll-link-mask">
+                <span>{t("pieces.see")}</span>
+                <span aria-hidden="true">{t("pieces.see")}</span>
+              </span>
+              <ArrowRight className="size-4 text-laser-ink transition-transform group-hover:translate-x-1" />
             </a>
           </div>
         </li>

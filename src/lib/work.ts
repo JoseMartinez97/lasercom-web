@@ -8,6 +8,30 @@ export type WorkFilter =
 
 export const work = [
   {
+    slug: "torrejon",
+    filters: ["business"],
+    photos: ["torrejon_1", "torrejon_2"],
+    service: "industrial",
+  },
+  {
+    slug: "madring",
+    filters: ["wood", "business"],
+    photos: ["madring_1"],
+    service: "madera",
+  },
+  {
+    slug: "pawnees",
+    filters: ["acrylic_glass"],
+    photos: ["pawnees_1"],
+    service: "metacrilato",
+  },
+  {
+    slug: "fotograbado",
+    filters: ["acrylic_glass"],
+    photos: ["fotograbado_1"],
+    service: "personalizado",
+  },
+  {
     slug: "barcelo",
     filters: ["wood", "business"],
     photos: [

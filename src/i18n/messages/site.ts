@@ -150,6 +150,22 @@ export const site = {
     "work.h1": "Work from the workshop",
     "work.lead":
       "Every photo on this page is a real piece cut or engraved at Lasercom. These are some of the jobs we're proudest of.",
+    "work.torrejon.name": "B.A. Torrejón signage profiles",
+    "work.torrejon.type": "Industrial profile · Marking",
+    "work.torrejon.text":
+      "Yellow ribbed profiles laser-marked in high-contrast white with Agrupación B.A. Torrejón and B.A. Torrejón lettering aligned cleanly along the central band.",
+    "work.madring.name": "Madring fan ribs",
+    "work.madring.type": "Wood · Engraving",
+    "work.madring.text":
+      "Pair of varnished wooden fan ribs laser-engraved with the stylised Madring wordmark, keeping clean line definition across the natural wood grain.",
+    "work.pawnees.name": "Pawnees acrylic plaque",
+    "work.pawnees.type": "Acrylic · Cutting and engraving",
+    "work.pawnees.text":
+      "Clear rectangular acrylic plaque laser-cut and frosted-engraved in crisp white with gothic banners and a detailed central illustration.",
+    "work.fotograbado.name": "Photo-engraved baptism plaque",
+    "work.fotograbado.type": "Acrylic · Cutting and engraving",
+    "work.fotograbado.text":
+      "Commemorative clear acrylic plaque cut with a lower mounting tab and laser photo-engraved from a portrait alongside the name and date.",
     "work.barcelo.name": "Ron Barceló anniversary stand",
     "work.barcelo.type": "Wood · Engraving",
     "work.barcelo.text":
@@ -597,6 +613,22 @@ export const site = {
     "work.h1": "Trabajos del taller",
     "work.lead":
       "Todas las fotos de esta página son piezas reales cortadas o grabadas en Lasercom. Estos son algunos de los trabajos de los que más orgullosos estamos.",
+    "work.torrejon.name": "Perfiles de señalización B.A. Torrejón",
+    "work.torrejon.type": "Perfil industrial · Marcado",
+    "work.torrejon.text":
+      "Perfiles amarillos estriados marcados con láser en contraste blanco con las leyendas Agrupación B.A. Torrejón y B.A. Torrejón, con rotulación nítida sobre la banda central.",
+    "work.madring.name": "Varillas de abanico Madring",
+    "work.madring.type": "Madera · Grabado",
+    "work.madring.text":
+      "Pareja de varillas de abanico en madera barnizada grabadas con láser con el logotipo estilizado de Madring, respetando el tono natural y la veta de la madera.",
+    "work.pawnees.name": "Placa de metacrilato Pawnees",
+    "work.pawnees.type": "Metacrilato · Corte y grabado",
+    "work.pawnees.text":
+      "Placa rectangular de metacrilato transparente cortada con láser y grabada en esmerilado blanco con tipografía gótica e ilustración central de alto contraste.",
+    "work.fotograbado.name": "Placa fotograbada de bautizo",
+    "work.fotograbado.type": "Metacrilato · Corte y grabado",
+    "work.fotograbado.text":
+      "Placa conmemorativa de metacrilato transparente con pestaña inferior para peana, fotograbada con láser a partir de una fotografía de retrato junto al nombre y la fecha.",
     "work.barcelo.name": "Peana aniversario Ron Barceló",
     "work.barcelo.type": "Madera · Grabado",
     "work.barcelo.text":

@@ -100,6 +100,7 @@ const waText = (value: string, material: string) =>
         text,
         nameOf(first.id).toLocaleLowerCase(lang)
       )}
+      style="view-transition-name: bench-plate-morph"
       class="bench-stage lg:col-span-8"
     >
       <div class="bench-bed" aria-hidden="true"></div>
@@ -402,6 +403,13 @@ const waText = (value: string, material: string) =>
     const later = (fn: () => void, ms: number) =>
       timers.push(window.setTimeout(fn, ms))
 
+    const requestedMaterial = new URLSearchParams(location.search).get("m")
+    const matchedRadio = requestedMaterial
+      ? radios.find((r) => r.value === requestedMaterial)
+      : undefined
+    if (matchedRadio) {
+      radios.forEach((r) => (r.checked = r === matchedRadio))
+    }
     let current = radios.find((r) => r.checked) ?? radios[0]
     let raf = 0
     let burning = false
