@@ -79,20 +79,31 @@ const filmChapter1Words = t("hero.film.2.line").split(" ")
 const filmChapter2Words = t("hero.film.3.line").split(" ")
 ---
 
-<!-- 1. IRIS PORTAL FILM HERO: Dimeunrestaurante circular portal + Cepa scrubbed film + Lasercom monumental display -->
+<!-- 1. LIVE CUT WINDOW HERO: Architectural drafting ground + live laser-framed window expanding to full-bleed film -->
 <section
   data-film
   class="film-track steel relative overflow-x-clip border-b border-white/10"
 >
   <div
     data-film-stage
-    class="film-stage relative h-[calc(100svh-4rem)] min-h-[34rem] overflow-hidden bg-[#0b0a09]"
+    class="film-stage relative h-[calc(100svh-4rem)] min-h-[36rem] overflow-hidden bg-[#0b0a09]"
+    style="--slot-t: 44%; --slot-r: 1.25rem; --slot-b: 22%; --slot-l: 1.25rem;"
   >
-    <!-- Optical Iris Portal: starts full-bleed (0ms LCP), contracts to circular lens mid-scroll, expands for fiber metal finale -->
+    <!-- Faint architectural drafting bed (dots + center datum hairlines) -->
+    <div
+      class="bed pointer-events-none absolute inset-0 opacity-45"
+      aria-hidden="true"
+    ></div>
+    <div
+      class="pointer-events-none absolute inset-y-0 left-1/2 hidden w-px bg-white/[0.06] lg:block"
+      aria-hidden="true"
+    ></div>
+
+    <!-- Live Cut Window: starts cropped to the right/lower framing slot at 0 ms,
+         then expands seamlessly to full-bleed 100% as the visitor scrolls -->
     <div
       data-film-media
-      class="pointer-events-none absolute inset-0 overflow-hidden will-change-[clip-path]"
-      style="clip-path: circle(120% at 50% 48%);"
+      class="film-media pointer-events-none absolute inset-0 overflow-hidden will-change-[clip-path]"
       aria-hidden="true"
     >
       <div
@@ -103,13 +114,13 @@ const filmChapter2Words = t("hero.film.3.line").split(" ")
           <source
             media="(max-aspect-ratio: 4/5)"
             srcset={posterPhone.srcSet.attribute}
-            sizes="100vw"
+            sizes="(min-width: 1024px) 50vw, 100vw"
             type="image/webp"
           />
           <img
             src={posterWide.src}
             srcset={posterWide.srcSet.attribute}
-            sizes="100vw"
+            sizes="(min-width: 1024px) 50vw, 100vw"
             alt=""
             width={posterWide.attributes.width}
             height={posterWide.attributes.height}
@@ -133,69 +144,34 @@ const filmChapter2Words = t("hero.film.3.line").split(" ")
       ></video>
 
       <!-- Portrait screens: a laser line sweeps down with the scroll and lifts
-           a dark veil off the film. The lens below is for wide screens only -->
+           a dark veil off the film -->
       <div
         data-film-scan
         class="absolute inset-0 hidden will-change-transform tall:block"
-        style="background: oklch(0.11 0.006 60 / 0.5);"
+        style="background: oklch(0.11 0.006 60 / 0.38);"
       >
         <span class="film-scan-line absolute inset-x-0 top-0 h-0.5 bg-laser"></span>
       </div>
 
-      <!-- Clean top/bottom editorial edge vignette leaving the center laser glow completely unobstructed -->
+      <!-- Editorial scrim: 0% opacity inside the resting window so the footage shines
+           unobstructed; fades in as the window opens full-bleed for chapter legibility -->
       <div
-        class="absolute inset-0"
-        style="background: linear-gradient(180deg, oklch(0.11 0.006 60 / 0.78) 0%, transparent 34%, transparent 50%, oklch(0.11 0.006 60 / 0.92) 100%);"
+        data-film-scrim
+        class="absolute inset-0 opacity-0"
+        style="background: linear-gradient(180deg, oklch(0.11 0.006 60 / 0.68) 0%, oklch(0.11 0.006 60 / 0.16) 36%, oklch(0.11 0.006 60 / 0.28) 62%, oklch(0.11 0.006 60 / 0.92) 100%);"
       ></div>
     </div>
 
-    <!-- Glowing Optical Laser Reticule: fades in around the circular iris on mid-scroll -->
-    <svg
-      data-iris-svg
-      viewBox="0 0 240 240"
-      class="pointer-events-none absolute top-[37%] left-1/2 z-10 size-[46vmin] max-w-[26rem] -translate-x-1/2 -translate-y-1/2 opacity-0 tall:hidden"
-      aria-hidden="true"
-    >
-      <circle
-        cx="120"
-        cy="120"
-        r="106"
-        fill="none"
-        stroke="rgb(255 255 255 / 0.14)"
-        stroke-width="1"
-      />
-      <circle
-        data-iris-arc
-        cx="120"
-        cy="120"
-        r="106"
-        fill="none"
-        stroke="var(--laser)"
-        stroke-width="2"
-        pathLength="1"
-        stroke-dasharray="1"
-        stroke-dashoffset="1"
-        transform="rotate(-90 120 120)"
-        style="filter: drop-shadow(0 0 10px var(--laser));"
-      />
-      <g data-iris-ticks stroke="rgb(255 255 255 / 0.45)" stroke-width="1.2">
-        <line x1="120" y1="4" x2="120" y2="14" />
-        <line x1="120" y1="226" x2="120" y2="236" />
-        <line x1="4" y1="120" x2="14" y2="120" />
-        <line x1="226" y1="120" x2="236" y2="120" />
-      </g>
-    </svg>
-
-    <!-- Mid-Stage Scrubbed Chapters 1 & 2 (absolute so hidden flex children never push LASERCOM down) -->
+    <!-- Mid-Stage Scrubbed Chapters 1 & 2 (revealed once the window opens full-screen) -->
     <div class="pointer-events-none absolute inset-0 z-20 px-5 md:px-8 lg:px-12">
       <div
         data-film-line="1"
-        data-at="0.30"
+        data-at="0.32"
         data-scene={t("hero.film.2.scene")}
         aria-hidden="true"
-        class="film-line absolute inset-x-5 top-[62%] hidden flex-col items-center text-center tall:top-auto tall:bottom-28 md:inset-x-8 lg:inset-x-12"
+        class="film-line absolute inset-x-5 top-1/2 hidden -translate-y-1/2 flex-col items-center text-center tall:top-auto tall:bottom-28 tall:translate-y-0 md:inset-x-8 lg:inset-x-12"
       >
-        <p class="display mx-auto max-w-4xl text-[clamp(1.4rem,3.8vw,3.35rem)] leading-[1.04] text-white">
+        <p class="display mx-auto max-w-4xl text-[clamp(1.45rem,4vw,3.5rem)] leading-[1.04] text-white drop-shadow-[0_4px_24px_rgb(0_0_0/0.65)]">
           {filmChapter1Words.map((word) => (
             <span class="film-w-mask">
               <span class="film-w">{word}</span>
@@ -212,7 +188,7 @@ const filmChapter2Words = t("hero.film.3.line").split(" ")
         class="film-line pointer-events-auto absolute inset-0 hidden flex-col items-center justify-center gap-6 px-5 text-center tall:justify-end tall:pb-28"
       >
         <!-- The film ends on light plywood: a soft shade behind the closing
-             line keeps the white text legible. Portrait screens have the veil -->
+             line keeps the white text legible -->
         <div
           aria-hidden="true"
           class="film-extra pointer-events-none absolute inset-0 -z-10 tall:hidden"
@@ -251,21 +227,34 @@ const filmChapter2Words = t("hero.film.3.line").split(" ")
       </div>
     </div>
 
-    <!-- Foreground Architectural Chrome -->
-    <div class="relative z-20 mx-auto flex size-full flex-col justify-between px-5 pt-5 pb-16 sm:pb-6 md:px-8 lg:px-12 lg:pt-7 lg:pb-6">
-      <!-- Top Architectural Metadata Row (visible at 0ms, peels cleanly on scroll) -->
-      <div
-        data-film-chrome
-        class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between"
-      >
-        <div class="flex flex-col items-start gap-2.5">
-          <p class="hero-in readout text-laser-ink" style="--i: 0">
-            {t("home.readout")}
+    <!-- Foreground Architectural Chrome: Split Stage + Monumental Floor Signature -->
+    <div class="relative z-20 mx-auto flex size-full flex-col justify-between px-5 pt-5 pb-4 sm:pb-5 md:px-8 lg:px-12 lg:pt-7 lg:pb-5">
+      <div class="grid flex-1 items-center gap-5 py-1 lg:grid-cols-12 lg:gap-10">
+        <!-- Left: Engraved Display Headline + Primary CTAs + Local Proof -->
+        <div
+          data-film-chrome
+          class="flex flex-col items-start gap-3.5 sm:gap-4 lg:col-span-6"
+        >
+          <p
+            class="hero-in readout flex items-center gap-2.5 text-laser-ink"
+            style="--i: 0"
+          >
+            <span class="beam-dot inline-block size-2 rounded-full bg-laser shadow-[0_0_10px_var(--laser)]"></span>
+            <span>{t("home.readout")}</span>
           </p>
-          <h1 class="display max-w-[19ch] text-[clamp(1.5rem,3.1vw,2.75rem)] leading-[0.98] tracking-tight text-white">
-            {t("home.h1.1")} {t("home.h1.2")}{" "}
-            <span class="text-laser-ink">{t("home.h1.3")}</span>
+
+          <h1 class="display text-[clamp(2rem,4.35vw,4.05rem)] leading-[0.95] tracking-tight text-white">
+            <span class="engrave" style="--i: 0">
+              <span class="engrave-text">{t("home.h1.1")}</span>
+            </span>
+            <span class="engrave" style="--i: 1">
+              <span class="engrave-text">
+                {t("home.h1.2")}{" "}
+                <span class="text-laser-ink">{t("home.h1.3")}</span>
+              </span>
+            </span>
           </h1>
+
           <div
             class="hero-in flex flex-wrap items-center gap-4 pt-1"
             style="--i: 2"
@@ -288,35 +277,76 @@ const filmChapter2Words = t("hero.film.3.line").split(" ")
               href={whatsappHref(t("wa.default"))}
               target="_blank"
               rel="noopener"
-              class="inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold text-white/85 underline-offset-4 transition-colors hover:text-white hover:underline"
+              class="roll-link inline-flex min-h-11 items-center gap-1.5 pb-1.5 text-sm font-semibold text-white/90"
             >
-              {t("cta.whatsapp.short")}
+              <span class="roll-link-mask">
+                <span>{t("cta.whatsapp.short")}</span>
+                <span aria-hidden="true">{t("cta.whatsapp.short")}</span>
+              </span>
               <ArrowUpRight className="size-4 text-laser-ink" aria-hidden />
             </a>
           </div>
+
+          <div
+            class="hero-in hidden flex-wrap items-center gap-x-4 gap-y-1 border-t border-white/12 pt-3 font-mono text-[11px] tracking-wider text-white/65 uppercase sm:flex"
+            style="--i: 3"
+          >
+            <span>
+              {t("home.stat.since")} {business.founded}
+            </span>
+            <span class="text-white/25" aria-hidden="true">
+              ·
+            </span>
+            <span>{lang === "es" ? "4,5" : "4.5"} ★ Google</span>
+            <span class="text-white/25" aria-hidden="true">
+              ·
+            </span>
+            <OpenStatus lang={lang} class="text-white/70" />
+          </div>
         </div>
 
-        <aside
-          class="hero-in hidden shrink-0 flex-col items-end gap-1 text-right font-mono text-xs tracking-wider text-white/75 uppercase sm:flex"
-          style="--i: 1"
+        <!-- Right: Live Laser-Framed Window Slot (determines exact resting crop of [data-film-media]) -->
+        <div
+          data-film-slot-wrap
+          class="flex flex-col justify-center self-stretch lg:col-span-6 lg:py-3"
         >
-          <span>
-            {business.locality} · {business.region}
-          </span>
-          <span>
-            {t("home.stat.since")} {business.founded} ·{" "}
-            {lang === "es" ? "4,5" : "4.5"} ★ Google
-          </span>
-          <OpenStatus lang={lang} class="mt-0.5 text-white/60" />
-        </aside>
+          <div
+            data-film-slot
+            class="relative aspect-[16/9] w-full rounded-[22px] border border-white/15 sm:aspect-[2/1] lg:aspect-auto lg:h-full lg:max-h-[54svh] lg:min-h-[19rem]"
+          >
+            <!-- Perimeter laser comet tracing the cut window -->
+            <svg
+              class="hero-comet pointer-events-none absolute inset-0 size-full"
+              viewBox="0 0 100 100"
+              preserveAspectRatio="none"
+              aria-hidden="true"
+            >
+              <rect
+                x="0.8"
+                y="0.8"
+                width="98.4"
+                height="98.4"
+                rx="3.6"
+                pathLength="1"
+                vector-effect="non-scaling-stroke"
+                fill="none"
+              />
+            </svg>
+
+            <div class="pointer-events-none absolute top-3 right-3 hidden items-center gap-2 rounded-full border border-white/12 bg-black/55 px-3 py-1 font-mono text-[10px] tracking-widest text-white/85 uppercase backdrop-blur-xs sm:inline-flex">
+              <span class="beam-dot inline-block size-1.5 rounded-full bg-laser shadow-[0_0_8px_var(--laser)]"></span>
+              <span>{t("hero.film.1.scene")}</span>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- Bottom Monumental Brand Display + Compact Chapter HUD -->
-      <div class="flex flex-col gap-2.5">
+      <div class="flex flex-col gap-2">
         <p
           data-hero-word
           aria-hidden="true"
-          class="display pointer-events-none flex w-full justify-between overflow-hidden text-[clamp(2.45rem,12.2vw,11.2rem)] leading-[0.82] tracking-[-0.045em] text-[#f6f1e9] select-none [font-stretch:125%] sm:text-[clamp(3.2rem,13.6vw,11.2rem)]"
+          class="display pointer-events-none flex w-full justify-between overflow-hidden text-[clamp(2.4rem,11vw,9.8rem)] leading-[0.82] tracking-[-0.045em] text-[#f6f1e9] select-none [font-stretch:125%]"
         >
           {heroChars.map((c, idx) => (
             <span class="hero-char inline-block" style={`--ci: ${idx}`}>
@@ -325,10 +355,13 @@ const filmChapter2Words = t("hero.film.3.line").split(" ")
           ))}
         </p>
 
-        <div class="flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-t border-white/15 pt-3 font-mono text-[11px] tracking-wider text-muted-foreground sm:text-xs lg:pr-16">
+        <div class="flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-t border-white/15 pt-2.5 font-mono text-[11px] tracking-wider text-muted-foreground sm:text-xs lg:pr-16">
           <div class="flex items-center gap-3">
             <span class="font-semibold text-foreground tabular-nums">
-              <span data-film-n>01</span> / 03
+              <span data-film-n class="inline-block">
+                01
+              </span>{" "}
+              / 03
             </span>
             <span class="hidden h-px w-8 overflow-hidden bg-white/20 sm:inline-block">
               <span
@@ -336,7 +369,7 @@ const filmChapter2Words = t("hero.film.3.line").split(" ")
                 class="block h-full w-full origin-left scale-x-0 bg-laser-ink"
               ></span>
             </span>
-            <span data-film-scene class="uppercase text-white/80">
+            <span data-film-scene class="inline-block uppercase text-white/80">
               {t("hero.film.1.scene")}
             </span>
           </div>
@@ -360,6 +393,38 @@ const filmChapter2Words = t("hero.film.3.line").split(" ")
     </div>
   </div>
 </section>
+<script is:inline>
+  // Align the live film window to the right-hand slot before first paint (0 ms,
+  // zero layout shift when GSAP takes over on scroll)
+  ;(function () {
+    const syncHeroSlot = () => {
+      const stage = document.querySelector("[data-film-stage]")
+      const slot = document.querySelector("[data-film-slot]")
+      if (!stage || !slot) return
+      const sr = stage.getBoundingClientRect()
+      const wr = slot.getBoundingClientRect()
+      if (!sr.width || !sr.height || !wr.width || !wr.height) return
+      stage.style.setProperty(
+        "--slot-t",
+        Math.max(0, wr.top - sr.top).toFixed(1) + "px"
+      )
+      stage.style.setProperty(
+        "--slot-r",
+        Math.max(0, sr.right - wr.right).toFixed(1) + "px"
+      )
+      stage.style.setProperty(
+        "--slot-b",
+        Math.max(0, sr.bottom - wr.bottom).toFixed(1) + "px"
+      )
+      stage.style.setProperty(
+        "--slot-l",
+        Math.max(0, wr.left - sr.left).toFixed(1) + "px"
+      )
+    }
+    syncHeroSlot()
+    document.addEventListener("astro:page-load", syncHeroSlot)
+  })()
+</script>
 <!-- 2. THE LASER BED: three pieces from it, and the way to its own page -->
 <BenchTeaser lang={lang} />
 <!-- 3. THE PIECES: real work opening like a cut -->
@@ -659,7 +724,7 @@ const filmChapter2Words = t("hero.film.3.line").split(" ")
     const cleanups: (() => void)[] = []
     const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches
 
-    // 1. Pinned Iris Portal Film Hero (Dimeunrestaurante lens shrink + Cepa scrubbed video)
+    // 1. Live Cut Window Hero (Santalarch framing + Dime expanding window + Cepa scrubbed film)
     const filmSection = document.querySelector<HTMLElement>("[data-film]")
     const filmStage = document.querySelector<HTMLElement>("[data-film-stage]")
     const filmMedia = document.querySelector<HTMLElement>("[data-film-media]")
@@ -667,10 +732,12 @@ const filmChapter2Words = t("hero.film.3.line").split(" ")
       document.querySelector<HTMLVideoElement>("[data-film-video]")
     const filmPoster = document.querySelector<HTMLElement>("[data-film-poster]")
     const filmChrome = document.querySelector<HTMLElement>("[data-film-chrome]")
+    const filmSlot = document.querySelector<HTMLElement>("[data-film-slot]")
+    const filmSlotWrap = document.querySelector<HTMLElement>(
+      "[data-film-slot-wrap]"
+    )
+    const filmScrim = document.querySelector<HTMLElement>("[data-film-scrim]")
     const heroWord = document.querySelector<HTMLElement>("[data-hero-word]")
-    const irisSvg = document.querySelector<SVGSVGElement>("[data-iris-svg]")
-    const irisArc = document.querySelector<SVGCircleElement>("[data-iris-arc]")
-    const irisTicks = document.querySelector<SVGGElement>("[data-iris-ticks]")
     const filmLines = Array.from(
       document.querySelectorAll<HTMLElement>("[data-film-line]")
     )
@@ -679,10 +746,9 @@ const filmChapter2Words = t("hero.film.3.line").split(" ")
       // The address bar of a phone resizes the window as it hides: recomputing
       // the pinned hero then would make the page jump mid-scroll
       ScrollTrigger.config({ ignoreMobileResize: true })
-      // Portrait screens (phones): no lens, a laser line sweeps the film instead
+      // Portrait screens (phones): a laser line sweeps the film as the window opens
       const portrait = matchMedia("(max-aspect-ratio: 4/5)").matches
       const filmScan = document.querySelector<HTMLElement>("[data-film-scan]")
-      if (portrait) filmMedia.style.clipPath = "none"
       filmLines.forEach((line) => {
         // A flex column, so each line keeps its vertical alignment
         line.classList.replace("hidden", "flex")
@@ -697,23 +763,25 @@ const filmChapter2Words = t("hero.film.3.line").split(" ")
       const hintEl = filmSection.querySelector<HTMLElement>("[data-film-hint]")
       const openingScene = sceneEl?.textContent ?? ""
 
-      let stageW = filmStage.clientWidth || window.innerWidth
-      let stageH = filmStage.clientHeight || window.innerHeight
-      let fullR = Math.round(Math.hypot(stageW * 0.5, stageH * 0.54) + 12)
-      let lensR = Math.round(Math.min(stageW, stageH) * 0.24)
-
+      let slot = { t: 0, r: 0, b: 0, l: 0 }
       const measureStage = () => {
-        stageW = filmStage.clientWidth || window.innerWidth
-        stageH = filmStage.clientHeight || window.innerHeight
-        fullR = Math.round(Math.hypot(stageW * 0.5, stageH * 0.54) + 12)
-        lensR = Math.round(Math.min(stageW, stageH) * 0.24)
-        if (irisSvg) {
-          const box = Math.round(lensR * (240 / 106))
-          irisSvg.style.width = `${box}px`
-          irisSvg.style.height = `${box}px`
+        if (!filmSlot) return
+        const sr = filmStage.getBoundingClientRect()
+        const wr = filmSlot.getBoundingClientRect()
+        if (!sr.width || !sr.height || !wr.width || !wr.height) return
+        slot = {
+          t: Math.max(0, wr.top - sr.top),
+          r: Math.max(0, sr.right - wr.right),
+          b: Math.max(0, sr.bottom - wr.bottom),
+          l: Math.max(0, wr.left - sr.left),
         }
+        filmStage.style.setProperty("--slot-t", `${slot.t.toFixed(1)}px`)
+        filmStage.style.setProperty("--slot-r", `${slot.r.toFixed(1)}px`)
+        filmStage.style.setProperty("--slot-b", `${slot.b.toFixed(1)}px`)
+        filmStage.style.setProperty("--slot-l", `${slot.l.toFixed(1)}px`)
       }
       measureStage()
+      void document.fonts?.ready.then(measureStage)
       window.addEventListener("resize", measureStage, { passive: true })
       cleanups.push(() => window.removeEventListener("resize", measureStage))
 
@@ -848,53 +916,45 @@ const filmChapter2Words = t("hero.film.3.line").split(" ")
           const p = self.progress
           if (filmVideo?.duration) filmTarget = p * (filmVideo.duration - 0.05)
 
-          // Phones: the laser line sweeps down over the first third, lifting
-          // the veil, while the film slowly pushes in. Transforms only
-          let lensMix = 0
+          // Expand the live cut window smoothly from the right/lower framing slot
+          // to full-bleed 100% viewport as the user starts scrolling (0..0.28)
+          const openT = easeInOut(clamp01(p / 0.28))
+          const inv = 1 - openT
+          const tPx = (slot.t * inv).toFixed(1)
+          const rPx = (slot.r * inv).toFixed(1)
+          const bPx = (slot.b * inv).toFixed(1)
+          const lPx = (slot.l * inv).toFixed(1)
+          const rad = (22 * inv).toFixed(1)
+          filmMedia.style.clipPath = `inset(${tPx}px ${rPx}px ${bPx}px ${lPx}px round ${rad}px)`
+
           if (portrait) {
-            const scan = easeInOut(clamp01(p / 0.34))
+            const scan = easeInOut(clamp01((p - 0.14) / 0.28))
             if (filmScan)
               filmScan.style.transform = `translate3d(0, ${(scan * 101).toFixed(2)}%, 0)`
-            filmMedia.style.transform = `scale(${(1 + 0.1 * p).toFixed(4)})`
-          } else {
-            // Continuous iris aperture choreography: full -> lens (0..0.28) -> hold (0.28..0.64) -> full (0.64..0.86)
-            const shrinkT = easeInOut(clamp01(p / 0.28))
-            const expandT = easeInOut(clamp01((p - 0.64) / 0.22))
-            lensMix = shrinkT * (1 - expandT)
-            const r = Math.round(fullR - (fullR - lensR) * lensMix)
-            const cy = Math.round(48 - 11 * lensMix)
-            filmMedia.style.clipPath = `circle(${r}px at 50% ${cy}%)`
-            if (irisSvg) irisSvg.style.top = `${cy}%`
+            filmMedia.style.transform = `scale(${(1 + 0.08 * p).toFixed(4)})`
           }
 
           if (!filmReady && filmPoster && !portrait) {
-            gsap.set(filmPoster, { scale: 1 + p * 0.08 })
+            filmPoster.style.transform = `scale(${(1 + p * 0.06).toFixed(4)})`
           }
 
-          // Hero top chrome + monumental LASERCOM peel smoothly out as the portal closes
+          // Hero copy, slot border & monumental LASERCOM peel smoothly out as the window opens
           const heroOut = clamp01(p / 0.2)
           if (filmChrome) {
             filmChrome.style.opacity = String(1 - heroOut)
             filmChrome.style.transform = `translate3d(0, ${-24 * heroOut}px, 0)`
             filmChrome.style.pointerEvents = heroOut > 0.5 ? "none" : "auto"
           }
+          if (filmSlotWrap) {
+            filmSlotWrap.style.opacity = String(1 - heroOut)
+            filmSlotWrap.style.transform = `scale(${(1 + 0.04 * heroOut).toFixed(4)})`
+          }
           if (heroWord) {
             heroWord.style.opacity = String(1 - heroOut)
-            heroWord.style.transform = `translate3d(0, ${32 * heroOut}px, 0) scale(${1 + 0.08 * heroOut})`
+            heroWord.style.transform = `translate3d(0, ${28 * heroOut}px, 0) scale(${(1 + 0.06 * heroOut).toFixed(4)})`
           }
-
-          // Glowing laser reticle appears precisely when the circular lens locks
-          const irisAlpha = clamp01((lensMix - 0.35) / 0.65)
-          if (irisSvg) irisSvg.style.opacity = String(irisAlpha)
-          if (irisArc) {
-            const trace = clamp01((p - 0.14) / 0.48)
-            irisArc.style.strokeDashoffset = String(1 - trace)
-          }
-          if (irisTicks) {
-            irisTicks.setAttribute(
-              "transform",
-              `rotate(${(p * 120).toFixed(1)} 120 120)`
-            )
+          if (filmScrim) {
+            filmScrim.style.opacity = String(clamp01((p - 0.14) / 0.16))
           }
 
           if (barEl) barEl.style.transform = `scaleX(${p})`
@@ -1074,6 +1134,35 @@ const filmChapter2Words = t("hero.film.3.line").split(" ")
   }
   .film-w:not(.block) {
     display: inline-block;
+  }
+  .film-media {
+    clip-path: inset(
+      var(--slot-t) var(--slot-r) var(--slot-b) var(--slot-l) round 22px
+    );
+  }
+  .hero-comet rect {
+    stroke: var(--laser);
+    stroke-width: 1.75;
+    stroke-linecap: round;
+    stroke-dasharray: 0.16 0.84;
+    stroke-dashoffset: 1;
+    opacity: 0.85;
+    filter: drop-shadow(0 0 6px var(--laser));
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-comet rect {
+      animation: hero-comet 6.5s linear infinite;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-comet {
+      display: none;
+    }
+  }
+  @keyframes hero-comet {
+    to {
+      stroke-dashoffset: 0;
+    }
   }
   /* The scroll the hero film plays over, reserved by CSS from the first paint:
      the stage sticks under the 4rem header while the track scrolls past.
