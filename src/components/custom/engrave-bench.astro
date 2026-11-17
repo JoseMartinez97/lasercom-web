@@ -337,6 +337,8 @@ const waText = (value: string, material: string) =>
 
 <script>
   import { whatsappHref } from "@/lib/business"
+  import serifUrl from "@fontsource-variable/cormorant-garamond/files/cormorant-garamond-latin-wght-normal.woff2?url"
+  import scriptUrl from "@fontsource/great-vibes/files/great-vibes-latin-400-normal.woff2?url"
   import type { Engrave3D, PieceShape } from "@/lib/engrave-3d"
   import type { GlMaterial } from "@/lib/engrave-map"
 
@@ -834,13 +836,23 @@ const waText = (value: string, material: string) =>
       }, MORPH + 40)
     }
 
-    // Lettering: the faces beyond the brand's own load with the bench
+    // Lettering: the faces beyond the brand's own load with the bench, as
+    // font files (the site inlines its CSS, so a lazy stylesheet would never
+    // be written to the build). Latin covers Spanish and English
     let fontsLoading: Promise<unknown> | undefined
     const loadFonts = () =>
-      (fontsLoading ??= Promise.all([
-        import("@fontsource-variable/cormorant-garamond/wght.css"),
-        import("@fontsource/great-vibes/400.css"),
-      ]).catch(() => undefined))
+      (fontsLoading ??= Promise.all(
+        [
+          new FontFace("Cormorant Garamond Variable", `url(${serifUrl})`, {
+            weight: "300 700",
+          }),
+          new FontFace("Great Vibes", `url(${scriptUrl})`, { weight: "400" }),
+        ].map((face) =>
+          face.load().then((f) => {
+            document.fonts.add(f)
+          })
+        )
+      ).catch(() => undefined))
     const onFont = async (e: Event) => {
       font = e.target as HTMLInputElement
       applyFont()
