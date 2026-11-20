@@ -12,10 +12,7 @@ export const home = {
       "Type a name or upload your logo, pick the material and watch the laser engrave it in 3D. Then ask us for a quote on WhatsApp.",
     "bench.page.crumb": "Try your engraving",
     "bench.teaser.title": "Type a name and watch it engraved.",
-    "bench.teaser.lead":
-      "Steel, wood, brass, leather or acrylic, or your own logo: the laser engraves it in front of you, in 3D, before you ask us for anything.",
     "bench.teaser.cta": "Try the laser bed",
-    "bench.teaser.alt": "“Lucía & Marcos” engraved on {material}, 3D preview",
     "bench.title": "Type a name. Pick the material.",
     "bench.lead":
       "The fibre laser engraves every metal and plastic; the CO2 lasers cut and engrave wood, leather and acrylic, and engrave glass. Try it here before you ask us.",
@@ -57,7 +54,6 @@ export const home = {
     "home.engrave.sheet.laserValue": "Fibre",
     "home.engrave.sheet.passes": "Passes",
     "home.engrave.sheet.status": "Status",
-    "home.engrave.sheet.position": "Head",
     "bench.plate": "“{text}” engraved on {material}",
     "bench.m.acero.name": "Stainless steel",
     "bench.m.acero.does":
@@ -100,11 +96,7 @@ export const home = {
       "Escribe un nombre o sube tu logo, elige el material y mira cómo lo graba el láser en 3D. Después, pídenos presupuesto por WhatsApp.",
     "bench.page.crumb": "Prueba tu grabado",
     "bench.teaser.title": "Escribe un nombre y míralo grabado.",
-    "bench.teaser.lead":
-      "Acero, madera, latón, piel o metacrilato, o tu propio logo: el láser lo graba delante de ti, en 3D, antes de pedirnos nada.",
     "bench.teaser.cta": "Probar la mesa del láser",
-    "bench.teaser.alt":
-      "«Lucía & Marcos» grabado en {material}, vista previa en 3D",
     "bench.title": "Escribe un nombre. Elige el material.",
     "bench.lead":
       "El láser de fibra graba todos los metales y plásticos; los de CO2 cortan y graban madera, piel y metacrilato, y graban cristal. Pruébalo aquí antes de pedírnoslo.",
@@ -147,7 +139,6 @@ export const home = {
     "home.engrave.sheet.laserValue": "Fibra",
     "home.engrave.sheet.passes": "Pasadas",
     "home.engrave.sheet.status": "Estado",
-    "home.engrave.sheet.position": "Cabezal",
     "bench.plate": "«{text}» grabado en {material}",
     "bench.m.acero.name": "Acero inoxidable",
     "bench.m.acero.does":

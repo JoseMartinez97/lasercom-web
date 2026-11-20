@@ -81,22 +81,6 @@ export const photos = {
     "photo.tarjeta_casfid": "Metal business card engraved with the Casfid logo",
     "photo.tarjeta_grabado_laser_nobg":
       "Black acrylic business cards with engraved text",
-    "editorial.hero-laser-cutting":
-      "Industrial laser cutting head slicing through brushed steel with flying golden sparks",
-    "editorial.technique-wood-beam":
-      "CO2 laser nozzle cutting precise geometry into birch plywood with illuminated smoke wisp",
-    "editorial.technique-fiber-mark":
-      "Galvo fiber laser head focusing an orange beam and sparks onto brushed steel",
-    "editorial.material-wood":
-      "Macro detail of layered walnut and birch plywood with laser-cut hexagonal lattice",
-    "editorial.material-acrylic":
-      "Thick clear and matte black optical acrylic blocks with flame-polished laser-cut edges",
-    "editorial.material-metal":
-      "Brushed stainless steel and brass plates with fine matte-black annealed laser markings",
-    "editorial.material-leather":
-      "Cognac and charcoal full-grain leather pieces with detailed dark laser-engraved relief",
-    "editorial.material-glass":
-      "Crystal glass tumbler and beveled glass block with delicate frosted laser-etched filigree",
   },
   es: {
     "photo.torrejon_1":
@@ -184,21 +168,5 @@ export const photos = {
       "Tarjeta de visita metálica grabada con el logotipo de Casfid",
     "photo.tarjeta_grabado_laser_nobg":
       "Tarjetas de visita de metacrilato negro con texto grabado",
-    "editorial.hero-laser-cutting":
-      "Cabezal de corte láser industrial atravesando chapa de acero con chispas doradas",
-    "editorial.technique-wood-beam":
-      "Boquilla láser CO2 cortando una geometría precisa en contrachapado de abedul",
-    "editorial.technique-fiber-mark":
-      "Cabezal láser de fibra galvo proyectando un haz naranja con chispas sobre acero cepillado",
-    "editorial.material-wood":
-      "Detalle macro de tablero de nogal y abedul con celosía geométrica cortada con láser",
-    "editorial.material-acrylic":
-      "Bloques de metacrilato óptico transparente y negro mate con cantos pulidos tras el corte láser",
-    "editorial.material-metal":
-      "Placas de acero inoxidable y latón cepillado con marcado láser negro sin tintas",
-    "editorial.material-leather":
-      "Piezas de piel color coñac y carbón con grabado láser fino en relieve",
-    "editorial.material-glass":
-      "Vaso de cristal y bloque biselado con filigrana esmerilada grabada con láser",
   },
 } as const

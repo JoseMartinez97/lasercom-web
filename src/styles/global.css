@@ -4,14 +4,11 @@
 @import "@fontsource-variable/archivo/wdth.css";
 @import "@fontsource-variable/jetbrains-mono";
 
-/* Screens narrower than 4:5 (phones upright): the hero plays its 9:16 cut and
-   the laser-line sweep there. The same query picks the video in the script */
-@custom-variant tall (@media (max-aspect-ratio: 4/5));
-
 @theme inline {
   --font-sans: "Archivo Variable", system-ui, sans-serif;
   --font-heading: "Archivo Variable", system-ui, sans-serif;
   --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
+  --color-paper: var(--paper);
   --color-laser: var(--laser);
   --color-laser-ink: var(--laser-ink);
   --color-ring: var(--ring);
@@ -47,6 +44,7 @@
   --foreground: oklch(0.2 0.012 55);
   --card: oklch(0.985 0.008 80);
   --card-foreground: oklch(0.2 0.012 55);
+  --paper: oklch(0.968 0.012 78);
   --popover: oklch(0.985 0.008 80);
   --popover-foreground: oklch(0.2 0.012 55);
   /* The laser: one hue for the beam, the call to action and nothing else */
@@ -168,7 +166,7 @@
   /* The hero's lead paragraph is usually the largest thing on a phone's first
      screen: it only rises, never starts invisible, so it paints at once */
   .hero-lead {
-    animation: hero-rise 0.65s cubic-bezier(0.215, 0.61, 0.355, 1) backwards;
+    animation: hero-in 0.65s cubic-bezier(0.215, 0.61, 0.355, 1) backwards;
   }
   /* Hidden from first paint so GSAP's reveal (src/lib/animations.ts) brings
      them in instead of moving blocks that are already showing */
@@ -180,11 +178,6 @@
 @keyframes header-in {
   from {
     transform: translateY(-100%);
-  }
-}
-@keyframes hero-rise {
-  from {
-    transform: translateY(14px);
   }
 }
 @keyframes hero-in {
@@ -592,31 +585,6 @@
   }
 }
 
-/* The work index: one photo at a time follows the row in use. Colour means
-   "this one, now": the other rows step back to a muted ink */
-.work-shot {
-  opacity: 0;
-  transform: scale(1.04);
-  transition:
-    opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.work-shot[data-active] {
-  opacity: 1;
-  transform: scale(1);
-}
-[data-work-list]:has(> li[data-on]) > li:not([data-on]) {
-  opacity: 0.55;
-}
-[data-work-list] > li[data-on] h3 {
-  color: var(--laser-ink);
-}
-[data-work-list] h3 {
-  transition:
-    color 0.4s ease-out,
-    translate 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
 /* Legal texts rendered from Markdown */
 .prose-legal {
   max-width: 46rem;
@@ -708,46 +676,6 @@
 }
 .prose-guide a:hover {
   text-decoration-thickness: 2px;
-}
-
-/* The hero's mark, cut out by the beam after the title is engraved: the
-   outline is drawn, the dot rides its edge (SMIL), then the faces fill in */
-@media (prefers-reduced-motion: no-preference) {
-  .mark-cut {
-    stroke-dasharray: 1;
-    animation: mark-cut 1.8s linear 0.6s both;
-  }
-  .mark-face {
-    animation: mark-face 0.9s ease-out 2.3s both;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .beam-follow {
-    display: none;
-  }
-}
-@keyframes mark-cut {
-  from {
-    stroke-dashoffset: 1;
-  }
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-@keyframes mark-face {
-  from {
-    opacity: 0;
-  }
-}
-
-/* The machine bed: a faint grid of points under the steel sections */
-.bed {
-  background-image: radial-gradient(
-    color-mix(in oklab, var(--foreground) 16%, transparent) 1px,
-    transparent 1.5px
-  );
-  background-size: 22px 22px;
-  mask-image: linear-gradient(to bottom, black, transparent 85%);
 }
 
 /* Native dialogs: mobile navigation drawer & workshop photo lightbox */

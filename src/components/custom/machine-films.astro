@@ -91,16 +91,20 @@ const items = await Promise.all(
 <script>
   // Play each clip only while it is on screen. With reduced motion the
   // poster stays and the visitor can start the clip with the controls
-  const clips = document.querySelectorAll<HTMLVideoElement>(
-    "[data-machine-film]"
-  )
-  const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches
-  if (still) {
-    clips.forEach((clip) => {
-      clip.controls = true
-      clip.loop = false
-    })
-  } else {
+  const setupFilms = () => {
+    const clips = document.querySelectorAll<HTMLVideoElement>(
+      "[data-machine-film]"
+    )
+    if (!clips.length) return () => {}
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      clips.forEach((clip) => {
+        clip.controls = true
+        clip.loop = false
+      })
+      return () => {}
+    }
+
     const io = new IntersectionObserver(
       (entries) => {
         for (const { target, isIntersecting } of entries) {
@@ -112,5 +116,19 @@ const items = await Promise.all(
       { threshold: 0.35 }
     )
     clips.forEach((clip) => io.observe(clip))
+    return () => {
+      io.disconnect()
+      clips.forEach((clip) => clip.pause())
+    }
   }
+
+  let cleanupFilms: (() => void) | undefined
+  document.addEventListener("astro:page-load", () => {
+    cleanupFilms?.()
+    cleanupFilms = setupFilms()
+  })
+  document.addEventListener("astro:before-swap", () => {
+    cleanupFilms?.()
+    cleanupFilms = undefined
+  })
 </script>

@@ -14,8 +14,6 @@ export const site = {
 
     "cta.whatsapp": "Message us on WhatsApp",
     "cta.whatsapp.short": "WhatsApp",
-    "cta.call": "Call",
-    "cta.email": "Send an email",
     "cta.quote": "Get a free quote",
     "cursor.service": "See service",
     "open.now": "Open now",
@@ -41,25 +39,7 @@ export const site = {
     "home.h1.3": "in Valencia",
     "home.lead":
       "We engrave every kind of metal and plastic, cut metal up to 4 mm, and cut and engrave wood, acrylic and leather in our own workshop: a name for a wedding, your company logo or the serial number on an industrial part.",
-    "home.stat.since": "Own workshop since",
-    "home.stat.rating": "Rating on Google",
     "home.stat.materials": "Materials we work with",
-    "home.marquee":
-      "Wood · Acrylic · Glass · Leather · Stainless steel · Aluminium · Brass · Silver · Gold · Stone ·",
-    "home.marquee.services":
-      "Laser cutting · Relief engraving · Metal marking · Riba-roja de Túria · Since 2007 ·",
-    "hero.film.1.scene": "Wood cutting",
-    "hero.film.2.scene": "Detail engraving",
-    "hero.film.2.line":
-      "No file? A photo or a sketch is enough to start: we prepare it.",
-    "hero.film.3.scene": "From file to finished piece",
-    "hero.film.3.line": "No minimum order: a one-off piece or a full run.",
-    "hero.film.scroll": "Scroll to explore the workshop",
-    "home.statement":
-      "Your name, your logo or a serial number, cut and engraved in our workshop.",
-    "home.materials.title": "Materials we work with",
-    "home.materials.lead":
-      "Each material needs its own settings. We adjust power, speed and focus so the cut comes out clean and the engraving lasts.",
     "home.clients.title": "For businesses and for people",
     "home.clients.business.title": "Businesses and industry",
     "home.clients.business.text":
@@ -265,7 +245,6 @@ export const site = {
     "quote.empty":
       "Pick at least one option or tell us a little about the job, so we can quote it.",
     "a11y.breadcrumb": "Breadcrumb",
-    "reviews.stars": "Rated {rating} out of 5",
     "quote.note":
       "WhatsApp or your email app will open with the message already written. Attach photos, sketches or your logo there.",
     "quote.note.saved":
@@ -311,23 +290,8 @@ export const site = {
     "nav.services.materials": "By material",
     "nav.services.clients": "By project",
     "nav.services.open": "Toggle services menu",
-    "nav.services.explore": "All 11 workshop services",
+    "nav.services.explore": "All 13 workshop services",
 
-    "hero.video.pause": "Pause video background",
-    "hero.video.play": "Play video background",
-    "hero.video.pause.short": "Pause video",
-    "hero.video.play.short": "Play video",
-    "hero.trust.1": "From 1 unit to full runs",
-    "hero.trust.2": "We prepare the artwork",
-    "hero.trust.3": "Free quote with no obligation",
-    "hero.segment.business": "I'm a business",
-    "hero.segment.people": "For an individual",
-
-    "cta.quote.short": "Get a quote",
-    "home.materials.sample": "Laser finish",
-    "home.materials.samples": "Pieces made in the workshop",
-    "home.work.service": "Service",
-    "home.work.gallery": "Open in gallery",
     "home.process.cta": "Build your quote now",
     "home.reviews.workshop.label": "Workshop · Valencia",
     "home.reviews.workshop.title": "Polígono El Oliveral, Riba-roja de Túria",
@@ -366,109 +330,6 @@ export const site = {
     "quote.copy": "Copy message",
     "quote.copied": "Copied",
     "contact.jump.builder": "Open quote configurator",
-
-    "preview.eyebrow": "Interactive workshop preview",
-    "preview.title": "Try your engraving before you order",
-    "preview.lead":
-      "Write a name, date or serial number, switch between wood, metal, acrylic or leather, or load a black-and-white logo locally to see the finish.",
-    "preview.chips.label": "Quick examples",
-    "preview.chip.wedding.name": "Wedding",
-    "preview.chip.wedding.line1": "Lucía & Marcos",
-    "preview.chip.wedding.line2": "14 · 09 · 2026",
-    "preview.chip.industrial.name": "Serial plate",
-    "preview.chip.industrial.line1": "LOTE 2026 · REF. A42",
-    "preview.chip.industrial.line2": "VALENCIA · SERIE 0184",
-    "preview.chip.company.name": "Company mark",
-    "preview.chip.company.line1": "TALLER VALENCIA",
-    "preview.chip.company.line2": "DESDE 2007",
-    "preview.chip.gift.name": "Gift",
-    "preview.chip.gift.line1": "Gracias por venir",
-    "preview.chip.gift.line2": "Riba-roja · 2026",
-    "preview.line1.label": "Main text",
-    "preview.line1.placeholder": "Your name, brand or reference",
-    "preview.line2.label": "Second line (optional)",
-    "preview.line2.placeholder": "Date, city or batch code",
-    "preview.material.label": "Material",
-    "preview.material.wood": "Wood",
-    "preview.material.metal": "Metal",
-    "preview.material.acrylic": "Acrylic",
-    "preview.material.leather": "Leather",
-    "preview.font.label": "Typography",
-    "preview.font.geometric": "Geometric",
-    "preview.font.classic": "Classic serif",
-    "preview.font.mono": "Technical",
-    "preview.font.italic": "Calligraphic",
-    "preview.frame.label": "Frame",
-    "preview.frame.none": "Clean plate",
-    "preview.frame.border": "Fine line",
-    "preview.frame.tag": "Riveted plate",
-    "preview.frame.seal": "Round seal",
-    "preview.logo.label": "Logo or icon (local preview)",
-    "preview.logo.add": "Upload SVG or image",
-    "preview.logo.clear": "Remove logo",
-    "preview.logo.hint":
-      "Stays on your device — high-contrast black & white works best.",
-    "preview.logo.error": "Could not read that file. Try SVG, PNG or JPG.",
-    "preview.canvas.label": "Interactive laser engraving preview on {material}",
-    "preview.status.engraving": "Beam sweeping…",
-    "preview.status.ready":
-      "Move pointer over plate for laser spark · Interactive preview",
-    "preview.action.replay": "Engrave again",
-    "preview.action.download": "Download PNG",
-    "preview.action.quote": "Quote this design",
-    "preview.action.wa": "Send on WhatsApp",
-    "preview.note":
-      "Visual preview only — we prepare your final vector file in the workshop and confirm depth, size and quote before cutting.",
-    "preview.wa.intro": "Hi, I tried an engraving design on your website:",
-
-    "home.meta.00.left": "00 / Laser cutting, engraving and marking",
-    "home.meta.00.right": "Pol. Ind. El Oliveral · Valencia · Since 2007",
-    "home.meta.01.left": "01 / Workshop processes",
-    "home.meta.01.right": "Cutting · Engraving · Direct marking",
-    "home.meta.02.left": "02 / Materials",
-    "home.meta.02.right": "Wood · Acrylic & glass · Metal · Leather",
-    "home.meta.03.left": "03 / Services directory",
-    "home.meta.03.right": "Industry & businesses · Individuals & events",
-    "home.meta.04.left": "04 / Selected work",
-    "home.meta.04.right": "Real pieces produced in Riba-roja de Túria",
-    "home.meta.05.left": "05 / How we work",
-    "home.meta.05.right": "From sketch or CAD file to finished part",
-    "home.meta.06.left": "06 / Track record & facilities",
-    "home.meta.06.right": "Verified Google reviews · Own workshop",
-    "home.meta.07.left": "07 / Technical guides & FAQ",
-    "home.meta.07.right": "Files, materials and answers",
-
-    "home.dossier.header": "Workshop archive · Real work",
-    "home.dossier.1.tab": "01 Industry & metal",
-    "home.dossier.1.tag": "Stainless steel & aluminium · Marking",
-    "home.dossier.1.title":
-      "Permanent traceability, rating plates and corporate metal",
-    "home.dossier.2.tab": "02 Wood & runs",
-    "home.dossier.2.tag": "Solid wood, birch & MDF · Cutting and engraving",
-    "home.dossier.2.title":
-      "From the Ron Barceló 30th anniversary stand to fine openwork",
-    "home.dossier.3.tab": "03 Acrylic & glass",
-    "home.dossier.3.tag": "PMMA & glassware · Polished edges and frosted glass",
-    "home.dossier.3.title":
-      "Scale models, corporate signage, trophies and engraved glass",
-    "home.dossier.4.tab": "04 Our workshop",
-    "home.dossier.4.tag": "Pol. Ind. El Oliveral · Nave 41 · Riba-roja",
-    "home.dossier.4.title":
-      "Own workshop in Valencia since 2007: direct advice without intermediaries",
-
-    "home.stat.orders": "Minimum order",
-    "home.stat.orders.val": "1 unit",
-    "home.stat.orders.note": "From a single piece to full industrial runs",
-    "home.stat.since.note": "Own workshop in Pol. Ind. El Oliveral (Valencia)",
-    "home.stat.rating.note": "Verified customer reviews on Google Maps",
-    "home.stat.materials.note":
-      "Wood, acrylic, glass, leather, steel, brass, silver and stone",
-
-    "home.process.fact.1": "Own workshop in Riba-roja de Túria (Valencia)",
-    "home.process.fact.2": "Operating continuously since 2007",
-    "home.process.fact.3": "No minimum order: 1 unit or full runs",
-    "home.process.fact.4": "We work with our material or yours",
-    "home.process.fact.5": "We prepare vector files from your sketch or logo",
   },
   es: {
     "a11y.skip": "Saltar al contenido",
@@ -484,8 +345,6 @@ export const site = {
 
     "cta.whatsapp": "Escríbenos por WhatsApp",
     "cta.whatsapp.short": "WhatsApp",
-    "cta.call": "Llamar",
-    "cta.email": "Enviar un email",
     "cta.quote": "Pide presupuesto gratis",
     "cursor.service": "Ver servicio",
     "open.now": "Abierto ahora",
@@ -511,26 +370,7 @@ export const site = {
     "home.h1.3": "en Valencia",
     "home.lead":
       "Grabamos todo tipo de metales y plásticos, cortamos metal de hasta 4 mm, y cortamos y grabamos madera, metacrilato y piel en nuestro propio taller: un nombre para una boda, el logotipo de tu empresa o el número de serie de una pieza industrial.",
-    "home.stat.since": "Taller propio desde",
-    "home.stat.rating": "Valoración en Google",
     "home.stat.materials": "Materiales que trabajamos",
-    "home.marquee":
-      "Madera · Metacrilato · Cristal · Piel · Acero inoxidable · Aluminio · Latón · Plata · Oro · Piedra ·",
-    "home.marquee.services":
-      "Corte láser · Grabado en relieve · Marcado en metal · Riba-roja de Túria · Desde 2007 ·",
-    "hero.film.1.scene": "Corte en madera",
-    "hero.film.2.scene": "Grabado de detalle",
-    "hero.film.2.line":
-      "¿Sin archivo? Con una foto o un boceto basta para empezar: nosotros lo preparamos.",
-    "hero.film.3.scene": "Del archivo a la pieza",
-    "hero.film.3.line":
-      "Sin pedido mínimo: una pieza única o una tirada completa.",
-    "hero.film.scroll": "Desliza para recorrer el taller",
-    "home.statement":
-      "Tu nombre, tu logotipo o un número de serie, cortado y grabado en nuestro taller.",
-    "home.materials.title": "Materiales que trabajamos",
-    "home.materials.lead":
-      "Cada material pide un ajuste distinto. Regulamos potencia, velocidad y enfoque para que el corte salga limpio y el grabado dure.",
     "home.clients.title": "Para empresas y para particulares",
     "home.clients.business.title": "Empresas e industria",
     "home.clients.business.text":
@@ -735,7 +575,6 @@ export const site = {
     "quote.empty":
       "Marca al menos una opción o cuéntanos algo del trabajo para poder darte precio.",
     "a11y.breadcrumb": "Ruta de navegación",
-    "reviews.stars": "Valoración: {rating} de 5",
     "quote.note":
       "Se abrirá WhatsApp o tu correo con el mensaje ya escrito. Adjunta allí fotos, bocetos o tu logotipo.",
     "quote.note.saved":
@@ -781,23 +620,8 @@ export const site = {
     "nav.services.materials": "Por material",
     "nav.services.clients": "Por tipo de proyecto",
     "nav.services.open": "Mostrar servicios",
-    "nav.services.explore": "Los 11 servicios del taller",
+    "nav.services.explore": "Los 13 servicios del taller",
 
-    "hero.video.pause": "Pausar vídeo láser de fondo",
-    "hero.video.play": "Ver vídeo láser de fondo",
-    "hero.video.pause.short": "Pausar vídeo",
-    "hero.video.play.short": "Ver vídeo",
-    "hero.trust.1": "Desde 1 pieza a tiradas completas",
-    "hero.trust.2": "Preparamos tu archivo para el láser",
-    "hero.trust.3": "Presupuesto sin compromiso",
-    "hero.segment.business": "Soy empresa",
-    "hero.segment.people": "Soy particular",
-
-    "cta.quote.short": "Pedir presupuesto",
-    "home.materials.sample": "Acabado láser",
-    "home.materials.samples": "Piezas hechas en el taller",
-    "home.work.service": "Ver servicio",
-    "home.work.gallery": "Ver en trabajos",
     "home.process.cta": "Configurar tu presupuesto",
     "home.reviews.workshop.label": "Taller · Valencia",
     "home.reviews.workshop.title": "Polígono El Oliveral, Riba-roja de Túria",
@@ -836,114 +660,6 @@ export const site = {
     "quote.copy": "Copiar mensaje",
     "quote.copied": "Mensaje copiado",
     "contact.jump.builder": "Configurar presupuesto",
-
-    "preview.eyebrow": "Probador de grabado en vivo",
-    "preview.title": "Previsualiza tu pieza antes de pedirla",
-    "preview.lead":
-      "Escribe un nombre, una fecha o un número de serie, cambia entre madera, metal, metacrilato o piel, o carga un logotipo en blanco y negro desde tu dispositivo.",
-    "preview.chips.label": "Ejemplos rápidos",
-    "preview.chip.wedding.name": "Boda",
-    "preview.chip.wedding.line1": "Lucía y Marcos",
-    "preview.chip.wedding.line2": "14 · 09 · 2026",
-    "preview.chip.industrial.name": "Placa serie",
-    "preview.chip.industrial.line1": "LOTE 2026 · REF. A42",
-    "preview.chip.industrial.line2": "VALENCIA · SERIE 0184",
-    "preview.chip.company.name": "Empresa",
-    "preview.chip.company.line1": "TALLER VALENCIA",
-    "preview.chip.company.line2": "DESDE 2007",
-    "preview.chip.gift.name": "Regalo",
-    "preview.chip.gift.line1": "Gracias por venir",
-    "preview.chip.gift.line2": "Riba-roja · 2026",
-    "preview.line1.label": "Texto principal",
-    "preview.line1.placeholder": "Tu nombre, marca o referencia",
-    "preview.line2.label": "Segunda línea (opcional)",
-    "preview.line2.placeholder": "Fecha, ciudad o código de lote",
-    "preview.material.label": "Material",
-    "preview.material.wood": "Madera",
-    "preview.material.metal": "Metal",
-    "preview.material.acrylic": "Metacrilato",
-    "preview.material.leather": "Piel",
-    "preview.font.label": "Tipografía",
-    "preview.font.geometric": "Geométrica",
-    "preview.font.classic": "Clásica",
-    "preview.font.mono": "Técnica",
-    "preview.font.italic": "Caligráfica",
-    "preview.frame.label": "Marco",
-    "preview.frame.none": "Sin marco",
-    "preview.frame.border": "Marco fino",
-    "preview.frame.tag": "Placa industrial",
-    "preview.frame.seal": "Sello circular",
-    "preview.logo.label": "Logotipo o icono (prueba local)",
-    "preview.logo.add": "Subir SVG o imagen",
-    "preview.logo.clear": "Quitar logo",
-    "preview.logo.hint":
-      "Se procesa solo en tu navegador; funciona mejor en blanco y negro o trazo limpio.",
-    "preview.logo.error":
-      "No hemos podido leer ese archivo. Prueba con SVG, PNG o JPG.",
-    "preview.canvas.label":
-      "Previsualización interactiva de grabado láser en {material}",
-    "preview.status.engraving": "Grabando pasada…",
-    "preview.status.ready":
-      "Mueve el puntero sobre la placa · Prueba interactiva",
-    "preview.action.replay": "Grabar de nuevo",
-    "preview.action.download": "Descargar PNG",
-    "preview.action.quote": "Pedir presupuesto con esta prueba",
-    "preview.action.wa": "Enviar por WhatsApp",
-    "preview.note":
-      "Simulación orientativa: en el taller preparamos tu archivo vectorial definitivo y te confirmamos acabado, medida y presupuesto antes de fabricar.",
-    "preview.wa.intro":
-      "Hola, he probado un diseño de grabado láser en vuestra web:",
-
-    "home.meta.00.left": "00 / Taller de corte, grabado y marcado láser",
-    "home.meta.00.right": "Pol. Ind. El Oliveral · Valencia · Desde 2007",
-    "home.meta.01.left": "01 / Procesos de taller",
-    "home.meta.01.right": "Corte · Grabado · Marcado directo",
-    "home.meta.02.left": "02 / Materiales de trabajo",
-    "home.meta.02.right": "Madera · Metacrilato y cristal · Metal · Piel",
-    "home.meta.03.left": "03 / Directorio de servicios",
-    "home.meta.03.right": "Empresas e industria · Particulares y eventos",
-    "home.meta.04.left": "04 / Archivo de taller",
-    "home.meta.04.right": "Piezas reales fabricadas en Riba-roja de Túria",
-    "home.meta.05.left": "05 / Método de trabajo",
-    "home.meta.05.right": "Del boceto o plano CAD a la pieza terminada",
-    "home.meta.06.left": "06 / Trayectoria e instalaciones",
-    "home.meta.06.right": "Reseñas verificadas en Google · Taller propio",
-    "home.meta.07.left": "07 / Guías técnicas y dudas habituales",
-    "home.meta.07.right": "Archivos, materiales y respuestas",
-
-    "home.dossier.header": "Archivo de taller · Trabajo real",
-    "home.dossier.1.tab": "01 Industria y metal",
-    "home.dossier.1.tag": "Acero y aluminio · Marcado",
-    "home.dossier.1.title":
-      "Trazabilidad permanente, placas técnicas y metal corporativo",
-    "home.dossier.2.tab": "02 Madera y series",
-    "home.dossier.2.tag": "Madera maciza, abedul y DM · Corte y grabado",
-    "home.dossier.2.title":
-      "Desde la peana del 30 aniversario de Ron Barceló hasta calados finos",
-    "home.dossier.3.tab": "03 Metacrilato y cristal",
-    "home.dossier.3.tag":
-      "PMMA y cristalería · Canto pulido y esmerilado permanente",
-    "home.dossier.3.title":
-      "Maquetas a escala, rotulación corporativa, trofeos y cristal grabado",
-    "home.dossier.4.tab": "04 Nuestro taller",
-    "home.dossier.4.tag": "Pol. Ind. El Oliveral · Nave 41 · Riba-roja",
-    "home.dossier.4.title":
-      "Taller propio en Valencia desde 2007: trato directo y sin intermediarios",
-
-    "home.stat.orders": "Pedido mínimo",
-    "home.stat.orders.val": "1 ud.",
-    "home.stat.orders.note": "De una pieza única a series industriales",
-    "home.stat.since.note": "Nave propia en Pol. Ind. El Oliveral (Valencia)",
-    "home.stat.rating.note": "Reseñas reales de clientes en Google Maps",
-    "home.stat.materials.note":
-      "Madera, metacrilato, cristal, piel, acero, latón, plata y piedra",
-
-    "home.process.fact.1": "Taller propio en Riba-roja de Túria (Valencia)",
-    "home.process.fact.2": "En activo de forma ininterrumpida desde 2007",
-    "home.process.fact.3": "Sin pedido mínimo: 1 unidad o tiradas completas",
-    "home.process.fact.4": "Trabajamos con nuestro material o con el tuyo",
-    "home.process.fact.5":
-      "Preparamos el archivo vectorial desde tu boceto o logo",
   },
 } as const
 
