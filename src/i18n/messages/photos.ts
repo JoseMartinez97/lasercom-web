@@ -1,6 +1,40 @@
 // Alt text for every photo in src/assets/work, by file name
 export const photos = {
   en: {
+    "photo.corte_grabado_laser_decorar":
+      "Ron Barceló Imperial 30th anniversary bottle on its engraved wooden stand",
+    "photo.peana_grabada_a_laser":
+      "Ron Barceló Imperial bottle with its engraved wooden stand, on a white background",
+    "photo.grabado_laser_piel_valencia":
+      "Brown leather valet tray with two riders on horseback engraved on the base",
+    "photo.grabrado_laser_pieza_madera_3":
+      "Classical guitar headstock with a round motif engraved into the dark wood",
+    "photo.skate_1": "Wooden skateboard deck with two round engraved logos",
+    "photo.mallorca_1":
+      "Wooden fan engraved with Mallorca and the outline of its cathedral across the sticks",
+    "photo.boda_1":
+      "Open white fan engraved with the couple in a heart and the wedding text",
+    "photo.boda_2":
+      "Close-up of the sticks engraved with Nos casamos and the drawing of the couple",
+    "photo.nebrija_1":
+      "Black plaque with Universidad Nebrija and Edificio de Rectorado engraved in gold",
+    "photo.nebrija_2":
+      "Side view of the black Universidad Nebrija rectorate building plaque",
+    "photo.muestra_1":
+      "Laser-cut wooden trophy holding an engraved acrylic plate for the 8th Mostra Escènica",
+    "photo.muestra_2": "The same wood and acrylic trophy lit from behind",
+    "photo.muestra_3":
+      "Wooden plaque with cut-out figures and the 8th Mostra Escènica Infantil i Juvenil lettering",
+    "photo.saab_1":
+      "Glass trophy on a stand engraved with the Club SAAB España logo",
+    "photo.saab_2":
+      "Close-up of the Club SAAB España logo frosted into the glass",
+    "photo.dedicatoria_1":
+      "Brushed metal plaque with a thank-you dedication in black calligraphic lettering",
+    "photo.boligrafo_1":
+      "Blue metal pen engraved with a name and date in bright lettering",
+    "photo.portatiles_1":
+      "Black laptop underside with marked logos, support details and a QR code",
     "photo.torrejon_1":
       "Yellow ribbed industrial profile laser-marked with Agrupación B.A. Torrejón in white",
     "photo.torrejon_2":
@@ -83,6 +117,42 @@ export const photos = {
       "Black acrylic business cards with engraved text",
   },
   es: {
+    "photo.corte_grabado_laser_decorar":
+      "Botella del 30 aniversario de Ron Barceló Imperial sobre su peana de madera grabada",
+    "photo.peana_grabada_a_laser":
+      "Botella de Ron Barceló Imperial con la peana de madera grabada, sobre fondo blanco",
+    "photo.grabado_laser_piel_valencia":
+      "Vaciabolsillos de piel marrón con dos jinetes a caballo grabados en el fondo",
+    "photo.grabrado_laser_pieza_madera_3":
+      "Pala de guitarra clásica con un motivo circular grabado en la madera oscura",
+    "photo.skate_1":
+      "Tabla de skate de madera con dos logotipos circulares grabados",
+    "photo.mallorca_1":
+      "Abanico de madera con Mallorca y la silueta de su catedral grabados en las varillas",
+    "photo.boda_1":
+      "Abanico blanco abierto con los novios en un corazón y el texto de la boda grabados",
+    "photo.boda_2":
+      "Detalle de las varillas grabadas con ¡¡Nos casamos!! y el dibujo de los novios",
+    "photo.nebrija_1":
+      "Placa negra con Universidad Nebrija y Edificio de Rectorado grabados en dorado",
+    "photo.nebrija_2":
+      "Vista lateral de la placa negra del Edificio de Rectorado de la Universidad Nebrija",
+    "photo.muestra_1":
+      "Trofeo de madera cortada que sostiene una placa de metacrilato grabada de la 8a Mostra Escènica",
+    "photo.muestra_2":
+      "El mismo trofeo de madera y metacrilato iluminado por detrás",
+    "photo.muestra_3":
+      "Placa de madera con figuras recortadas y el rótulo de la 8a Mostra Escènica Infantil i Juvenil",
+    "photo.saab_1":
+      "Trofeo de cristal sobre base con el logotipo de Club SAAB España grabado",
+    "photo.saab_2":
+      "Detalle del logotipo de Club SAAB España grabado en esmerilado sobre cristal",
+    "photo.dedicatoria_1":
+      "Placa metálica cepillada con una dedicatoria de agradecimiento en letra caligráfica negra",
+    "photo.boligrafo_1":
+      "Bolígrafo metálico azul grabado con un nombre y una fecha en letras claras",
+    "photo.portatiles_1":
+      "Base negra de un portátil con logotipos, datos de soporte y código QR marcados",
     "photo.torrejon_1":
       "Perfil industrial amarillo estriado marcado con láser con el texto Agrupación B.A. Torrejón en blanco",
     "photo.torrejon_2":

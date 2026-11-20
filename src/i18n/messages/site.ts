@@ -137,6 +137,42 @@ export const site = {
     "work.h1": "Work from the workshop",
     "work.lead":
       "Every photo on this page is a real piece cut or engraved at Lasercom. These are some of the jobs we're proudest of.",
+    "work.skate.name": "Engraved skateboard deck",
+    "work.skate.type": "Wood · Engraving",
+    "work.skate.text":
+      "Wooden skateboard deck laser-engraved with two round brand logos straight into the wood, without paint or vinyl.",
+    "work.mallorca.name": "Mallorca souvenir fan",
+    "work.mallorca.type": "Wood · Engraving",
+    "work.mallorca.text":
+      "Wooden fan laser-engraved with the name Mallorca and the outline of its cathedral, so the drawing comes together as it opens.",
+    "work.boda.name": "Wedding fans",
+    "work.boda.type": "Wood · Engraving",
+    "work.boda.text":
+      "White wooden fans laser-engraved with a drawing of the couple inside a heart and the invitation text spread across the sticks.",
+    "work.nebrija.name": "Building plaque for a university",
+    "work.nebrija.type": "Plaque · Engraving",
+    "work.nebrija.text":
+      "Black plaque laser-engraved with the university and building names in gold, to sign the entrance of its rectorate.",
+    "work.muestra.name": "Trophies for a theatre festival",
+    "work.muestra.type": "Wood and acrylic · Cutting and engraving",
+    "work.muestra.text":
+      "Trophies with a laser-cut wooden frame holding an engraved acrylic plate, and a wooden plaque with cut-out figures, for a children's and youth theatre festival.",
+    "work.saab.name": "Glass trophy for a club",
+    "work.saab.type": "Glass · Engraving",
+    "work.saab.text":
+      "Glass trophy on a stand laser-engraved with a car club's logo, in a white frosted finish on clear glass.",
+    "work.dedicatoria.name": "Thank-you plaque",
+    "work.dedicatoria.type": "Metal · Engraving",
+    "work.dedicatoria.text":
+      "Brushed metal plaque laser-engraved with an association's thank-you message, in several lines of black calligraphic lettering.",
+    "work.boligrafo.name": "Engraved christening pen",
+    "work.boligrafo.type": "Metal · Engraving",
+    "work.boligrafo.text":
+      "Blue metal pen laser-engraved with a christening name and date, in a bright line that shows the metal beneath the colour.",
+    "work.portatiles.name": "Laptop marking",
+    "work.portatiles.type": "Plastic · Marking",
+    "work.portatiles.text":
+      "The underside of laptops marked with logos, support details, a serial number and a QR code, straight onto the casing instead of an adhesive label.",
     "work.torrejon.name": "B.A. Torrejón signage profiles",
     "work.torrejon.type": "Industrial profile · Marking",
     "work.torrejon.text":
@@ -467,6 +503,42 @@ export const site = {
     "work.h1": "Trabajos del taller",
     "work.lead":
       "Todas las fotos de esta página son piezas reales cortadas o grabadas en Lasercom. Estos son algunos de los trabajos de los que más orgullosos estamos.",
+    "work.skate.name": "Tabla de skate grabada",
+    "work.skate.type": "Madera · Grabado",
+    "work.skate.text":
+      "Tabla de monopatín de madera grabada con láser con dos logotipos circulares de una marca, directamente sobre la madera, sin pintura ni vinilo.",
+    "work.mallorca.name": "Abanico de recuerdo de Mallorca",
+    "work.mallorca.type": "Madera · Grabado",
+    "work.mallorca.text":
+      "Abanico de madera grabado con láser con el nombre de Mallorca y el perfil de su catedral, de forma que el dibujo se completa al abrirlo.",
+    "work.boda.name": "Abanicos de boda",
+    "work.boda.type": "Madera · Grabado",
+    "work.boda.text":
+      "Abanicos blancos de madera grabados con láser con un dibujo de los novios dentro de un corazón y el texto de la invitación repartido por las varillas.",
+    "work.nebrija.name": "Placa de edificio para una universidad",
+    "work.nebrija.type": "Placa · Grabado",
+    "work.nebrija.text":
+      "Placa negra grabada con láser con el nombre de la universidad y del edificio en dorado, para señalizar la entrada de su rectorado.",
+    "work.muestra.name": "Trofeos de una muestra escénica",
+    "work.muestra.type": "Madera y metacrilato · Corte y grabado",
+    "work.muestra.text":
+      "Trofeos con estructura de madera cortada con láser que sostiene una placa de metacrilato grabada, y una placa de madera con figuras recortadas, para una muestra de teatro infantil y juvenil.",
+    "work.saab.name": "Trofeo de cristal para un club",
+    "work.saab.type": "Cristal · Grabado",
+    "work.saab.text":
+      "Trofeo de cristal con base grabado con láser con el logotipo de un club de automóviles, en acabado esmerilado blanco sobre el vidrio transparente.",
+    "work.dedicatoria.name": "Placa de agradecimiento",
+    "work.dedicatoria.type": "Metal · Grabado",
+    "work.dedicatoria.text":
+      "Placa metálica cepillada grabada con láser con un texto de agradecimiento de una asociación, en letra caligráfica negra de varias líneas.",
+    "work.boligrafo.name": "Bolígrafo grabado de bautizo",
+    "work.boligrafo.type": "Metal · Grabado",
+    "work.boligrafo.text":
+      "Bolígrafo metálico azul grabado con láser con el nombre y la fecha de un bautizo, en un trazo claro que deja ver el metal bajo el color.",
+    "work.portatiles.name": "Marcado de portátiles",
+    "work.portatiles.type": "Plástico · Marcado",
+    "work.portatiles.text":
+      "Marcado de la base de ordenadores portátiles con logotipos, datos de soporte técnico, número de serie y un código QR, directamente sobre la carcasa en lugar de una etiqueta adhesiva.",
     "work.torrejon.name": "Perfiles de señalización B.A. Torrejón",
     "work.torrejon.type": "Perfil industrial · Marcado",
     "work.torrejon.text":

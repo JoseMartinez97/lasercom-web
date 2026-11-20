@@ -17,6 +17,9 @@ export function photo(name: string): ImageMetadata {
 // Photos shot on a white background: on the plywood page they are multiplied
 // in, so the white disappears and only the object remains
 export const cutouts = new Set([
+  "peana_grabada_a_laser",
+  "nebrija_1",
+  "nebrija_2",
   "abanico",
   "chapa_5j_sin_fondo",
   "collar_perro_laser",
