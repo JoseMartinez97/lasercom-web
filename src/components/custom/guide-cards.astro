@@ -21,7 +21,7 @@ const t = useTranslations(lang)
       <a
         href={lang === "en" ? guides[id].en : guides[id].es}
         data-cursor={t("guides.read")}
-        class="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card transition-colors hover:border-foreground hover:bg-foreground hover:text-background"
+        class="laser-glow-card group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card transition-colors hover:border-foreground hover:bg-foreground hover:text-background"
       >
         <span class="relative block aspect-[16/10] overflow-hidden border-b border-border/60 bg-[#f9f4eb]">
           <WorkPhoto

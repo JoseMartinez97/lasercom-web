@@ -2,6 +2,10 @@
 // (engrave-bench.astro) and the pieces that open like a cut (work-curtains.astro)
 export const home = {
   en: {
+    "home.plaque.laser": "Laser",
+    "home.plaque.laserValue": "Fibre · CO2",
+    "home.plaque.cut": "Metal cut",
+    "home.plaque.since": "Since",
     "bench.readout": "The laser bed",
     "bench.page.title": "Try your laser engraving online | Lasercom Valencia",
     "bench.page.description":
@@ -14,7 +18,7 @@ export const home = {
     "bench.teaser.alt": "“Lucía & Marcos” engraved on {material}, 3D preview",
     "bench.title": "Type a name. Pick the material.",
     "bench.lead":
-      "The fibre laser engraves every metal and plastic; the CO2 lasers cut and engrave wood, leather and acrylic. Try it here before you ask us.",
+      "The fibre laser engraves every metal and plastic; the CO2 lasers cut and engrave wood, leather and acrylic, and engrave glass. Try it here before you ask us.",
     "bench.input.label": "Your text",
     "bench.input.default": "Lucía & Marcos",
     "bench.material": "Material",
@@ -44,6 +48,16 @@ export const home = {
     "bench.status.ready": "Ready",
     "bench.status.burn": "Engraving",
     "bench.status.done": "Done",
+    "home.engrave.readout": "How we engrave",
+    "home.engrave.title": "One piece, one beam.",
+    "home.engrave.sheet.piece": "Piece",
+    "home.engrave.sheet.pieceValue": "Lasercom plaque",
+    "home.engrave.sheet.material": "Material",
+    "home.engrave.sheet.laser": "Laser",
+    "home.engrave.sheet.laserValue": "Fibre",
+    "home.engrave.sheet.passes": "Passes",
+    "home.engrave.sheet.status": "Status",
+    "home.engrave.sheet.position": "Head",
     "bench.plate": "“{text}” engraved on {material}",
     "bench.m.acero.name": "Stainless steel",
     "bench.m.acero.does":
@@ -63,6 +77,9 @@ export const home = {
     "bench.m.metacrilato.name": "Acrylic",
     "bench.m.metacrilato.does":
       "Cut with a polished edge, engraved with a frosted finish.",
+    "bench.m.cristal.name": "Glass",
+    "bench.m.cristal.does":
+      "A permanent frosted engraving on glasses, bottles and mirrors.",
 
     "pieces.readout": "Real pieces, our own photos",
     "pieces.pause": "Every material asks for its own power, speed and focus.",
@@ -73,6 +90,10 @@ export const home = {
     "pieces.see": "See the job",
   },
   es: {
+    "home.plaque.laser": "Láser",
+    "home.plaque.laserValue": "Fibra · CO2",
+    "home.plaque.cut": "Corte de metal",
+    "home.plaque.since": "Desde",
     "bench.readout": "La mesa del láser",
     "bench.page.title": "Prueba tu grabado láser online | Lasercom Valencia",
     "bench.page.description":
@@ -86,7 +107,7 @@ export const home = {
       "«Lucía & Marcos» grabado en {material}, vista previa en 3D",
     "bench.title": "Escribe un nombre. Elige el material.",
     "bench.lead":
-      "El láser de fibra graba todos los metales y plásticos; los de CO2 cortan y graban madera, piel y metacrilato. Pruébalo aquí antes de pedírnoslo.",
+      "El láser de fibra graba todos los metales y plásticos; los de CO2 cortan y graban madera, piel y metacrilato, y graban cristal. Pruébalo aquí antes de pedírnoslo.",
     "bench.input.label": "Tu texto",
     "bench.input.default": "Lucía & Marcos",
     "bench.material": "Material",
@@ -117,6 +138,16 @@ export const home = {
     "bench.status.ready": "Listo",
     "bench.status.burn": "Grabando",
     "bench.status.done": "Terminado",
+    "home.engrave.readout": "Cómo grabamos",
+    "home.engrave.title": "Una pieza, un haz.",
+    "home.engrave.sheet.piece": "Pieza",
+    "home.engrave.sheet.pieceValue": "Placa Lasercom",
+    "home.engrave.sheet.material": "Material",
+    "home.engrave.sheet.laser": "Láser",
+    "home.engrave.sheet.laserValue": "Fibra",
+    "home.engrave.sheet.passes": "Pasadas",
+    "home.engrave.sheet.status": "Estado",
+    "home.engrave.sheet.position": "Cabezal",
     "bench.plate": "«{text}» grabado en {material}",
     "bench.m.acero.name": "Acero inoxidable",
     "bench.m.acero.does":
@@ -136,6 +167,9 @@ export const home = {
     "bench.m.metacrilato.name": "Metacrilato",
     "bench.m.metacrilato.does":
       "Corte con canto pulido y grabado de acabado esmerilado.",
+    "bench.m.cristal.name": "Cristal",
+    "bench.m.cristal.does":
+      "Grabado esmerilado permanente en copas, botellas y espejos.",
 
     "pieces.readout": "Piezas reales, fotos propias",
     "pieces.pause": "Cada material pide su potencia, su velocidad y su foco.",

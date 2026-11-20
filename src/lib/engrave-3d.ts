@@ -162,6 +162,20 @@ const SPEC: Record<GlMaterial, Spec> = {
     sideRough: 0.04,
     sideMetal: 0,
   },
+  cristal: {
+    thick: 8,
+    bevel: 1,
+    bump: 1.6,
+    micro: 0,
+    mark: [0.93, 0.96, 0.94],
+    markRough: 0.9,
+    markMetal: 0,
+    halo: 0,
+    tint: 0,
+    side: [0.82, 0.93, 0.87],
+    sideRough: 0.04,
+    sideMetal: 0,
+  },
 }
 
 const NOISE = `
@@ -292,10 +306,10 @@ void main() {
     alb = lin(hide * (0.9 + 0.1 * peb));
     h = peb;
     rough = 0.42 + 0.35 * (1.0 - peb);
-  } else if (m == 6) {
+  } else if (m == 6 || m == 7) {
     alb = vec3(1.0);
     h = 0.5;
-    rough = 0.04;
+    rough = m == 7 ? 0.03 : 0.04;
   } else {
     // uSize is 16 cells across; a cell is 1 unit wide
     vec4 hc = hexCell(vUv * vec2(16.0, 16.0 * 1.7320508));
@@ -592,7 +606,8 @@ export function createEngrave3D(canvas: HTMLCanvasElement): Engrave3D | null {
   }
 
   const CELL = 13 // px per honeycomb cell
-  const bedTex = bake(7, CELL * 16, CELL * 16 * 1.7320508, [1024, 1774])
+  // The bed is the shader's last branch (any index past the materials)
+  const bedTex = bake(9, CELL * 16, CELL * 16 * 1.7320508, [1024, 1774])
   const BED = 30
   for (const t of [bedTex.albedo.texture, bedTex.rmh.texture])
     t.repeat.set(BED / S / (CELL * 16), BED / S / (CELL * 16 * 1.7320508))
@@ -764,6 +779,23 @@ export function createEngrave3D(canvas: HTMLCanvasElement): Engrave3D | null {
       side.roughness = 0.06
       side.clearcoat = 1
       side.emissive = new THREE.Color(0.05, 0.085, 0.09)
+    }
+    // Glass: thinner and harder than acrylic, with the green of soda-lime
+    // glass in its body and, above all, at its edge
+    if (m === "cristal") {
+      top.transmission = 1
+      top.thickness = thick
+      top.ior = 1.52
+      top.attenuationColor = new THREE.Color(0.72, 0.9, 0.8)
+      top.attenuationDistance = 0.25
+      top.specularIntensity = 1
+      top.clearcoat = 1
+      top.clearcoatRoughness = 0.02
+      top.color = new THREE.Color(1, 1, 1)
+      side.color = new THREE.Color(0.55, 0.8, 0.66)
+      side.roughness = 0.04
+      side.clearcoat = 1
+      side.emissive = new THREE.Color(0.03, 0.08, 0.05)
     }
     const mark = srgb(sp.mark)
     top.onBeforeCompile = (shader) => {
@@ -949,7 +981,7 @@ uniform float uTint;
     if (!x) return
     x.clearRect(0, 0, contactCanvas.width, contactCanvas.height)
     x.filter = `blur(${(12 + SPEC[m].thick * 0.9) * k}px)`
-    x.fillStyle = `rgba(0,0,0,${m === "metacrilato" ? 0.5 : 0.95})`
+    x.fillStyle = `rgba(0,0,0,${m === "metacrilato" || m === "cristal" ? 0.5 : 0.95})`
     x.beginPath()
     x.roundRect(
       pad * k,

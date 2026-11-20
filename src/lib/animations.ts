@@ -13,14 +13,17 @@ const SCRUB = 1.1
 // kills itself while ScrollTrigger refreshes breaks the triggers after it
 const PLAY_ONCE = "play none none none"
 
-// Display titles whose lines and words rise cleanly out of a mask, once
+// Display titles whose lines and words rise cleanly out of an ascender-safe
+// mask (Dialed Coffee pattern), once
 function animateCharTitles() {
   gsap.utils.toArray<HTMLElement>("[data-title-chars]").forEach((title) => {
     const split = SplitText.create(title, {
       type: "lines,words",
       mask: "lines",
+      linesClass: "split-line",
       aria: "none",
     })
+    split.masks?.forEach((m) => m.classList.add("split-line-mask"))
     gsap.from(split.words, {
       yPercent: 108,
       duration: 0.9,
@@ -35,14 +38,16 @@ function animateCharTitles() {
   })
 }
 
-// Editorial paragraphs and leads whose lines rise out of a mask, once
+// Editorial paragraphs and leads whose lines rise out of an ascender-safe mask, once
 function animateLineBlocks() {
   gsap.utils.toArray<HTMLElement>("[data-lines]").forEach((el) => {
     const split = SplitText.create(el, {
       type: "lines",
       mask: "lines",
+      linesClass: "split-line",
       aria: "none",
     })
+    split.masks?.forEach((m) => m.classList.add("split-line-mask"))
     gsap.from(split.lines, {
       yPercent: 105,
       duration: 0.85,
@@ -57,10 +62,104 @@ function animateLineBlocks() {
   })
 }
 
-// Rows that draw their hairline and raise their cells, once each
+// Telemetry scramble decode (Psychoactive pattern): decodes monospace readouts
+// and numeric row indices from machine glyphs in lockstep with hairline rules
+const TELEMETRY_GLYPHS = "0123456789·/×+—:"
+function scrambleDecode(el: HTMLElement, duration = 0.75) {
+  const original = el.dataset.scrambleText ?? el.textContent ?? ""
+  if (!original.trim()) return
+  el.dataset.scrambleText = original
+  const chars = [...original]
+  const state = { p: 0 }
+  return gsap.to(state, {
+    p: 1,
+    duration,
+    ease: "none",
+    onUpdate: () => {
+      if (state.p >= 0.995) {
+        el.textContent = original
+        return
+      }
+      const revealCount = Math.floor(state.p * chars.length)
+      let out = ""
+      for (let i = 0; i < chars.length; i++) {
+        const ch = chars[i]
+        if (i < revealCount || ch === " " || ch === "·" || ch === "/") {
+          out += ch
+        } else {
+          const idx =
+            (i * 7 + Math.floor(state.p * 24)) % TELEMETRY_GLYPHS.length
+          out += TELEMETRY_GLYPHS[idx]
+        }
+      }
+      el.textContent = out
+    },
+    onComplete: () => {
+      el.textContent = original
+    },
+  })
+}
+
+// Telemetry decodes as it enters view: [data-scramble] tags and every
+// machine readout (.readout) whose text sits in one element, so the decode
+// never wipes markup. Skips live text (counters, opening hours) and anything
+// the visitor types into
+function animateTelemetry() {
+  const leaves = gsap.utils
+    .toArray<HTMLElement>("[data-scramble], .readout, .readout > span")
+    .filter((el, i, all) => {
+      if (all.indexOf(el) !== i || el.childElementCount > 0) return false
+      const text = el.textContent?.trim() ?? ""
+      if (text.length < 3 || text.length > 48) return false
+      return !el.closest(
+        "[aria-live], [aria-hidden='true'], [data-no-scramble], [data-open-status], .sr-only, form, header, .bench-stage, [data-engrave-status]"
+      )
+    })
+  leaves.forEach((el) => {
+    ScrollTrigger.create({
+      trigger: el,
+      start: "top 92%",
+      toggleActions: PLAY_ONCE,
+      onEnter: () => void scrambleDecode(el, 0.7),
+    })
+  })
+}
+
+// A laser line runs down a list of steps as it scrolls past ([data-beam-
+// track] > [data-beam]): the burnt line grows behind a hot head, and each
+// step it reaches lights up ([data-lit])
+function animateBeams() {
+  gsap.utils.toArray<HTMLElement>("[data-beam-track]").forEach((track) => {
+    const fill = track.querySelector<HTMLElement>("[data-beam-fill]")
+    const head = track.querySelector<HTMLElement>("[data-beam-head]")
+    const steps = [...track.querySelectorAll<HTMLElement>("[data-beam-step]")]
+    ScrollTrigger.create({
+      trigger: track,
+      start: "top 72%",
+      end: "bottom 60%",
+      scrub: true,
+      onUpdate: ({ progress: p }) => {
+        const h = track.clientHeight
+        if (fill) fill.style.transform = `scaleY(${p.toFixed(4)})`
+        if (head) {
+          head.style.transform = `translate3d(-50%, ${(p * h).toFixed(1)}px, 0)`
+          head.style.opacity = p > 0.002 && p < 0.998 ? "1" : "0"
+        }
+        steps.forEach((step) =>
+          step.toggleAttribute(
+            "data-lit",
+            p * h >= step.offsetTop + Math.min(28, step.offsetHeight / 3)
+          )
+        )
+      },
+    })
+  })
+}
+
+// Rows that draw their hairline, decode their telemetry index, and raise their cells
 function animateRows(track: HTMLElement) {
   gsap.utils.toArray<HTMLElement>("[data-row]", track).forEach((row) => {
-    gsap
+    const tl = gsap
       .timeline({
         scrollTrigger: {
           trigger: row,
@@ -81,10 +180,17 @@ function animateRows(track: HTMLElement) {
           duration: 0.8,
           stagger: 0.08,
           ease: "power3.out",
-          clearProps: "transform",
+          // Opacity too: the steps' resting state is the CSS's (lit or not)
+          clearProps: "transform,opacity",
         },
         0.2
       )
+    const numCell = row.querySelector<HTMLElement>(
+      ".font-mono[data-row-cell], .readout[data-row-cell]"
+    )
+    if (numCell) {
+      tl.add(() => void scrambleDecode(numCell, 0.75), 0.15)
+    }
   })
 }
 
@@ -399,6 +505,18 @@ function initPointer(lenis?: Lenis) {
     })
   })
 
+  // Directional ambient laser glow tracking (NK Studio --info-card-glow pattern)
+  document.querySelectorAll<HTMLElement>(".laser-glow-card").forEach((card) => {
+    on(card, "pointermove", (e) => {
+      const r = card.getBoundingClientRect()
+      if (!r.width || !r.height) return
+      const x = (((e.clientX - r.left) / r.width) * 100).toFixed(1)
+      const y = (((e.clientY - r.top) / r.height) * 100).toFixed(1)
+      card.style.setProperty("--glow-x", `${x}%`)
+      card.style.setProperty("--glow-y", `${y}%`)
+    })
+  })
+
   return () => offs.forEach((off) => off())
 }
 
@@ -537,7 +655,9 @@ export function initAnimations() {
 
     defer(() => {
       animateStack()
+      animateTelemetry()
       gsap.utils.toArray<HTMLElement>("[data-rows]").forEach(animateRows)
+      animateBeams()
     }, 340)
 
     document.querySelectorAll<HTMLElement>("[data-count-up]").forEach((el) => {

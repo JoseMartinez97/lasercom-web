@@ -403,12 +403,25 @@ const waText = (value: string, material: string) =>
     const later = (fn: () => void, ms: number) =>
       timers.push(window.setTimeout(fn, ms))
 
-    const requestedMaterial = new URLSearchParams(location.search).get("m")
+    const params = new URLSearchParams(location.search)
+    const requestedMaterial = params.get("m")
     const matchedRadio = requestedMaterial
       ? radios.find((r) => r.value === requestedMaterial)
       : undefined
     if (matchedRadio) {
       radios.forEach((r) => (r.checked = r === matchedRadio))
+    }
+    const requestedText = params.get("t")?.trim()
+    if (requestedText) {
+      input.value = requestedText.slice(0, input.maxLength || 26)
+      layers.forEach((l) => (l.textContent = input.value))
+    }
+    const requestedFont = params.get("f")
+    const matchedFont = requestedFont
+      ? fontRadios.find((r) => r.value === requestedFont)
+      : undefined
+    if (matchedFont) {
+      fontRadios.forEach((r) => (r.checked = r === matchedFont))
     }
     let current = radios.find((r) => r.checked) ?? radios[0]
     let raf = 0
@@ -1331,7 +1344,8 @@ const waText = (value: string, material: string) =>
     --r: 3cqw;
     --fit: 0.7;
   }
-  [data-material="metacrilato"] .bench-piece {
+  [data-material="metacrilato"] .bench-piece,
+  [data-material="cristal"] .bench-piece {
     --w: 62;
     --h: 34;
     --r: 0.6cqw;
@@ -1426,7 +1440,8 @@ const waText = (value: string, material: string) =>
       var(--hide), var(--noise),
       radial-gradient(120% 100% at 35% 25%, #8e5833, #5a2f19 80%);
   }
-  [data-m="metacrilato"] {
+  [data-m="metacrilato"],
+  [data-m="cristal"] {
     background:
       linear-gradient(
         125deg,
@@ -1523,7 +1538,8 @@ const waText = (value: string, material: string) =>
     border: 1.5px dashed rgb(236 205 165 / 0.5);
     border-radius: 2cqw;
   }
-  [data-material="metacrilato"] .bench-finish::before {
+  [data-material="metacrilato"] .bench-finish::before,
+  [data-material="cristal"] .bench-finish::before {
     opacity: 1;
     inset: 0.5cqw;
     border-radius: 0.3cqw;
@@ -1562,7 +1578,8 @@ const waText = (value: string, material: string) =>
     --mark: #2a1408;
     --mark-shadow: 0 1px 0 rgb(255 205 160 / 0.16);
   }
-  .bench-stage[data-material="metacrilato"] {
+  .bench-stage[data-material="metacrilato"],
+  .bench-stage[data-material="cristal"] {
     --blend: screen;
     --mark: rgb(232 244 248 / 0.8);
     --mark-shadow: 0 0 6px rgb(255 255 255 / 0.3);
@@ -1953,7 +1970,23 @@ const waText = (value: string, material: string) =>
     border-radius: 999px;
     box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.2);
   }
-  .bench-swatch[data-m="metacrilato"] {
+  .bench-swatch[data-m="metacrilato"],
+  .bench-swatch[data-m="cristal"] {
     background-color: #1d2b30;
+  }
+  /* Glass: the acrylic's rules with the green of soda-lime glass */
+  [data-m="cristal"] {
+    background:
+      linear-gradient(
+        125deg,
+        rgb(255 255 255 / 0.24),
+        rgb(255 255 255 / 0.05) 34%,
+        rgb(255 255 255 / 0.14) 48%,
+        rgb(255 255 255 / 0.03) 66%
+      ),
+      rgb(150 210 180 / 0.1);
+  }
+  .bench-swatch[data-m="cristal"] {
+    background-color: #1b2e26;
   }
 </style>

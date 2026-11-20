@@ -11,6 +11,7 @@ export const MATERIALS = [
   "madera",
   "piel",
   "metacrilato",
+  "cristal",
 ] as const
 export type GlMaterial = (typeof MATERIALS)[number]
 
@@ -26,6 +27,7 @@ const SOFT: Record<GlMaterial, number> = {
   madera: 0.7,
   piel: 0.6,
   metacrilato: 0.45,
+  cristal: 0.5,
 }
 
 // A logo as a burn mask: transparent PNGs and SVGs burn where they are

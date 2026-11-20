@@ -150,6 +150,31 @@ const structuredData: Record<string, unknown>[] = noindex
         : []),
       ...jsonLd,
     ]
+
+// The page change curtain takes the destination's material ground: service
+// pages by their material (the home's stage colours), the rest the default
+const materialTone: Partial<Record<(typeof serviceIds)[number], string>> = {
+  metal: "#16191e",
+  industrial: "#16191e",
+  madera: "#331707",
+  decoracion: "#331707",
+  cristal: "#0a271f",
+  metacrilato: "#0b2330",
+  piel: "#2d0f06",
+  plastico: "#1d181b",
+  joyeria: "#342306",
+}
+const curtainTones = Object.fromEntries(
+  serviceIds.flatMap((id) => {
+    const tone = materialTone[id]
+    return tone
+      ? [
+          [services[id].es, tone],
+          [services[id].en, tone],
+        ]
+      : []
+  })
+)
 ---
 
 <!doctype html>
@@ -259,6 +284,20 @@ const structuredData: Record<string, unknown>[] = noindex
     <WhatsappButton lang={lang} />
     <ActionBar lang={lang} />
     <CookieConsent lang={lang} />
+    <!-- Page change curtain (lib/page-curtain.ts), in the destination's
+         material ground -->
+    <div
+      class="page-curtain"
+      data-page-curtain
+      data-tones={JSON.stringify(curtainTones)}
+      data-tone-default="#1c1917"
+      aria-hidden="true"
+      transition:persist="page-curtain"
+    >
+      {Array.from({ length: 8 }).map(() => (
+        <i />
+      ))}
+    </div>
     <div class="laser-cursor" data-cursor-dot aria-hidden="true">
       <div class="laser-vernier" data-cursor-vernier aria-hidden="true">
         {Array.from({ length: 16 }).map(() => (
@@ -268,6 +307,7 @@ const structuredData: Record<string, unknown>[] = noindex
       <span></span>
     </div>
     <script>
+      import { initPageCurtain } from "@/lib/page-curtain"
       import { mountOpenStatus } from "@/lib/open-status"
       import {
         analyticsOn,
@@ -349,6 +389,7 @@ const structuredData: Record<string, unknown>[] = noindex
         })
       })
       document.addEventListener("astro:before-swap", stop)
+      initPageCurtain()
     </script>
   </body>
 </html>

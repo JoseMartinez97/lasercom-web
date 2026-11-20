@@ -13,6 +13,7 @@ export const benchMaterials = [
   { id: "madera", laser: "co2", service: "madera" },
   { id: "piel", laser: "co2", service: "piel" },
   { id: "metacrilato", laser: "co2", service: "metacrilato" },
+  { id: "cristal", laser: "co2", service: "cristal" },
 ] as const satisfies readonly {
   id: string
   laser: "fibre" | "co2"

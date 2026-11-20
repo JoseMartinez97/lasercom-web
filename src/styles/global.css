@@ -281,29 +281,32 @@
   }
 }
 
-/* Moving between pages: the old page sinks out of focus while the new one
-   opens over it as a growing circle, the spot of the beam widening */
+/* Moving between pages: a curtain of columns in the destination's material
+   (lib/page-curtain.ts) closes over the page, which is swapped behind it,
+   so the router's own cross-fade is turned off */
+.page-curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 95;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  pointer-events: none;
+  visibility: hidden;
+}
+.page-curtain[data-state="closing"] {
+  visibility: visible;
+}
+.page-curtain > i {
+  /* A hair wider than the column, so no seam shows between them */
+  margin-inline: -0.5px;
+  background: var(--curtain, #1c1917);
+  transform: scaleY(0);
+  will-change: transform;
+}
 @media (prefers-reduced-motion: no-preference) {
-  ::view-transition-old(root) {
-    animation: page-sink 0.7s cubic-bezier(0.76, 0, 0.24, 1) both;
-  }
+  ::view-transition-old(root),
   ::view-transition-new(root) {
-    animation: page-spot 0.8s cubic-bezier(0.76, 0, 0.24, 1) both;
-  }
-}
-@keyframes page-sink {
-  to {
-    scale: 0.95;
-    opacity: 0.3;
-    filter: blur(6px);
-  }
-}
-@keyframes page-spot {
-  from {
-    clip-path: circle(0% at 50% 50%);
-  }
-  to {
-    clip-path: circle(75% at 50% 50%);
+    animation: none;
   }
 }
 
@@ -472,6 +475,120 @@
     opacity: 1;
     filter: blur(0);
     transform: translateY(0);
+  }
+}
+
+/* Ascender & descender-safe SplitText line masks (Dialed Coffee pattern):
+   prevents overflow:hidden line reveals from clipping Spanish accents (Á, É, Ó)
+   or descenders (g, p, q, y) on wide Archivo display and editorial lines */
+.split-line-mask {
+  padding-top: var(--ascender-pad, 0.12em);
+  padding-bottom: var(--descender-pad, 0.22em);
+  margin-top: calc(var(--ascender-pad, 0.12em) * -1);
+  margin-bottom: calc(var(--descender-pad, 0.22em) * -1);
+}
+
+/* Optical laser viewfinder brackets (Le Borrel --vf-inset pattern):
+   four micro L-reticles inside work curtains that tighten as the cut opens */
+.vf-frame {
+  --vf-inset: calc(14px + (1 - var(--cut-open, 1)) * 22px);
+}
+.vf-corner {
+  position: absolute;
+  width: 11px;
+  height: 11px;
+  border-color: color-mix(in oklab, white 68%, var(--laser));
+  opacity: calc(0.25 + var(--cut-open, 1) * 0.55);
+  pointer-events: none;
+  z-index: 10;
+  transition:
+    transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1),
+    border-color 0.35s ease,
+    opacity 0.35s ease;
+}
+.vf-corner--tl {
+  top: var(--vf-inset);
+  left: var(--vf-inset);
+  border-top: 1.5px solid;
+  border-left: 1.5px solid;
+}
+.vf-corner--tr {
+  top: var(--vf-inset);
+  right: var(--vf-inset);
+  border-top: 1.5px solid;
+  border-right: 1.5px solid;
+}
+.vf-corner--bl {
+  bottom: var(--vf-inset);
+  left: var(--vf-inset);
+  border-bottom: 1.5px solid;
+  border-left: 1.5px solid;
+}
+.vf-corner--br {
+  bottom: var(--vf-inset);
+  right: var(--vf-inset);
+  border-bottom: 1.5px solid;
+  border-right: 1.5px solid;
+}
+@media (hover: hover) {
+  .vf-frame:hover .vf-corner {
+    border-color: var(--laser);
+    opacity: 1;
+  }
+  .vf-frame:hover .vf-corner--tl {
+    transform: translate(-3px, -3px);
+  }
+  .vf-frame:hover .vf-corner--tr {
+    transform: translate(3px, -3px);
+  }
+  .vf-frame:hover .vf-corner--bl {
+    transform: translate(-3px, 3px);
+  }
+  .vf-frame:hover .vf-corner--br {
+    transform: translate(3px, 3px);
+  }
+}
+
+/* Concentric optical calibration rings for steel stages (Psychoactive pattern) */
+.steel-rings {
+  background-image: radial-gradient(
+    circle at 82% 50%,
+    transparent 18%,
+    oklch(1 0 0 / 0.055) 18.15%,
+    transparent 18.35%,
+    transparent 36%,
+    oklch(1 0 0 / 0.045) 36.15%,
+    transparent 36.35%,
+    transparent 56%,
+    oklch(1 0 0 / 0.035) 56.15%,
+    transparent 56.35%
+  );
+}
+
+/* Directional ambient laser card glow (NK Studio --info-card-glow pattern) */
+.laser-glow-card {
+  position: relative;
+  isolation: isolate;
+}
+.laser-glow-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: -1;
+  background: radial-gradient(
+    circle at var(--glow-x, -8%) var(--glow-y, 108%),
+    color-mix(in oklab, var(--laser) 22%, transparent) 0%,
+    transparent 58%
+  );
+  opacity: 0;
+  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@media (hover: hover) {
+  .laser-glow-card:hover::after,
+  .laser-glow-card:focus-visible::after {
+    opacity: 1;
   }
 }
 
