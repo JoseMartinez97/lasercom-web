@@ -100,11 +100,10 @@ const heroSheets = [
 <!-- 1–2. THE STAGE (after Dialed Coffee and savvia.studio): one pinned
      scene. The piece stands in front of the hero headline; as the visitor
      scrolls, the hero sinks back, the engraving scene (#materiales) opens
-     out from behind the piece and the beam engraves it row by row. 3D on
-     desktop (src/lib/monolith-3d.ts), the CSS plaque below everywhere else.
-     Without JavaScript or with reduced motion the hero and the scene simply
-     follow each other. The choreography is the script at the end of this
-     file -->
+     out from behind the piece and the beam engraves it row by row. 3D
+     everywhere WebGL runs (src/lib/monolith-3d.ts), with the CSS plaque
+     below as the fallback without WebGL, JavaScript or with reduced motion.
+     The choreography is the script at the end of this file -->
 <div data-stage class="stage-track relative">
   <!-- Where links to #materiales land while the stage runs (the script
        moves the id here): the engraving scene, once it has opened -->
@@ -804,6 +803,9 @@ const heroSheets = [
     .plaque:not([data-js]) {
       animation: plaque-in 1.3s cubic-bezier(0.16, 1, 0.3, 1) 0.9s backwards;
     }
+    :global(html.js) .stage-view:not([data-no-gl]) .plaque {
+      opacity: 0 !important;
+    }
   }
   @keyframes plaque-in {
     from {
@@ -1229,57 +1231,41 @@ const heroSheets = [
       anchor.scrollIntoView()
 
     // The real 3D piece everywhere WebGL runs (the CSS plaque stays as the
-    // fallback); phones get lighter maps. With a fine pointer, the pointer
-    // also moves it and the sheets
+    // fallback if WebGL is unavailable); phones get lighter maps. With a fine
+    // pointer, the pointer also moves it and the sheets
     const desktop = matchMedia("(min-width: 1024px) and (pointer: fine)")
     let destroyed = false
-    // Phones wait for the visitor's first touch or scroll: three.js and the
-    // bake never weigh on the first load (the CSS plaque holds until then)
-    const firstTouch =
-      desktop.matches || scrollY > 0
-        ? Promise.resolve()
-        : new Promise<void>((resolve) => {
-            const events = ["scroll", "touchstart", "pointerdown", "wheel"]
-            const go = () => {
-              events.forEach((ev) => removeEventListener(ev, go))
-              resolve()
-            }
-            events.forEach((ev) =>
-              addEventListener(ev, go, { once: true, passive: true })
-            )
-            cleanups.push(() =>
-              events.forEach((ev) => removeEventListener(ev, go))
-            )
-          })
-    void firstTouch.then(() =>
-      Promise.all([import("@/lib/monolith-3d"), document.fonts.ready]).then(
-        async ([{ createDialedStage3D }]) => {
-          if (destroyed) return
-          const read = (key: string) => view.dataset[key] ?? ""
-          // The CSS plaque carries on while the 3D one bakes
-          const ready = await createDialedStage3D(
-            canvas,
-            {
-              subtitle: read("plaqueSubtitle"),
-              laser: read("plaqueLaser"),
-              laserValue: read("plaqueLaserValue"),
-              cut: read("plaqueCut"),
-              since: read("plaqueSince"),
-            },
-            { light: !desktop.matches }
-          )
-          if (!ready) return
-          if (destroyed) {
-            ready.destroy()
-            return
-          }
-          stage3d = ready
-          stage3d.setPose(poseAt(t, e))
-          view.setAttribute("data-gl", "")
-          canvas.classList.remove("opacity-0")
+    void Promise.all([import("@/lib/monolith-3d"), document.fonts.ready])
+      .then(async ([{ createDialedStage3D }]) => {
+        if (destroyed) return
+        const read = (key: string) => view.dataset[key] ?? ""
+        const ready = await createDialedStage3D(
+          canvas,
+          {
+            subtitle: read("plaqueSubtitle"),
+            laser: read("plaqueLaser"),
+            laserValue: read("plaqueLaserValue"),
+            cut: read("plaqueCut"),
+            since: read("plaqueSince"),
+          },
+          { light: !desktop.matches }
+        )
+        if (!ready) {
+          if (!destroyed) view.setAttribute("data-no-gl", "")
+          return
         }
-      )
-    )
+        if (destroyed) {
+          ready.destroy()
+          return
+        }
+        stage3d = ready
+        stage3d.setPose(poseAt(t, e))
+        view.setAttribute("data-gl", "")
+        canvas.classList.remove("opacity-0")
+      })
+      .catch(() => {
+        if (!destroyed) view.setAttribute("data-no-gl", "")
+      })
     if (desktop.matches) {
       const onMove = (ev: PointerEvent) => {
         const nx = (ev.clientX / innerWidth - 0.5) * 2
@@ -1300,6 +1286,7 @@ const heroSheets = [
       stage3d?.destroy()
       stage3d = null
       view.removeAttribute("data-gl")
+      view.removeAttribute("data-no-gl")
       plaque.removeAttribute("data-js")
       plaque.style.transform = ""
       ;["--sheen", "--engrave", "--scan"].forEach((v) =>

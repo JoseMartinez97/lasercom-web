@@ -1,7 +1,8 @@
-// The home's 3D piece (desktop only; phones and reduced motion get the CSS
-// plaque in home-content.astro). After Dialed Coffee's can: one object that
-// sits in front of the hero headline and, as the visitor scrolls, opens into
-// the engraving scene, where the beam engraves it line by line.
+// The home's 3D piece (everywhere WebGL runs; reduced motion and browsers
+// without WebGL get the CSS plaque in home-content.astro). After Dialed
+// Coffee's can: one object that sits in front of the hero headline and, as
+// the visitor scrolls, opens into the engraving scene, where the beam
+// engraves it line by line.
 // The engraving is carved like the bed's (engrave-3d.ts): one height map of
 // the artwork gives a normal map (walls that catch the light), the occlusion
 // at the bottom of each groove, and a mask that swaps the steel's colour,
