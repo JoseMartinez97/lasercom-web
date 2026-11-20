@@ -2,6 +2,7 @@
 import type { Lang } from "@/i18n/ui"
 import { localizePath, useTranslations } from "@/i18n/utils"
 import { Logo } from "@/components/custom/logo"
+import { analyticsOn } from "@/lib/analytics"
 import { business, mailHref, telHref } from "@/lib/business"
 import { serviceIds, services } from "@/lib/services"
 
@@ -143,6 +144,17 @@ const year = new Date().getFullYear()
             {t("footer.legal.cookies")}
           </a>
         </li>
+        {analyticsOn && (
+          <li>
+            <button
+              type="button"
+              data-cookie-settings
+              class="inline-block py-2.5 hover:text-foreground md:py-0"
+            >
+              {t("footer.legal.cookieSettings")}
+            </button>
+          </li>
+        )}
       </ul>
       <p>
         {t("footer.credit")}{" "}

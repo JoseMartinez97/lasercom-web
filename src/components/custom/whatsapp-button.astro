@@ -11,6 +11,7 @@ const t = useTranslations(Astro.props.lang)
 
 <!-- Always one tap away: most quotes start as a photo sent by WhatsApp -->
 <a
+  data-whatsapp-button
   href={whatsappHref(t("wa.default"))}
   target="_blank"
   rel="noopener"

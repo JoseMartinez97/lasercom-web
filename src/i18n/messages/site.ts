@@ -138,6 +138,13 @@ export const site = {
     "footer.legal.notice": "Legal notice",
     "footer.legal.privacy": "Privacy policy",
     "footer.legal.cookies": "Cookie policy",
+    "footer.legal.cookieSettings": "Cookie settings",
+    "cookies.title": "Cookies",
+    "cookies.text":
+      "With your permission we use Google Analytics cookies to count visits and see which pages help. No advertising.",
+    "cookies.more": "Cookie policy",
+    "cookies.accept": "Accept",
+    "cookies.decline": "Decline",
     "footer.grant.dana":
       "This company has received a grant of €934.00 from the Generalitat Valenciana, Department of Industry, Tourism, Innovation and Trade, under the programme for the economic recovery of the municipalities affected by the DANA, EMDANA 2025 call.",
     "footer.grant.ivace":
@@ -601,6 +608,13 @@ export const site = {
     "footer.legal.notice": "Aviso legal",
     "footer.legal.privacy": "Política de privacidad",
     "footer.legal.cookies": "Política de cookies",
+    "footer.legal.cookieSettings": "Configurar cookies",
+    "cookies.title": "Cookies",
+    "cookies.text":
+      "Si nos das permiso, usamos cookies de Google Analytics para contar las visitas y saber qué páginas sirven. Nada de publicidad.",
+    "cookies.more": "Política de cookies",
+    "cookies.accept": "Aceptar",
+    "cookies.decline": "Rechazar",
     "footer.grant.dana":
       "Empresa beneficiaria por Generalitat Valenciana, Conselleria de Industria, Turismo, Innovación y Comercio, de una subvención por importe de 934,00 € del programa dirigido a la reactivación económica en los municipios afectados por la DANA, dentro de la convocatoria de EMDANA 2025.",
     "footer.grant.ivace":
@@ -944,7 +958,7 @@ export const legal = {
     "legal.description.politica-de-privacidad":
       "Privacy policy of Lasercom: what personal data we process, why, for how long and how to exercise your rights.",
     "legal.description.politica-de-cookies":
-      "Cookie policy of lasercom.es: the website installs no cookies of its own or third-party, no analytics and no tracking.",
+      "Cookie policy of lasercom.es: Google Analytics cookies only with your consent, no advertising cookies, and how to change your choice.",
   },
   es: {
     "legal.aviso-legal": "Aviso legal | Lasercom",
@@ -955,6 +969,6 @@ export const legal = {
     "legal.description.politica-de-privacidad":
       "Política de privacidad de Lasercom: qué datos personales tratamos, para qué, durante cuánto tiempo y cómo ejercer tus derechos.",
     "legal.description.politica-de-cookies":
-      "Política de cookies de lasercom.es: la web no instala cookies propias ni de terceros, ni analítica ni seguimiento.",
+      "Política de cookies de lasercom.es: cookies de Google Analytics solo si las aceptas, ninguna de publicidad, y cómo cambiar tu elección.",
   },
 } as const

@@ -1,0 +1,50 @@
+---
+import type { Lang } from "@/i18n/ui"
+import { useTranslations } from "@/i18n/utils"
+import { analyticsOn } from "@/lib/analytics"
+
+// The cookie notice for Google Analytics. Accept and decline weigh the same,
+// as the AEPD asks; nothing is stored until the visitor picks one. It stays
+// hidden once answered and reopens from the footer's "Cookie settings"
+// ([data-cookie-settings]). Above the phone action bar on phones, bottom left
+// on larger screens, clear of the WhatsApp button
+interface Props {
+  lang: Lang
+}
+const { lang } = Astro.props
+const t = useTranslations(lang)
+const button =
+  "inline-flex min-h-11 flex-1 items-center justify-center rounded-full bg-white px-5 text-sm font-semibold text-[oklch(0.2_0.01_60)] transition-colors hover:bg-white/85 focus-visible:ring-4 focus-visible:ring-ring/50 focus-visible:outline-none"
+---
+
+{analyticsOn && (
+  <section
+    data-cookie-consent
+    aria-labelledby={`cookie-title-${lang}`}
+    transition:persist={`cookie-consent-${lang}`}
+    hidden
+    class="fixed inset-x-3 bottom-[calc(4.25rem+env(safe-area-inset-bottom))] z-50 flex flex-col gap-4 rounded-2xl border border-white/10 bg-[oklch(0.2_0.01_60)] p-5 text-white shadow-2xl shadow-black/30 md:inset-x-auto md:bottom-6 md:left-6 md:max-w-sm"
+  >
+    <p id={`cookie-title-${lang}`} class="readout text-white/70">
+      {t("cookies.title")}
+    </p>
+    <p class="text-sm leading-relaxed text-white/80">
+      {t("cookies.text")}{" "}
+      <a
+        href="/politica-de-cookies/"
+        hreflang="es"
+        class="underline underline-offset-2 hover:text-white"
+      >
+        {t("cookies.more")}
+      </a>
+    </p>
+    <div class="flex gap-3">
+      <button type="button" data-consent="denied" class={button}>
+        {t("cookies.decline")}
+      </button>
+      <button type="button" data-consent="granted" class={button}>
+        {t("cookies.accept")}
+      </button>
+    </div>
+  </section>
+)}

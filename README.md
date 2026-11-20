@@ -9,3 +9,5 @@ pnpm test
 ```
 
 See `AGENTS.md`, `PRODUCT.md` and `DESIGN.md`.
+
+Going live on lasercom.es (DNS, GitHub Pages, GA4): `docs/migracion.md`.

@@ -7,6 +7,7 @@ import Header from "@/components/custom/header.astro"
 import SiteFooter from "@/components/custom/site-footer.astro"
 import WhatsappButton from "@/components/custom/whatsapp-button.astro"
 import ActionBar from "@/components/custom/action-bar.astro"
+import CookieConsent from "@/components/custom/cookie-consent.astro"
 import { business } from "@/lib/business"
 import { serviceIds, services } from "@/lib/services"
 // The display face, fetched with the HTML instead of after the CSS is parsed
@@ -257,6 +258,7 @@ const structuredData: Record<string, unknown>[] = noindex
     <SiteFooter lang={lang} />
     <WhatsappButton lang={lang} />
     <ActionBar lang={lang} />
+    <CookieConsent lang={lang} />
     <div class="laser-cursor" data-cursor-dot aria-hidden="true">
       <div class="laser-vernier" data-cursor-vernier aria-hidden="true">
         {Array.from({ length: 16 }).map(() => (
@@ -267,6 +269,15 @@ const structuredData: Record<string, unknown>[] = noindex
     </div>
     <script>
       import { mountOpenStatus } from "@/lib/open-status"
+      import {
+        analyticsOn,
+        pageView,
+        setConsent,
+        startAnalytics,
+        storedConsent,
+        trackContactClicks,
+        type Consent,
+      } from "@/lib/analytics"
 
       // GSAP and the animations load once the first screen has painted, so
       // they never hold back the hero photo (the LCP): shortly after the page
@@ -294,6 +305,32 @@ const structuredData: Record<string, unknown>[] = noindex
       })
       const animations = painted.then(() => import("@/lib/animations"))
 
+      // Analytics and the cookie notice, also once the first screen has
+      // painted. The notice is persisted across page swaps, so its buttons
+      // are wired once; the footer's "Cookie settings" is swapped with each
+      // page, so it is caught by delegation
+      if (analyticsOn) {
+        const notice = () =>
+          document.querySelector<HTMLElement>("[data-cookie-consent]")
+        painted.then(() => {
+          startAnalytics()
+          trackContactClicks()
+          if (!storedConsent()) notice()?.removeAttribute("hidden")
+        })
+        document.addEventListener("click", (e) => {
+          const target = e.target as Element
+          const choice = target.closest<HTMLElement>("[data-consent]")
+          if (choice) {
+            setConsent(choice.dataset.consent as Consent)
+            notice()?.setAttribute("hidden", "")
+          } else if (target.closest("[data-cookie-settings]")) {
+            const el = notice()
+            el?.removeAttribute("hidden")
+            el?.querySelector<HTMLElement>("[data-consent]")?.focus()
+          }
+        })
+      }
+
       let cleanups: (() => void)[] = []
       let visit = 0
       const stop = () => {
@@ -305,6 +342,7 @@ const structuredData: Record<string, unknown>[] = noindex
         stop()
         const current = visit
         cleanups = [mountOpenStatus()]
+        pageView()
         animations.then(({ initAnimations }) => {
           // The visitor may have moved on while the module loaded
           if (current === visit) cleanups.push(initAnimations())

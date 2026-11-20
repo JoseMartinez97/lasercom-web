@@ -3,6 +3,7 @@ import { ArrowUpRight, Check, Copy, Mail, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ui, defaultLang, type Lang, type UiKey } from "@/i18n/ui"
 import { mailHref, whatsappHref } from "@/lib/business"
+import { track } from "@/lib/analytics"
 import { leadsUrl, newRef, saveLead } from "@/lib/leads"
 import { cn } from "@/lib/utils"
 
@@ -187,8 +188,14 @@ export function QuoteBuilder({
     !details.trim()
   const [warned, setWarned] = React.useState(false)
 
-  const save = (channel: "whatsapp" | "email") =>
-    ref &&
+  const save = (channel: "whatsapp" | "email") => {
+    track("generate_lead", {
+      method: channel,
+      service: service ? serviceNames[service] : "",
+    })
+    if (ref) send(channel)
+  }
+  const send = (channel: "whatsapp" | "email") =>
     saveLead({
       ref,
       name: name.trim(),
@@ -227,6 +234,7 @@ export function QuoteBuilder({
 
   return (
     <form
+      data-quote-form
       className="grid gap-10 lg:grid-cols-12 lg:items-start"
       onSubmit={(e) => {
         e.preventDefault()
