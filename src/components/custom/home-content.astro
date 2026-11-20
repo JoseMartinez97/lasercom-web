@@ -1228,34 +1228,59 @@ const heroSheets = [
     if (location.hash === "#materiales" && scene.progress < OPENED * 0.5)
       anchor.scrollIntoView()
 
-    // Desktop: the real 3D piece, and the pointer moves it and the sheets
+    // The real 3D piece everywhere WebGL runs (the CSS plaque stays as the
+    // fallback); phones get lighter maps. With a fine pointer, the pointer
+    // also moves it and the sheets
     const desktop = matchMedia("(min-width: 1024px) and (pointer: fine)")
     let destroyed = false
-    if (desktop.matches) {
-      void Promise.all([
-        import("@/lib/monolith-3d"),
-        document.fonts.ready,
-      ]).then(async ([{ createDialedStage3D }]) => {
-        if (destroyed) return
-        const read = (key: string) => view.dataset[key] ?? ""
-        // The CSS plaque carries on while the 3D one bakes
-        const ready = await createDialedStage3D(canvas, {
-          subtitle: read("plaqueSubtitle"),
-          laser: read("plaqueLaser"),
-          laserValue: read("plaqueLaserValue"),
-          cut: read("plaqueCut"),
-          since: read("plaqueSince"),
-        })
-        if (!ready) return
-        if (destroyed) {
-          ready.destroy()
-          return
+    // Phones wait for the visitor's first touch or scroll: three.js and the
+    // bake never weigh on the first load (the CSS plaque holds until then)
+    const firstTouch =
+      desktop.matches || scrollY > 0
+        ? Promise.resolve()
+        : new Promise<void>((resolve) => {
+            const events = ["scroll", "touchstart", "pointerdown", "wheel"]
+            const go = () => {
+              events.forEach((ev) => removeEventListener(ev, go))
+              resolve()
+            }
+            events.forEach((ev) =>
+              addEventListener(ev, go, { once: true, passive: true })
+            )
+            cleanups.push(() =>
+              events.forEach((ev) => removeEventListener(ev, go))
+            )
+          })
+    void firstTouch.then(() =>
+      Promise.all([import("@/lib/monolith-3d"), document.fonts.ready]).then(
+        async ([{ createDialedStage3D }]) => {
+          if (destroyed) return
+          const read = (key: string) => view.dataset[key] ?? ""
+          // The CSS plaque carries on while the 3D one bakes
+          const ready = await createDialedStage3D(
+            canvas,
+            {
+              subtitle: read("plaqueSubtitle"),
+              laser: read("plaqueLaser"),
+              laserValue: read("plaqueLaserValue"),
+              cut: read("plaqueCut"),
+              since: read("plaqueSince"),
+            },
+            { light: !desktop.matches }
+          )
+          if (!ready) return
+          if (destroyed) {
+            ready.destroy()
+            return
+          }
+          stage3d = ready
+          stage3d.setPose(poseAt(t, e))
+          view.setAttribute("data-gl", "")
+          canvas.classList.remove("opacity-0")
         }
-        stage3d = ready
-        stage3d.setPose(poseAt(t, e))
-        view.setAttribute("data-gl", "")
-        canvas.classList.remove("opacity-0")
-      })
+      )
+    )
+    if (desktop.matches) {
       const onMove = (ev: PointerEvent) => {
         const nx = (ev.clientX / innerWidth - 0.5) * 2
         const ny = (ev.clientY / innerHeight - 0.5) * 2

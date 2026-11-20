@@ -138,10 +138,13 @@ const FH = 1280
 // The colour maps are baked at 2× so the fine print and the dial's ticks
 // stay crisp on retina screens; the relief maps at 1.5×, enough for clean
 // groove walls without a long bake
-const HI = 2
-const RS = 1.5
-const RW = FW * RS
-const RH = FH * RS
+// (phones bake lighter maps, 1.25× and 1×, to spare their memory)
+type Res = { hi: number; rs: number; rw: number; rh: number }
+const resOf = (light: boolean): Res => {
+  const hi = light ? 1.25 : 2
+  const rs = light ? 1 : 1.5
+  return { hi, rs, rw: FW * rs, rh: FH * rs }
+}
 
 const canvasOf = (w: number, h: number) => {
   const c = document.createElement("canvas")
@@ -268,7 +271,8 @@ const pause = () => {
 // The relief: the file at 2× for the colour map, and at 1.5× its normal
 // map, the occlusion at the bottom of the grooves and a mask (g: where it is
 // burnt)
-async function bakeRelief(labels: PlaqueLabels) {
+async function bakeRelief(labels: PlaqueLabels, res: Res) {
+  const { hi: HI, rs: RS, rw: RW, rh: RH } = res
   const ink = canvasOf(FW * HI, FH * HI)
   ink.ctx.scale(HI, HI)
   drawArtwork(ink.ctx, labels)
@@ -355,7 +359,8 @@ const tinted = (src: HTMLCanvasElement, color: string, blur = 0) => {
 // bottom of the grooves; and the same surface blank, before the beam
 async function bakeAlbedo(
   ink: HTMLCanvasElement,
-  occlusion: HTMLCanvasElement
+  occlusion: HTMLCanvasElement,
+  { hi: HI }: Res
 ): Promise<{ albedo: THREE.CanvasTexture; bare: THREE.CanvasTexture }> {
   const W = FW
   const H = FH
@@ -450,13 +455,16 @@ const R = 0.16
 const D = 0.16
 const B = 0.032
 
-// Resolves once the maps are baked (in slices) and the scene is ready
+// Resolves once the maps are baked (in slices) and the scene is ready.
+// `light`: phones, with lighter maps and a lower pixel ratio
 export async function createDialedStage3D(
   canvas: HTMLCanvasElement,
-  labels: PlaqueLabels
+  labels: PlaqueLabels,
+  { light = false }: { light?: boolean } = {}
 ): Promise<DialedStage3D | null> {
-  const relief = await bakeRelief(labels)
-  const maps = await bakeAlbedo(relief.ink, relief.occlusion)
+  const res = resOf(light)
+  const relief = await bakeRelief(labels, res)
+  const maps = await bakeAlbedo(relief.ink, relief.occlusion, res)
   await pause()
   let renderer: THREE.WebGLRenderer
   try {
@@ -723,7 +731,9 @@ if (uEngrave > 0.0001 && uEngrave < 0.9999) {
   const resize = () => {
     width = canvas.clientWidth || 1
     height = canvas.clientHeight || 1
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2))
+    renderer.setPixelRatio(
+      Math.min(window.devicePixelRatio || 1, light ? 1.75 : 2)
+    )
     renderer.setSize(width, height, false)
     camera.aspect = width / height
     camera.updateProjectionMatrix()
