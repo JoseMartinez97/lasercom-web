@@ -8,7 +8,7 @@ gsap.registerPlugin(ScrollTrigger, SplitText)
 // Under the 4rem sticky header
 const STACK_TOP = "top 64px"
 // Seconds scrubbed animations take to catch up with the scroll
-const SCRUB = 1.1
+const SCRUB = 0.4
 // Plays once as it enters and stays put. Not `once: true`: a trigger that
 // kills itself while ScrollTrigger refreshes breaks the triggers after it
 const PLAY_ONCE = "play none none none"
@@ -378,10 +378,13 @@ function initPointer(lenis?: Lenis) {
   const on = <K extends keyof DocumentEventMap>(
     target: Document | HTMLElement,
     type: K,
-    fn: (e: DocumentEventMap[K]) => void
+    fn: (e: DocumentEventMap[K]) => void,
+    options?: AddEventListenerOptions
   ) => {
-    target.addEventListener(type, fn as EventListener)
-    offs.push(() => target.removeEventListener(type, fn as EventListener))
+    target.addEventListener(type, fn as EventListener, options)
+    offs.push(() =>
+      target.removeEventListener(type, fn as EventListener, options)
+    )
   }
 
   const dot = document.querySelector<HTMLElement>("[data-cursor-dot]")
@@ -390,16 +393,35 @@ function initPointer(lenis?: Lenis) {
     const ticks = Array.from(
       dot.querySelectorAll<HTMLElement>("[data-cursor-vernier] i")
     )
-    on(document, "pointermove", (e) => {
-      dot.dataset.on = ""
-      dot.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`
+    let cursorOn = false
+    on(
+      document,
+      "pointermove",
+      (e) => {
+        if (!cursorOn) {
+          cursorOn = true
+          dot.dataset.on = ""
+        }
+        dot.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`
+      },
+      { passive: true }
+    )
+    on(
+      document,
+      "pointerover",
+      (e) => {
+        const target = (e.target as Element).closest<HTMLElement>(
+          "[data-cursor]"
+        )
+        dot.toggleAttribute("data-big", !!target)
+        if (target && label) label.textContent = target.dataset.cursor ?? ""
+      },
+      { passive: true }
+    )
+    on(document, "pointerleave", () => {
+      cursorOn = false
+      delete dot.dataset.on
     })
-    on(document, "pointerover", (e) => {
-      const target = (e.target as Element).closest<HTMLElement>("[data-cursor]")
-      dot.toggleAttribute("data-big", !!target)
-      if (target && label) label.textContent = target.dataset.cursor ?? ""
-    })
-    on(document, "pointerleave", () => delete dot.dataset.on)
 
     // Vernier scroll-velocity ruler (Immersive Garden HomeScrollCursor pattern):
     // during fast scroll, micro-ticks fan out symmetrically along the travel
@@ -478,14 +500,29 @@ function initPointer(lenis?: Lenis) {
 
   document.querySelectorAll<HTMLElement>("[data-magnetic]").forEach((btn) => {
     const area = btn.parentElement ?? btn
-    const xTo = gsap.quickTo(btn, "x", { duration: 0.6, ease: "power3" })
-    const yTo = gsap.quickTo(btn, "y", { duration: 0.6, ease: "power3" })
-    on(area, "pointermove", (e) => {
-      const box = btn.getBoundingClientRect()
-      xTo((e.clientX - (box.left + box.width / 2)) * 0.3)
-      yTo((e.clientY - (box.top + box.height / 2)) * 0.4)
-    })
+    const xTo = gsap.quickTo(btn, "x", { duration: 0.45, ease: "power3" })
+    const yTo = gsap.quickTo(btn, "y", { duration: 0.45, ease: "power3" })
+    let box: DOMRect | null = null
+    on(
+      area,
+      "pointerenter",
+      () => {
+        box = btn.getBoundingClientRect()
+      },
+      { passive: true }
+    )
+    on(
+      area,
+      "pointermove",
+      (e) => {
+        if (!box) box = btn.getBoundingClientRect()
+        xTo((e.clientX - (box.left + box.width / 2)) * 0.28)
+        yTo((e.clientY - (box.top + box.height / 2)) * 0.36)
+      },
+      { passive: true }
+    )
     on(area, "pointerleave", () => {
+      box = null
       xTo(0)
       yTo(0)
     })
@@ -493,13 +530,30 @@ function initPointer(lenis?: Lenis) {
 
   // Directional ambient laser glow tracking (NK Studio --info-card-glow pattern)
   document.querySelectorAll<HTMLElement>(".laser-glow-card").forEach((card) => {
-    on(card, "pointermove", (e) => {
-      const r = card.getBoundingClientRect()
-      if (!r.width || !r.height) return
-      const x = (((e.clientX - r.left) / r.width) * 100).toFixed(1)
-      const y = (((e.clientY - r.top) / r.height) * 100).toFixed(1)
-      card.style.setProperty("--glow-x", `${x}%`)
-      card.style.setProperty("--glow-y", `${y}%`)
+    let rect: DOMRect | null = null
+    on(
+      card,
+      "pointerenter",
+      () => {
+        rect = card.getBoundingClientRect()
+      },
+      { passive: true }
+    )
+    on(
+      card,
+      "pointermove",
+      (e) => {
+        if (!rect) rect = card.getBoundingClientRect()
+        if (!rect.width || !rect.height) return
+        const x = (((e.clientX - rect.left) / rect.width) * 100).toFixed(1)
+        const y = (((e.clientY - rect.top) / rect.height) * 100).toFixed(1)
+        card.style.setProperty("--glow-x", `${x}%`)
+        card.style.setProperty("--glow-y", `${y}%`)
+      },
+      { passive: true }
+    )
+    on(card, "pointerleave", () => {
+      rect = null
     })
   })
 
@@ -534,8 +588,8 @@ export function initAnimations() {
       ? new Lenis({
           autoRaf: false,
           allowNestedScroll: true,
-          lerp: 0.08,
-          wheelMultiplier: 0.95,
+          lerp: 0.14,
+          wheelMultiplier: 1.05,
         })
       : undefined
     lenis?.on("scroll", ScrollTrigger.update)

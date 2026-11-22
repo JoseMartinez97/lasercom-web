@@ -19,7 +19,7 @@
 
 ## 3D & Signature Moments
 
-- **Plaque hero** (`plaque-hero.astro` + `src/lib/monolith-3d.ts`): a brushed steel plaque in Three.js that rises edge-on and turns to face the visitor as the page opens, then is engraved as the visitor scrolls, in three beats: the headline over the plaque, 56 raster passes engraved live with sparks and a moving gantry, then a slow tilt that rakes the light across the finished engraving, with the calls to action. Pinned on desktop, a sticky 170svh runway on phones. The headline paints with the HTML; GSAP, Three.js and Lottie load after the first paint so they never hold back the LCP. Without a hardware GPU the 3D piece is skipped.
+- **Plaque hero** (`plaque-hero.astro` + `src/lib/monolith-3d.ts`): a brushed steel plaque in Three.js that rises edge-on and turns to face the visitor as the page opens, then is engraved as the visitor scrolls, in three beats: the headline over the plaque, 56 raster passes engraved live with sparks and a moving gantry, then a slow tilt that rakes the light across the finished engraving, with the calls to action. Pinned on desktop, a sticky 240svh runway on phones, where the story chases the scroll at a capped pace so a hard swipe never skips a beat. The headline paints with the HTML; GSAP, Three.js and Lottie load after the first paint so they never hold back the LCP. Without a hardware GPU the 3D piece is skipped.
 - **Home in five calm movements** (`home-content.astro`):
   1. Plaque hero
   2. Real work filmstrip (`work-showcase.astro`): pinned horizontal reel on desktop, swipe rail on phones

@@ -746,7 +746,7 @@ if (uEngrave > 0.0001 && uEngrave < 0.9999) {
     width = canvas.clientWidth || 1
     height = canvas.clientHeight || 1
     renderer.setPixelRatio(
-      Math.min(window.devicePixelRatio || 1, light ? 1.75 : 2)
+      Math.min(window.devicePixelRatio || 1, light ? 1.25 : 1.5)
     )
     renderer.setSize(width, height, false)
     camera.aspect = width / Math.max(height, 1)

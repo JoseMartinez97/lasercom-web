@@ -259,12 +259,6 @@ const structuredData: Record<string, unknown>[] = noindex
     <WhatsappButton lang={lang} />
     <ActionBar lang={lang} />
     <CookieConsent lang={lang} />
-    <!-- Subtle stepped analog grain overlay (Openstate_ pattern) so obsidian
-         surfaces feel like tactile matte metal instead of flat digital black -->
-    <div class="obsidian-grain" aria-hidden="true"></div>
-    <!-- Pointer-reactive optical aperture: reveals subtle laser halo + micro-dots
-         only around the cursor on desktop -->
-    <div class="obsidian-spotlight" aria-hidden="true"></div>
     <!-- Laser pointer & 16-tick vernier scroll-velocity ruler (desktop fine pointer) -->
     <div class="laser-cursor" data-cursor-dot aria-hidden="true">
       <div class="laser-vernier" data-cursor-vernier aria-hidden="true">
@@ -356,25 +350,6 @@ const structuredData: Record<string, unknown>[] = noindex
         })
       })
       document.addEventListener("astro:before-swap", stop)
-
-      // Feed pointer coordinates to .obsidian-spotlight (fine pointers only)
-      if (matchMedia("(hover: hover) and (pointer: fine)").matches) {
-        const root = document.documentElement
-        window.addEventListener(
-          "pointermove",
-          (e) => {
-            root.style.setProperty("--mx", `${e.clientX}px`)
-            root.style.setProperty("--my", `${e.clientY}px`)
-            if (!root.hasAttribute("data-ptr-on")) {
-              root.setAttribute("data-ptr-on", "")
-            }
-          },
-          { passive: true }
-        )
-        document.addEventListener("pointerleave", () => {
-          root.removeAttribute("data-ptr-on")
-        })
-      }
     </script>
   </body>
 </html>

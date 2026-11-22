@@ -271,9 +271,10 @@ const statusLabels = {
   }
 
   @media (max-width: 1023px) and (prefers-reduced-motion: no-preference) {
-    /* Short on phones: visitors should reach the real work quickly */
+    /* Long enough for the paced story below to play while the stage holds,
+       short enough that the real work is a couple of swipes away */
     .plaque-hero-runway {
-      min-height: 170svh;
+      min-height: 240svh;
     }
 
     .plaque-hero-stage {
@@ -540,24 +541,51 @@ const statusLabels = {
 
         applyCinemaFrame(0)
 
+        // Phones: a flick covers the whole runway in a blink, so the story
+        // chases the scroll at a capped pace instead of jumping with it. Each
+        // beat keeps its time however hard the visitor swipes (about three
+        // seconds end to end), and scrolling back stays brisk
+        let target = 0
+        let shown = 0
+        const FORWARD_RATE = 0.34
+        const BACK_RATE = 0.9
+        const pace = (_time: number, deltaMs: number) => {
+          const diff = target - shown
+          if (Math.abs(diff) < 0.0004) {
+            if (shown !== target) {
+              shown = target
+              applyCinemaFrame(shown)
+            }
+            return
+          }
+          const dt = Math.min(deltaMs, 100) / 1000
+          const cap = (diff > 0 ? FORWARD_RATE : BACK_RATE) * dt
+          const eased = diff * (1 - Math.exp(-7 * dt))
+          shown += Math.sign(diff) * Math.min(Math.abs(eased), cap)
+          applyCinemaFrame(shown)
+        }
+
         // Top-level ScrollTrigger driving the entire 3-Act movie sequence
         ScrollTrigger.create({
           trigger: root,
           start: "top 64px",
-          end: isDesktop ? "+=320%" : "bottom bottom",
+          end: isDesktop ? "+=220%" : "bottom bottom",
           pin: Boolean(isDesktop),
           pinSpacing: Boolean(isDesktop),
-          scrub: isDesktop ? 0.95 : 0.65,
+          scrub: isDesktop ? 0.35 : true,
           invalidateOnRefresh: true,
           onUpdate: (self) => {
-            applyCinemaFrame(self.progress)
+            if (isDesktop) applyCinemaFrame(self.progress)
+            else target = self.progress
           },
         })
 
+        if (!isDesktop) gsap.ticker.add(pace)
         gantryTicker = updateGantry
         gsap.ticker.add(updateGantry)
 
         return () => {
+          gsap.ticker.remove(pace)
           if (gantryTicker) {
             gsap.ticker.remove(gantryTicker)
             gantryTicker = null

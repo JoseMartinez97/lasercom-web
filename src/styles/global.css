@@ -91,43 +91,8 @@
   color: var(--foreground);
 }
 
-/* Tactile dark textures & atmospheric backgrounds (Openstate_ grain +
-   architectural laser bed grid + warm ambient depth) so obsidian never feels flat */
-.obsidian-grain {
-  position: fixed;
-  inset: -10%;
-  z-index: 60;
-  pointer-events: none;
-  opacity: 0.038;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 180px 180px;
-}
-@media (prefers-reduced-motion: no-preference) {
-  .obsidian-grain {
-    animation: grain-shift 1.2s steps(6) infinite;
-  }
-}
-@keyframes grain-shift {
-  0% {
-    transform: translate3d(0, 0, 0);
-  }
-  20% {
-    transform: translate3d(-2%, 1%, 0);
-  }
-  40% {
-    transform: translate3d(1%, -2%, 0);
-  }
-  60% {
-    transform: translate3d(-1%, 2%, 0);
-  }
-  80% {
-    transform: translate3d(2%, -1%, 0);
-  }
-  100% {
-    transform: translate3d(0, 0, 0);
-  }
-}
-
+/* Subtle atmospheric backgrounds so obsidian surfaces have depth at zero
+   compositor cost (no full-viewport animated SVG filters or mask repaints) */
 .obsidian-grid {
   background-color: oklch(0.132 0.006 255);
   background-image: radial-gradient(
@@ -135,47 +100,6 @@
     oklch(0.68 0.2 38 / 0.055) 0%,
     transparent 65%
   );
-}
-
-/* Pointer-reactive optical reveal: pure calm obsidian at rest; moving the
-   mouse illuminates a subtle warm laser glow + micro-dot calibration field
-   only inside a 340px aperture around the cursor (fine pointers only) */
-.obsidian-spotlight {
-  position: fixed;
-  inset: 0;
-  z-index: 35;
-  pointer-events: none;
-  mix-blend-mode: screen;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  background-image:
-    radial-gradient(
-      260px circle at var(--mx, -999px) var(--my, -999px),
-      oklch(0.68 0.2 38 / 0.11),
-      transparent 72%
-    ),
-    radial-gradient(oklch(1 0 0 / 0.16) 1px, transparent 1px);
-  background-size:
-    100% 100%,
-    28px 28px;
-  mask-image: radial-gradient(
-    320px circle at var(--mx, -999px) var(--my, -999px),
-    black 0%,
-    transparent 100%
-  );
-  -webkit-mask-image: radial-gradient(
-    320px circle at var(--mx, -999px) var(--my, -999px),
-    black 0%,
-    transparent 100%
-  );
-}
-html[data-ptr-on] .obsidian-spotlight {
-  opacity: 1;
-}
-@media not ((hover: hover) and (pointer: fine)) {
-  .obsidian-spotlight {
-    display: none;
-  }
 }
 
 .obsidian-ember {
@@ -392,6 +316,8 @@ html[data-ptr-on] .obsidian-spotlight {
   box-shadow: 0 0 12px 2px color-mix(in oklab, var(--laser) 60%, transparent);
   pointer-events: none;
   opacity: 0;
+  will-change: transform;
+  contain: layout style;
   transition:
     width 0.35s cubic-bezier(0.2, 0.7, 0.1, 1),
     height 0.35s cubic-bezier(0.2, 0.7, 0.1, 1),
