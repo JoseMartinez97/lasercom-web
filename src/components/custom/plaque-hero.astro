@@ -125,7 +125,7 @@ const statusLabels = {
         <h1
           id="hero-title"
           data-plaque-h1
-          class="display max-w-[14ch] text-[clamp(2.5rem,6.4vw,5.5rem)] leading-[0.98] text-foreground drop-shadow-[0_16px_48px_rgba(0,0,0,0.75)]"
+          class="display max-w-[15ch] text-[clamp(2.1rem,6vw,5.4rem)] leading-[0.96] font-extrabold text-foreground drop-shadow-[0_16px_48px_rgba(0,0,0,0.75)]"
         >
           {t("home.h1.1")} {t("home.h1.2")} {t("home.h1.3")}
         </h1>
@@ -350,8 +350,10 @@ const statusLabels = {
       const moveToBed = seg(p, 0.04, 0.24)
       // Beat 2 engraving (0.22 -> 0.72): 56 passes rastered live with 3D sparks
       const engraveT = clamp01((p - 0.22) / 0.5)
-      // Beat 3 finale (0.72 -> 1.0): full 360° slow-motion showcase spin & push-in
-      const spinT = seg(p, 0.72, 0.96)
+      // Beat 3 finale (0.72 -> 1.0): a slow tilt that rakes the studio light
+      // across the fresh engraving, then settles facing the visitor
+      const tiltT = seg(p, 0.72, 0.98)
+      const glint = Math.sin(tiltT * Math.PI)
       const finale = seg(p, 0.76, 1.0)
 
       const cx = isDesktop
@@ -382,13 +384,26 @@ const statusLabels = {
       // Camera Z dolly: wide hero -> macro engraving close-up -> grand showcase framing
       const camZ = lerp(8.1, 6.9, moveToBed) + finale * 0.35
 
-      // 3/4 profile -> flat toward laser -> dramatic full 360° specular spin
+      // 3/4 profile -> flat toward the laser -> light-raking tilt
       const rotY =
-        lerp(-0.45, -0.06, moveToBed) + engraveT * 0.16 + spinT * Math.PI * 2
-      const rotX = lerp(0.1, 0.04, moveToBed) - Math.sin(spinT * Math.PI) * 0.08
+        lerp(-0.45, -0.06, moveToBed) +
+        engraveT * 0.16 +
+        glint * 0.5 -
+        tiltT * 0.18
+      const rotX = lerp(0.1, 0.04, moveToBed) - glint * 0.1
       const rotZ = lerp(-0.07, -0.015, moveToBed) + engraveT * 0.025
 
-      return { cx, cy, height, rotY, rotX, rotZ, camZ, engrave: engraveT }
+      return {
+        cx,
+        cy,
+        height,
+        rotY,
+        rotX,
+        rotZ,
+        camZ,
+        glint,
+        engrave: engraveT,
+      }
     }
 
     const applyCinemaFrame = (p: number, reduced = false) => {

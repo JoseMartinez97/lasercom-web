@@ -229,13 +229,14 @@ html[data-ptr-on] .obsidian-spotlight {
   }
 }
 
-/* Refined architectural neo-grotesk display: serious, tight and legible on phones */
+/* Expanded industrial grotesk display: Archivo at its widest cut, bold and
+   tight, like lettering on a machine plate */
 @utility display {
   font-family: var(--font-heading);
-  font-stretch: 100%;
-  font-weight: 600;
-  letter-spacing: -0.032em;
-  line-height: 1.04;
+  font-stretch: 125%;
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.02;
   overflow-wrap: normal;
   hyphens: none;
 }

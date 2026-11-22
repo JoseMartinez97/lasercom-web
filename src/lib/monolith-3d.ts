@@ -404,6 +404,8 @@ export type StagePose = {
   rotX?: number
   /** Optional camera Z distance for cinematic dolly push-in/pull-out (default 7.5). */
   camZ?: number
+  /** Extra studio light (0 → 1) that rakes across the finished engraving. */
+  glint?: number
   engrave: number
 }
 
@@ -733,6 +735,10 @@ if (uEngrave > 0.0001 && uEngrave < 0.9999) {
   let width = 1
   let height = 1
   let visible = true
+  // Entrance: the plaque rises edge-on and turns to face the visitor, the
+  // studio light sweeping its brushed face as it arrives (seconds on screen)
+  const INTRO_SECONDS = 1.9
+  let introClock = reducedMotion ? INTRO_SECONDS : 0
   let disposed = false
 
   const resize = () => {
@@ -759,6 +765,11 @@ if (uEngrave > 0.0001 && uEngrave < 0.9999) {
     const dt = Math.min(timer.getDelta(), 0.1)
     const t = reducedMotion ? 0 : timer.getElapsed()
 
+    introClock = Math.min(INTRO_SECONDS, introClock + dt)
+    const intro = introClock / INTRO_SECONDS
+    const rise = 1 - Math.pow(1 - intro, 4)
+    const turn = 1 - Math.pow(1 - intro, 3)
+
     smoothPX = THREE.MathUtils.damp(smoothPX, pointerX, 3.6, dt)
     smoothPY = THREE.MathUtils.damp(smoothPY, pointerY, 3.6, dt)
 
@@ -780,15 +791,27 @@ if (uEngrave > 0.0001 && uEngrave < 0.9999) {
 
     plaqueGroup.position.set(
       px + smoothPX * 0.09,
-      py + Math.sin(t * 0.85) * 0.028 - smoothPY * 0.055,
+      py +
+        Math.sin(t * 0.85) * 0.028 -
+        smoothPY * 0.055 -
+        (1 - rise) * liveHalfH * 0.45,
       0
     )
-    plaqueGroup.scale.setScalar(Math.max(0.001, scale))
+    plaqueGroup.scale.setScalar(Math.max(0.001, scale * (0.9 + rise * 0.1)))
     plaqueGroup.rotation.set(
-      (pose.rotX ?? 0.05) - smoothPY * 0.13 + Math.cos(t * 0.45) * 0.018,
-      pose.rotY + smoothPX * 0.22 + Math.sin(t * 0.5) * 0.032,
+      (pose.rotX ?? 0.05) -
+        smoothPY * 0.13 +
+        Math.cos(t * 0.45) * 0.018 +
+        (1 - rise) * 0.3,
+      pose.rotY +
+        smoothPX * 0.22 +
+        Math.sin(t * 0.5) * 0.032 -
+        (1 - turn) * 1.2,
       pose.rotZ + smoothPX * 0.025
     )
+    // Light swells as the face sweeps past the key light, then settles
+    scene.environmentIntensity =
+      1.05 + Math.sin(intro * Math.PI) * 0.7 + (pose.glint ?? 0) * 0.75
 
     markUniforms.uEngrave.value = pose.engrave
     const burning = pose.engrave > 0.0005 && pose.engrave < 0.9995

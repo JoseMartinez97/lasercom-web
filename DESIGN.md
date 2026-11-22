@@ -12,14 +12,14 @@
 
 ## Type
 
-- Display (`.display`): Archivo Variable at natural `100%` width, weight `600`, tight `-0.032em` tracking, `1.04` line-height, no awkward word hyphenation on mobile.
+- Display (`.display`): Archivo Variable at its expanded `125%` width, weight `700` (`800` on the home headline), tight `-0.035em` tracking, `1.02` line-height, no awkward word hyphenation on mobile. Same font file as the body, so it costs no extra download.
 - Body: Archivo Variable at normal width and comfortable reading line-height.
 - Readouts (`.readout`): JetBrains Mono, `0.7rem`, uppercase, wide `0.14em` tracking.
 - Sentence case everywhere.
 
 ## 3D & Signature Moments
 
-- **Plaque hero** (`plaque-hero.astro` + `src/lib/monolith-3d.ts`): a brushed steel plaque in Three.js that the laser engraves as the visitor scrolls, in three beats: the headline over the plaque, 56 raster passes engraved live with sparks and a moving gantry, then a slow spin of the finished piece with the calls to action. Pinned on desktop, a sticky 240svh runway on phones. The headline paints with the HTML; GSAP, Three.js and Lottie load after the first paint so they never hold back the LCP.
+- **Plaque hero** (`plaque-hero.astro` + `src/lib/monolith-3d.ts`): a brushed steel plaque in Three.js that rises edge-on and turns to face the visitor as the page opens, then is engraved as the visitor scrolls, in three beats: the headline over the plaque, 56 raster passes engraved live with sparks and a moving gantry, then a slow tilt that rakes the light across the finished engraving, with the calls to action. Pinned on desktop, a sticky 170svh runway on phones. The headline paints with the HTML; GSAP, Three.js and Lottie load after the first paint so they never hold back the LCP. Without a hardware GPU the 3D piece is skipped.
 - **Home in five calm movements** (`home-content.astro`):
   1. Plaque hero
   2. Real work filmstrip (`work-showcase.astro`): pinned horizontal reel on desktop, swipe rail on phones
