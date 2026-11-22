@@ -24,6 +24,7 @@ const { src, loop = true, speed = 1, label, class: className } = Astro.props
 
 <script>
   import type { AnimationItem } from "lottie-web"
+  import { afterLoad } from "@/lib/after-load"
 
   const cleanups: (() => void)[] = []
 
@@ -90,7 +91,7 @@ const { src, loop = true, speed = 1, label, class: className } = Astro.props
           const visible = entries.some((entry) => entry.isIntersecting)
           if (visible) {
             if (!loaded) {
-              void load()
+              afterLoad(() => void load())
             } else if (!reducedMotion) {
               anim?.play()
             }

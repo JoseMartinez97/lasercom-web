@@ -112,7 +112,7 @@ function animateTelemetry() {
       const text = el.textContent?.trim() ?? ""
       if (text.length < 3 || text.length > 48) return false
       return !el.closest(
-        "[aria-live], [aria-hidden='true'], [data-no-scramble], [data-open-status], .sr-only, form, header, .bench-stage, [data-engrave-status]"
+        "[aria-live], [aria-hidden='true'], [data-no-scramble], [data-open-status], .sr-only, form, header, [data-engrave-status]"
       )
     })
   leaves.forEach((el) => {

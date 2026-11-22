@@ -19,12 +19,11 @@
 
 ## 3D & Signature Moments
 
-- **Blender → Three.js Hero Stage** (`scripts/blender/build_laser_hero.py` → `public/models/laser-hero.glb` + `src/assets/hero-laser-poster.png`, rendered by `src/lib/hero-laser-3d.ts`): a precision CNC machined optical laser head with copper nozzle hovering over a brushed dark stainless steel plate on machine bed slats. An instant Cycles-rendered WebP poster guarantees 0ms LCP before Three.js (`GLTFLoader` + `RoomEnvironment`) crossfades in and animates the laser head tracing a live molten amber-orange kerf with micro-sparks, dynamic focal lighting, and live `X / Y mm` bed coordinates. Zero scroll-hijacking on desktop or mobile.
+- **Plaque hero** (`plaque-hero.astro` + `src/lib/monolith-3d.ts`): a brushed steel plaque in Three.js that the laser engraves as the visitor scrolls, in three beats: the headline over the plaque, 56 raster passes engraved live with sparks and a moving gantry, then a slow spin of the finished piece with the calls to action. Pinned on desktop, a sticky 240svh runway on phones. The headline paints with the HTML; GSAP, Three.js and Lottie load after the first paint so they never hold back the LCP.
 - **Home in five calm movements** (`home-content.astro`):
-  1. Hero & 3D Laser Stage
-  2. Two Audiences (`01 / Empresas e industria`, `02 / Particulares`) + 6-material grid + link to the interactive 3D bench
-  3. Curated Real Work gallery (`work-photo.astro`)
-  4. 4-step process + verified Google reviews (`4.5/5`) + Riba-roja workshop strip
-  5. Guides, FAQ & Closing Stage (`close-section.astro`)
-- **Mobile-first ergonomics**: clean obsidian bottom action bar (`action-bar.astro`), refined full-height slide drawer (`header.astro`), native smooth scrolling without pinned ScrollTrigger traps, and matching dark `#0b0c0e` browser `theme-color`.
-- **Interactive 3D Bench** (`engrave-bench.astro`, `/prueba-tu-grabado/` · `/en/try-your-engraving/`): real-time 3D engraving previewer where visitors test text or logos on workshop materials and send a quote via WhatsApp.
+  1. Plaque hero
+  2. Real work filmstrip (`work-showcase.astro`): pinned horizontal reel on desktop, swipe rail on phones
+  3. Two audiences (`01 / Empresas e industria`, `02 / Particulares`)
+  4. 4-step process + verified Google reviews + Riba-roja workshop strip
+  5. Guides, FAQ & closing stage (`close-section.astro`)
+- **Mobile-first ergonomics**: clean obsidian bottom action bar (`action-bar.astro`), refined full-height slide drawer (`header.astro`), native scrolling on touch screens, and matching dark `#0b0c0e` browser `theme-color`.

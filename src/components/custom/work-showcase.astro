@@ -178,14 +178,12 @@ const scenes: {
 </section>
 
 <script>
-  import { gsap } from "gsap"
-  import { ScrollTrigger } from "gsap/ScrollTrigger"
-
-  gsap.registerPlugin(ScrollTrigger)
+  import { loadScrollKit, type ScrollKit } from "@/lib/after-load"
 
   let stopReel: (() => void) | undefined
+  let visit = 0
 
-  const setupCinemaReel = () => {
+  const setupCinemaReel = ({ gsap }: ScrollKit) => {
     stopReel?.()
     stopReel = undefined
 
@@ -268,9 +266,14 @@ const scenes: {
   }
 
   document.addEventListener("astro:page-load", () => {
-    stopReel = setupCinemaReel()
+    const current = ++visit
+    void loadScrollKit().then((kit) => {
+      // The visitor may have moved on while GSAP loaded
+      if (current === visit) stopReel = setupCinemaReel(kit)
+    })
   })
   document.addEventListener("astro:before-swap", () => {
+    visit++
     stopReel?.()
     stopReel = undefined
   })

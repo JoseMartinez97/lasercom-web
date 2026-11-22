@@ -5,7 +5,7 @@ import { buttonVariants } from "@/components/ui/button"
 import LottiePlayer from "@/components/custom/lottie-player.astro"
 import { ENGRAVE_ROWS } from "@/lib/showcase"
 import { cn } from "@/lib/utils"
-import { ArrowRight, ArrowUpRight } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 
 interface Props {
   lang: Lang
@@ -175,7 +175,8 @@ const statusLabels = {
       <div class="flex flex-col gap-6 lg:col-span-5">
         <h2
           data-beat-2-title
-          class="display max-w-[10ch] text-[clamp(2rem,5.2vw,4.75rem)] leading-[0.96] text-foreground">
+          class="display max-w-[10ch] text-[clamp(2rem,5.2vw,4.75rem)] leading-[0.96] text-foreground"
+        >
           {t("home.engrave.title")}
         </h2>
 
@@ -211,14 +212,14 @@ const statusLabels = {
             <ArrowRight className="size-4" aria-hidden />
           </a>
           <a
-            href={href("/prueba-tu-grabado/")}
+            href={href("/trabajos/")}
             class={cn(
               buttonVariants({ variant: "outline", size: "cta" }),
               "border-white/20 bg-background/85 text-foreground hover:bg-card dark:bg-background/85 dark:hover:bg-card"
             )}
           >
-            {t("bench.teaser.cta")}
-            <ArrowUpRight className="size-4 text-laser-ink" aria-hidden />
+            {t("home.work.all")}
+            <ArrowRight className="size-4 text-laser-ink" aria-hidden />
           </a>
         </div>
       </div>
@@ -305,14 +306,11 @@ const statusLabels = {
 </style>
 
 <script>
-  import { gsap } from "gsap"
-  import { ScrollTrigger } from "gsap/ScrollTrigger"
-  import { SplitText } from "gsap/SplitText"
   import type { PlaqueLabels, PlaqueStage3D } from "@/lib/monolith-3d"
-
-  gsap.registerPlugin(ScrollTrigger, SplitText)
+  import { afterLoad, loadScrollKit, type ScrollKit } from "@/lib/after-load"
 
   let stopHero: (() => void) | undefined
+  let visit = 0
 
   const clamp01 = (v: number) => Math.min(1, Math.max(0, v))
   const smoothstep = (v: number) => v * v * (3 - 2 * v)
@@ -320,7 +318,7 @@ const statusLabels = {
   const seg = (p: number, a: number, b: number) =>
     smoothstep(clamp01((p - a) / Math.max(0.0001, b - a)))
 
-  const bootPlaqueHero = () => {
+  const bootPlaqueHero = ({ gsap, ScrollTrigger, SplitText }: ScrollKit) => {
     stopHero?.()
     stopHero = undefined
 
@@ -531,8 +529,10 @@ const statusLabels = {
           return
         }
 
-        // Opening H1 staggered character reveal
-        if (h1El) {
+        // Opening H1 staggered character reveal, desktop only: on phones the
+        // headline is the largest paint, and hiding it for the reveal pushed
+        // LCP past the 3s budget
+        if (h1El && isDesktop) {
           SplitText.create(h1El, {
             type: "words, chars",
             mask: "words",
@@ -602,18 +602,7 @@ const statusLabels = {
       })
     }
 
-    if ("requestIdleCallback" in window) {
-      ;(
-        window as Window & {
-          requestIdleCallback: (
-            cb: () => void,
-            opts?: { timeout: number }
-          ) => number
-        }
-      ).requestIdleCallback(boot3D, { timeout: 200 })
-    } else {
-      setTimeout(boot3D, 60)
-    }
+    afterLoad(boot3D)
 
     return () => {
       cancelled = true
@@ -628,9 +617,14 @@ const statusLabels = {
   }
 
   document.addEventListener("astro:page-load", () => {
-    stopHero = bootPlaqueHero()
+    const current = ++visit
+    void loadScrollKit().then((kit) => {
+      // The visitor may have moved on while GSAP loaded
+      if (current === visit) stopHero = bootPlaqueHero(kit)
+    })
   })
   document.addEventListener("astro:before-swap", () => {
+    visit++
     stopHero?.()
     stopHero = undefined
   })

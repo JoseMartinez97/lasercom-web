@@ -28,11 +28,7 @@ const clientServices = serviceIds.filter((id) => services[id].kind === "client")
 const navLinks = [
   { label: t("nav.services"), href: href("/#servicios"), mega: true },
   { label: t("nav.work"), href: href("/trabajos/"), mega: false },
-  {
-    label: t("bench.page.crumb"),
-    href: href("/prueba-tu-grabado/"),
-    mega: false,
-  },
+  { label: t("nav.guides"), href: href("/guias/"), mega: false },
   { label: t("nav.contact"), href: href("/contacto/"), mega: false },
 ]
 

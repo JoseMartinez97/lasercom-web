@@ -10,15 +10,7 @@ export type Page = {
   en: string | null
   title: UiKey
   description: UiKey
-  kind:
-    | "home"
-    | "service"
-    | "work"
-    | "contact"
-    | "legal"
-    | "guides"
-    | "guide"
-    | "bench"
+  kind: "home" | "service" | "work" | "contact" | "legal" | "guides" | "guide"
   service?: ServiceId
   guide?: GuideId
   legal?: string
@@ -48,12 +40,6 @@ export const pages: Record<string, Page> = {
     title: "work.title",
     description: "work.description",
     kind: "work",
-  },
-  "/prueba-tu-grabado/": {
-    en: "/en/try-your-engraving/",
-    title: "bench.page.title",
-    description: "bench.page.description",
-    kind: "bench",
   },
   "/guias/": {
     en: "/en/guides/",

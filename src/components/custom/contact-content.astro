@@ -85,7 +85,13 @@ const direct = [
     class="hero-in mt-8 scroll-mt-24 rounded-[1.75rem] border border-border bg-card p-5 md:p-8 lg:p-10"
     style="--i: 2"
   >
-    <QuoteBuilder client:idle lang={lang} serviceNames={serviceNames} />
+    <!-- Hydrates once the card is well inside the screen: on phones its top
+         peeks in at first paint, and React there pushed LCP past budget -->
+    <QuoteBuilder
+      client:visible={{ rootMargin: "0px 0px -160px 0px" }}
+      lang={lang}
+      serviceNames={serviceNames}
+    />
   </div>
 </section>
 

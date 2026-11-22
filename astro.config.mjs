@@ -50,6 +50,9 @@ const redirects = {
   "/piel": "/corte-grabado-laser-piel-cuero/",
   "/grabado-laser-para-piel": "/corte-grabado-laser-piel-cuero/",
   "/metal": "/corte-grabado-laser-metal-acero/",
+  // The engraving playground was removed in favour of the home hero
+  "/prueba-tu-grabado": "/",
+  "/en/try-your-engraving": "/en/",
 }
 // The site is served by GitHub Pages, which has no real redirects: Astro
 // writes a refresh page for each address (below), and the .htm addresses,

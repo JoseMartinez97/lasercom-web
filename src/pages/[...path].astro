@@ -4,7 +4,6 @@ import Layout from "@/layouts/main.astro"
 import HomeContent from "@/components/custom/home-content.astro"
 import ServiceContent from "@/components/custom/service-content.astro"
 import WorkContent from "@/components/custom/work-content.astro"
-import BenchContent from "@/components/custom/bench-content.astro"
 import ContactContent from "@/components/custom/contact-content.astro"
 import LegalContent from "@/components/custom/legal-content.astro"
 import GuidesContent from "@/components/custom/guides-content.astro"
@@ -114,9 +113,7 @@ const crumbName = page.service
       ? t("nav.contact")
       : page.kind === "guides"
         ? t("nav.guides")
-        : page.kind === "bench"
-          ? t("bench.page.crumb")
-          : undefined
+        : undefined
 ---
 
 <Layout
@@ -140,7 +137,6 @@ const crumbName = page.service
   {page.kind === "home" && <HomeContent lang={lang} />}
   {page.service && <ServiceContent lang={lang} id={page.service} />}
   {page.kind === "work" && <WorkContent lang={lang} />}
-  {page.kind === "bench" && <BenchContent lang={lang} />}
   {page.kind === "contact" && <ContactContent lang={lang} />}
   {page.legal && <LegalContent slug={page.legal} />}
   {page.kind === "guides" && <GuidesContent lang={lang} />}
