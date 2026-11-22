@@ -42,3 +42,17 @@ export const loadScrollKit = () =>
   })
 
 export type ScrollKit = Awaited<ReturnType<typeof loadScrollKit>>
+
+// True when WebGL runs on a real GPU. Software renderers (SwiftShader,
+// llvmpipe…) draw the 3D plaque on the CPU and freeze the page for seconds,
+// so on those the hero keeps its typography and skips the 3D piece
+export const hasHardwareGL = () => {
+  const gl = document.createElement("canvas").getContext("webgl2")
+  if (!gl) return false
+  const info = gl.getExtension("WEBGL_debug_renderer_info")
+  const renderer = String(
+    gl.getParameter(info ? info.UNMASKED_RENDERER_WEBGL : gl.RENDERER)
+  )
+  gl.getExtension("WEBGL_lose_context")?.loseContext()
+  return !/swiftshader|llvmpipe|softpipe|software|basic render/i.test(renderer)
+}

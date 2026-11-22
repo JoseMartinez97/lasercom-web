@@ -1,3 +1,3 @@
-// Raster passes the fibre laser runs across the plaque; shared between the
-// Three.js shader and the live job sheet.
+// Raster passes the fibre laser runs across the plaque in the home hero's
+// Three.js shader.
 export const ENGRAVE_ROWS = 56

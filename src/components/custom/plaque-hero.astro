@@ -3,7 +3,6 @@ import type { Lang } from "@/i18n/ui"
 import { localizePath, useTranslations } from "@/i18n/utils"
 import { buttonVariants } from "@/components/ui/button"
 import LottiePlayer from "@/components/custom/lottie-player.astro"
-import { ENGRAVE_ROWS } from "@/lib/showcase"
 import { cn } from "@/lib/utils"
 import { ArrowRight } from "lucide-react"
 
@@ -33,7 +32,6 @@ const statusLabels = {
 <section
   id="materiales"
   data-plaque-hero
-  data-rows={String(ENGRAVE_ROWS)}
   data-labels={JSON.stringify(plaqueLabels)}
   data-status-labels={JSON.stringify(statusLabels)}
   aria-labelledby="hero-title"
@@ -102,19 +100,6 @@ const statusLabels = {
         />
         <span class="readout text-muted-foreground">{t("home.readout")}</span>
       </div>
-      <p
-        data-engrave-xy
-        data-no-scramble
-        aria-hidden="true"
-        class="readout flex items-center gap-3 text-white/40 tabular-nums"
-      >
-        <span>
-          X <span data-x>000.0</span>
-        </span>
-        <span>
-          Y <span data-y>000.0</span>
-        </span>
-      </p>
     </div>
 
     <div
@@ -158,9 +143,6 @@ const statusLabels = {
           {t("nav.quote")}
           <ArrowRight className="size-4" aria-hidden />
         </a>
-        <span class="readout text-muted-foreground/75">
-          {t("home.plaque.laserValue")} · {t("home.plaque.since")} 2007
-        </span>
       </div>
     </div>
 
@@ -180,12 +162,9 @@ const statusLabels = {
           {t("home.engrave.title")}
         </h2>
 
-        <!-- Ultra-clean 3-metric live telemetry (no crowded table) -->
+        <!-- Material and live status of the engraving -->
         <div class="flex flex-wrap items-center gap-x-6 gap-y-2 border-y border-white/12 py-4 font-mono text-xs tracking-wider uppercase">
           <span class="text-foreground/85">{t("bench.m.acero.name")}</span>
-          <span class="text-muted-foreground tabular-nums">
-            <span data-passes>0</span> / {ENGRAVE_ROWS}
-          </span>
           <span
             data-state="ready"
             class="inline-flex items-center gap-2 text-foreground/90"
@@ -292,8 +271,9 @@ const statusLabels = {
   }
 
   @media (max-width: 1023px) and (prefers-reduced-motion: no-preference) {
+    /* Short on phones: visitors should reach the real work quickly */
     .plaque-hero-runway {
-      min-height: 240svh;
+      min-height: 170svh;
     }
 
     .plaque-hero-stage {
@@ -307,7 +287,12 @@ const statusLabels = {
 
 <script>
   import type { PlaqueLabels, PlaqueStage3D } from "@/lib/monolith-3d"
-  import { afterLoad, loadScrollKit, type ScrollKit } from "@/lib/after-load"
+  import {
+    afterLoad,
+    hasHardwareGL,
+    loadScrollKit,
+    type ScrollKit,
+  } from "@/lib/after-load"
 
   let stopHero: (() => void) | undefined
   let visit = 0
@@ -336,7 +321,6 @@ const statusLabels = {
     const bedEl = root.querySelector<HTMLElement>("[data-cinema-bed]")
     const bgWordLeft = root.querySelector<HTMLElement>("[data-bg-word-left]")
     const bgWordRight = root.querySelector<HTMLElement>("[data-bg-word-right]")
-    const passesEl = root.querySelector<HTMLElement>("[data-passes]")
     const stateRow = root.querySelector<HTMLElement>("[data-state]")
     const statusTextEl = root.querySelector<HTMLElement>("[data-status-text]")
     const progressEl = root.querySelector<HTMLElement>(
@@ -344,12 +328,9 @@ const statusLabels = {
     )
     const ruleEl = root.querySelector<HTMLElement>("[data-hero-rule]")
     const beat2Title = root.querySelector<HTMLElement>("[data-beat-2-title]")
-    const xEl = root.querySelector<HTMLElement>("[data-x]")
-    const yEl = root.querySelector<HTMLElement>("[data-y]")
     const gantryX = root.querySelector<HTMLElement>("[data-gantry-x]")
     const gantryY = root.querySelector<HTMLElement>("[data-gantry-y]")
 
-    const totalRows = Number(root.dataset.rows) || 56
     const labels: PlaqueLabels = JSON.parse(root.dataset.labels || "{}")
     const statusLabels: { ready: string; burn: string; done: string } =
       JSON.parse(root.dataset.statusLabels || "{}")
@@ -414,7 +395,6 @@ const statusLabels = {
       currentProgress = reduced ? 1 : p
 
       if (reduced) {
-        if (passesEl) passesEl.textContent = String(totalRows)
         if (stateRow) stateRow.dataset.state = "done"
         if (statusTextEl) statusTextEl.textContent = statusLabels.done ?? ""
         if (progressEl) progressEl.style.transform = "scaleX(1)"
@@ -460,11 +440,6 @@ const statusLabels = {
       }
 
       const engraveT = clamp01((p - 0.22) / 0.5)
-      const donePasses =
-        engraveT >= 0.995
-          ? totalRows
-          : Math.min(totalRows, Math.floor(engraveT * totalRows))
-      if (passesEl) passesEl.textContent = String(donePasses)
       if (progressEl) {
         progressEl.style.transform = `scaleX(${p.toFixed(4)})`
       }
@@ -492,8 +467,6 @@ const statusLabels = {
         gantryY.style.opacity = "1"
         gantryY.style.transform = `translate3d(0, ${spot.y.toFixed(1)}px, 0)`
       }
-      if (xEl) xEl.textContent = (spot.x / 1.5).toFixed(1).padStart(5, "0")
-      if (yEl) yEl.textContent = (spot.y / 1.5).toFixed(1).padStart(5, "0")
     }
 
     const finePointer = window.matchMedia("(pointer: fine)").matches
@@ -582,7 +555,7 @@ const statusLabels = {
       "(prefers-reduced-motion: reduce)"
     ).matches
     const boot3D = () => {
-      if (cancelled) return
+      if (cancelled || !hasHardwareGL()) return
       import("@/lib/monolith-3d").then(async ({ createPlaqueStage3D }) => {
         if (cancelled) return
         const light = window.innerWidth < 768
