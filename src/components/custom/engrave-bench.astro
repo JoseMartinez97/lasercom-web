@@ -297,10 +297,16 @@ const waText = (value: string, material: string) =>
           <a
             data-bench-service
             href={serviceHref(first.service)}
-            class="inline-flex min-h-11 w-fit items-center gap-1.5 text-sm font-semibold text-foreground underline-offset-4 hover:text-laser-ink hover:underline"
+            class="roll-link group inline-flex min-h-11 w-fit items-center gap-2 pb-1 text-sm font-semibold text-foreground"
           >
-            {t("cta.service")}
-            <ArrowRight className="size-4 text-laser-ink" aria-hidden />
+            <span class="roll-link-mask">
+              <span>{t("cta.service")}</span>
+              <span aria-hidden="true">{t("cta.service")}</span>
+            </span>
+            <ArrowRight
+              className="size-4 text-laser-ink transition-transform group-hover:translate-x-1"
+              aria-hidden
+            />
           </a>
         </p>
         <a
@@ -309,8 +315,8 @@ const waText = (value: string, material: string) =>
           target="_blank"
           rel="noopener"
           class={buttonVariants({
-            size: "lg",
-            className: "bench-cta h-14 w-full rounded-full px-7 text-base",
+            size: "cta",
+            className: "bench-cta w-full",
           })}
           data-text={t("bench.cta")}
           data-logo={t("bench.cta.logo")}
@@ -1957,11 +1963,11 @@ const waText = (value: string, material: string) =>
   }
   .bench-row-kind {
     font-family: var(--font-mono);
-    font-size: 0.6875rem;
+    font-size: 0.75rem;
     font-weight: 400;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: rgb(255 255 255 / 0.4);
+    color: rgb(255 255 255 / 0.55);
   }
   .bench-swatch {
     width: 1.375rem;

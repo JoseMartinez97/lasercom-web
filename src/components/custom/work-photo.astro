@@ -47,12 +47,11 @@ const padClass =
   decoding="async"
   class={cn(
     isCutout
-      ? cn("object-contain transition-transform duration-500", padClass)
+      ? cn(
+          "bg-paper object-contain transition-transform duration-500",
+          padClass
+        )
       : "object-cover",
-    isCutout &&
-      surface === "paper" &&
-      "cutout brightness-[1.04] contrast-[1.04]",
-    isCutout && surface === "steel" && "bg-paper",
     className
   )}
   {...rest}

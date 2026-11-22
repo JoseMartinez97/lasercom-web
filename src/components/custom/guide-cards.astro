@@ -5,7 +5,6 @@ import WorkPhoto from "@/components/custom/work-photo.astro"
 import { guides, guideIds, type GuideId } from "@/lib/guides"
 import { ArrowRight } from "lucide-react"
 
-// The guides as cards: photo, title, lead and reading time
 interface Props {
   lang: Lang
   ids?: readonly GuideId[]
@@ -15,34 +14,38 @@ const { lang, ids = guideIds, headingLevel: Heading = "h3" } = Astro.props
 const t = useTranslations(lang)
 ---
 
-<ul class="grid gap-4 md:grid-cols-3" data-stagger>
+<ul class="grid gap-5 md:grid-cols-3" data-stagger>
   {ids.map((id) => (
     <li>
       <a
         href={lang === "en" ? guides[id].en : guides[id].es}
-        data-cursor={t("guides.read")}
-        class="laser-glow-card group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card transition-colors hover:border-foreground hover:bg-foreground hover:text-background"
+        class="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card transition-colors hover:border-foreground/25"
       >
-        <span class="relative block aspect-[16/10] overflow-hidden border-b border-border/60 bg-paper">
+        <span class="relative block aspect-[16/10] overflow-hidden border-b border-border/60 bg-secondary">
           <WorkPhoto
             lang={lang}
             name={guides[id].photo}
             sizes="(min-width: 768px) 33vw, 100vw"
-            class="absolute inset-0 size-full transition-transform duration-700 ease-out group-hover:scale-105"
+            class="absolute inset-0 size-full transition-transform duration-500 ease-out group-hover:scale-[1.03]"
           />
         </span>
         <span class="flex flex-1 flex-col gap-3 p-6">
-          <span class="readout text-laser-ink group-hover:text-laser">
+          <span class="readout text-muted-foreground">
             {t("guides.label")} · {t(`guide.${id}.minutes`)}{" "}
             {t("guides.minutes")}
           </span>
-          <Heading class="text-2xl leading-tight font-bold tracking-tight">
+          <Heading class="text-lg leading-snug font-semibold tracking-tight text-foreground transition-colors group-hover:text-laser-ink md:text-xl">
             {t(`guide.${id}.h1`)}
           </Heading>
-          <span class="opacity-75">{t(`guide.${id}.lead`)}</span>
-          <span class="mt-auto inline-flex items-center gap-2 pt-4 font-semibold">
+          <span class="text-sm leading-relaxed text-muted-foreground">
+            {t(`guide.${id}.lead`)}
+          </span>
+          <span class="mt-auto inline-flex items-center gap-2 pt-3 text-sm font-medium text-foreground">
             {t("guides.read")}
-            <ArrowRight className="size-4 text-laser-ink transition-transform group-hover:text-laser group-hover:translate-x-1" />
+            <ArrowRight
+              className="size-4 text-laser-ink transition-transform group-hover:translate-x-1"
+              aria-hidden
+            />
           </span>
         </span>
       </a>

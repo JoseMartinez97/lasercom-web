@@ -159,6 +159,10 @@ function animateBeams() {
 // Rows that draw their hairline, decode their telemetry index, and raise their cells
 function animateRows(track: HTMLElement) {
   gsap.utils.toArray<HTMLElement>("[data-row]", track).forEach((row) => {
+    // Rows that only want the hover dimming of [data-rows] (the work index)
+    // have no hairline or cells to animate
+    const line = row.querySelector("[data-row-line]")
+    if (!line) return
     const tl = gsap
       .timeline({
         scrollTrigger: {
@@ -167,7 +171,7 @@ function animateRows(track: HTMLElement) {
           toggleActions: PLAY_ONCE,
         },
       })
-      .from(row.querySelector("[data-row-line]"), {
+      .from(line, {
         scaleX: 0,
         duration: 1.1,
         ease: "power3.inOut",
@@ -264,6 +268,67 @@ function animateTravellingType() {
   })
 }
 
+// Cinematic scroll depth: sections subtly scale & lift into frame like film
+// curtains, and [data-cinema-drift] elements glide at different scroll speeds
+function animateCinemaFlow() {
+  gsap.utils
+    .toArray<HTMLElement>("[data-cinema-section]")
+    .forEach((section) => {
+      gsap.fromTo(
+        section,
+        { y: 48, scale: 0.965 },
+        {
+          y: 0,
+          scale: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: section,
+            start: "top 96%",
+            end: "top 34%",
+            scrub: SCRUB,
+          },
+        }
+      )
+    })
+
+  gsap.utils.toArray<HTMLElement>("[data-cinema-drift]").forEach((el) => {
+    const amount = Number(el.dataset.cinemaDrift) || 32
+    gsap.fromTo(
+      el,
+      { y: amount },
+      {
+        y: -amount,
+        ease: "none",
+        scrollTrigger: {
+          trigger: el.closest("section") ?? el.parentElement ?? el,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: SCRUB,
+        },
+      }
+    )
+  })
+
+  // Dual opposing kinetic typography marquees scrubbed directly by scroll
+  gsap.utils.toArray<HTMLElement>("[data-marquee-track]").forEach((track) => {
+    const dir = Number(track.dataset.marqueeTrack) || -1
+    gsap.fromTo(
+      track,
+      { xPercent: dir > 0 ? -14 : 4 },
+      {
+        xPercent: dir > 0 ? 4 : -14,
+        ease: "none",
+        scrollTrigger: {
+          trigger: track.parentElement ?? track,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 1.1,
+        },
+      }
+    )
+  })
+}
+
 // Photos that open like a cut: a clip wipes up while the picture settles
 function animateWipes() {
   gsap.utils.toArray<HTMLElement>("[data-wipe]").forEach((frame) => {
@@ -325,12 +390,9 @@ function initPointer(lenis?: Lenis) {
     const ticks = Array.from(
       dot.querySelectorAll<HTMLElement>("[data-cursor-vernier] i")
     )
-    const xTo = gsap.quickTo(dot, "x", { duration: 0.3, ease: "power3" })
-    const yTo = gsap.quickTo(dot, "y", { duration: 0.3, ease: "power3" })
     on(document, "pointermove", (e) => {
       dot.dataset.on = ""
-      xTo(e.clientX)
-      yTo(e.clientY)
+      dot.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`
     })
     on(document, "pointerover", (e) => {
       const target = (e.target as Element).closest<HTMLElement>("[data-cursor]")
@@ -457,6 +519,10 @@ function initPointer(lenis?: Lenis) {
 //   --scroll-progress  0..1 on <html>, the header's laser bar
 // Everything is visible without JS; with reduced motion nothing animates.
 export function initAnimations() {
+  // The failsafe in layouts/main.astro already showed everything (the module
+  // came late, on a slow connection): blocks that are on screen stay put
+  // instead of dropping and rising again
+  const shownByFailsafe = !document.documentElement.classList.contains("js")
   // Tells the failsafe in layouts/main.astro that the reveals are running
   document.documentElement.dataset.reveal = "on"
   const mm = gsap.matchMedia()
@@ -486,9 +552,14 @@ export function initAnimations() {
     }
 
     defer(() => {
-      const blocks = gsap.utils.toArray<HTMLElement>(
-        ".reveal > :not([data-stagger]), [data-stagger] > *"
-      )
+      const blocks = gsap.utils
+        .toArray<HTMLElement>(
+          ".reveal > :not([data-stagger]), [data-stagger] > *"
+        )
+        .filter(
+          (el) =>
+            !shownByFailsafe || el.getBoundingClientRect().top > innerHeight
+        )
       const loadedAt = performance.now()
       gsap.set(blocks, { y: 40, transition: "none" })
       ScrollTrigger.batch(blocks, {
@@ -510,6 +581,7 @@ export function initAnimations() {
       animateTravellingType()
       animateCuts()
       animateWipes()
+      animateCinemaFlow()
     }, 220)
 
     defer(() => {

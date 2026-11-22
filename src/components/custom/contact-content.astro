@@ -119,10 +119,13 @@ const direct = [
         href={business.mapsUrl}
         target="_blank"
         rel="noopener"
-        class="inline-flex min-h-11 w-fit items-center gap-2 text-lg font-semibold text-laser-ink underline-offset-4 hover:underline"
+        class="roll-link group inline-flex min-h-11 w-fit items-center gap-2 pb-1 text-sm font-semibold text-foreground"
       >
-        {t("cta.directions")}
-        <ArrowUpRight className="size-5" />
+        <span class="roll-link-mask">
+          <span>{t("cta.directions")}</span>
+          <span aria-hidden="true">{t("cta.directions")}</span>
+        </span>
+        <ArrowUpRight className="size-4 text-laser-ink" aria-hidden />
       </a>
     </div>
     <div class="flex flex-col gap-3 border-t border-border pt-8">

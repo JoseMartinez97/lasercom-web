@@ -85,8 +85,7 @@ const relatedGuideIds: GuideId[] = [
       <a
         href={`${localizePath(lang, "/contacto/")}?servicio=${id}#presupuesto`}
         class={buttonVariants({
-          size: "lg",
-          className: "h-14 rounded-full px-7 text-base",
+          size: "cta",
         })}
       >
         {t("cta.quote")}
@@ -98,8 +97,8 @@ const relatedGuideIds: GuideId[] = [
         rel="noopener"
         class={buttonVariants({
           variant: "outline",
-          size: "lg",
-          className: "h-14 rounded-full bg-transparent px-7 text-base",
+          size: "cta",
+          className: "bg-transparent",
         })}
       >
         {t("cta.whatsapp")}

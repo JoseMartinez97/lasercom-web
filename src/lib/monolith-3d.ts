@@ -1,21 +1,14 @@
-// The home's 3D piece (everywhere WebGL runs; reduced motion and browsers
-// without WebGL get the CSS plaque in home-content.astro). After Dialed
-// Coffee's can: one object that sits in front of the hero headline and, as
-// the visitor scrolls, opens into the engraving scene, where the beam
-// engraves it line by line.
-// The engraving is carved like the bed's (engrave-3d.ts): one height map of
-// the artwork gives a normal map (walls that catch the light), the occlusion
-// at the bottom of each groove, and a mask that swaps the steel's colour,
-// roughness and metalness for the fibre laser's dark annealing. `engrave`
-// (0..1) rasters it in, row by row, with the fresh cut glowing behind the
-// beam.
-// The page decides where the piece goes (setPose, in CSS pixels of the
-// canvas), so the same choreography drives this and the CSS plaque; this
-// module only renders it, adds the idle float and follows the pointer.
+// The home's 3D brushed stainless steel Lasercom plaque.
+// Upgraded for Three.js r187 best practices:
+// - THREE.Timer (connected to document) + renderer.setAnimationLoop()
+// - Pixel ratio capped at 2, ACESFilmicToneMapping
+// - Soft studio PMREM softbox environment (with full temp-resource disposal)
+//   plus balanced Spot / Directional / Hemisphere lighting
+// - Frame-rate-independent THREE.MathUtils.damp() for pointer & pose smoothing
+// - Full geometry, material, texture, environment & context cleanup on destroy()
 import * as THREE from "three"
 import { ENGRAVE_ROWS } from "@/lib/showcase"
 
-// Stainless steel, brushed, and the fibre laser's mark on it
 const STEEL = {
   faceTop: "#d4d9e0",
   faceBot: "#9ea5b0",
@@ -24,29 +17,29 @@ const STEEL = {
   clearcoat: 0.3,
   clearcoatRoughness: 0.18,
   anisotropy: 0.85,
-  // Fibre-laser annealing: a dark, satin oxide
+  // Fibre-laser annealing: dark satin oxide
   mark: "#25272c",
   markRough: 0.55,
   markMetal: 0.55,
-  // How deep the groove reads, and how much the bottom of a narrow groove
-  // is shadowed
   depth: 1,
   occlusion: 0.55,
-  // The machined perimeter and the screws
   edgeColor: 0x8d949e,
   edgeRoughness: 0.28,
   edgeMetalness: 1.0,
   boltColor: 0xe2e6ec,
 }
 
-// Studio softbox environment for the brushed metal's reflections
-function createStudioEnvironment(renderer: THREE.WebGLRenderer): THREE.Texture {
+// Studio softbox environment baked into a PMREM cubemap for brushed metal
+function createStudioEnvironment(
+  renderer: THREE.WebGLRenderer
+): THREE.WebGLRenderTarget {
   const env = new THREE.Scene()
-  const room = new THREE.Mesh(
-    new THREE.BoxGeometry(26, 16, 26),
-    new THREE.MeshBasicMaterial({ color: 0x8f8a83, side: THREE.BackSide })
-  )
-  env.add(room)
+  const roomGeo = new THREE.BoxGeometry(26, 16, 26)
+  const roomMat = new THREE.MeshBasicMaterial({
+    color: 0x8f8a83,
+    side: THREE.BackSide,
+  })
+  env.add(new THREE.Mesh(roomGeo, roomMat))
 
   const c = document.createElement("canvas")
   c.width = c.height = 64
@@ -61,6 +54,9 @@ function createStudioEnvironment(renderer: THREE.WebGLRenderer): THREE.Texture {
   }
   const falloff = new THREE.CanvasTexture(c)
 
+  const tempGeos: THREE.BufferGeometry[] = [roomGeo]
+  const tempMats: THREE.Material[] = [roomMat]
+
   const addPanel = (
     w: number,
     h: number,
@@ -69,12 +65,15 @@ function createStudioEnvironment(renderer: THREE.WebGLRenderer): THREE.Texture {
     pos: [number, number, number],
     look: [number, number, number]
   ) => {
+    const geo = new THREE.PlaneGeometry(w, h)
     const mat = new THREE.MeshBasicMaterial({
       color: new THREE.Color(tint).multiplyScalar(power),
       map: falloff,
       side: THREE.DoubleSide,
     })
-    const mesh = new THREE.Mesh(new THREE.PlaneGeometry(w, h), mat)
+    tempGeos.push(geo)
+    tempMats.push(mat)
+    const mesh = new THREE.Mesh(geo, mat)
     mesh.position.set(...pos)
     mesh.lookAt(...look)
     env.add(mesh)
@@ -90,10 +89,12 @@ function createStudioEnvironment(renderer: THREE.WebGLRenderer): THREE.Texture {
   const rt = pmrem.fromScene(env, 0.03)
   pmrem.dispose()
   falloff.dispose()
-  return rt.texture
+  tempGeos.forEach((g) => g.dispose())
+  tempMats.forEach((m) => m.dispose())
+  return rt
 }
 
-// The Lasercom mark (vertical bar and the two wings) centred at (cx, cy)
+// Lasercom emblem (vertical bar + two wings) centred at (cx, cy)
 function drawLasercomEmblem(
   ctx: CanvasRenderingContext2D,
   cx: number,
@@ -111,7 +112,6 @@ function drawLasercomEmblem(
   ctx.lineTo(323 * s, 338 * s)
   ctx.closePath()
   ctx.fill()
-  // The lower wing is a shallower pass, so it reads as a second depth
   ctx.globalAlpha = 0.7
   ctx.beginPath()
   ctx.moveTo(145 * s, 338 * s)
@@ -123,8 +123,6 @@ function drawLasercomEmblem(
   ctx.restore()
 }
 
-// The words carved into the plaque. Only facts from PRODUCT.md: the town,
-// the year, the two lasers and the 4 mm metal cut
 export type PlaqueLabels = {
   subtitle: string
   laser: string
@@ -133,13 +131,9 @@ export type PlaqueLabels = {
   since: string
 }
 
-// The face is laid out in 1024×1280 units
 const FW = 1024
 const FH = 1280
-// The colour maps are baked at 2× so the fine print and the dial's ticks
-// stay crisp on retina screens; the relief maps at 1.5×, enough for clean
-// groove walls without a long bake
-// (phones bake lighter maps, 1.25× and 1×, to spare their memory)
+
 type Res = { hi: number; rs: number; rw: number; rh: number }
 const resOf = (light: boolean): Res => {
   const hi = light ? 1.25 : 2
@@ -155,15 +149,14 @@ const canvasOf = (w: number, h: number) => {
   return { c, ctx }
 }
 
-// The file the laser burns: white where it burns, by its alpha (a deep pass
-// for the mark and the lettering, a shallower one for rules and fine print)
 function drawArtwork(ctx: CanvasRenderingContext2D, labels: PlaqueLabels) {
   const W = FW
   const H = FH
   const DEEP = "rgba(255,255,255,1)"
   const FINE = "rgba(255,255,255,0.6)"
   ctx.save()
-  // Outer frame
+
+  // Outer engraved border
   ctx.strokeStyle = FINE
   ctx.lineWidth = 3.5
   ctx.strokeRect(58, 58, W - 116, H - 116)
@@ -182,7 +175,7 @@ function drawArtwork(ctx: CanvasRenderingContext2D, labels: PlaqueLabels) {
   ctx.lineTo(W - 128, 148)
   ctx.stroke()
 
-  // The dial around the mark
+  // Calibration dial around the emblem
   const cx = W * 0.5
   const cy = 505
   const outerR = 255
@@ -230,7 +223,7 @@ function drawArtwork(ctx: CanvasRenderingContext2D, labels: PlaqueLabels) {
   ctx.letterSpacing = "4px"
   ctx.fillText(labels.subtitle.toLocaleUpperCase(), cx, 982)
 
-  // The spec box: laser, metal cut, year
+  // Bottom spec table
   const boxY = 1045
   const boxH = 120
   ctx.strokeStyle = FINE
@@ -258,9 +251,6 @@ function drawArtwork(ctx: CanvasRenderingContext2D, labels: PlaqueLabels) {
   ctx.restore()
 }
 
-// The bakes run in slices, handing the main thread back between them, so
-// the page never stutters while the plaque is prepared (about 0.35 s of
-// work in all on a recent laptop, several times that on a modest one)
 const pause = () => {
   const s = (globalThis as { scheduler?: { yield?: () => Promise<void> } })
     .scheduler
@@ -269,18 +259,12 @@ const pause = () => {
     : new Promise<void>((resolve) => setTimeout(resolve, 0))
 }
 
-// The relief: the file at 2× for the colour map, and at 1.5× its normal
-// map, the occlusion at the bottom of the grooves and a mask (g: where it is
-// burnt)
 async function bakeRelief(labels: PlaqueLabels, res: Res) {
   const { hi: HI, rs: RS, rw: RW, rh: RH } = res
   const ink = canvasOf(FW * HI, FH * HI)
   ink.ctx.scale(HI, HI)
   drawArtwork(ink.ctx, labels)
 
-  // Heights: the groove's walls are a little soft, and a wide blur tells
-  // how much of the neighbourhood is burnt (narrow grooves are darker at
-  // the bottom than wide fills)
   const at = (blur: number) => {
     const { ctx } = canvasOf(RW, RH)
     ctx.filter = `blur(${blur}px)`
@@ -304,7 +288,7 @@ async function bakeRelief(labels: PlaqueLabels, res: Res) {
   const md = mImg.data
   const h = new Float32Array(RW * RH)
   for (let i = 0; i < RW * RH; i++) h[i] = narrow[i * 4 + 3] / 255
-  // Steepness of the walls (in face units the groove is ~3 px deep)
+
   const K = 3.2 * RS
   for (let y = 0; y < RH; y++) {
     if (y % 240 === 239) await pause()
@@ -315,7 +299,6 @@ async function bakeRelief(labels: PlaqueLabels, res: Res) {
       const i = row + x
       const l = x > 0 ? i - 1 : i
       const r = x < RW - 1 ? i + 1 : i
-      // The surface is -h deep: its normal tilts toward the groove's floor
       const nx = K * (h[r] - h[l])
       const ny = K * (h[up + x] - h[dn + x])
       const inv = 1 / Math.sqrt(nx * nx + ny * ny + 1)
@@ -344,7 +327,6 @@ async function bakeRelief(labels: PlaqueLabels, res: Res) {
   return { ink: ink.c, occlusion: o.c, normal, mask }
 }
 
-// Paints `src` in one colour, keeping its alpha, optionally blurred
 const tinted = (src: HTMLCanvasElement, color: string, blur = 0) => {
   const { c, ctx } = canvasOf(src.width, src.height)
   if (blur) ctx.filter = `blur(${blur}px)`
@@ -356,8 +338,6 @@ const tinted = (src: HTMLCanvasElement, color: string, blur = 0) => {
   return c
 }
 
-// The colour map: the brushed surface, the mark and the shadow at the
-// bottom of the grooves; and the same surface blank, before the beam
 async function bakeAlbedo(
   ink: HTMLCanvasElement,
   occlusion: HTMLCanvasElement,
@@ -369,7 +349,6 @@ async function bakeAlbedo(
   const { c: canvas, ctx } = canvasOf(W * HI, H * HI)
   ctx.scale(HI, HI)
 
-  // 1. The bare surface
   const grad = ctx.createLinearGradient(0, 0, W * 0.4, H)
   grad.addColorStop(0, p.faceTop)
   grad.addColorStop(0.55, p.faceTop)
@@ -377,13 +356,10 @@ async function bakeAlbedo(
   ctx.fillStyle = grad
   ctx.fillRect(0, 0, W, H)
 
-  // The rest is drawn in the map's own pixels
   ctx.setTransform(1, 0, 0, 1, 0, 0)
   const cw = canvas.width
   const ch = canvas.height
 
-  // 2. Brushed: one hairline per pixel of the map, each row a slightly
-  // different tone, crossed by longer streaks where the abrasive bit
   for (let y = 0; y < ch; y++) {
     if (y % 640 === 639) await pause()
     const a = 0.015 + Math.random() * 0.035
@@ -399,17 +375,14 @@ async function bakeAlbedo(
     }
   }
 
-  // The blank piece, before the beam: the same surface, grain and all
   const blank = canvasOf(cw, ch)
   blank.ctx.drawImage(canvas, 0, 0)
   const bare = new THREE.CanvasTexture(blank.c)
   bare.colorSpace = THREE.SRGBColorSpace
 
-  // 3. The mark
   await pause()
   ctx.drawImage(tinted(ink, p.mark, 0.5 * HI), 0, 0)
 
-  // 4. The bottom of narrow grooves sits in shadow
   await pause()
   ctx.globalCompositeOperation = "multiply"
   ctx.globalAlpha = p.occlusion
@@ -422,51 +395,46 @@ async function bakeAlbedo(
   return { albedo, bare }
 }
 
-// Where the page wants the piece, in CSS pixels of the canvas
 export type StagePose = {
-  // Centre of the plaque
   cx: number
   cy: number
-  // On-screen height of the plaque's face
   height: number
-  // Radians: lean in the screen plane, and turn about the vertical axis
   rotZ: number
   rotY: number
-  // 0..1: how much of the face the beam has engraved (rows, top down)
+  rotX?: number
+  /** Optional camera Z distance for cinematic dolly push-in/pull-out (default 7.5). */
+  camZ?: number
   engrave: number
 }
 
-export type DialedStage3D = {
+export type PlaqueStage3D = {
   setPose: (pose: StagePose) => void
   setPointer: (nx: number, ny: number) => void
   resize: () => void
   destroy: () => void
-  // Where the beam's spot is on screen (CSS px in the canvas), or null
-  // while it is off
   beam: () => { x: number; y: number } | null
 }
 
-// Rows the beam rasters over the face (shared with the page's job sheet)
 const ROWS = ENGRAVE_ROWS
-
-// The plaque's face, in world units
 const W = 1.88
 const H = 2.35
 const R = 0.16
 const D = 0.16
 const B = 0.032
 
-// Resolves once the maps are baked (in slices) and the scene is ready.
-// `light`: phones, with lighter maps and a lower pixel ratio
-export async function createDialedStage3D(
+export async function createPlaqueStage3D(
   canvas: HTMLCanvasElement,
   labels: PlaqueLabels,
-  { light = false }: { light?: boolean } = {}
-): Promise<DialedStage3D | null> {
+  {
+    light = false,
+    reducedMotion = false,
+  }: { light?: boolean; reducedMotion?: boolean } = {}
+): Promise<PlaqueStage3D | null> {
   const res = resOf(light)
   const relief = await bakeRelief(labels, res)
   const maps = await bakeAlbedo(relief.ink, relief.occlusion, res)
   await pause()
+
   let renderer: THREE.WebGLRenderer
   try {
     renderer = new THREE.WebGLRenderer({
@@ -481,36 +449,41 @@ export async function createDialedStage3D(
     )
     return null
   }
-  renderer.outputColorSpace = THREE.SRGBColorSpace
+
   renderer.toneMapping = THREE.ACESFilmicToneMapping
   renderer.toneMappingExposure = 1.15
   renderer.setClearColor(0x000000, 0)
 
   const scene = new THREE.Scene()
-  const envTex = createStudioEnvironment(renderer)
-  scene.environment = envTex
+  const envTarget = createStudioEnvironment(renderer)
+  scene.environment = envTarget.texture
+  scene.environmentIntensity = 1.05
 
   const camera = new THREE.PerspectiveCamera(27, 1, 0.5, 40)
   const CAMERA_Z = 7.5
   camera.position.set(0, 0, CAMERA_Z)
-  // Half the visible height at the plaque's depth
-  const halfHeight = CAMERA_Z * Math.tan(THREE.MathUtils.degToRad(27 / 2))
 
+  // Soft studio 3-point + hemisphere rig
   const keyLight = new THREE.SpotLight(0xfff7ed, 115, 28, 0.58, 0.85, 1.7)
   keyLight.position.set(-4.0, 5.5, 6.2)
   scene.add(keyLight)
+
   const fillLight = new THREE.DirectionalLight(0xfff3e6, 0.9)
   fillLight.position.set(3.5, 1.5, 5)
   scene.add(fillLight)
-  const rimLight = new THREE.DirectionalLight(0xffffff, 1.1)
+
+  const rimLight = new THREE.DirectionalLight(0xdce8ff, 1.15)
   rimLight.position.set(5.2, 2.2, -3.5)
   scene.add(rimLight)
 
-  const aniso = renderer.capabilities.getMaxAnisotropy()
-  for (const tex of [relief.normal, relief.mask, maps.albedo, maps.bare])
-    tex.anisotropy = aniso
+  const hemiLight = new THREE.HemisphereLight(0xf3f5f8, 0x16181f, 0.28)
+  scene.add(hemiLight)
 
-  // The plaque
+  const aniso = Math.min(8, renderer.capabilities.getMaxAnisotropy())
+  for (const tex of [relief.normal, relief.mask, maps.albedo, maps.bare]) {
+    tex.anisotropy = aniso
+  }
+
   const plaqueGroup = new THREE.Group()
   scene.add(plaqueGroup)
 
@@ -559,9 +532,6 @@ export async function createDialedStage3D(
   })
   plaqueGeo.center()
 
-  // The engraved front face. The back gets the bare steel: the caps share
-  // UVs, so the artwork there would read mirrored. The mask swaps the
-  // surface's roughness and metalness for the mark's
   const markUniforms = {
     uMarkMask: { value: relief.mask as THREE.Texture },
     uMarkRough: { value: STEEL.markRough },
@@ -595,8 +565,6 @@ uniform float uMarkRough;
 uniform float uMarkMetal;
 uniform float uEngrave;
 uniform float uRows;
-// Where the beam passes over uv, in rows: it rasters the face from the top,
-// alternating direction on each row like the machine
 float engraveAt(vec2 uv) {
   float ty = clamp(1.0 - uv.y, 0.0, 0.9999);
   float row = floor(ty * uRows);
@@ -630,7 +598,6 @@ metalnessFactor = mix(metalnessFactor, uMarkMetal, markK);`
       .replace(
         "#include <emissivemap_fragment>",
         `#include <emissivemap_fragment>
-// The fresh cut glows behind the beam and cools over a few rows
 if (uEngrave > 0.0001 && uEngrave < 0.9999) {
   float behind = uEngrave * uRows - engraveAt(vMapUv);
   float hot = texture2D(uMarkMask, vMapUv).g * step(0.0, behind) * exp(-behind * 0.55);
@@ -638,6 +605,7 @@ if (uEngrave > 0.0001 && uEngrave < 0.9999) {
 }`
       )
   }
+
   const backMat = new THREE.MeshPhysicalMaterial({
     ...surface,
     color: STEEL.faceBot,
@@ -649,11 +617,8 @@ if (uEngrave > 0.0001 && uEngrave < 0.9999) {
     metalness: STEEL.edgeMetalness,
   })
 
-  // ExtrudeGeometry: group 0 = both caps, group 1 = bevels and the cut edge.
-  // Split the caps so the back one gets its own material
   const capFaces = plaqueGeo.groups[0]
   const normals = plaqueGeo.getAttribute("normal")
-  // ExtrudeGeometry comes unindexed: index it 1:1 to regroup the triangles
   if (!plaqueGeo.getIndex()) {
     plaqueGeo.setIndex([...Array(normals.count).keys()])
   }
@@ -675,10 +640,11 @@ if (uEngrave > 0.0001 && uEngrave < 0.9999) {
     plaqueGeo.addGroup(front.length, back.length, 1)
     plaqueGeo.addGroup(front.length + back.length, rest.length, 2)
   }
+
   const plaqueMesh = new THREE.Mesh(plaqueGeo, [faceMat, backMat, edgeMat])
   plaqueGroup.add(plaqueMesh)
 
-  // Domed screws in the corners
+  // Corner hex bolts + washers
   const boltsGroup = new THREE.Group()
   plaqueGroup.add(boltsGroup)
   const boltMat = new THREE.MeshPhysicalMaterial({
@@ -706,21 +672,59 @@ if (uEngrave > 0.0001 && uEngrave < 0.9999) {
     }
   }
 
-  const laserDotGeo = new THREE.SphereGeometry(0.02, 16, 16)
-  const laserDotMat = new THREE.MeshBasicMaterial({ color: 0xfff0cc })
+  const laserDotGeo = new THREE.SphereGeometry(0.024, 16, 16)
+  const laserDotMat = new THREE.MeshBasicMaterial({ color: 0xfff3d4 })
   const laserDot = new THREE.Mesh(laserDotGeo, laserDotMat)
-  const laserGlow = new THREE.PointLight(0xff7a3a, 0, 0.9, 2)
+  const laserGlow = new THREE.PointLight(0xff7a3a, 0, 1.35, 2)
   const beamVec = new THREE.Vector3()
   let beamAt: { x: number; y: number } | null = null
   plaqueGroup.add(laserDot, laserGlow)
+
+  // Real 3D incandescent sparks spraying from the moving laser focal point
+  const sparkCanvas = document.createElement("canvas")
+  sparkCanvas.width = sparkCanvas.height = 64
+  const sCtx = sparkCanvas.getContext("2d")
+  if (sCtx) {
+    const sg = sCtx.createRadialGradient(32, 32, 0, 32, 32, 32)
+    sg.addColorStop(0, "rgba(255,255,255,1)")
+    sg.addColorStop(0.25, "rgba(255,220,150,0.95)")
+    sg.addColorStop(0.6, "rgba(255,104,32,0.5)")
+    sg.addColorStop(1, "rgba(255,60,10,0)")
+    sCtx.fillStyle = sg
+    sCtx.fillRect(0, 0, 64, 64)
+  }
+  const sparkTex = new THREE.CanvasTexture(sparkCanvas)
+  sparkTex.colorSpace = THREE.SRGBColorSpace
+
+  const SPARK_COUNT = light ? 14 : 26
+  const sparkPos = new Float32Array(SPARK_COUNT * 3)
+  const sparkVel = new Float32Array(SPARK_COUNT * 3)
+  const sparkLife = new Float32Array(SPARK_COUNT)
+  for (let i = 0; i < SPARK_COUNT; i++) {
+    sparkLife[i] = Math.random() * 0.6
+    sparkPos[i * 3 + 1] = -99
+  }
+  const sparkGeo = new THREE.BufferGeometry()
+  sparkGeo.setAttribute("position", new THREE.BufferAttribute(sparkPos, 3))
+  const sparkMat = new THREE.PointsMaterial({
+    map: sparkTex,
+    color: 0xffb366,
+    size: 0.055,
+    transparent: true,
+    opacity: 0.95,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false,
+  })
+  const sparks = new THREE.Points(sparkGeo, sparkMat)
+  plaqueGroup.add(sparks)
 
   let pose: StagePose = {
     cx: 0,
     cy: 0,
     height: 0,
     rotZ: 0,
-    rotY: 0,
-    engrave: 1,
+    rotY: -0.18,
+    engrave: reducedMotion ? 1 : 0.05,
   }
   let pointerX = 0
   let pointerY = 0
@@ -728,55 +732,64 @@ if (uEngrave > 0.0001 && uEngrave < 0.9999) {
   let smoothPY = 0
   let width = 1
   let height = 1
+  let visible = true
+  let disposed = false
 
   const resize = () => {
+    if (disposed) return
     width = canvas.clientWidth || 1
     height = canvas.clientHeight || 1
     renderer.setPixelRatio(
       Math.min(window.devicePixelRatio || 1, light ? 1.75 : 2)
     )
     renderer.setSize(width, height, false)
-    camera.aspect = width / height
+    camera.aspect = width / Math.max(height, 1)
     camera.updateProjectionMatrix()
   }
 
-  let raf = 0
-  let visible = true
-  let last = 0
-  const animate = (now: number) => {
-    if (!visible) {
-      raf = 0
-      last = 0
-      return
-    }
-    const t = now * 0.001
-    // Frame-rate independent easing: the same feel at 60 and 120 Hz
-    const dt = last ? Math.min(0.1, (now - last) / 1000) : 0.016
-    last = now
-    const follow = (rate: number) => 1 - Math.exp(-rate * dt)
-    smoothPX += (pointerX - smoothPX) * follow(3.2)
-    smoothPY += (pointerY - smoothPY) * follow(3.2)
+  // THREE.Timer (r186+ replacement for deprecated Clock)
+  const timer = new THREE.Timer()
+  timer.connect(document)
 
-    // CSS pixels to world units at the plaque's depth
-    const unit = (2 * halfHeight) / height
+  const animate = () => {
+    if (disposed) return
+    timer.update()
+    if (!visible) return
+
+    const dt = Math.min(timer.getDelta(), 0.1)
+    const t = reducedMotion ? 0 : timer.getElapsed()
+
+    smoothPX = THREE.MathUtils.damp(smoothPX, pointerX, 3.6, dt)
+    smoothPY = THREE.MathUtils.damp(smoothPY, pointerY, 3.6, dt)
+
+    // Smooth camera Z dolly
+    const targetCamZ = pose.camZ ?? CAMERA_Z
+    camera.position.z = THREE.MathUtils.damp(
+      camera.position.z,
+      targetCamZ,
+      5.2,
+      dt
+    )
+    const liveHalfH =
+      camera.position.z * Math.tan(THREE.MathUtils.degToRad(27 / 2))
+
+    const unit = (2 * liveHalfH) / Math.max(height, 1)
     const scale = (pose.height * unit) / H
     const px = (pose.cx - width / 2) * unit
     const py = (height / 2 - pose.cy) * unit
 
     plaqueGroup.position.set(
-      px + smoothPX * 0.08,
-      py + Math.sin(t * 0.85) * 0.03 - smoothPY * 0.06,
+      px + smoothPX * 0.09,
+      py + Math.sin(t * 0.85) * 0.028 - smoothPY * 0.055,
       0
     )
-    plaqueGroup.scale.setScalar(scale)
+    plaqueGroup.scale.setScalar(Math.max(0.001, scale))
     plaqueGroup.rotation.set(
-      0.06 - smoothPY * 0.14 + Math.cos(t * 0.45) * 0.02,
-      pose.rotY + smoothPX * 0.22 + Math.sin(t * 0.5) * 0.035,
-      pose.rotZ + smoothPX * 0.03
+      (pose.rotX ?? 0.05) - smoothPY * 0.13 + Math.cos(t * 0.45) * 0.018,
+      pose.rotY + smoothPX * 0.22 + Math.sin(t * 0.5) * 0.032,
+      pose.rotZ + smoothPX * 0.025
     )
 
-    // The beam's spot rides the raster while it engraves, lighting the
-    // metal around it
     markUniforms.uEngrave.value = pose.engrave
     const burning = pose.engrave > 0.0005 && pose.engrave < 0.9995
     if (burning) {
@@ -787,32 +800,67 @@ if (uEngrave > 0.0001 && uEngrave < 0.9999) {
       laserDot.position.set(
         (u - 0.5) * W,
         (0.5 - (row + 0.5) / ROWS) * H,
-        D / 2 + B + 0.012
+        D / 2 + B + 0.014
       )
       laserGlow.position.copy(laserDot.position)
-      laserGlow.position.z += 0.08
+      laserGlow.position.z += 0.09
     }
-    // The beam's spot hides when the face turns away or the job is done
+
     const facing = Math.cos(plaqueGroup.rotation.y) > 0.2
-    laserDot.visible = burning && facing
-    laserGlow.intensity = burning && facing ? 1.0 : 0
-    if (burning && facing) {
+    const activeBeam = burning && facing
+    const flicker = reducedMotion
+      ? 1
+      : 0.82 + Math.sin(t * 58) * 0.18 + Math.cos(t * 113) * 0.1
+    laserDot.visible = activeBeam
+    laserGlow.intensity = activeBeam ? 1.65 * flicker : 0
+
+    // Animate 3D sparks bursting off the focal point
+    sparks.visible = activeBeam && !reducedMotion
+    if (sparks.visible) {
+      const attr = sparkGeo.attributes.position as THREE.BufferAttribute
+      for (let i = 0; i < SPARK_COUNT; i++) {
+        sparkLife[i] -= dt * (2.6 + (i % 4) * 0.55)
+        if (sparkLife[i] <= 0) {
+          sparkLife[i] = 0.2 + Math.random() * 0.35
+          const ang = Math.random() * Math.PI * 2
+          const spd = 0.35 + Math.random() * 0.95
+          sparkPos[i * 3] = laserDot.position.x
+          sparkPos[i * 3 + 1] = laserDot.position.y
+          sparkPos[i * 3 + 2] = laserDot.position.z + 0.01
+          sparkVel[i * 3] = Math.cos(ang) * spd
+          sparkVel[i * 3 + 1] = Math.sin(ang) * spd * 0.7 + 0.25
+          sparkVel[i * 3 + 2] = 0.45 + Math.random() * 0.85
+        } else {
+          sparkVel[i * 3 + 1] -= 2.9 * dt
+          sparkPos[i * 3] += sparkVel[i * 3] * dt
+          sparkPos[i * 3 + 1] += sparkVel[i * 3 + 1] * dt
+          sparkPos[i * 3 + 2] += sparkVel[i * 3 + 2] * dt
+        }
+      }
+      attr.needsUpdate = true
+    }
+
+    if (activeBeam) {
       plaqueGroup.updateMatrixWorld()
       const v = laserDot.getWorldPosition(beamVec).project(camera)
       beamAt = { x: ((v.x + 1) / 2) * width, y: ((1 - v.y) / 2) * height }
-    } else beamAt = null
+    } else {
+      beamAt = null
+    }
 
     renderer.render(scene, camera)
-    raf = requestAnimationFrame(animate)
   }
 
-  const io = new IntersectionObserver(([entry]) => {
-    visible = Boolean(entry?.isIntersecting)
-    if (visible && !raf) raf = requestAnimationFrame(animate)
-  })
+  const io = new IntersectionObserver(
+    ([entry]) => {
+      visible = Boolean(entry?.isIntersecting)
+    },
+    { rootMargin: "120px 0px" }
+  )
   io.observe(canvas)
+
   resize()
-  raf = requestAnimationFrame(animate)
+  renderer.setAnimationLoop(animate)
 
   return {
     beam: () => beamAt,
@@ -825,20 +873,26 @@ if (uEngrave > 0.0001 && uEngrave < 0.9999) {
     },
     resize,
     destroy: () => {
-      cancelAnimationFrame(raf)
+      if (disposed) return
+      disposed = true
+      renderer.setAnimationLoop(null)
+      timer.dispose()
       io.disconnect()
       plaqueGeo.dispose()
       boltHeadGeo.dispose()
       boltWasherGeo.dispose()
       laserDotGeo.dispose()
-      ;[faceMat, backMat, edgeMat, boltMat, laserDotMat].forEach((m) =>
-        m.dispose()
+      sparkGeo.dispose()
+      ;[faceMat, backMat, edgeMat, boltMat, laserDotMat, sparkMat].forEach(
+        (m) => m.dispose()
       )
-      ;[relief.normal, relief.mask, maps.albedo, maps.bare].forEach((tex) =>
-        tex.dispose()
+      ;[relief.normal, relief.mask, maps.albedo, maps.bare, sparkTex].forEach(
+        (tex) => tex.dispose()
       )
-      envTex.dispose()
+      scene.environment = null
+      envTarget.dispose()
       renderer.dispose()
+      renderer.forceContextLoss()
     },
   }
 }

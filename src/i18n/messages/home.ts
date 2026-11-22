@@ -1,5 +1,5 @@
 // Home page movements added with the continuous redesign: the laser bed
-// (engrave-bench.astro) and the pieces that open like a cut (work-curtains.astro)
+// (engrave-bench.astro) and the real work index (work-showcase.astro)
 export const home = {
   en: {
     "home.plaque.laser": "Laser",
@@ -11,7 +11,6 @@ export const home = {
     "bench.page.description":
       "Type a name or upload your logo, pick the material and watch the laser engrave it in 3D. Then ask us for a quote on WhatsApp.",
     "bench.page.crumb": "Try your engraving",
-    "bench.teaser.title": "Type a name and watch it engraved.",
     "bench.teaser.cta": "Try the laser bed",
     "bench.title": "Type a name. Pick the material.",
     "bench.lead":
@@ -45,15 +44,7 @@ export const home = {
     "bench.status.ready": "Ready",
     "bench.status.burn": "Engraving",
     "bench.status.done": "Done",
-    "home.engrave.readout": "How we engrave",
     "home.engrave.title": "One piece, one beam.",
-    "home.engrave.sheet.piece": "Piece",
-    "home.engrave.sheet.pieceValue": "Lasercom plaque",
-    "home.engrave.sheet.material": "Material",
-    "home.engrave.sheet.laser": "Laser",
-    "home.engrave.sheet.laserValue": "Fibre",
-    "home.engrave.sheet.passes": "Passes",
-    "home.engrave.sheet.status": "Status",
     "bench.plate": "“{text}” engraved on {material}",
     "bench.m.acero.name": "Stainless steel",
     "bench.m.acero.does":
@@ -77,8 +68,6 @@ export const home = {
     "bench.m.cristal.does":
       "A permanent frosted engraving on glasses, bottles and mirrors.",
 
-    "pieces.readout": "Real pieces, our own photos",
-    "pieces.pause": "Every material asks for its own power, speed and focus.",
     "pieces.flask.name": "Engraved brass flask",
     "pieces.flask.type": "Brass · Engraving",
     "pieces.flask.text":
@@ -95,7 +84,6 @@ export const home = {
     "bench.page.description":
       "Escribe un nombre o sube tu logo, elige el material y mira cómo lo graba el láser en 3D. Después, pídenos presupuesto por WhatsApp.",
     "bench.page.crumb": "Prueba tu grabado",
-    "bench.teaser.title": "Escribe un nombre y míralo grabado.",
     "bench.teaser.cta": "Probar la mesa del láser",
     "bench.title": "Escribe un nombre. Elige el material.",
     "bench.lead":
@@ -130,15 +118,7 @@ export const home = {
     "bench.status.ready": "Listo",
     "bench.status.burn": "Grabando",
     "bench.status.done": "Terminado",
-    "home.engrave.readout": "Cómo grabamos",
     "home.engrave.title": "Una pieza, un haz.",
-    "home.engrave.sheet.piece": "Pieza",
-    "home.engrave.sheet.pieceValue": "Placa Lasercom",
-    "home.engrave.sheet.material": "Material",
-    "home.engrave.sheet.laser": "Láser",
-    "home.engrave.sheet.laserValue": "Fibra",
-    "home.engrave.sheet.passes": "Pasadas",
-    "home.engrave.sheet.status": "Estado",
     "bench.plate": "«{text}» grabado en {material}",
     "bench.m.acero.name": "Acero inoxidable",
     "bench.m.acero.does":
@@ -162,8 +142,6 @@ export const home = {
     "bench.m.cristal.does":
       "Grabado esmerilado permanente en copas, botellas y espejos.",
 
-    "pieces.readout": "Piezas reales, fotos propias",
-    "pieces.pause": "Cada material pide su potencia, su velocidad y su foco.",
     "pieces.flask.name": "Petaca de latón grabada",
     "pieces.flask.type": "Latón · Grabado",
     "pieces.flask.text":

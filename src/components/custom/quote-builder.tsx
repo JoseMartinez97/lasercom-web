@@ -410,19 +410,15 @@ export function QuoteBuilder({
         </div>
 
         <div className="flex flex-col gap-3">
-          <Button
-            type="submit"
-            size="lg"
-            className="h-13 rounded-full px-6 text-base"
-          >
+          <Button type="submit" size="cta">
             {t("quote.send.wa")}
             <ArrowUpRight className="size-5" />
           </Button>
           <Button
             asChild
             variant="outline"
-            size="lg"
-            className="h-13 rounded-full bg-transparent px-6 text-base"
+            size="cta"
+            className="bg-transparent"
           >
             <a
               href={`${mailHref(t("quote.subject"))}&body=${encodeURIComponent(message)}`}

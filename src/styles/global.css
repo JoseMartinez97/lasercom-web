@@ -36,59 +36,161 @@
   --radius-2xl: calc(var(--radius) * 1.8);
 }
 
-/* Plywood: the page is a warm birch board, the type is burnt into it. Photos
-   shot on white are multiplied in (.cutout), so only the object remains */
+/* Obsidian Hardware: deep matte graphite canvas, warm off-white ink, and a
+   single warm amber-vermilion laser accent reserved for the beam and marks */
 :root {
-  color-scheme: light;
-  --background: oklch(0.955 0.014 78);
-  --foreground: oklch(0.2 0.012 55);
-  --card: oklch(0.985 0.008 80);
-  --card-foreground: oklch(0.2 0.012 55);
-  --paper: oklch(0.968 0.012 78);
-  --popover: oklch(0.985 0.008 80);
-  --popover-foreground: oklch(0.2 0.012 55);
-  /* The laser: one hue for the beam, the call to action and nothing else */
-  --laser: oklch(0.64 0.23 33);
-  /* The laser as text or fill under white text: 4.5:1 or more */
-  --laser-ink: oklch(0.51 0.2 32);
-  --primary: var(--laser-ink);
-  --primary-foreground: oklch(0.99 0.004 80);
-  --secondary: oklch(0.91 0.018 76);
-  --secondary-foreground: oklch(0.2 0.012 55);
-  --muted: oklch(0.91 0.018 76);
-  --muted-foreground: oklch(0.45 0.02 60);
-  --accent: oklch(0.91 0.018 76);
-  --accent-foreground: oklch(0.2 0.012 55);
-  --destructive: oklch(0.55 0.22 27);
-  --border: oklch(0.2 0.012 55 / 14%);
-  --input: oklch(0.2 0.012 55 / 22%);
+  color-scheme: dark;
+  --background: oklch(0.145 0.006 255);
+  --foreground: oklch(0.955 0.006 80);
+  --card: oklch(0.182 0.007 255);
+  --card-foreground: oklch(0.955 0.006 80);
+  /* Clean studio plinth for white-background workshop specimen photos */
+  --paper: oklch(0.955 0.006 80);
+  --popover: oklch(0.19 0.007 255);
+  --popover-foreground: oklch(0.955 0.006 80);
+  /* The laser: warm amber-vermilion used surgically for the beam and active cues */
+  --laser: oklch(0.68 0.2 38);
+  --laser-ink: oklch(0.74 0.17 40);
+  /* Primary CTA: warm off-white pill on obsidian for luxury contrast */
+  --primary: oklch(0.955 0.006 80);
+  --primary-foreground: oklch(0.145 0.006 255);
+  --secondary: oklch(0.215 0.008 255);
+  --secondary-foreground: oklch(0.955 0.006 80);
+  --muted: oklch(0.215 0.008 255);
+  --muted-foreground: oklch(0.68 0.008 255);
+  --accent: oklch(0.235 0.009 255);
+  --accent-foreground: oklch(0.955 0.006 80);
+  --destructive: oklch(0.58 0.21 27);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 16%);
   --ring: var(--laser);
-  --radius: 0.5rem;
+  --radius: 0.75rem;
 }
 
-/* Steel: the machine's bed. Sections that need drama (hero, materials,
-   closing panel) switch the tokens, and every utility follows */
+/* Steel: deeper recessed obsidian stage for contrast panels, closing CTA & footer */
 .steel {
   color-scheme: dark;
-  --background: oklch(0.175 0.006 255);
-  --foreground: oklch(0.965 0.008 80);
-  --card: oklch(0.22 0.007 255);
-  --card-foreground: oklch(0.965 0.008 80);
-  --popover: oklch(0.22 0.007 255);
-  --popover-foreground: oklch(0.965 0.008 80);
-  --laser-ink: oklch(0.7 0.2 36);
-  --primary: oklch(0.56 0.22 33);
-  --primary-foreground: oklch(0.99 0.004 80);
-  --secondary: oklch(0.27 0.008 255);
-  --secondary-foreground: oklch(0.965 0.008 80);
-  --muted: oklch(0.27 0.008 255);
-  --muted-foreground: oklch(0.74 0.012 255);
-  --accent: oklch(0.27 0.008 255);
-  --accent-foreground: oklch(0.965 0.008 80);
-  --border: oklch(1 0 0 / 12%);
-  --input: oklch(1 0 0 / 18%);
+  --background: oklch(0.12 0.006 255);
+  --foreground: oklch(0.955 0.006 80);
+  --card: oklch(0.165 0.007 255);
+  --card-foreground: oklch(0.955 0.006 80);
+  --popover: oklch(0.175 0.007 255);
+  --popover-foreground: oklch(0.955 0.006 80);
+  --laser-ink: oklch(0.74 0.17 40);
+  --primary: oklch(0.955 0.006 80);
+  --primary-foreground: oklch(0.12 0.006 255);
+  --secondary: oklch(0.2 0.008 255);
+  --secondary-foreground: oklch(0.955 0.006 80);
+  --muted: oklch(0.2 0.008 255);
+  --muted-foreground: oklch(0.68 0.008 255);
+  --accent: oklch(0.22 0.008 255);
+  --accent-foreground: oklch(0.955 0.006 80);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 16%);
   background-color: var(--background);
   color: var(--foreground);
+}
+
+/* Tactile dark textures & atmospheric backgrounds (Openstate_ grain +
+   architectural laser bed grid + warm ambient depth) so obsidian never feels flat */
+.obsidian-grain {
+  position: fixed;
+  inset: -10%;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.038;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .obsidian-grain {
+    animation: grain-shift 1.2s steps(6) infinite;
+  }
+}
+@keyframes grain-shift {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  20% {
+    transform: translate3d(-2%, 1%, 0);
+  }
+  40% {
+    transform: translate3d(1%, -2%, 0);
+  }
+  60% {
+    transform: translate3d(-1%, 2%, 0);
+  }
+  80% {
+    transform: translate3d(2%, -1%, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.obsidian-grid {
+  background-color: oklch(0.132 0.006 255);
+  background-image: radial-gradient(
+    ellipse 70% 50% at 80% 15%,
+    oklch(0.68 0.2 38 / 0.055) 0%,
+    transparent 65%
+  );
+}
+
+/* Pointer-reactive optical reveal: pure calm obsidian at rest; moving the
+   mouse illuminates a subtle warm laser glow + micro-dot calibration field
+   only inside a 340px aperture around the cursor (fine pointers only) */
+.obsidian-spotlight {
+  position: fixed;
+  inset: 0;
+  z-index: 35;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  background-image:
+    radial-gradient(
+      260px circle at var(--mx, -999px) var(--my, -999px),
+      oklch(0.68 0.2 38 / 0.11),
+      transparent 72%
+    ),
+    radial-gradient(oklch(1 0 0 / 0.16) 1px, transparent 1px);
+  background-size:
+    100% 100%,
+    28px 28px;
+  mask-image: radial-gradient(
+    320px circle at var(--mx, -999px) var(--my, -999px),
+    black 0%,
+    transparent 100%
+  );
+  -webkit-mask-image: radial-gradient(
+    320px circle at var(--mx, -999px) var(--my, -999px),
+    black 0%,
+    transparent 100%
+  );
+}
+html[data-ptr-on] .obsidian-spotlight {
+  opacity: 1;
+}
+@media not ((hover: hover) and (pointer: fine)) {
+  .obsidian-spotlight {
+    display: none;
+  }
+}
+
+.obsidian-ember {
+  background-color: oklch(0.145 0.006 255);
+  background-image:
+    radial-gradient(
+      ellipse 60% 45% at 18% 20%,
+      oklch(0.68 0.2 38 / 0.075) 0%,
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 50% 40% at 88% 85%,
+      oklch(0.55 0.06 245 / 0.06) 0%,
+      transparent 70%
+    );
 }
 
 @layer base {
@@ -123,35 +225,31 @@
   }
   ::selection {
     background: var(--laser);
-    color: white;
+    color: var(--primary-foreground);
   }
 }
 
-/* Wide, heavy and tight: the voice of the wordmark */
+/* Refined architectural neo-grotesk display: serious, tight and legible on phones */
 @utility display {
   font-family: var(--font-heading);
-  font-stretch: 125%;
-  font-weight: 800;
-  letter-spacing: -0.035em;
-  line-height: 0.95;
-  /* Break long words with a hyphen, never mid-word without one */
+  font-stretch: 100%;
+  font-weight: 600;
+  letter-spacing: -0.032em;
+  line-height: 1.04;
   overflow-wrap: normal;
-  hyphens: auto;
-  /* Only words too long for a phone line: never "ti-rada" */
-  hyphenate-limit-chars: 13 6 5;
-  -webkit-hyphenate-limit-before: 6;
-  -webkit-hyphenate-limit-after: 5;
+  hyphens: none;
 }
-/* Machine readouts: small mono labels, the only uppercase on the site */
+/* Machine readouts: crisp mono labels, quiet and spacious */
 @utility readout {
   font-family: var(--font-mono);
+  /* 12px floor: anything smaller is hard to read on a phone */
   font-size: 0.75rem;
   line-height: 1.4;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 @utility cutout {
-  mix-blend-mode: multiply;
+  background-color: var(--paper);
 }
 
 /* Page entrance, in CSS so it starts on first paint. Elements stagger by --i */
@@ -211,8 +309,10 @@
     bottom: 10%;
     left: 0;
     width: 100%;
+    /* The hot edge sits on the box's right side and the box slides in from
+       the left: overflow to the left never makes a phone scroll sideways */
     background: linear-gradient(
-      90deg,
+      270deg,
       oklch(0.98 0.03 80) 0px,
       var(--laser) 3px,
       transparent 4px
@@ -221,7 +321,7 @@
     opacity: 0;
     will-change: transform, opacity;
     animation: engrave-beam 0.62s cubic-bezier(0.45, 0, 0.55, 1) var(--start)
-      both;
+      backwards;
     pointer-events: none;
   }
 }
@@ -246,7 +346,7 @@
 }
 @keyframes engrave-beam {
   0% {
-    transform: translateX(0%);
+    transform: translateX(-100%);
     opacity: 0;
   }
   8% {
@@ -256,7 +356,7 @@
     opacity: 1;
   }
   100% {
-    transform: translateX(100%);
+    transform: translateX(0%);
     opacity: 0;
   }
 }
@@ -271,35 +371,6 @@
   50% {
     opacity: 0.55;
     transform: scale(0.8);
-  }
-}
-
-/* Moving between pages: a curtain of columns in the destination's material
-   (lib/page-curtain.ts) closes over the page, which is swapped behind it,
-   so the router's own cross-fade is turned off */
-.page-curtain {
-  position: fixed;
-  inset: 0;
-  z-index: 95;
-  display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  pointer-events: none;
-  visibility: hidden;
-}
-.page-curtain[data-state="closing"] {
-  visibility: visible;
-}
-.page-curtain > i {
-  /* A hair wider than the column, so no seam shows between them */
-  margin-inline: -0.5px;
-  background: var(--curtain, #1c1917);
-  transform: scaleY(0);
-  will-change: transform;
-}
-@media (prefers-reduced-motion: no-preference) {
-  ::view-transition-old(root),
-  ::view-transition-new(root) {
-    animation: none;
   }
 }
 
@@ -479,67 +550,6 @@
   padding-bottom: var(--descender-pad, 0.22em);
   margin-top: calc(var(--ascender-pad, 0.12em) * -1);
   margin-bottom: calc(var(--descender-pad, 0.22em) * -1);
-}
-
-/* Optical laser viewfinder brackets (Le Borrel --vf-inset pattern):
-   four micro L-reticles inside work curtains that tighten as the cut opens */
-.vf-frame {
-  --vf-inset: calc(14px + (1 - var(--cut-open, 1)) * 22px);
-}
-.vf-corner {
-  position: absolute;
-  width: 11px;
-  height: 11px;
-  border-color: color-mix(in oklab, white 68%, var(--laser));
-  opacity: calc(0.25 + var(--cut-open, 1) * 0.55);
-  pointer-events: none;
-  z-index: 10;
-  transition:
-    transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1),
-    border-color 0.35s ease,
-    opacity 0.35s ease;
-}
-.vf-corner--tl {
-  top: var(--vf-inset);
-  left: var(--vf-inset);
-  border-top: 1.5px solid;
-  border-left: 1.5px solid;
-}
-.vf-corner--tr {
-  top: var(--vf-inset);
-  right: var(--vf-inset);
-  border-top: 1.5px solid;
-  border-right: 1.5px solid;
-}
-.vf-corner--bl {
-  bottom: var(--vf-inset);
-  left: var(--vf-inset);
-  border-bottom: 1.5px solid;
-  border-left: 1.5px solid;
-}
-.vf-corner--br {
-  bottom: var(--vf-inset);
-  right: var(--vf-inset);
-  border-bottom: 1.5px solid;
-  border-right: 1.5px solid;
-}
-@media (hover: hover) {
-  .vf-frame:hover .vf-corner {
-    border-color: var(--laser);
-    opacity: 1;
-  }
-  .vf-frame:hover .vf-corner--tl {
-    transform: translate(-3px, -3px);
-  }
-  .vf-frame:hover .vf-corner--tr {
-    transform: translate(3px, -3px);
-  }
-  .vf-frame:hover .vf-corner--bl {
-    transform: translate(-3px, 3px);
-  }
-  .vf-frame:hover .vf-corner--br {
-    transform: translate(3px, 3px);
-  }
 }
 
 /* Concentric optical calibration rings for steel stages (Psychoactive pattern) */

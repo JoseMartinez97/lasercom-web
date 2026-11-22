@@ -3,13 +3,14 @@ export const site = {
   en: {
     "a11y.skip": "Skip to content",
     "nav.home": "Lasercom, home",
-    "nav.materials": "Materials",
     "nav.services": "Services",
     "nav.work": "Work",
     "nav.contact": "Contact",
     "nav.quote": "Get a quote",
     "nav.menu": "Open menu",
+    "nav.menu.title": "Menu",
     "nav.menu.close": "Close menu",
+    "nav.main": "Main navigation",
     "nav.call": "Call",
 
     "cta.whatsapp": "Message us on WhatsApp",
@@ -39,7 +40,6 @@ export const site = {
     "home.h1.3": "in Valencia",
     "home.lead":
       "We engrave every kind of metal and plastic, cut metal up to 4 mm, and cut and engrave wood, acrylic and leather in our own workshop: a name for a wedding, your company logo or the serial number on an industrial part.",
-    "home.stat.materials": "Materials we work with",
     "home.clients.title": "For businesses and for people",
     "home.clients.business.title": "Businesses and industry",
     "home.clients.business.text":
@@ -48,8 +48,6 @@ export const site = {
     "home.clients.people.text":
       "Wedding favours, engraved champagne flutes, an urgent bracelet for an anniversary, portrait medals, pet tags or one-off gifts. We prepare the design with you.",
     "home.work.title": "Made in our workshop",
-    "home.work.lead":
-      "Real pieces from the workshop, from a fan for Louis Vuitton to the stand of Ron Barceló's 30th anniversary bottle.",
     "home.work.all": "See all our work",
     "home.process.title": "How we work",
     "home.process.1.t": "Tell us the idea",
@@ -68,7 +66,6 @@ export const site = {
     "home.reviews.summary": "4.5 out of 5 on Google",
     "home.reviews.count": "6 reviews",
     "home.reviews.link": "Read the reviews on Google",
-    "home.reviews.translated": "Translated from Spanish",
     "home.reviews.1":
       "We asked them for custom wood engravings for our wedding, as gifts for the guests, and we really liked the result.",
     "home.reviews.2":
@@ -370,13 +367,14 @@ export const site = {
   es: {
     "a11y.skip": "Saltar al contenido",
     "nav.home": "Lasercom, inicio",
-    "nav.materials": "Materiales",
     "nav.services": "Servicios",
     "nav.work": "Trabajos",
     "nav.contact": "Contacto",
     "nav.quote": "Pide presupuesto",
     "nav.menu": "Abrir menú",
+    "nav.menu.title": "Menú",
     "nav.menu.close": "Cerrar menú",
+    "nav.main": "Navegación principal",
     "nav.call": "Llamar",
 
     "cta.whatsapp": "Escríbenos por WhatsApp",
@@ -406,7 +404,6 @@ export const site = {
     "home.h1.3": "en Valencia",
     "home.lead":
       "Grabamos todo tipo de metales y plásticos, cortamos metal de hasta 4 mm, y cortamos y grabamos madera, metacrilato y piel en nuestro propio taller: un nombre para una boda, el logotipo de tu empresa o el número de serie de una pieza industrial.",
-    "home.stat.materials": "Materiales que trabajamos",
     "home.clients.title": "Para empresas y para particulares",
     "home.clients.business.title": "Empresas e industria",
     "home.clients.business.text":
@@ -415,8 +412,6 @@ export const site = {
     "home.clients.people.text":
       "Detalles de boda, copas grabadas, una pulsera urgente para un aniversario, medallas con foto, chapas de mascota o regalos únicos. Preparamos el diseño contigo.",
     "home.work.title": "Hecho en nuestro taller",
-    "home.work.lead":
-      "Piezas reales del taller, desde un abanico para Louis Vuitton hasta la peana de la botella del 30 aniversario de Ron Barceló.",
     "home.work.all": "Ver todos los trabajos",
     "home.process.title": "Así trabajamos",
     "home.process.1.t": "Nos cuentas la idea",
@@ -435,7 +430,6 @@ export const site = {
     "home.reviews.summary": "4,5 de 5 en Google",
     "home.reviews.count": "6 reseñas",
     "home.reviews.link": "Ver las reseñas en Google",
-    "home.reviews.translated": "",
     "home.reviews.1":
       "Les solicitamos unos grabados en madera personalizados para nuestra boda, para regalos de invitados, y nos gustó mucho el resultado.",
     "home.reviews.2":

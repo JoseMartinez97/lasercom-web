@@ -2,45 +2,45 @@
 import type { Lang } from "@/i18n/ui"
 import { localizePath, useTranslations } from "@/i18n/utils"
 import { telHref, whatsappHref } from "@/lib/business"
-import { FileText, MessageCircle, Phone } from "lucide-react"
+import { ArrowUpRight, MessageCircle, Phone } from "lucide-react"
 
-// Phones only: the three ways in, always under the thumb. Most jobs here start
-// with a call or a photo on WhatsApp. Larger screens keep the round WhatsApp
-// button (whatsapp-button.astro) and the header's phone and quote button
 interface Props {
   lang: Lang
 }
 const { lang } = Astro.props
 const t = useTranslations(lang)
-const item =
-  "flex min-h-14 flex-1 flex-col items-center justify-center gap-1 text-xs font-semibold"
 ---
 
 <nav
   data-action-bar
   aria-label={t("bar.label")}
   transition:persist={`action-bar-${lang}`}
-  class="steel hero-in fixed inset-x-0 bottom-0 z-40 flex border-t border-border bg-background pb-[env(safe-area-inset-bottom)] text-foreground md:hidden"
-  style="--i: 8"
+  class="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-background/90 px-4 pt-2.5 pb-[calc(0.625rem+env(safe-area-inset-bottom))] backdrop-blur-xl md:hidden"
 >
-  <a href={telHref} class={item}>
-    <Phone className="size-5" />
-    {t("bar.call")}
-  </a>
-  <a
-    href={whatsappHref(t("wa.default"))}
-    target="_blank"
-    rel="noopener"
-    class={item}
-  >
-    <MessageCircle className="size-5 text-[#25d366]" />
-    {t("cta.whatsapp.short")}
-  </a>
-  <a
-    href={`${localizePath(lang, "/contacto/")}#presupuesto`}
-    class={`${item} bg-primary text-primary-foreground`}
-  >
-    <FileText className="size-5" />
-    {t("bar.quote")}
-  </a>
+  <div class="mx-auto flex max-w-md items-center gap-2">
+    <a
+      href={telHref}
+      aria-label={t("bar.call")}
+      class="inline-flex h-11 shrink-0 items-center justify-center gap-1.5 rounded-full border border-border bg-card px-4 text-xs font-medium text-foreground transition-colors active:scale-95"
+    >
+      <Phone className="size-4 text-muted-foreground" aria-hidden />
+      <span>{t("bar.call")}</span>
+    </a>
+    <a
+      href={whatsappHref(t("wa.default"))}
+      target="_blank"
+      rel="noopener"
+      class="inline-flex h-11 shrink-0 items-center justify-center gap-1.5 rounded-full border border-border bg-card px-4 text-xs font-medium text-foreground transition-colors active:scale-95"
+    >
+      <MessageCircle className="size-4 text-[#25d366]" aria-hidden />
+      <span>{t("cta.whatsapp.short")}</span>
+    </a>
+    <a
+      href={`${localizePath(lang, "/contacto/")}#presupuesto`}
+      class="inline-flex h-11 flex-1 items-center justify-center gap-1.5 rounded-full bg-primary px-4 text-xs font-semibold text-primary-foreground transition-transform active:scale-95"
+    >
+      <span>{t("bar.quote")}</span>
+      <ArrowUpRight className="size-3.5" aria-hidden />
+    </a>
+  </div>
 </nav>

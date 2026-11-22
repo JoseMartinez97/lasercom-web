@@ -1,21 +1,16 @@
 ---
-import { Image } from "astro:assets"
 import type { Lang } from "@/i18n/ui"
 import { localizePath, useTranslations } from "@/i18n/utils"
-import { buttonVariants } from "@/components/ui/button"
-import { LogoMark } from "@/components/custom/logo"
 import CloseSection from "@/components/custom/close-section.astro"
 import FaqSection from "@/components/custom/faq-section.astro"
-import BenchTeaser from "@/components/custom/bench-teaser.astro"
-import benchStill from "@/assets/bench/acero.jpg"
-import WorkCurtains from "@/components/custom/work-curtains.astro"
-import OpenStatus from "@/components/custom/open-status.astro"
 import GuideCards from "@/components/custom/guide-cards.astro"
-import { business, whatsappHref } from "@/lib/business"
+import OpenStatus from "@/components/custom/open-status.astro"
+import PlaqueHero from "@/components/custom/plaque-hero.astro"
+import WorkShowcase from "@/components/custom/work-showcase.astro"
+import { business } from "@/lib/business"
 import { guideIds } from "@/lib/guides"
 import { homeFaqIndices } from "@/lib/pages"
-import { photo, services, type ServiceId } from "@/lib/services"
-import { cn } from "@/lib/utils"
+import { services, type ServiceId } from "@/lib/services"
 import { ArrowRight, ArrowUpRight, Star } from "lucide-react"
 
 interface Props {
@@ -28,18 +23,21 @@ const serviceHref = (id: ServiceId) =>
   lang === "en" ? services[id].en : services[id].es
 
 const clientGroups: {
+  num: string
   anchor: string
   title: string
   text: string
   ids: ServiceId[]
 }[] = [
   {
+    num: "01",
     anchor: "servicios-empresa",
     title: t("home.clients.business.title"),
     text: t("home.clients.business.text"),
     ids: ["industrial", "empresas", "letras"],
   },
   {
+    num: "02",
     anchor: "servicios-particular",
     title: t("home.clients.people.title"),
     text: t("home.clients.people.text"),
@@ -54,1295 +52,308 @@ const reviews = [
   { name: "Lorena Tabuenca", text: t("home.reviews.2") },
   { name: "Olga Gomez", text: t("home.reviews.3") },
 ]
+
 const faqs = homeFaqIndices.map((n) => ({
   q: t(`home.faq.${n}.q`),
   a: t(`home.faq.${n}.a`),
 }))
-
-// The cutting plans that drift behind the hero headline, out of focus (the
-// sheets of paper in Dialed's hero). Each is a laser job's file: cut lines in
-// the beam's colour, engraving in ink. depth: how far it travels with the
-// scroll and the pointer
-const gearPath = (cx: number, cy: number, ro: number, ri: number, n = 14) =>
-  Array.from({ length: n * 4 }, (_, i) => {
-    const a = (i * Math.PI * 2) / (n * 4)
-    const r = i % 4 < 2 ? ro : ri
-    return `${i ? "L" : "M"}${(cx + Math.cos(a) * r).toFixed(1)} ${(cy + Math.sin(a) * r).toFixed(1)}`
-  }).join("") + "Z"
-const heroSheets = [
-  {
-    kind: "gear",
-    cls: "top-[13%] left-[3%] w-44 -rotate-[14deg] sm:w-60",
-    blur: 1.5,
-    depth: 1,
-  },
-  {
-    kind: "plate",
-    cls: "top-[18%] right-[5%] w-48 rotate-[11deg] sm:w-64",
-    blur: 1.8,
-    depth: 1.2,
-  },
-  {
-    kind: "mark",
-    cls: "bottom-[16%] left-[9%] w-40 rotate-[8deg] sm:w-52",
-    blur: 3,
-    depth: 0.6,
-  },
-  {
-    kind: "ring",
-    cls: "bottom-[12%] right-[12%] w-40 -rotate-[10deg] sm:w-56",
-    blur: 2.6,
-    depth: 0.7,
-  },
-] as const
 ---
 
-<!-- 1–2. THE STAGE (after Dialed Coffee and savvia.studio): one pinned
-     scene. The piece stands in front of the hero headline; as the visitor
-     scrolls, the hero sinks back, the engraving scene (#materiales) opens
-     out from behind the piece and the beam engraves it row by row. 3D
-     everywhere WebGL runs (src/lib/monolith-3d.ts), with the CSS plaque
-     below as the fallback without WebGL, JavaScript or with reduced motion.
-     The choreography is the script at the end of this file -->
-<div data-stage class="stage-track relative">
-  <!-- Where links to #materiales land while the stage runs (the script
-       moves the id here): the engraving scene, once it has opened -->
-  <span
-    data-stage-anchor
-    aria-hidden="true"
-    class="stage-anchor pointer-events-none absolute left-0 hidden h-px w-px scroll-mt-16"
-  ></span>
-  <div data-stage-pin class="stage-pin relative">
-    <div
-      data-stage-view
-      data-plaque-subtitle={`${t("home.h1.1")} ${t("home.h1.2")}`}
-      data-plaque-laser={t("home.plaque.laser")}
-      data-plaque-laser-value={t("home.plaque.laserValue")}
-      data-plaque-cut={t("home.plaque.cut")}
-      data-plaque-since={t("home.plaque.since")}
-      aria-hidden="true"
-      class="stage-view pointer-events-none absolute inset-x-0 top-0 z-20 h-[calc(100svh-4rem)] min-h-[36rem] overflow-hidden"
-    >
-      <div data-plaque class="plaque">
-        <div class="plaque-face plaque-front">
-          <span class="plaque-screw left-[6%] top-[5%]"></span>
-          <span class="plaque-screw right-[6%] top-[5%]"></span>
-          <span class="plaque-screw bottom-[5%] left-[6%]"></span>
-          <span class="plaque-screw right-[6%] bottom-[5%]"></span>
-          <!-- The engraving: the script reveals it row by row (--engrave)
-               under the beam's line (--scan) -->
-          <div class="plaque-ink flex flex-1 flex-col">
-            <div class="plaque-rule flex justify-between border-b pb-[2%] font-mono text-[0.55em] tracking-wider">
-              <span>RIBA-ROJA DE TÚRIA · VALENCIA</span>
-              <span>2007</span>
-            </div>
-            <div class="plaque-rule mx-auto my-[7%] flex aspect-square w-[52%] items-center justify-center rounded-full border">
-              <LogoMark className="plaque-mark w-[46%]" />
-            </div>
-            <p class="display text-center text-[2.6em] leading-none">
-              LASERCOM
-            </p>
-            <p class="mt-[2%] text-center font-mono text-[0.62em] tracking-[0.2em] uppercase">
-              {t("home.h1.1")} {t("home.h1.2")}
-            </p>
-            <div class="plaque-rule mt-auto grid grid-cols-3 border font-mono text-[0.5em] uppercase">
-              {[
-                [t("home.plaque.laser"), t("home.plaque.laserValue")],
-                [t("home.plaque.cut"), "4 mm"],
-                [t("home.plaque.since"), String(business.founded)],
-              ].map(([label, value], i) => (
-                <span
-                  class={cn(
-                    "plaque-rule flex flex-col gap-[0.4em] p-[0.9em]",
-                    i && "border-l"
-                  )}
-                >
-                  <span class="opacity-70">{label}</span>
-                  <span class="font-bold">{value}</span>
-                </span>
-              ))}
-            </div>
-          </div>
-          <span class="plaque-scan"></span>
-        </div>
-        <div class="plaque-face plaque-back"></div>
-      </div>
-      <canvas
-        data-stage-canvas
-        class="absolute inset-0 size-full opacity-0 transition-opacity duration-500"
-      ></canvas>
-    </div>
+<!-- =========================================================================
+     ACT 1: FULL-VIEWPORT 3D ENGRAVED LASERCOM PLAQUE HERO
+     Brushed stainless steel plaque rastered live across 56 fibre-laser passes
+     as the visitor scrolls (GSAP ScrollTrigger pin on desktop, sticky on mobile).
+     ========================================================================= -->
+<PlaqueHero lang={lang} />
 
-    <section
-      data-stage-hero
-      class="relative flex h-[calc(100svh-4rem)] min-h-[36rem] flex-col overflow-hidden px-5 pt-5 pb-[calc(4.75rem+env(safe-area-inset-bottom))] md:px-8 md:pb-5 lg:px-12 lg:pb-7"
+<!-- =========================================================================
+     SOLID OBSIDIAN STAGE
+     Real Work -> Hairline Services -> Laser Beam Steps -> Proof & Closing
+     ========================================================================= -->
+<div class="relative z-10 border-t border-border bg-background">
+  <!-- ACT 2: PINNED HORIZONTAL CINEMA FILMSTRIP OF REAL WORK -->
+  <WorkShowcase lang={lang} />
+
+  <!-- KINETIC DUAL-TRACK SCROLL MARQUEE (opposing scroll-scrubbed statement) -->
+  <div
+    aria-hidden="true"
+    class="overflow-hidden border-t border-border bg-background py-12 select-none lg:py-16"
+  >
+    <div
+      data-marquee-track="-1"
+      class="display flex w-max items-center gap-8 whitespace-nowrap text-[clamp(2.5rem,7vw,6.25rem)] leading-none tracking-[-0.04em] text-foreground/90 will-change-transform"
     >
-      <div aria-hidden="true" class="pointer-events-none absolute inset-0">
-        {heroSheets.map((s) => (
-          <div
-            data-hero-sheet
-            data-depth={s.depth}
-            class={cn("absolute", s.cls)}
+      <span>
+        {t("home.h1.1")} {t("home.h1.2")}
+      </span>
+      <span class="text-laser">·</span>
+      <span>{t("home.plaque.laserValue")}</span>
+      <span class="text-laser">·</span>
+      <span>VALENCIA · {business.founded}</span>
+      <span class="text-laser">·</span>
+      <span>
+        {t("home.h1.1")} {t("home.h1.2")}
+      </span>
+    </div>
+    <div
+      data-marquee-track="1"
+      class="display mt-3 flex w-max items-center gap-8 whitespace-nowrap text-[clamp(2.5rem,7vw,6.25rem)] leading-none tracking-[-0.04em] text-transparent [-webkit-text-stroke:1px_rgba(243,242,238,0.28)] will-change-transform"
+    >
+      <span>{t("bench.m.acero.name")}</span>
+      <span>·</span>
+      <span>{t("bench.m.madera.name")}</span>
+      <span>·</span>
+      <span>{t("bench.m.laton.name")}</span>
+      <span>·</span>
+      <span>{t("bench.m.cristal.name")}</span>
+      <span>·</span>
+      <span>{t("bench.m.piel.name")}</span>
+      <span>·</span>
+      <span>{t("bench.m.metacrilato.name")}</span>
+    </div>
+  </div>
+
+  <!-- ACT 3: TWO AUDIENCES — ARCHITECTURAL HAIRLINE ROWS -->
+  <section
+    id="servicios"
+    data-rows
+    data-cinema-section
+    class="obsidian-ember scroll-mt-16 border-t border-border px-5 py-24 md:px-8 lg:px-12 lg:py-32"
+  >
+    <div class="mx-auto max-w-7xl">
+      <div class="grid gap-6 lg:grid-cols-12 lg:items-end">
+        <div class="lg:col-span-7" data-cinema-drift="22">
+          <h2
+            data-title-chars
+            class="display max-w-[16ch] text-[clamp(2.25rem,5.5vw,4.75rem)] text-foreground"
           >
-            <div
-              data-sheet-inner
-              class="aspect-[1.45/1] rounded-[3px] bg-[#fbf7f0] p-3 shadow-[0_24px_50px_-20px_rgb(60_40_20/0.35)]"
-              style={`filter: blur(${s.blur}px)`}
-            >
-              <div class="flex justify-between border-b border-foreground/15 pb-1 font-mono text-[8px] tracking-wider text-foreground/50 uppercase">
-                <span>{s.kind}.dxf</span>
-                <span>1:1</span>
-              </div>
-              <svg
-                viewBox="0 0 160 90"
-                fill="none"
-                class="mt-1.5 w-full"
-                stroke-linejoin="round"
-              >
-                {s.kind === "gear" && (
-                  <g stroke="var(--laser)" stroke-width="1">
-                    <path d={gearPath(56, 45, 36, 30)} />
-                    <circle cx="56" cy="45" r="10" />
-                    <path d={gearPath(124, 34, 20, 16, 10)} />
-                    <circle cx="124" cy="34" r="5" />
-                  </g>
-                )}
-                {s.kind === "plate" && (
-                  <g>
-                    <rect
-                      x="14"
-                      y="10"
-                      width="132"
-                      height="70"
-                      rx="6"
-                      stroke="var(--laser)"
-                    />
-                    {[
-                      [24, 20],
-                      [136, 20],
-                      [24, 70],
-                      [136, 70],
-                    ].map(([x, y]) => (
-                      <circle cx={x} cy={y} r="3" stroke="var(--laser)" />
-                    ))}
-                    <g
-                      stroke="currentColor"
-                      class="text-foreground/45"
-                      stroke-width="2.5"
-                    >
-                      <path d="M44 38h72M54 50h52M64 60h32" />
-                    </g>
-                  </g>
-                )}
-                {s.kind === "mark" && (
-                  <g
-                    stroke="var(--laser)"
-                    stroke-width="1.2"
-                    transform="translate(52 6) scale(0.19)"
-                  >
-                    <rect x="48" y="25" width="97" height="313" />
-                    <path d="M145 338 222 265H400L323 338Z" />
-                  </g>
-                )}
-                {s.kind === "ring" && (
-                  <g stroke="var(--laser)">
-                    <circle cx="80" cy="45" r="38" />
-                    <circle cx="80" cy="45" r="17" />
-                    {[0, 1, 2, 3, 4, 5].map((i) => (
-                      <circle
-                        cx={(80 + Math.cos((i * Math.PI) / 3) * 28).toFixed(1)}
-                        cy={(45 + Math.sin((i * Math.PI) / 3) * 28).toFixed(1)}
-                        r="3.5"
-                      />
-                    ))}
-                  </g>
-                )}
-              </svg>
+            {t("home.clients.title")}
+          </h2>
+        </div>
+        <div class="lg:col-span-5 lg:justify-self-end">
+          <a
+            href={`${href("/contacto/")}#presupuesto`}
+            class="roll-link group inline-flex min-h-11 items-center gap-2 pb-1.5 text-sm font-semibold text-foreground"
+          >
+            <span class="roll-link-mask">
+              <span>{t("home.process.cta")}</span>
+              <span aria-hidden="true">{t("home.process.cta")}</span>
+            </span>
+            <ArrowRight
+              className="size-4 text-laser-ink transition-transform group-hover:translate-x-1"
+              aria-hidden
+            />
+          </a>
+        </div>
+      </div>
+
+      <div class="mt-14 grid gap-14 lg:grid-cols-2 lg:gap-16">
+        {clientGroups.map((group) => (
+          <div id={group.anchor} class="flex flex-col gap-6">
+            <div class="flex flex-col gap-3">
+              <span data-scramble class="readout text-laser-ink">
+                {group.num}
+              </span>
+              <h3 class="display text-2xl text-foreground md:text-3xl">
+                {group.title}
+              </h3>
+              <p class="max-w-lg text-sm leading-relaxed text-muted-foreground md:text-base">
+                {group.text}
+              </p>
             </div>
+            <ul class="flex flex-col">
+              {group.ids.map((id, rowIdx) => (
+                <li data-row class="relative">
+                  <span
+                    data-row-line
+                    aria-hidden="true"
+                    class="block h-px w-full origin-left bg-border"
+                  ></span>
+                  <a
+                    href={serviceHref(id)}
+                    class="group flex items-center justify-between gap-4 py-5 transition-colors hover:text-laser-ink"
+                  >
+                    <span class="flex items-baseline gap-4">
+                      <span data-row-cell class="readout text-muted-foreground">
+                        0{rowIdx + 1}
+                      </span>
+                      <span
+                        data-row-cell
+                        class="text-lg font-medium text-foreground transition-colors group-hover:text-laser-ink md:text-xl"
+                      >
+                        {t(`svc.${id}.name`)}
+                      </span>
+                    </span>
+                    <ArrowRight
+                      data-row-cell
+                      className="size-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:text-laser-ink"
+                      aria-hidden
+                    />
+                  </a>
+                </li>
+              ))}
+              <li aria-hidden="true" class="h-px w-full bg-border"></li>
+            </ul>
           </div>
         ))}
       </div>
-
-      <div
-        data-hero-fade
-        class="hero-in relative z-30 flex items-center justify-between gap-4"
-        style="--i: 0"
-      >
-        <p class="readout flex items-center gap-2.5 text-laser-ink">
-          <span class="beam-dot inline-block size-2 rounded-full bg-laser shadow-[0_0_10px_var(--laser)]"></span>
-          <span>{t("home.readout")}</span>
-        </p>
-        <div class="readout hidden items-center gap-3 text-muted-foreground md:flex">
-          <span>{lang === "es" ? "4,5" : "4.5"} ★ Google</span>
-          <span aria-hidden="true">·</span>
-          <OpenStatus lang={lang} />
-        </div>
-      </div>
-
-      <div
-        data-hero-recede
-        class="relative z-10 flex flex-1 items-start justify-center pt-[9svh] lg:pt-[11svh]"
-      >
-        <h1
-          data-hero-title
-          class="display text-center text-[clamp(2.6rem,min(7.6vw,15svh),9.5rem)] leading-[0.9] text-balance"
-        >
-          <span class="engrave mx-auto" style="--i: 0">
-            <span class="engrave-text">{t("home.h1.1")}</span>
-          </span>
-          <span data-hero-last class="engrave mx-auto" style="--i: 1">
-            <span class="engrave-text">
-              {t("home.h1.2")}{" "}
-              <span class="text-laser-ink">{t("home.h1.3")}</span>
-            </span>
-          </span>
-        </h1>
-      </div>
-
-      <div
-        data-hero-fade
-        class="relative z-30 grid items-end gap-6 lg:grid-cols-[minmax(0,26rem)_1fr_minmax(0,22rem)]"
-      >
-        <div class="hero-in flex flex-col gap-5" style="--i: 2">
-          <p class="hidden text-[0.9375rem] leading-relaxed text-foreground/80 lg:block">
-            {t("home.lead")}
-          </p>
-          <div class="flex flex-wrap items-center gap-x-5 gap-y-2">
-            <a
-              href={`${href("/contacto/")}#presupuesto`}
-              data-magnetic
-              class={buttonVariants({
-                size: "lg",
-                className: "h-12 rounded-full px-6 text-base font-semibold",
-              })}
-            >
-              {t("cta.quote")}
-              <ArrowRight className="size-4" aria-hidden />
-            </a>
-            <a
-              href={whatsappHref(t("wa.default"))}
-              target="_blank"
-              rel="noopener"
-              class="roll-link hidden min-h-11 items-center gap-1.5 pb-1.5 text-base font-semibold sm:inline-flex"
-            >
-              <span class="roll-link-mask">
-                <span>{t("cta.whatsapp.short")}</span>
-                <span aria-hidden="true">{t("cta.whatsapp.short")}</span>
-              </span>
-              <ArrowUpRight className="size-4 text-laser-ink" aria-hidden />
-            </a>
-          </div>
-        </div>
-        <a
-          href={href("/prueba-tu-grabado/")}
-          class="hero-in group col-start-3 hidden items-center gap-4 rounded-md bg-card/90 p-2 pr-4 shadow-[0_24px_50px_-24px_rgb(60_40_20/0.45)] backdrop-blur-sm transition-transform duration-300 hover:-translate-y-0.5 lg:flex"
-          style="--i: 3"
-        >
-          <Image
-            src={benchStill}
-            alt=""
-            widths={[160, 240]}
-            sizes="80px"
-            class="size-20 shrink-0 rounded-[3px] object-cover"
-          />
-          <span class="flex min-w-0 flex-col gap-1">
-            <span class="readout text-laser-ink">{t("bench.readout")}</span>
-            <span class="leading-snug font-semibold">
-              {t("bench.teaser.title")}
-            </span>
-            <span class="inline-flex items-center gap-1 text-sm text-muted-foreground group-hover:text-foreground">
-              {t("bench.teaser.cta")}
-              <ArrowRight className="size-3.5" aria-hidden />
-            </span>
-          </span>
-        </a>
-      </div>
-    </section>
-
-    <BenchTeaser lang={lang} />
-  </div>
-</div>
-<!-- 3. THE PIECES: real work opening like a cut -->
-<WorkCurtains lang={lang} />
-<!-- 4. PROOF: what Google says, at headline size, right after the work -->
-<section
-  aria-labelledby="reviews-title"
-  class="steel steel-rings px-5 py-20 md:px-8 lg:px-12 lg:py-32"
->
-  <h2 id="reviews-title" class="sr-only">
-    {t("home.reviews.title")}
-  </h2>
-  <div class="flex flex-wrap items-end justify-between gap-6">
-    <div class="flex items-end gap-4">
-      <span class="display text-[clamp(5rem,13vw,11rem)] leading-[0.8] tabular-nums">
-        {lang === "es" ? "4,5" : "4.5"}
-      </span>
-      <span class="flex flex-col gap-1.5 pb-1">
-        <span class="flex gap-0.5" aria-hidden="true">
-          {[0, 1, 2, 3, 4].map((i) => (
-            <Star
-              className={cn(
-                "size-6",
-                i < 4 ? "fill-laser text-laser" : "fill-laser/50 text-laser"
-              )}
-            />
-          ))}
-        </span>
-        <span class="readout text-muted-foreground">
-          {t("home.reviews.summary")} · {t("home.reviews.count")}
-        </span>
-      </span>
     </div>
-    <a
-      href={business.mapsUrl}
-      target="_blank"
-      rel="noopener"
-      class="roll-link inline-flex min-h-11 w-fit items-center gap-2 pb-1.5 text-laser-ink"
-    >
-      <span class="roll-link-mask">
-        <span>{t("home.reviews.link")}</span>
-        <span aria-hidden="true">{t("home.reviews.link")}</span>
-      </span>
-      <ArrowUpRight className="size-4" aria-hidden />
-    </a>
-  </div>
+  </section>
 
-  <div class="mt-12 grid gap-12 border-t border-white/15 pt-12 lg:grid-cols-12 lg:gap-16">
-    <figure class="flex flex-col gap-6 lg:col-span-7">
-      <blockquote
-        data-lines
-        class="text-[clamp(1.5rem,2.7vw,2.5rem)] leading-[1.18] font-semibold tracking-tight text-balance"
-      >
-        “{reviews[1].text}”
-      </blockquote>
-      <figcaption class="readout text-muted-foreground">
-        {reviews[1].name} · Google
-        {t("home.reviews.translated") && ` · ${t("home.reviews.translated")}`}
-      </figcaption>
-    </figure>
-    <ul class="flex flex-col gap-10 lg:col-span-5" data-stagger>
-      {[reviews[0], reviews[2]].map(({ name, text }) => (
-        <li class="flex flex-col gap-4 border-t border-white/15 pt-6">
-          <p class="text-lg leading-relaxed text-foreground/90">“{text}”</p>
-          <p class="readout text-muted-foreground">
-            {name} · Google
-            {t("home.reviews.translated") &&
-              ` · ${t("home.reviews.translated")}`}
-          </p>
-        </li>
-      ))}
-    </ul>
-  </div>
-</section>
-<!-- 4b. WHO IT IS FOR: two audiences, one directory -->
-<section
-  id="servicios"
-  class="scroll-mt-16 border-t border-border px-5 py-24 md:px-8 lg:px-12 lg:py-36"
->
-  <h2
-    class="display mb-14 max-w-[16ch] text-[clamp(2.75rem,7vw,6rem)]"
-    data-title-chars
+  <!-- ACT 6: LASER BEAM PROCESS ([data-beam-track] lights up each step) -->
+  <section
+    data-cinema-section
+    class="steel-rings border-t border-border bg-background px-5 py-24 md:px-8 lg:px-12 lg:py-32"
   >
-    {t("home.clients.title")}
-  </h2>
-  <div class="grid gap-16 lg:grid-cols-2 lg:gap-12">
-    {clientGroups.map((group) => (
-      <div id={group.anchor} class="flex scroll-mt-20 flex-col gap-6" data-rows>
-        <div class="flex flex-col gap-2">
-          <h3 class="text-2xl font-bold tracking-tight md:text-3xl">
-            {group.title}
-          </h3>
-          <p class="max-w-lg text-muted-foreground">{group.text}</p>
-        </div>
-        <ul class="border-b border-border">
-          {group.ids.map((id) => (
-            <li data-row class="relative">
-              <span
-                data-row-line
-                class="absolute inset-x-0 top-0 h-px origin-left bg-border"
-              />
-              <a
-                href={serviceHref(id)}
-                data-cursor={t("cursor.service")}
-                class="group flex items-center justify-between gap-4 py-5 transition-[padding] duration-500 ease-out hover:pl-3"
-              >
-                <span class="flex min-w-0 flex-col gap-1">
-                  <span
-                    data-row-cell
-                    class="text-xl font-semibold tracking-tight transition-colors group-hover:text-laser-ink md:text-2xl"
-                  >
-                    {t(`svc.${id}.name`)}
-                  </span>
-                  <span
-                    data-row-cell
-                    class="text-sm text-muted-foreground md:text-base"
-                  >
-                    {t(`svc.${id}.card`)}
-                  </span>
-                </span>
-                <ArrowRight className="size-5 shrink-0 text-laser-ink transition-transform group-hover:translate-x-1" />
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-    ))}
-  </div>
-</section>
-<!-- 4c. FROM MESSAGE TO PIECE: the workshop as it is, and the four steps -->
-<section
-  id="proceso"
-  class="scroll-mt-16 border-t border-border px-5 py-24 md:px-8 lg:px-12 lg:py-36"
->
-  <div class="grid gap-14 lg:grid-cols-12 lg:gap-12">
-    <div class="flex flex-col gap-6 lg:col-span-5">
-      <div
-        data-wipe
-        class="relative aspect-[4/3] overflow-hidden rounded-[22px] lg:aspect-[4/5]"
-      >
-        <Image
-          src={photo("fachada_lasercom")}
-          alt={t("photo.fachada_lasercom")}
-          widths={[640, 960, 1200]}
-          sizes="(min-width: 1024px) 40vw, 100vw"
-          loading="lazy"
-          class="size-full object-cover"
-        />
-      </div>
-      <div class="flex flex-col gap-3">
-        <p data-scramble class="readout text-laser-ink">
-          {t("home.reviews.workshop.label")}
-        </p>
-        <p class="text-xl font-semibold tracking-tight">
-          {t("home.reviews.workshop.title")}
-        </p>
-        <p class="max-w-md text-muted-foreground">
+    <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-12">
+      <div class="lg:sticky lg:top-28 lg:col-span-5 lg:self-start">
+        <h2
+          data-title-chars
+          class="display text-[clamp(2.25rem,5.5vw,4.5rem)] text-foreground"
+        >
+          {t("home.process.title")}
+        </h2>
+        <p
+          data-lines
+          class="mt-4 max-w-md text-base leading-relaxed text-muted-foreground"
+        >
           {t("home.reviews.workshop.text")}
         </p>
-        <div class="flex flex-wrap items-center gap-4 pt-1">
+      </div>
+
+      <div data-beam-track class="relative pl-8 sm:pl-12 lg:col-span-7">
+        <!-- Vertical laser guide track -->
+        <div
+          aria-hidden="true"
+          class="absolute top-2 bottom-2 left-2 w-px bg-border sm:left-3"
+        >
+          <div
+            data-beam-fill
+            class="size-full origin-top scale-y-0 bg-laser shadow-[0_0_12px_var(--laser)]"
+          ></div>
+          <span
+            data-beam-head
+            class="absolute top-0 left-1/2 size-2.5 rounded-full bg-[#ffd7b0] opacity-0 shadow-[0_0_16px_4px_var(--laser)]"
+          ></span>
+        </div>
+
+        <ol class="flex flex-col gap-12">
+          {processSteps.map((step) => (
+            <li
+              data-beam-step
+              class="beam-step flex flex-col gap-2.5 border-b border-border/60 pb-10 transition-opacity duration-500 last:border-b-0 last:pb-0"
+            >
+              <span class="readout text-laser-ink">0{step}</span>
+              <h3 class="display text-2xl text-foreground md:text-3xl">
+                {t(`home.process.${step}.t`)}
+              </h3>
+              <p class="max-w-xl text-sm leading-relaxed text-muted-foreground md:text-base">
+                {t(`home.process.${step}.d`)}
+              </p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACT 7: VERIFIED PROOF, GUIDES & FAQ ON TEXTURED OBSIDIAN GRID -->
+  <div class="obsidian-grid border-t border-border">
+    <section
+      data-cinema-section
+      class="reveal px-5 py-24 md:px-8 lg:px-12 lg:py-28"
+    >
+      <div class="mx-auto max-w-7xl">
+        <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div data-cinema-drift="18">
+            <p class="readout inline-flex items-center gap-2 text-muted-foreground">
+              <Star className="size-3.5 fill-laser text-laser" aria-hidden />
+              {t("home.reviews.summary")} · {t("home.reviews.count")}
+            </p>
+            <h2
+              data-title-chars
+              class="display mt-3 text-[clamp(2.1rem,5vw,4.25rem)] text-foreground"
+            >
+              {t("home.reviews.title")}
+            </h2>
+          </div>
           <a
             href={business.mapsUrl}
             target="_blank"
             rel="noopener"
-            class="roll-link inline-flex min-h-11 items-center gap-1.5 pb-1.5 font-semibold"
+            class="roll-link group inline-flex min-h-11 w-fit items-center gap-2 pb-1 text-sm font-semibold text-foreground"
           >
             <span class="roll-link-mask">
-              <span>{t("cta.directions")}</span>
-              <span aria-hidden="true">{t("cta.directions")}</span>
+              <span>{t("home.reviews.link")}</span>
+              <span aria-hidden="true">{t("home.reviews.link")}</span>
             </span>
             <ArrowUpRight className="size-4 text-laser-ink" aria-hidden />
           </a>
-          <span class="readout text-muted-foreground">
-            {t("home.reviews.workshop.note")}
-          </span>
+        </div>
+
+        <!-- Oversized typographic quotes on hairlines instead of a card grid -->
+        <div class="mt-14 border-b border-border" data-stagger>
+          {reviews.map((review) => (
+            <figure class="grid gap-5 border-t border-border py-10 md:py-12 lg:grid-cols-12 lg:gap-10">
+              <blockquote class="display relative text-[clamp(1.45rem,2.6vw,2.4rem)] leading-[1.18] tracking-[-0.02em] text-foreground lg:col-span-9">
+                <span aria-hidden="true" class="text-laser">
+                  “
+                </span>
+                {review.text}
+                <span aria-hidden="true" class="text-laser">
+                  ”
+                </span>
+              </blockquote>
+              <figcaption class="flex items-center gap-3 lg:col-span-3 lg:flex-col lg:items-end lg:justify-end lg:text-right">
+                <span class="text-sm font-semibold text-foreground">
+                  {review.name}
+                </span>
+                <span class="readout text-muted-foreground">Google</span>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+
+        <!-- Workshop status strip -->
+        <div class="mt-8 flex flex-col justify-between gap-5 rounded-2xl border border-border bg-card p-6 md:flex-row md:items-center md:p-8">
+          <div class="flex flex-col gap-1.5">
+            <p data-scramble class="readout text-laser-ink">
+              {t("home.reviews.workshop.label")}
+            </p>
+            <p class="text-lg font-semibold text-foreground">
+              {t("home.reviews.workshop.title")}
+            </p>
+          </div>
+          <div class="flex shrink-0 flex-col gap-1.5 md:items-end">
+            <OpenStatus lang={lang} class="text-foreground/85" />
+            <span class="text-xs text-muted-foreground">
+              {t("home.reviews.workshop.note")}
+            </span>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
 
-    <div class="lg:col-span-7" data-rows>
-      <div class="mb-10 flex flex-wrap items-end justify-between gap-6 lg:mb-14">
-        <h2 class="display text-[clamp(2.75rem,7vw,6rem)]" data-title-chars>
-          {t("home.process.title")}
-        </h2>
+    <section class="reveal border-t border-border px-5 py-20 md:px-8 lg:px-12 lg:py-24">
+      <div class="mx-auto max-w-7xl">
+        <GuideCards lang={lang} ids={guideIds} />
       </div>
+    </section>
 
-      <ol data-beam-track class="process-steps relative border-b border-border">
-        <span
-          data-beam
-          aria-hidden="true"
-          class="process-beam pointer-events-none absolute top-0 bottom-0 -left-3 w-px md:-left-6"
-        >
-          <span
-            data-beam-fill
-            class="absolute inset-0 origin-top bg-laser/70 shadow-[0_0_8px_var(--laser)]"
-          ></span>
-          <span
-            data-beam-head
-            class="absolute top-0 left-1/2 size-2 rounded-full bg-[oklch(0.95_0.07_70)] opacity-0 shadow-[0_0_10px_3px_var(--laser),0_0_28px_8px_color-mix(in_oklab,var(--laser)_50%,transparent)]"
-          ></span>
-        </span>
-        {processSteps.map((n) => (
-          <li
-            data-row
-            data-beam-step
-            class="group relative grid gap-2 py-6 md:grid-cols-7 md:gap-6 lg:py-8"
-          >
-            <div
-              data-row-line
-              aria-hidden="true"
-              class="absolute inset-x-0 top-0 h-px origin-left bg-border"
-            />
-            <span
-              data-row-cell
-              aria-hidden="true"
-              class="process-num font-mono text-base text-laser-ink tabular-nums md:col-span-1"
-            >
-              {String(n).padStart(3, "0")}
-            </span>
-            <h3
-              data-row-cell
-              class="text-xl font-semibold tracking-tight transition-[translate] duration-500 ease-out group-hover:translate-x-2 md:col-span-2 lg:text-2xl"
-            >
-              {t(`home.process.${n}.t`)}
-            </h3>
-            <p
-              data-row-cell
-              class="text-base text-muted-foreground transition-colors duration-300 group-hover:text-foreground md:col-span-4 lg:text-lg"
-            >
-              {t(`home.process.${n}.d`)}
-            </p>
-          </li>
-        ))}
-      </ol>
+    <FaqSection title={t("home.faq.title")} faqs={faqs} />
+  </div>
 
-      <div class="mt-10 flex flex-wrap items-center gap-4">
-        <a
-          href={`${href("/contacto/")}#presupuesto`}
-          class={buttonVariants({
-            size: "lg",
-            className: "h-12 rounded-full px-6 text-base",
-          })}
-        >
-          {t("home.process.cta")}
-          <ArrowRight className="size-4" aria-hidden />
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- 6. THE WAY IN: guides, FAQ and the closing panel -->
-<section class="px-5 py-24 md:px-8 lg:px-12 lg:py-32">
-  <div class="mb-12 grid gap-6 lg:grid-cols-12">
-    <h2
-      data-title-chars
-      class="display text-[clamp(2.5rem,6vw,5.5rem)] lg:col-span-7"
-    >
-      {t("guides.home.title")}
-    </h2>
-    <div class="flex flex-col gap-4 self-end lg:col-span-5">
-      <p data-lines class="max-w-lg text-lg text-muted-foreground">
-        {t("guides.home.lead")}
-      </p>
-      <a
-        href={href("/guias/")}
-        class="roll-link group inline-flex min-h-11 w-fit items-center gap-2 pb-1.5 font-semibold text-foreground"
-      >
-        <span class="roll-link-mask">
-          <span>{t("guides.home.all")}</span>
-          <span aria-hidden="true">{t("guides.home.all")}</span>
-        </span>
-        <ArrowRight className="size-4 text-laser-ink transition-transform group-hover:translate-x-1" />
-      </a>
-    </div>
-  </div>
-  <GuideCards lang={lang} ids={guideIds.slice(0, 3)} />
-</section>
-<FaqSection title={t("home.faq.title")} faqs={faqs} />
-<CloseSection lang={lang} />
+  <CloseSection lang={lang} />
+</div>
+
 <style>
-  /* The CSS plaque: the piece on phones, with reduced motion and until the
-     3D one is ready. --ph is its height; the script moves it with transforms
-     (top-left origin) once the stage runs */
-  .stage-view {
-    perspective: 1600px;
-  }
-  .plaque {
-    --ph: min(42svh, 18rem);
-    position: absolute;
-    left: 50%;
-    top: 60%;
-    width: calc(var(--ph) * 0.8);
-    height: var(--ph);
-    translate: -50% 0;
-    rotate: -2deg;
-    font-size: calc(var(--ph) / 31);
-    transform-style: preserve-3d;
-  }
-  @media (min-width: 1024px) {
-    .plaque {
-      --ph: min(60svh, 34rem);
-      top: 66%;
-    }
-  }
-  .plaque[data-js] {
-    left: 0;
-    top: 0;
-    translate: none;
-    rotate: none;
-    will-change: transform;
-  }
-  .plaque-face {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    padding: 9% 8% 8%;
-    border-radius: 7%/5.6%;
-    color: var(--ink);
-    background: var(--face);
-    box-shadow:
-      inset 0 0 0 1px rgb(255 255 255 / 0.45),
-      inset 0 -0.35em 0 rgb(0 0 0 / 0.12),
-      0 2.4em 4em -1.2em rgb(30 18 8 / 0.5);
-    backface-visibility: hidden;
-  }
-  /* Light across the face: a soft band that slides as the piece turns
-     (--sheen, set by the script from its angle) */
-  .plaque-front::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    pointer-events: none;
-    background: linear-gradient(
-      115deg,
-      transparent 30%,
-      rgb(255 255 255 / calc(var(--gloss, 0.3) * 0.9)) 47%,
-      rgb(255 255 255 / calc(var(--gloss, 0.3) * 0.25)) 53%,
-      transparent 70%
-    );
-    background-size: 250% 100%;
-    background-position: calc(50% - var(--sheen, -0.6) * 60%) 0;
-    mix-blend-mode: soft-light;
-  }
-  /* The beam on the CSS plaque: the engraving shows down to the line it
-     has reached, and the line glows while it works */
-  .plaque-ink {
-    clip-path: inset(0 0 calc((1 - var(--engrave, 1)) * 100%) 0);
-  }
-  .plaque-scan {
-    position: absolute;
-    left: 6%;
-    right: 6%;
-    top: calc(9% + var(--engrave, 1) * 83%);
-    height: 1.5px;
-    border-radius: 1px;
-    opacity: var(--scan, 0);
-    background: oklch(0.95 0.06 70);
-    box-shadow:
-      0 0 0.5em 0.12em var(--laser),
-      0 -1.4em 1.6em -0.6em color-mix(in oklab, var(--laser) 55%, transparent);
-    pointer-events: none;
-  }
-  .plaque-back {
-    transform: rotateY(180deg);
-    background: var(--back);
-  }
-  .plaque-rule {
-    border-color: color-mix(in oklab, var(--ink) 45%, transparent);
-  }
-  .plaque-screw {
-    position: absolute;
-    width: 0.9em;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    background: radial-gradient(circle at 35% 30%, #fff, #9aa1ac 70%);
-    box-shadow: 0 0.08em 0.15em rgb(0 0 0 / 0.4);
-  }
-  /* Brushed stainless steel, as on the 3D plaque */
-  .plaque {
-    --gloss: 0.9;
-    --face: linear-gradient(160deg, #eef1f4, #b9c0c9 55%, #9198a3);
-    --back: #9198a3;
-    --ink: #1d2026;
-  }
-  /* "Así trabajamos": with motion, the steps wait in grey for the laser
-     line (animations.ts, animateBeams) and light up as it reaches them */
-  .process-beam {
-    display: none;
-  }
+  /* Steps dim slightly until the vertical laser beam reaches them */
   @media (prefers-reduced-motion: no-preference) {
-    :global(html.js) .process-beam {
-      display: block;
+    .js .beam-step {
+      opacity: 0.36;
     }
-    :global(html.js) .process-beam [data-beam-fill] {
-      transform: scaleY(0);
-    }
-    :global(html.js) .process-steps .process-num {
-      color: var(--muted-foreground);
-      transition:
-        color 0.4s ease-out,
-        text-shadow 0.6s ease-out;
-    }
-    :global(html.js) .process-steps [data-lit] .process-num {
-      color: var(--laser-ink);
-      text-shadow: 0 0 12px color-mix(in oklab, var(--laser) 55%, transparent);
-    }
-    :global(html.js) .process-steps h3 {
-      opacity: 0.55;
-      transition: opacity 0.5s ease-out;
-    }
-    :global(html.js) .process-steps [data-lit] h3 {
+    .js .beam-step[data-lit] {
       opacity: 1;
     }
   }
-  /* Stage running: one pinned scene under the header. The track is as tall
-     as the scroll it takes: a screen for the scene to open, then 1.6 for the
-     beam to engrave the piece. The script maps the same proportions */
-  @media (prefers-reduced-motion: no-preference) {
-    :global(html.js) .stage-track {
-      height: calc(100svh - 4rem + 260svh);
-    }
-    :global(html.js) .stage-pin {
-      position: sticky;
-      top: 4rem;
-      height: calc(100svh - 4rem);
-      min-height: 36rem;
-      overflow: hidden;
-    }
-    :global(html.js) [data-stage-hero] {
-      position: absolute;
-      inset: 0;
-    }
-    :global(html.js) .stage-anchor {
-      display: block;
-      top: 106svh;
-    }
-  }
-  @media (prefers-reduced-motion: no-preference) {
-    .plaque:not([data-js]) {
-      animation: plaque-in 1.3s cubic-bezier(0.16, 1, 0.3, 1) 0.9s backwards;
-    }
-    :global(html.js) .stage-view:not([data-no-gl]) .plaque {
-      opacity: 0 !important;
-    }
-  }
-  @keyframes plaque-in {
-    from {
-      opacity: 0;
-      transform: translateY(40svh) rotate(6deg);
-    }
-  }
-  .plaque {
-    transition: opacity 0.5s ease-out;
-  }
-  .stage-view[data-gl] .plaque {
-    opacity: 0;
-  }
 </style>
-
-<script>
-  import { ENGRAVE_ROWS as ROWS } from "@/lib/showcase"
-  import type { DialedStage3D, StagePose } from "@/lib/monolith-3d"
-
-  // Motion libraries after the first interaction (or just after load), so
-  // they never compete with the first paint
-  const motion = new Promise<void>((resolve) => {
-    const events = ["scroll", "wheel", "pointerdown", "keydown", "touchstart"]
-    const go = () => {
-      events.forEach((e) => removeEventListener(e, go))
-      resolve()
-    }
-    events.forEach((e) =>
-      addEventListener(e, go, { once: true, passive: true })
-    )
-    const later = () => setTimeout(go, 350)
-    if (document.readyState === "complete") later()
-    else addEventListener("load", later, { once: true })
-  }).then(async () => {
-    const [{ gsap }, { ScrollTrigger }] = await Promise.all([
-      import("gsap"),
-      import("gsap/ScrollTrigger"),
-    ])
-    gsap.registerPlugin(ScrollTrigger)
-    return { gsap, ScrollTrigger }
-  })
-
-  const clamp01 = (x: number) => Math.min(1, Math.max(0, x))
-  const lerp = (a: number, b: number, k: number) => a + (b - a) * k
-  const smooth = (x: number) => x * x * (3 - 2 * x)
-  const easeInOut = (x: number) =>
-    x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2
-
-  // The scroll the stage takes, in screens (the track's height in the CSS):
-  // one for the scene to open, then 1.6 for the beam to engrave the piece
-  const OPEN = 1
-  const ENGRAVE = 1.6
-  // Where the scene has opened, as a share of the stage's scroll
-  const OPENED = OPEN / (OPEN + ENGRAVE)
-
-  const setup = ({
-    gsap,
-    ScrollTrigger,
-  }: Awaited<typeof motion>): (() => void) => {
-    const track = document.querySelector<HTMLElement>("[data-stage]")
-    const pin = document.querySelector<HTMLElement>("[data-stage-pin]")
-    const anchor = document.querySelector<HTMLElement>("[data-stage-anchor]")
-    const view = document.querySelector<HTMLElement>("[data-stage-view]")
-    const hero = document.querySelector<HTMLElement>("[data-stage-hero]")
-    const showcase = document.querySelector<HTMLElement>("[data-showcase]")
-    const plaque = document.querySelector<HTMLElement>("[data-plaque]")
-    const canvas = document.querySelector<HTMLCanvasElement>(
-      "[data-stage-canvas]"
-    )
-    const last = document.querySelector<HTMLElement>("[data-hero-last]")
-    if (
-      !track ||
-      !pin ||
-      !anchor ||
-      !view ||
-      !hero ||
-      !showcase ||
-      !plaque ||
-      !canvas ||
-      !last
-    )
-      return () => {}
-    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return () => {}
-
-    const cleanups: (() => void)[] = []
-    const sheets = [...hero.querySelectorAll<HTMLElement>("[data-hero-sheet]")]
-    const recede = hero.querySelector<HTMLElement>("[data-hero-recede]")
-    const fades = [...hero.querySelectorAll<HTMLElement>("[data-hero-fade]")]
-    const title = showcase.querySelector<HTMLElement>("[data-showcase-title]")
-    const copy = showcase.querySelector<HTMLElement>(".showcase-copy")
-    const sheet = showcase.querySelector<HTMLElement>("[data-engrave-sheet]")
-    const after = showcase.querySelector<HTMLElement>("[data-engrave-after]")
-    const status = showcase.querySelector<HTMLElement>("[data-engrave-status]")
-    const label = status?.querySelector<HTMLElement>("[data-engrave-label]")
-    const passes = showcase.querySelector<HTMLElement>("[data-engrave-passes]")
-    const gantryX = showcase.querySelector<HTMLElement>("[data-gantry-x]")
-    const gantryY = showcase.querySelector<HTMLElement>("[data-gantry-y]")
-    const xyX = showcase.querySelector<HTMLElement>(
-      "[data-engrave-xy] [data-x]"
-    )
-    const xyY = showcase.querySelector<HTMLElement>(
-      "[data-engrave-xy] [data-y]"
-    )
-    const progress = showcase.querySelector<HTMLElement>(
-      "[data-engrave-progress]"
-    )
-
-    // Links to #materiales land on the engraving, not on the hero
-    showcase.removeAttribute("id")
-    anchor.id = "materiales"
-    cleanups.push(() => {
-      anchor.removeAttribute("id")
-      showcase.id = "materiales"
-    })
-
-    const chars = [
-      ...showcase.querySelectorAll<HTMLElement>(".showcase-char"),
-    ].map((el) => ({ el, c: Number(el.style.getPropertyValue("--c")) || 0 }))
-
-    // The words around the piece, from the scene opening (`opened`) and the
-    // engraving (`e`): the title rises letter by letter as the scene opens,
-    // the job sheet follows, and the button waits for the finished piece
-    let drawn = ""
-    let state = ""
-    const paint = (opened: number, e: number) => {
-      const key = `${opened.toFixed(4)}:${e.toFixed(4)}`
-      if (key === drawn) return
-      drawn = key
-      chars.forEach(({ el, c }) => {
-        const y = clamp01((1 - opened) * (1 + c * 0.06))
-        el.style.transform =
-          y > 0
-            ? `translate3d(0, ${(y * 115).toFixed(2)}%, 0) rotate(${(y * 4).toFixed(2)}deg)`
-            : "none"
-      })
-      if (sheet) {
-        const k = smooth(clamp01((opened - 0.35) / 0.65))
-        sheet.style.opacity = k.toFixed(3)
-        sheet.style.transform = `translate3d(0, ${((1 - k) * 1.25).toFixed(3)}rem, 0)`
-      }
-      if (after) {
-        const k = smooth(clamp01((e - 0.82) / 0.18))
-        after.style.opacity = k.toFixed(3)
-        after.style.transform = `translate3d(0, ${((1 - k) * 1.25).toFixed(3)}rem, 0)`
-        after.style.visibility = k <= 0 ? "hidden" : ""
-      }
-      if (progress) progress.style.transform = `scaleX(${e.toFixed(4)})`
-      const now = e <= 0.001 ? "ready" : e >= 0.999 ? "done" : "burn"
-      if (now !== state && status && label) {
-        state = now
-        status.dataset.state = now
-        label.textContent = status.dataset[now] ?? ""
-      }
-      if (passes)
-        passes.textContent = String(Math.min(ROWS, Math.ceil(e * ROWS - 1e-6)))
-    }
-
-    // The gantry: its two lines cross at the beam's spot (from the 3D scene,
-    // or worked out on the CSS plaque) and the header reads its position in
-    // millimetres of the bed (the grid is 3.2 px per mm)
-    const MM = 3.2
-    let gantryOn = 0
-    let beamX = 0
-    let beamY = 0
-    const cssBeam = (pose: StagePose) => {
-      if (pose.engrave <= 0.0005 || pose.engrave >= 0.9995) return null
-      const s = pose.engrave * ROWS
-      const row = Math.min(ROWS - 1, Math.floor(s))
-      const along = s - row
-      const u = row % 2 ? 1 - along : along
-      const h = pose.height
-      // The engraving spans 8–92% across and 9–92% down the face
-      const dx = (0.08 + u * 0.84 - 0.5) * h * 0.8
-      const dy = (0.09 + ((row + 0.5) / ROWS) * 0.83 - 0.5) * h
-      const c = Math.cos(pose.rotZ)
-      const sn = Math.sin(pose.rotZ)
-      return { x: pose.cx + dx * c - dy * sn, y: pose.cy + dx * sn + dy * c }
-    }
-    const pad = (n: number) => Math.max(0, n).toFixed(1).padStart(5, "0")
-    const moveGantry = (beam: { x: number; y: number } | null, dt: number) => {
-      gantryOn += ((beam ? 1 : 0) - gantryOn) * (1 - Math.exp(-dt * 6))
-      if (beam) {
-        beamX = beam.x
-        beamY = beam.y
-      }
-      const o = gantryOn < 0.01 ? "0" : gantryOn.toFixed(3)
-      if (gantryX) {
-        gantryX.style.opacity = o
-        gantryX.style.transform = `translate3d(${beamX.toFixed(1)}px, 0, 0)`
-      }
-      if (gantryY) {
-        gantryY.style.opacity = o
-        gantryY.style.transform = `translate3d(0, ${beamY.toFixed(1)}px, 0)`
-      }
-      if (beam && xyX && xyY) {
-        xyX.textContent = pad(beamX / MM)
-        xyY.textContent = pad(beamY / MM)
-      }
-    }
-
-    // Layout, measured on load and resize: the size of the scene, where the
-    // headline's last line sits (the piece rises in front of its lower part,
-    // as the can does in Dialed's hero) and, on phones, the gap between the
-    // title and the copy, where the piece sits
-    let vw = 0
-    let vh = 0
-    let titleBottom = 0
-    let lineHeight = 0
-    let baseH = 1
-    let gapTop = 0
-    let gapBottom = 0
-    // Which way each sheet flies off as the scene opens
-    let sheetDirs: [number, number][] = []
-    const measure = () => {
-      vw = view.clientWidth
-      vh = view.clientHeight
-      const held = recede?.style.transform ?? ""
-      if (recede) recede.style.transform = ""
-      const top = hero.getBoundingClientRect().top
-      const box = last.getBoundingClientRect()
-      titleBottom = box.bottom - top
-      lineHeight = parseFloat(getComputedStyle(last).fontSize) * 0.9
-      if (recede) recede.style.transform = held
-      const box0 = showcase.getBoundingClientRect()
-      gapTop = title ? title.getBoundingClientRect().bottom - box0.top : 0
-      gapBottom = copy ? copy.getBoundingClientRect().top - box0.top : vh
-      sheetDirs = sheets.map((s) => {
-        const x = s.offsetLeft + s.offsetWidth / 2 - vw / 2
-        const y = s.offsetTop + s.offsetHeight / 2 - vh / 2
-        const d = Math.hypot(x, y) || 1
-        return [x / d, y / d]
-      })
-      plaque.setAttribute("data-js", "")
-      baseH = plaque.offsetHeight || 1
-      stage3d?.resize()
-    }
-
-    const heroPose = () => {
-      const desktop = vw >= 1024
-      const h = desktop ? Math.min(vh * 0.6, 544) : Math.min(vh * 0.4, 288)
-      const top = titleBottom - lineHeight * (desktop ? 0.08 : 0.05)
-      return { cx: vw / 2, cy: top + h / 2, h }
-    }
-
-    const poseAt = (t: number, e: number): StagePose => {
-      const desktop = vw >= 1024
-      const k = easeInOut(clamp01(t))
-      const from = heroPose()
-      const gap = gapBottom - gapTop
-      const showH = desktop
-        ? Math.min(vh * 0.68, 600)
-        : Math.max(120, Math.min(gap - 28, 280))
-      return {
-        cx: lerp(from.cx, desktop ? vw * 0.7 : vw / 2, k),
-        cy: lerp(from.cy, desktop ? vh * 0.52 : (gapTop + gapBottom) / 2, k),
-        height: lerp(from.h, showH, k),
-        // Square to the reader by the time the beam starts
-        rotZ: lerp(-0.035, desktop ? -0.05 : -0.02, k),
-        // A full turn while the scene opens, from a three-quarter view to
-        // the front; a slow drift while it engraves keeps it alive
-        rotY: lerp(-0.24, 0, k) + k * Math.PI * 2 + (e - 0.5) * 0.12 * k,
-        // The hero's piece is engraved; it turns its back and comes round
-        // blank, ready for the beam
-        engrave: k < 0.5 ? 1 : e,
-      }
-    }
-
-    const applyCss = (pose: StagePose) => {
-      const w = baseH * 0.8
-      plaque.style.setProperty(
-        "--sheen",
-        Math.sin(pose.rotY * 0.5 + pose.rotZ * 4).toFixed(3)
-      )
-      plaque.style.setProperty("--engrave", pose.engrave.toFixed(4))
-      plaque.style.setProperty(
-        "--scan",
-        pose.engrave > 0.001 && pose.engrave < 0.999 ? "1" : "0"
-      )
-      plaque.style.transform =
-        `translate3d(${(pose.cx - w / 2).toFixed(1)}px, ${(pose.cy - baseH / 2).toFixed(1)}px, 0) ` +
-        `rotate(${pose.rotZ.toFixed(4)}rad) rotateY(${pose.rotY.toFixed(4)}rad) ` +
-        `scale(${(pose.height / baseH).toFixed(4)})`
-    }
-
-    // One scroll drives the whole scene: t opens it (0..1), e is how much
-    // the beam has engraved (0..1), with a short rest before and after.
-    // Both follow the scroll with a time-based glide
-    let targetT = 0
-    let targetE = 0
-    let t = 0
-    let e = 0
-    const read = (p: number) => {
-      targetT = clamp01(p / OPENED)
-      targetE = clamp01(((p - OPENED) / (1 - OPENED) - 0.05) / 0.8)
-    }
-    const scene = ScrollTrigger.create({
-      trigger: track,
-      start: "top 64px",
-      end: "bottom bottom",
-      onUpdate: (self) => read(self.progress),
-      onRefresh: (self) => read(self.progress),
-    })
-    // Leaving: the scene closes into a card as the stage lets go
-    let exit = 0
-    let exitS = 0
-    const leave = ScrollTrigger.create({
-      trigger: track,
-      start: "bottom bottom",
-      end: "bottom 45%",
-      onUpdate: (self) => void (exit = self.progress),
-    })
-    cleanups.push(() => {
-      scene.kill()
-      leave.kill()
-    })
-
-    let stage3d: DialedStage3D | null = null
-    // Hand-off: the plaque is already on screen (CSS, maybe still rising in);
-    // the stage starts from where it is and eases into its own pose
-    const start = (() => {
-      const a = plaque.getBoundingClientRect()
-      const v = view.getBoundingClientRect()
-      return {
-        cx: a.left + a.width / 2 - v.left,
-        cy: a.top + a.height / 2 - v.top,
-        h: a.height,
-        at: performance.now(),
-      }
-    })()
-    const HANDOFF = 1100
-    let clipped = "-"
-    const tick = (_time: number, deltaMs: number) => {
-      // Frame-rate independent easing (the same glide at 60 and 120 Hz)
-      const dt = Math.min(0.1, deltaMs / 1000)
-      t += (targetT - t) * (1 - Math.exp(-dt * 7))
-      e += (targetE - e) * (1 - Math.exp(-dt * 5))
-      if (Math.abs(targetT - t) < 1e-4) t = targetT
-      if (Math.abs(targetE - e) < 1e-4) e = targetE
-      const pose = poseAt(t, e)
-      // Leaving: the scene closes into a rounded card that slides away over
-      // the next section, the piece settling smaller inside it
-      exitS += (exit - exitS) * (1 - Math.exp(-dt * 8))
-      const x = easeInOut(clamp01(exitS))
-      pose.height *= 1 - 0.18 * x
-      const h = clamp01((performance.now() - start.at) / HANDOFF)
-      if (h < 1 && start.h > 0) {
-        const k = 1 - easeInOut(h)
-        pose.cx += (start.cx - pose.cx) * k
-        pose.cy += (start.cy - pose.cy) * k
-        pose.height += (start.h - pose.height) * k
-      }
-      if (stage3d) stage3d.setPose(pose)
-      else applyCss(pose)
-      moveGantry(stage3d ? stage3d.beam() : cssBeam(pose), dt)
-
-      paint(smooth(clamp01((t - 0.55) / 0.45)), e)
-
-      // The hero sinks back: the headline shrinks into the distance, the
-      // rest fades, and the plans on the bench fly past the camera
-      const k = easeInOut(clamp01(t))
-      if (recede) {
-        recede.style.transform =
-          k > 0.001
-            ? `translate3d(0, ${(-k * vh * 0.05).toFixed(1)}px, 0) scale(${(1 - k * 0.22).toFixed(4)})`
-            : ""
-        recede.style.opacity = k > 0.001 ? clamp01(1 - k * 1.3).toFixed(3) : ""
-      }
-      const fade = clamp01(1 - t * 2.6)
-      fades.forEach((el) => {
-        el.style.opacity = fade < 1 ? fade.toFixed(3) : ""
-        el.style.visibility = fade <= 0 ? "hidden" : ""
-      })
-      sheets.forEach((s, i) => {
-        const [dx, dy] = sheetDirs[i] ?? [0, 0]
-        const d = Number(s.dataset.depth) || 1
-        const fly = k * d
-        s.style.translate =
-          k > 0.001
-            ? `${(dx * fly * vw * 0.35).toFixed(1)}px ${(dy * fly * vh * 0.35).toFixed(1)}px`
-            : ""
-        s.style.scale = k > 0.001 ? (1 + fly * 0.7).toFixed(4) : ""
-        s.style.opacity = k > 0.001 ? clamp01(1 - k * 1.5).toFixed(3) : ""
-      })
-
-      // The scene opens out from behind the piece: a window the size of the
-      // piece in the hero that grows, corners easing square, until it is
-      // the whole screen
-      const w = easeInOut(clamp01((t - 0.04) / 0.86))
-      // "none", not "": the CSS keeps the scene shut until the script runs
-      let clip = "none"
-      if (x > 0.001) {
-        const side = (x * vw * 0.04).toFixed(1)
-        const r = (x * 44).toFixed(1)
-        clip = `inset(0 ${side}px ${(x * vh * 0.06).toFixed(1)}px ${side}px round 0 0 ${r}px ${r}px)`
-      } else if (w < 0.999) {
-        const from = heroPose()
-        const hw = from.h * 0.8 * 0.42
-        const hh = from.h * 0.42
-        const ins = (edge: number) => Math.max(0, edge * (1 - w)).toFixed(1)
-        clip =
-          `inset(${ins(from.cy - hh)}px ${ins(vw - from.cx - hw)}px ` +
-          `${ins(vh - from.cy - hh)}px ${ins(from.cx - hw)}px ` +
-          `round ${(28 * (1 - w)).toFixed(1)}px)`
-      }
-      if (clip !== clipped) {
-        clipped = clip
-        showcase.style.clipPath = clip
-        showcase.style.visibility = t <= 0.04 ? "hidden" : ""
-      }
-    }
-    measure()
-    tick(0, 16)
-    gsap.ticker.add(tick)
-    cleanups.push(() => gsap.ticker.remove(tick))
-    const ro = new ResizeObserver(measure)
-    ro.observe(view)
-    ro.observe(last)
-    cleanups.push(() => ro.disconnect())
-
-    // Arriving at /#materiales before the stage ran: go to the engraving
-    // instead of the hero
-    if (location.hash === "#materiales" && scene.progress < OPENED * 0.5)
-      anchor.scrollIntoView()
-
-    // The real 3D piece everywhere WebGL runs (the CSS plaque stays as the
-    // fallback if WebGL is unavailable); phones get lighter maps. With a fine
-    // pointer, the pointer also moves it and the sheets
-    const desktop = matchMedia("(min-width: 1024px) and (pointer: fine)")
-    let destroyed = false
-    void Promise.all([import("@/lib/monolith-3d"), document.fonts.ready])
-      .then(async ([{ createDialedStage3D }]) => {
-        if (destroyed) return
-        const read = (key: string) => view.dataset[key] ?? ""
-        const ready = await createDialedStage3D(
-          canvas,
-          {
-            subtitle: read("plaqueSubtitle"),
-            laser: read("plaqueLaser"),
-            laserValue: read("plaqueLaserValue"),
-            cut: read("plaqueCut"),
-            since: read("plaqueSince"),
-          },
-          { light: !desktop.matches }
-        )
-        if (!ready) {
-          if (!destroyed) view.setAttribute("data-no-gl", "")
-          return
-        }
-        if (destroyed) {
-          ready.destroy()
-          return
-        }
-        stage3d = ready
-        stage3d.setPose(poseAt(t, e))
-        view.setAttribute("data-gl", "")
-        canvas.classList.remove("opacity-0")
-      })
-      .catch(() => {
-        if (!destroyed) view.setAttribute("data-no-gl", "")
-      })
-    if (desktop.matches) {
-      const onMove = (ev: PointerEvent) => {
-        const nx = (ev.clientX / innerWidth - 0.5) * 2
-        const ny = (ev.clientY / innerHeight - 0.5) * 2
-        stage3d?.setPointer(nx, ny)
-        sheets.forEach((s) => {
-          const inner = s.firstElementChild as HTMLElement | null
-          const d = Number(s.dataset.depth) * 22
-          if (inner)
-            inner.style.transform = `translate3d(${(nx * d).toFixed(1)}px, ${(ny * d * 0.7).toFixed(1)}px, 0)`
-        })
-      }
-      addEventListener("pointermove", onMove, { passive: true })
-      cleanups.push(() => removeEventListener("pointermove", onMove))
-    }
-    cleanups.push(() => {
-      destroyed = true
-      stage3d?.destroy()
-      stage3d = null
-      view.removeAttribute("data-gl")
-      view.removeAttribute("data-no-gl")
-      plaque.removeAttribute("data-js")
-      plaque.style.transform = ""
-      ;["--sheen", "--engrave", "--scan"].forEach((v) =>
-        plaque.style.removeProperty(v)
-      )
-      showcase.style.clipPath = ""
-      showcase.style.visibility = ""
-      chars.forEach(({ el }) => (el.style.transform = ""))
-      if (status && label) {
-        status.dataset.state = "done"
-        label.textContent = status.dataset.done ?? ""
-      }
-      if (passes) passes.textContent = String(ROWS)
-      ;[gantryX, gantryY].forEach((el) => {
-        if (!el) return
-        el.style.opacity = ""
-        el.style.transform = ""
-      })
-      ;[sheet, after].forEach((el) => {
-        if (!el) return
-        el.style.opacity = ""
-        el.style.transform = ""
-        el.style.visibility = ""
-      })
-      if (progress) progress.style.transform = ""
-      if (recede) {
-        recede.style.transform = ""
-        recede.style.opacity = ""
-      }
-      fades.forEach((el) => {
-        el.style.opacity = ""
-        el.style.visibility = ""
-      })
-      sheets.forEach((s) => {
-        s.style.translate = ""
-        s.style.scale = ""
-        s.style.opacity = ""
-      })
-    })
-
-    return () => cleanups.forEach((fn) => fn())
-  }
-
-  let cleanup: (() => void) | undefined
-  let visit = 0
-  document.addEventListener("astro:page-load", () => {
-    cleanup?.()
-    cleanup = undefined
-    const current = ++visit
-    void motion.then((libs) => {
-      if (current === visit) cleanup = setup(libs)
-    })
-  })
-  document.addEventListener("astro:before-swap", () => {
-    visit++
-    cleanup?.()
-    cleanup = undefined
-  })
-</script>

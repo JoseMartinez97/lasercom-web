@@ -150,31 +150,6 @@ const structuredData: Record<string, unknown>[] = noindex
         : []),
       ...jsonLd,
     ]
-
-// The page change curtain takes the destination's material ground: service
-// pages by their material (the home's stage colours), the rest the default
-const materialTone: Partial<Record<(typeof serviceIds)[number], string>> = {
-  metal: "#16191e",
-  industrial: "#16191e",
-  madera: "#331707",
-  decoracion: "#331707",
-  cristal: "#0a271f",
-  metacrilato: "#0b2330",
-  piel: "#2d0f06",
-  plastico: "#1d181b",
-  joyeria: "#342306",
-}
-const curtainTones = Object.fromEntries(
-  serviceIds.flatMap((id) => {
-    const tone = materialTone[id]
-    return tone
-      ? [
-          [services[id].es, tone],
-          [services[id].en, tone],
-        ]
-      : []
-  })
-)
 ---
 
 <!doctype html>
@@ -184,7 +159,7 @@ const curtainTones = Object.fromEntries(
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#f3eee6" />
+    <meta name="theme-color" content="#0b0c0e" />
 
     <link
       rel="preload"
@@ -284,20 +259,13 @@ const curtainTones = Object.fromEntries(
     <WhatsappButton lang={lang} />
     <ActionBar lang={lang} />
     <CookieConsent lang={lang} />
-    <!-- Page change curtain (lib/page-curtain.ts), in the destination's
-         material ground -->
-    <div
-      class="page-curtain"
-      data-page-curtain
-      data-tones={JSON.stringify(curtainTones)}
-      data-tone-default="#1c1917"
-      aria-hidden="true"
-      transition:persist="page-curtain"
-    >
-      {Array.from({ length: 8 }).map(() => (
-        <i />
-      ))}
-    </div>
+    <!-- Subtle stepped analog grain overlay (Openstate_ pattern) so obsidian
+         surfaces feel like tactile matte metal instead of flat digital black -->
+    <div class="obsidian-grain" aria-hidden="true"></div>
+    <!-- Pointer-reactive optical aperture: reveals subtle laser halo + micro-dots
+         only around the cursor on desktop -->
+    <div class="obsidian-spotlight" aria-hidden="true"></div>
+    <!-- Laser pointer & 16-tick vernier scroll-velocity ruler (desktop fine pointer) -->
     <div class="laser-cursor" data-cursor-dot aria-hidden="true">
       <div class="laser-vernier" data-cursor-vernier aria-hidden="true">
         {Array.from({ length: 16 }).map(() => (
@@ -307,7 +275,6 @@ const curtainTones = Object.fromEntries(
       <span></span>
     </div>
     <script>
-      import { initPageCurtain } from "@/lib/page-curtain"
       import { mountOpenStatus } from "@/lib/open-status"
       import {
         analyticsOn,
@@ -389,7 +356,25 @@ const curtainTones = Object.fromEntries(
         })
       })
       document.addEventListener("astro:before-swap", stop)
-      initPageCurtain()
+
+      // Feed pointer coordinates to .obsidian-spotlight (fine pointers only)
+      if (matchMedia("(hover: hover) and (pointer: fine)").matches) {
+        const root = document.documentElement
+        window.addEventListener(
+          "pointermove",
+          (e) => {
+            root.style.setProperty("--mx", `${e.clientX}px`)
+            root.style.setProperty("--my", `${e.clientY}px`)
+            if (!root.hasAttribute("data-ptr-on")) {
+              root.setAttribute("data-ptr-on", "")
+            }
+          },
+          { passive: true }
+        )
+        document.addEventListener("pointerleave", () => {
+          root.removeAttribute("data-ptr-on")
+        })
+      }
     </script>
   </body>
 </html>

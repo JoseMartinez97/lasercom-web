@@ -15,10 +15,6 @@ export const guides = {
     "guides.updated": "Updated",
     "guides.services": "Related services",
     "guides.more": "More guides",
-    "guides.home.title": "Before you ask",
-    "guides.home.lead":
-      "Practical workshop guides so you arrive at the quote knowing what to ask for.",
-    "guides.home.all": "See all 6 guides",
     "guide.corte-o-grabado.title":
       "Laser cutting or engraving? Which one you need | Lasercom",
     "guide.corte-o-grabado.description":
@@ -86,10 +82,6 @@ export const guides = {
     "guides.updated": "Actualizada",
     "guides.services": "Servicios relacionados",
     "guides.more": "Más guías",
-    "guides.home.title": "Antes de pedir",
-    "guides.home.lead":
-      "Guías prácticas del taller para llegar al presupuesto sabiendo qué material, acabado y archivo encajan con tu pieza.",
-    "guides.home.all": "Ver las 6 guías",
     "guide.corte-o-grabado.title":
       "¿Corte o grabado láser? Cuál necesitas | Lasercom",
     "guide.corte-o-grabado.description":
