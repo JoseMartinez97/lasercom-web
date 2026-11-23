@@ -47,28 +47,52 @@ export const materials = {
     "svc.madera.faq.5.a":
       "Yes. We work both with our own sheets and with customer-supplied boards or finished wooden items such as boxes, guitar headstocks, castanets or bottle stands.",
 
-    "svc.metacrilato.name": "Acrylic and glass",
+    "svc.metacrilato.name": "Acrylic",
     "svc.metacrilato.card":
-      "Signs, plaques, trophies, displays and engraved glasses with polished edges.",
+      "Signs, plaques, letters, trophies, displays and scale models with polished edges.",
     "svc.metacrilato.title":
-      "Acrylic laser cutting and glass engraving in Valencia | Lasercom",
+      "Acrylic laser cutting and engraving in Valencia | Lasercom",
     "svc.metacrilato.description":
-      "Acrylic laser cutting with polished edges and frosted glass engraving in Valencia: signs, plaques, trophies, displays, glasses and bottles.",
-    "svc.metacrilato.h1": "Acrylic laser cutting and glass engraving",
+      "Acrylic (PMMA) laser cut to size in Valencia with polished edges, and engraved in white: signs, letters, plaques, trophies, displays and scale models.",
+    "svc.metacrilato.h1": "Acrylic laser cutting and engraving",
     "svc.metacrilato.lead":
-      "Signs, plaques, trophies, scale models, glasses and bottles. Acrylic comes off the laser with bright, flame-polished edges; glass keeps a frosted engraving that never wears off.",
+      "Signs, letters, plaques, trophies, displays and scale models. Acrylic comes off the laser cut to size with bright, polished edges, and the engraving shows up white and matte.",
     "svc.metacrilato.intro":
-      "Acrylic (PMMA) is one of the cleanest materials to machine by laser: the beam cuts cleanly and leaves a smooth, glassy edge straight away, making it ideal for corporate lettering, signage, displays, trophies and scale models. We work with clear, coloured, matte and mirror sheets in different thicknesses depending on the piece.",
+      "Acrylic (PMMA) is the plastic that responds best to the laser: the cut is fast and exact and leaves a smooth, glossy edge in the same pass, with no hand finishing. That makes it ideal for signs, corporate letters, plaques, displays, trophies and scale models, in clear, coloured, matte or mirror sheet.",
     "svc.metacrilato.body":
-      "Glass behaves differently: it is engraved, not cut. The laser fractures the very top surface microscopically to create a permanent white frosted finish without templates, masks or sandblasting. That lets us personalise wine glasses, champagne flutes, bottles, mirrors and awards directly from a digital file — even with a different name on every glass. Because glass composition varies, we always confirm how a given piece will react before starting.",
-    "svc.metacrilato.points": "Why laser on acrylic and glass",
+      "We cut acrylic to size from your file or your measurements, from a single piece to a batch, and we engrave text, logos or drawings on it in the same job. If what you need is to engrave glasses, bottles or mirrors, that is glass, not acrylic: see our glass engraving page.",
+    "svc.metacrilato.tipos.title": "How each acrylic turns out",
+    "svc.metacrilato.tipos.lead":
+      "We work clear, coloured, matte and mirror acrylic. The cut is the same; what changes is how the engraving looks.",
+    "svc.metacrilato.tipos.1.t": "Clear",
+    "svc.metacrilato.tipos.1.d":
+      "The engraving turns white and matte and stands out against a dark background or with light behind it. The edge stays as transparent as the sheet.",
+    "svc.metacrilato.tipos.2.t": "Coloured and black",
+    "svc.metacrilato.tipos.2.d":
+      "The engraving shows as a matte mark on the colour. Black acrylic is the classic for business cards and elegant plaques.",
+    "svc.metacrilato.tipos.3.t": "Matte and mirror",
+    "svc.metacrilato.tipos.3.d":
+      "Matte acrylic softens reflections on signs and displays; mirror acrylic is used for decoration and signs that need shine.",
+    "svc.metacrilato.pedido.title": "How to order acrylic cut to size",
+    "svc.metacrilato.pedido.lead":
+      "Three things are enough for us to quote. If you are missing any of them, ask us and we will help.",
+    "svc.metacrilato.pedido.1.t": "The file",
+    "svc.metacrilato.pedido.1.d":
+      "Ideally vector (DXF, SVG, AI or PDF) at 1:1 scale in millimetres. If you only have a sketch or a photo, we prepare it.",
+    "svc.metacrilato.pedido.2.t": "Colour and thickness",
+    "svc.metacrilato.pedido.2.d":
+      "Tell us the colour, the finish and the thickness. If you are not sure which thickness the piece needs, tell us what it is for.",
+    "svc.metacrilato.pedido.3.t": "Quantity and engraving",
+    "svc.metacrilato.pedido.3.d":
+      "How many pieces you need and whether they carry text or a logo engraved, on one side or both.",
+    "svc.metacrilato.points": "Why laser on acrylic",
     "svc.metacrilato.p1.t": "Polished edges",
     "svc.metacrilato.p1.d":
       "The laser seals the acrylic cut edge as it passes, leaving clear sheets transparent and glossy without manual polishing.",
     "svc.metacrilato.p2.t": "Accuracy on small parts",
     "svc.metacrilato.p2.d":
       "Letters, slots for scale models and fine signage components cut with identical tolerances from the first unit to the last.",
-    "svc.metacrilato.p3.t": "Glass engraving without screens",
+    "svc.metacrilato.p3.t": "No moulds or stencils",
     "svc.metacrilato.p3.d":
       "Engraving directly from your vector design means no setup moulds or stencils, saving cost on short runs and individual gifts.",
     "svc.metacrilato.p4.t": "Range of thicknesses",
@@ -76,23 +100,27 @@ export const materials = {
       "From thin sheets for black or clear cards to thicker structural panels for shop signs, trophies and displays.",
     "svc.metacrilato.uses":
       "Wine & champagne glasses · Bottles · Plaques and trophies · Signage · Displays · Acrylic business cards · Scale models",
-    "svc.metacrilato.faq.1.q":
-      "Can you engrave glasses or bottles I bring myself?",
+    "svc.metacrilato.faq.1.q": "Can you cut acrylic to size?",
     "svc.metacrilato.faq.1.a":
-      "Usually yes. Tell us what kind of glass or bottle it is, whether the surface is cylindrical or curved, and the size of the logo or text so we can confirm before you bring them.",
-    "svc.metacrilato.faq.2.q": "Can you cut glass with a laser?",
+      "Yes. Send us the file or the measurements, the colour and the thickness, and we cut it to size, from one piece to a batch.",
+    "svc.metacrilato.faq.2.q": "Do the edges need polishing afterwards?",
     "svc.metacrilato.faq.2.a":
-      "Glass is engraved with a laser, not cut cleanly into shapes. When you need a transparent cut-out piece, acrylic is the right material: lighter, far more impact-resistant and with bright polished edges.",
+      "No. The laser melts the edge slightly as it cuts and leaves it bright and transparent, with no sanding or hand polishing.",
     "svc.metacrilato.faq.3.q": "Do you make signs and plaques for businesses?",
     "svc.metacrilato.faq.3.a":
-      "Yes: reception logos, door signs, directory plaques, bar menus and displays. See also our corporate letters and signs service.",
-    "svc.metacrilato.faq.4.q":
-      "Does frosted engraving on glass come off in the dishwasher?",
+      "Yes: signage plates, reception and door signs, hospitality menus, acrylic letters and displays. See also our corporate lettering service.",
+    "svc.metacrilato.faq.4.q": "What does engraving on acrylic look like?",
     "svc.metacrilato.faq.4.a":
-      "No. It isn't ink or vinyl applied on top — it is etched into the glass surface itself, so it resists washing and daily handling.",
-    "svc.metacrilato.faq.5.q": "Do you also cut polycarbonate?",
+      "A white, matte mark on the surface. On clear acrylic it stands out against a dark background or with light behind it; on black or coloured acrylic it gives strong contrast.",
+    "svc.metacrilato.faq.5.q": "Do you cut polycarbonate too?",
     "svc.metacrilato.faq.5.a":
-      "No. Polycarbonate melts, discolours and produces heavy fumes under a laser, so for clear plastic parts we always recommend acrylic (PMMA).",
+      "No. Polycarbonate melts, yellows and gives off harmful fumes under the laser; for transparent parts we always use acrylic (PMMA).",
+    "svc.metacrilato.faq.6.q": "Can you engrave glass or wine glasses?",
+    "svc.metacrilato.faq.6.a":
+      "Yes, but glass is engraved, not cut. See our glass and wine glass engraving page.",
+    "svc.metacrilato.faq.7.q": "Do I need a file to order a piece?",
+    "svc.metacrilato.faq.7.a":
+      "A vector file is best (DXF, SVG, AI or PDF). If you only have a sketch or a photo with the measurements, send it: we prepare it.",
 
     "svc.cristal.name": "Glass and drinking glasses",
     "svc.cristal.card":
@@ -142,7 +170,7 @@ export const materials = {
     "svc.piel.card":
       "Logos, crests and names on wallets, key rings, belts and leather goods.",
     "svc.piel.title":
-      "Leather laser engraving & cutting in Valencia | Lasercom",
+      "Leather laser engraving and cutting in Valencia | Lasercom",
     "svc.piel.description":
       "CO2 laser engraving and cutting on leather in Valencia: logos, crests and names on wallets, keyrings, belts and leather goods. Free quote.",
     "svc.piel.h1": "Laser engraving and cutting on leather",
@@ -152,6 +180,30 @@ export const materials = {
       "We use a CO2 laser cutter and engraver to personalise leather goods with a sharp, permanent finish. Because leather engraving works by gently scorching the top fibres, it needs no ink or hot-stamping dies — meaning small runs, individual names or detailed crests are quick to produce.",
     "svc.piel.body":
       "We also laser-cut leather into patterns, labels and straps with clean edges and tight curves. The exact tone and depth depend on the hide and tanning: full-grain, top-grain, corrected-grain and bonded leather react differently, and darker hides give subtler contrast than light natural leather. We check the piece first and advise you on the cleanest result.",
+    "svc.piel.tipos.title": "How each leather turns out",
+    "svc.piel.tipos.lead":
+      "Leather darkens where the laser touches it. How much depends on the colour and the tanning, so we check your piece first.",
+    "svc.piel.tipos.1.t": "Natural and light leather",
+    "svc.piel.tipos.1.d":
+      "On natural, tan, cognac or beige leather the mark comes out dark and very visible, with a slight relief.",
+    "svc.piel.tipos.2.t": "Black or dark leather",
+    "svc.piel.tipos.2.d":
+      "The engraving shows mainly through the relief and the change from shiny to matte, not through colour.",
+    "svc.piel.tipos.3.t": "Synthetic and bonded leather",
+    "svc.piel.tipos.3.d":
+      "Synthetic leather only if it is PVC-free. Bonded leather reacts differently from natural leather, so we test it first.",
+    "svc.piel.trabajos.title": "Engrave a finished piece or cut from scratch",
+    "svc.piel.trabajos.lead":
+      "We do both: personalise something that already exists or cut new pieces from a pattern.",
+    "svc.piel.trabajos.1.t": "Finished pieces",
+    "svc.piel.trabajos.1.d":
+      "Wallets, belts, card holders, folders and key rings, as long as the area to engrave sits flat and clear of thick seams.",
+    "svc.piel.trabajos.2.t": "Patterns and labels",
+    "svc.piel.trabajos.2.d":
+      "We cut silhouettes, patches and labels with stitching holes in the same pass, from a vector file.",
+    "svc.piel.trabajos.3.t": "Batches for brands",
+    "svc.piel.trabajos.3.d":
+      "Logos on leather goods and promotional items, from a single prototype to a full run.",
     "svc.piel.points": "Why laser on leather",
     "svc.piel.p1.t": "Natural contrast",
     "svc.piel.p1.d":
@@ -183,6 +235,12 @@ export const materials = {
       "Can you cut small leather patches or labels with stitch holes?",
     "svc.piel.faq.5.a":
       "Yes. From a vector pattern we can cut the outer contour, engrave your logo and pierce exact stitch holes in the same pass.",
+    "svc.piel.faq.6.q": "Does the engraving on leather wear off?",
+    "svc.piel.faq.6.a":
+      "No. It is not ink or paint on top: the laser darkens the leather fibre itself, so it does not crack or peel with use.",
+    "svc.piel.faq.7.q": "What file do I need to engrave a logo on leather?",
+    "svc.piel.faq.7.a":
+      "A vector file is best (SVG, PDF, AI or DXF). If you only have an image, send it anyway: we prepare it.",
 
     "svc.metal.name": "Metal",
     "svc.metal.card":
@@ -358,28 +416,52 @@ export const materials = {
     "svc.madera.faq.5.a":
       "Sí. Trabajamos tanto con nuestras planchas como con madera o piezas terminadas que traigas tú, como cajas, tablas, castañuelas, palas de guitarra o peanas.",
 
-    "svc.metacrilato.name": "Metacrilato y cristal",
+    "svc.metacrilato.name": "Metacrilato",
     "svc.metacrilato.card":
-      "Rótulos, placas, trofeos, expositores y copas grabadas, con cantos pulidos.",
+      "Rótulos, placas, letras, trofeos, expositores y maquetas con cantos pulidos.",
     "svc.metacrilato.title":
-      "Corte de metacrilato y grabado de cristal en Valencia | Lasercom",
+      "Corte y grabado láser de metacrilato en Valencia | Lasercom",
     "svc.metacrilato.description":
-      "Corte láser de metacrilato con cantos pulidos y grabado esmerilado en cristal en Valencia: rótulos, placas, trofeos, copas y botellas.",
-    "svc.metacrilato.h1": "Corte láser de metacrilato y grabado en cristal",
+      "Corte láser de metacrilato a medida en Valencia con cantos pulidos y grabado en blanco: rótulos, letras, placas, trofeos, expositores y maquetas.",
+    "svc.metacrilato.h1": "Corte y grabado láser de metacrilato",
     "svc.metacrilato.lead":
-      "Rótulos, placas, trofeos, maquetas, copas y botellas. El metacrilato sale del láser con los cantos brillantes y pulidos; el cristal queda con un grabado esmerilado que no se borra.",
+      "Rótulos, letras, placas, trofeos, expositores y maquetas. El metacrilato sale del láser cortado a medida y con los cantos brillantes, y el grabado queda blanco y mate.",
     "svc.metacrilato.intro":
-      "El metacrilato (PMMA) es uno de los plásticos técnicos que mejor responde al láser: el corte es rápido, exacto y deja el canto liso y brillante en la misma pasada, sin repasos manuales. Es ideal para rotulación, letras corporativas, placas, expositores, trofeos y maquetas a escala, en planchas transparentes, de colores, mate o espejo de distintos grosores.",
+      "El metacrilato (PMMA) es el plástico que mejor responde al láser: el corte es rápido y exacto y deja el canto liso y brillante en la misma pasada, sin repasos a mano. Por eso es ideal para rótulos, letras corporativas, placas, expositores, trofeos y maquetas, en plancha transparente, de color, mate o espejo.",
     "svc.metacrilato.body":
-      "El cristal, en cambio, se graba pero no se corta con láser: el haz microfractura la superficie creando un esmerilado blanco permanente sin necesidad de plantillas ni pantallas de arena. Así personalizamos copas, botellas, jarras, espejos y trofeos directamente desde el diseño digital, incluso cambiando el nombre en cada copa. Como cada vidrio responde distinto según su composición, siempre revisamos el material antes de empezar.",
-    "svc.metacrilato.points": "Por qué con láser",
+      "Cortamos metacrilato a medida desde tu archivo o tus medidas, de una pieza a una tirada, y en el mismo trabajo grabamos textos, logotipos o dibujos. Si lo que buscas es grabar copas, botellas o espejos, eso es cristal y no metacrilato: mira nuestra página de grabado en cristal.",
+    "svc.metacrilato.tipos.title": "Cómo queda cada metacrilato",
+    "svc.metacrilato.tipos.lead":
+      "Trabajamos metacrilato transparente, de color, mate y espejo. El corte es el mismo; lo que cambia es cómo se ve el grabado.",
+    "svc.metacrilato.tipos.1.t": "Transparente",
+    "svc.metacrilato.tipos.1.d":
+      "El grabado queda blanco y mate, y destaca sobre un fondo oscuro o con luz por detrás. El canto queda tan transparente como la plancha.",
+    "svc.metacrilato.tipos.2.t": "De color y negro",
+    "svc.metacrilato.tipos.2.d":
+      "El grabado se ve como una marca mate sobre el color. El metacrilato negro es el clásico de las tarjetas de visita y las placas elegantes.",
+    "svc.metacrilato.tipos.3.t": "Mate y espejo",
+    "svc.metacrilato.tipos.3.d":
+      "El mate quita reflejos en rótulos y expositores; el espejo se usa en decoración y en rótulos que necesitan brillo.",
+    "svc.metacrilato.pedido.title": "Cómo pedir metacrilato a medida",
+    "svc.metacrilato.pedido.lead":
+      "Con tres cosas te podemos dar precio. Si te falta alguna, pregúntanos y te ayudamos.",
+    "svc.metacrilato.pedido.1.t": "El archivo",
+    "svc.metacrilato.pedido.1.d":
+      "Mejor en vectorial (DXF, SVG, AI o PDF) a escala 1:1 en milímetros. Si solo tienes un boceto o una foto, lo preparamos nosotros.",
+    "svc.metacrilato.pedido.2.t": "Color y grosor",
+    "svc.metacrilato.pedido.2.d":
+      "Dinos el color, el acabado y el grosor. Si no sabes qué grosor necesita la pieza, cuéntanos para qué es.",
+    "svc.metacrilato.pedido.3.t": "Cantidad y grabado",
+    "svc.metacrilato.pedido.3.d":
+      "Cuántas piezas necesitas y si llevan texto o logotipo grabado, por una cara o por las dos.",
+    "svc.metacrilato.points": "Por qué trabajar metacrilato con láser",
     "svc.metacrilato.p1.t": "Cantos pulidos al corte",
     "svc.metacrilato.p1.d":
       "El láser funde ligeramente el borde del metacrilato al cortarlo y lo deja brillante y transparente sin pulido posterior.",
     "svc.metacrilato.p2.t": "Exactitud en piezas pequeñas",
     "svc.metacrilato.p2.d":
       "Letras, ranuras de encaje para maquetas y señalética fina con la misma tolerancia de la primera pieza a la última.",
-    "svc.metacrilato.p3.t": "Grabado en cristal sin plantillas",
+    "svc.metacrilato.p3.t": "Sin moldes ni plantillas",
     "svc.metacrilato.p3.d":
       "Al grabar directo desde archivo digital no hay costes de moldes ni pantallas, ideal para tiradas cortas o piezas únicas.",
     "svc.metacrilato.p4.t": "Distintos grosores y acabados",
@@ -387,22 +469,27 @@ export const materials = {
       "Desde láminas finas para tarjetas negras o transparentes hasta planchas gruesas para rótulos y peanas.",
     "svc.metacrilato.uses":
       "Copas y botellas · Placas y trofeos · Señalización · Expositores · Tarjetas de metacrilato · Maquetas a escala",
-    "svc.metacrilato.faq.1.q": "¿Podéis grabar mis propias copas o botellas?",
+    "svc.metacrilato.faq.1.q": "¿Cortáis metacrilato a medida?",
     "svc.metacrilato.faq.1.a":
-      "Normalmente sí. Dinos qué tipo de copa o botella es, si la zona es recta o curva y el tamaño del grabado para confirmártelo antes de traerlas.",
-    "svc.metacrilato.faq.2.q": "¿Se puede cortar cristal con láser?",
+      "Sí. Mándanos el archivo o las medidas, el color y el grosor, y lo cortamos a medida, de una pieza a una tirada.",
+    "svc.metacrilato.faq.2.q": "¿Hay que pulir los cantos después?",
     "svc.metacrilato.faq.2.a":
-      "El cristal se graba con láser, pero no se recorta en formas. Si necesitas una pieza transparente cortada a medida, el material adecuado es el metacrilato: más ligero, resistente y con cantos pulidos.",
+      "No. El láser funde ligeramente el borde al cortarlo y lo deja brillante y transparente, sin lijar ni pulir a mano.",
     "svc.metacrilato.faq.3.q": "¿Hacéis rótulos y placas para negocios?",
     "svc.metacrilato.faq.3.a":
       "Sí: placas de señalización, rótulos de recepción y puerta, cartas de hostelería, letras de metacrilato y expositores. Mira también nuestro servicio de letras corporativas.",
-    "svc.metacrilato.faq.4.q":
-      "¿El grabado del cristal aguanta el lavavajillas?",
+    "svc.metacrilato.faq.4.q": "¿Cómo queda el grabado en metacrilato?",
     "svc.metacrilato.faq.4.a":
-      "Sí. No es tinta ni vinilo pegado encima, sino un esmerilado permanente grabado en la propia superficie del vidrio, por lo que no se despega al lavarlo.",
+      "Una marca blanca y mate en la superficie. En el transparente destaca sobre un fondo oscuro o con luz por detrás; en el negro o de color da mucho contraste.",
     "svc.metacrilato.faq.5.q": "¿Cortáis también policarbonato?",
     "svc.metacrilato.faq.5.a":
       "No. El policarbonato se funde, amarillea y desprende humos inadecuados bajo el láser; para piezas transparentes trabajamos siempre con metacrilato (PMMA).",
+    "svc.metacrilato.faq.6.q": "¿Grabáis cristal o copas?",
+    "svc.metacrilato.faq.6.a":
+      "Sí, pero el cristal se graba, no se corta. Mira nuestra página de grabado en cristal y copas.",
+    "svc.metacrilato.faq.7.q": "¿Necesito un archivo para pedir una pieza?",
+    "svc.metacrilato.faq.7.a":
+      "Lo ideal es un archivo vectorial (DXF, SVG, AI o PDF). Si solo tienes un boceto o una foto con las medidas, mándalo: lo preparamos nosotros.",
 
     "svc.cristal.name": "Cristal y copas",
     "svc.cristal.card":
@@ -453,7 +540,7 @@ export const materials = {
     "svc.piel.card":
       "Logotipos, escudos y nombres en carteras, llaveros, cinturones y marroquinería.",
     "svc.piel.title":
-      "Corte y grabado láser en piel y cuero en Valencia | Lasercom",
+      "Grabado y corte láser en piel y cuero en Valencia | Lasercom",
     "svc.piel.description":
       "Grabado y corte láser de CO2 en piel y cuero natural en Valencia: logotipos, escudos y nombres en carteras, llaveros, cinturones y marroquinería.",
     "svc.piel.h1": "Corte y grabado láser en piel y cuero",
@@ -463,6 +550,30 @@ export const materials = {
       "Utilizamos láser de CO2 para grabar y cortar cuero y piel con un acabado limpio, sin tintas ni clichés metálicos de termograbado. Al no requerir molde previo, podemos personalizar desde un único regalo hasta tiradas de marroquinería corporativa con logotipos, escudos o textos finos.",
     "svc.piel.body":
       "Además del grabado superficial por cambio de tonalidad, cortamos piezas y patrones de piel con curvas cerradas y huecos exactos. El resultado depende del tipo de curtido y grano: la piel de grano completo, grano superior, grano corregido o cuero regenerado reaccionan de forma distinta, y en pieles claras el contraste oscuro es más marcado que en pieles negras. Revisamos tu pieza antes para asegurarte el mejor acabado.",
+    "svc.piel.tipos.title": "Cómo queda cada piel",
+    "svc.piel.tipos.lead":
+      "La piel se oscurece donde la toca el láser. Cuánto depende del color y del curtido, así que revisamos tu pieza antes.",
+    "svc.piel.tipos.1.t": "Piel natural y clara",
+    "svc.piel.tipos.1.d":
+      "En piel natural, cuero, coñac o beige la marca sale oscura y muy visible, con un ligero relieve.",
+    "svc.piel.tipos.2.t": "Piel negra u oscura",
+    "svc.piel.tipos.2.d":
+      "El grabado se aprecia sobre todo por el relieve y por el cambio de brillo a mate, no por el color.",
+    "svc.piel.tipos.3.t": "Polipiel y cuero regenerado",
+    "svc.piel.tipos.3.d":
+      "La polipiel, solo si no lleva PVC. El cuero regenerado reacciona distinto que la piel natural, así que lo probamos antes.",
+    "svc.piel.trabajos.title": "Grabar una pieza hecha o cortar desde cero",
+    "svc.piel.trabajos.lead":
+      "Hacemos las dos cosas: personalizar algo que ya existe o cortar piezas nuevas desde un patrón.",
+    "svc.piel.trabajos.1.t": "Piezas terminadas",
+    "svc.piel.trabajos.1.d":
+      "Carteras, cinturones, tarjeteros, carpetas y llaveros, siempre que la zona a grabar quede plana y sin costuras gruesas.",
+    "svc.piel.trabajos.2.t": "Patrones y etiquetas",
+    "svc.piel.trabajos.2.d":
+      "Cortamos siluetas, parches y etiquetas con los agujeros de costura en la misma pasada, desde un archivo vectorial.",
+    "svc.piel.trabajos.3.t": "Tiradas para marcas",
+    "svc.piel.trabajos.3.d":
+      "Logotipos en marroquinería y artículos promocionales, desde un prototipo hasta una tirada completa.",
     "svc.piel.points": "Por qué trabajar piel con láser",
     "svc.piel.p1.t": "Contraste natural sin tintas",
     "svc.piel.p1.d":
@@ -496,6 +607,13 @@ export const materials = {
       "¿Podéis cortar etiquetas de cuero ya perforadas para coser?",
     "svc.piel.faq.5.a":
       "Sí. A partir de un archivo vectorial cortamos la silueta, grabamos tu marca y perforamos los puntos de costura en la misma pasada.",
+    "svc.piel.faq.6.q": "¿El grabado en piel se borra con el uso?",
+    "svc.piel.faq.6.a":
+      "No. No es tinta ni pintura encima: el láser oscurece la propia fibra de la piel, así que no se agrieta ni se pela con el uso.",
+    "svc.piel.faq.7.q":
+      "¿Qué archivo necesito para grabar un logotipo en piel?",
+    "svc.piel.faq.7.a":
+      "Lo ideal es un archivo vectorial (SVG, PDF, AI o DXF). Si solo tienes una imagen, mándala igualmente: la preparamos nosotros.",
 
     "svc.metal.name": "Metal",
     "svc.metal.card":

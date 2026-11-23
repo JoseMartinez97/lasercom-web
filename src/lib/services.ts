@@ -110,13 +110,16 @@ export const services: Record<ServiceId, Service> = {
       "tarjeta_grabado_laser_nobg",
       "pawnees_1",
       "fotograbado_1",
-      "grabado_en_crista",
       "maqueta_escala_metacrilato_2",
       "corte_laser_metacrilato_cristal_online_1",
-      "grabado_laser_cristal_vidrio",
       "grabado_laser_metacrilato_com",
     ],
-    related: ["cristal", "letras", "empresas"],
+    related: ["letras", "cristal", "empresas"],
+    sections: [
+      { id: "tipos", items: 3 },
+      { id: "pedido", items: 3 },
+    ],
+    faqs: 7,
   },
   cristal: {
     es: "/grabado-laser-cristal-copas/",
@@ -140,6 +143,11 @@ export const services: Record<ServiceId, Service> = {
       "cortar_grabar_piel_laser_4-1",
     ],
     related: ["empresas", "personalizado", "metal"],
+    sections: [
+      { id: "tipos", items: 3 },
+      { id: "trabajos", items: 3 },
+    ],
+    faqs: 7,
   },
   metal: {
     es: "/corte-grabado-laser-metal-acero/",
