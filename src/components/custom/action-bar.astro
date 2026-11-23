@@ -6,9 +6,11 @@ import { ArrowUpRight, MessageCircle, Phone } from "lucide-react"
 
 interface Props {
   lang: Lang
+  whatsappText?: string
 }
-const { lang } = Astro.props
+const { lang, whatsappText } = Astro.props
 const t = useTranslations(lang)
+const message = whatsappText ?? t("wa.default")
 ---
 
 <nav
@@ -27,7 +29,8 @@ const t = useTranslations(lang)
       <span>{t("bar.call")}</span>
     </a>
     <a
-      href={whatsappHref(t("wa.default"))}
+      data-action-wa
+      href={whatsappHref(message)}
       target="_blank"
       rel="noopener"
       class="inline-flex h-11 shrink-0 items-center justify-center gap-1.5 rounded-full border border-border bg-card px-4 text-xs font-medium text-foreground transition-colors active:scale-95"

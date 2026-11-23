@@ -8,7 +8,7 @@ import SiteFooter from "@/components/custom/site-footer.astro"
 import WhatsappButton from "@/components/custom/whatsapp-button.astro"
 import ActionBar from "@/components/custom/action-bar.astro"
 import CookieConsent from "@/components/custom/cookie-consent.astro"
-import { business } from "@/lib/business"
+import { business, whatsappHref } from "@/lib/business"
 import { serviceIds, services } from "@/lib/services"
 // The display face, fetched with the HTML instead of after the CSS is parsed
 import archivoFont from "@fontsource-variable/archivo/files/archivo-latin-wdth-normal.woff2?url"
@@ -26,6 +26,8 @@ export interface Props {
   // The photo shown when the page is shared; the workshop's card by default
   ogImage?: string
   ogType?: "website" | "article"
+  // Pre-filled WhatsApp message tailored to the current page
+  whatsappText?: string
 }
 
 const {
@@ -37,8 +39,11 @@ const {
   noindex = false,
   ogImage,
   ogType = "website",
+  whatsappText,
 } = Astro.props
 const t = (key: keyof (typeof ui)[typeof defaultLang]) => ui[lang][key]
+const waMessage = whatsappText ?? t("wa.default")
+const waHref = whatsappHref(waMessage)
 // A preview build (PUBLIC_PREVIEW=1, see .github/workflows/deploy.yml) keeps
 // every page out of search engines, so it never competes with lasercom.es
 const preview = import.meta.env.PUBLIC_PREVIEW === "1"
@@ -252,12 +257,12 @@ const structuredData: Record<string, unknown>[] = noindex
       {t("a11y.skip")}
     </a>
     <Header lang={lang} path={Astro.url.pathname} />
-    <main id="main-content">
+    <main id="main-content" data-wa-href={waHref}>
       <slot />
     </main>
     <SiteFooter lang={lang} />
-    <WhatsappButton lang={lang} />
-    <ActionBar lang={lang} />
+    <WhatsappButton lang={lang} text={waMessage} />
+    <ActionBar lang={lang} whatsappText={waMessage} />
     <CookieConsent lang={lang} />
     <!-- Laser pointer & 16-tick vernier scroll-velocity ruler (desktop fine pointer) -->
     <div class="laser-cursor" data-cursor-dot aria-hidden="true">
@@ -342,6 +347,17 @@ const structuredData: Record<string, unknown>[] = noindex
       document.addEventListener("astro:page-load", () => {
         stop()
         const current = visit
+        // Keep persisted WhatsApp links tailored to the current page after View Transitions
+        const waHref = document.getElementById("main-content")?.dataset.waHref
+        if (waHref) {
+          document
+            .querySelectorAll<HTMLAnchorElement>(
+              "[data-whatsapp-button], [data-action-wa]"
+            )
+            .forEach((a) => {
+              a.href = waHref
+            })
+        }
         cleanups = [mountOpenStatus()]
         pageView()
         animations.then(({ initAnimations }) => {

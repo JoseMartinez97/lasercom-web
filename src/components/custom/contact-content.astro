@@ -4,9 +4,17 @@ import { useTranslations } from "@/i18n/utils"
 import { Image } from "astro:assets"
 import OpenStatus from "@/components/custom/open-status.astro"
 import { QuoteBuilder } from "@/components/custom/quote-builder"
-import { business, mailHref, telHref, whatsappHref } from "@/lib/business"
+import {
+  business,
+  mailHref,
+  mapsDirectionsUrl,
+  telHref,
+  whatsappHref,
+} from "@/lib/business"
 import { photo, serviceIds } from "@/lib/services"
-import { ArrowDown, ArrowUpRight } from "lucide-react"
+import { buttonVariants } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
+import { ArrowDown, ArrowUpRight, Navigation } from "lucide-react"
 
 interface Props {
   lang: Lang
@@ -121,18 +129,30 @@ const direct = [
         <br />
         {t("close.hours.friday")}
       </p>
-      <a
-        href={business.mapsUrl}
-        target="_blank"
-        rel="noopener"
-        class="roll-link group inline-flex min-h-11 w-fit items-center gap-2 pb-1 text-sm font-semibold text-foreground"
-      >
-        <span class="roll-link-mask">
-          <span>{t("cta.directions")}</span>
-          <span aria-hidden="true">{t("cta.directions")}</span>
-        </span>
-        <ArrowUpRight className="size-4 text-laser-ink" aria-hidden />
-      </a>
+      <div class="mt-2 flex flex-wrap items-center gap-4">
+        <a
+          href={mapsDirectionsUrl}
+          target="_blank"
+          rel="noopener"
+          data-magnetic
+          class={cn(buttonVariants({ size: "cta" }))}
+        >
+          <Navigation className="size-4" aria-hidden />
+          {t("cta.mapsRoute")}
+        </a>
+        <a
+          href={business.mapsUrl}
+          target="_blank"
+          rel="noopener"
+          class="roll-link group inline-flex min-h-11 w-fit items-center gap-2 pb-1 text-sm font-semibold text-foreground"
+        >
+          <span class="roll-link-mask">
+            <span>{t("home.reviews.link")}</span>
+            <span aria-hidden="true">{t("home.reviews.link")}</span>
+          </span>
+          <ArrowUpRight className="size-4 text-laser-ink" aria-hidden />
+        </a>
+      </div>
     </div>
     <div class="flex flex-col gap-3 border-t border-border pt-8">
       <h2 class="text-2xl font-bold tracking-tight">

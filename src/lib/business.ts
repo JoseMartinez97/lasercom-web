@@ -54,3 +54,4 @@ export const mailHref = (subject?: string) =>
   `mailto:${business.email}${subject ? `?subject=${encodeURIComponent(subject)}` : ""}`
 export const whatsappHref = (text?: string) =>
   `https://wa.me/${business.whatsapp}${text ? `?text=${encodeURIComponent(text)}` : ""}`
+export const mapsDirectionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${business.geo.latitude},${business.geo.longitude}`

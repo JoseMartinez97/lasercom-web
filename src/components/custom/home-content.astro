@@ -7,11 +7,20 @@ import GuideCards from "@/components/custom/guide-cards.astro"
 import OpenStatus from "@/components/custom/open-status.astro"
 import PlaqueHero from "@/components/custom/plaque-hero.astro"
 import WorkShowcase from "@/components/custom/work-showcase.astro"
-import { business } from "@/lib/business"
+import { business, mapsDirectionsUrl, telHref } from "@/lib/business"
 import { guideIds } from "@/lib/guides"
 import { homeFaqIndices } from "@/lib/pages"
 import { services, type ServiceId } from "@/lib/services"
-import { ArrowRight, ArrowUpRight, Star } from "lucide-react"
+import { buttonVariants } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
+import {
+  ArrowRight,
+  ArrowUpRight,
+  MapPin,
+  Navigation,
+  Phone,
+  Star,
+} from "lucide-react"
 
 interface Props {
   lang: Lang
@@ -314,21 +323,57 @@ const faqs = homeFaqIndices.map((n) => ({
           ))}
         </div>
 
-        <!-- Workshop status strip -->
-        <div class="mt-8 flex flex-col justify-between gap-5 rounded-2xl border border-border bg-card p-6 md:flex-row md:items-center md:p-8">
-          <div class="flex flex-col gap-1.5">
+        <!-- Workshop directions & live opening status -->
+        <div class="mt-8 grid gap-6 rounded-2xl border border-border bg-card p-6 md:p-8 lg:grid-cols-12 lg:items-center">
+          <div class="flex flex-col gap-3 lg:col-span-7">
             <p data-scramble class="readout text-laser-ink">
               {t("home.reviews.workshop.label")}
             </p>
-            <p class="text-lg font-semibold text-foreground">
+            <p class="text-xl font-semibold text-foreground md:text-2xl">
               {t("home.reviews.workshop.title")}
             </p>
+            <address class="flex items-start gap-2.5 text-sm text-foreground/85 not-italic md:text-base">
+              <MapPin
+                className="mt-0.5 size-4 shrink-0 text-laser-ink"
+                aria-hidden
+              />
+              <span>
+                {business.street} · {business.postalCode} {business.locality} (
+                {business.region})
+              </span>
+            </address>
+            <div class="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-muted-foreground sm:text-sm">
+              <OpenStatus lang={lang} class="text-foreground/90" />
+              <span aria-hidden="true" class="hidden sm:inline">
+                ·
+              </span>
+              <span>{t("home.reviews.workshop.note")}</span>
+            </div>
+            <p class="text-xs text-muted-foreground">
+              {t("close.hours.weekdays")} · {t("close.hours.friday")}
+            </p>
           </div>
-          <div class="flex shrink-0 flex-col gap-1.5 md:items-end">
-            <OpenStatus lang={lang} class="text-foreground/85" />
-            <span class="text-xs text-muted-foreground">
-              {t("home.reviews.workshop.note")}
-            </span>
+          <div class="flex flex-col gap-3 sm:flex-row lg:col-span-5 lg:flex-col lg:items-end xl:flex-row xl:justify-end">
+            <a
+              href={mapsDirectionsUrl}
+              target="_blank"
+              rel="noopener"
+              data-magnetic
+              class={cn(buttonVariants({ size: "cta" }))}
+            >
+              <Navigation className="size-4" aria-hidden />
+              {t("cta.mapsRoute")}
+            </a>
+            <a
+              href={telHref}
+              class={cn(
+                buttonVariants({ variant: "outline", size: "cta" }),
+                "border-white/20 bg-background/85 text-foreground hover:bg-background dark:bg-background/85"
+              )}
+            >
+              <Phone className="size-4 text-laser-ink" aria-hidden />
+              {business.phoneDisplay}
+            </a>
           </div>
         </div>
       </div>

@@ -28,8 +28,13 @@ export const site = {
     "bar.call": "Call",
     "bar.quote": "Quote",
     "cta.directions": "Get directions",
+    "cta.mapsRoute": "Open route in Google Maps",
     "cta.service": "See the service",
     "wa.default": "Hi, I'd like a quote for a laser job.",
+    "wa.service": "Hi, I'd like a quote for {service}.",
+    "wa.work": "Hi, I've seen your work on the website and would like a quote.",
+    "wa.guide":
+      "Hi, I just read your guide “{topic}” and have a question about a job.",
 
     "home.title": "Laser cutting, engraving and marking in Valencia | Lasercom",
     "home.description":
@@ -392,8 +397,15 @@ export const site = {
     "bar.call": "Llamar",
     "bar.quote": "Presupuesto",
     "cta.directions": "Cómo llegar",
+    "cta.mapsRoute": "Abrir ruta en Google Maps",
     "cta.service": "Ver el servicio",
     "wa.default": "Hola, quería pedir presupuesto para un trabajo de láser.",
+    "wa.service":
+      "Hola, quería pedir presupuesto para un trabajo de {service}.",
+    "wa.work":
+      "Hola, he visto vuestros trabajos en la web y quería pedir presupuesto.",
+    "wa.guide":
+      "Hola, acabo de leer vuestra guía «{topic}» y quería consultar un trabajo.",
 
     "home.title": "Corte, grabado y marcado láser en Valencia | Lasercom",
     "home.description":

@@ -114,6 +114,16 @@ const crumbName = page.service
       : page.kind === "guides"
         ? t("nav.guides")
         : undefined
+const whatsappText = page.service
+  ? t("wa.service").replace(
+      "{service}",
+      t(`svc.${page.service}.name`).toLocaleLowerCase(lang)
+    )
+  : page.kind === "work"
+    ? t("wa.work")
+    : page.guide
+      ? t("wa.guide").replace("{topic}", t(`guide.${page.guide}.h1`))
+      : t("wa.default")
 ---
 
 <Layout
@@ -133,6 +143,7 @@ const crumbName = page.service
   jsonLd={jsonLd}
   ogImage={ogImage}
   ogType={page.guide ? "article" : "website"}
+  whatsappText={whatsappText}
 >
   {page.kind === "home" && <HomeContent lang={lang} />}
   {page.service && <ServiceContent lang={lang} id={page.service} />}
