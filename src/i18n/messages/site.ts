@@ -367,6 +367,7 @@ export const site = {
     "quote.step.3": "03 · Timing & details",
     "quote.copy": "Copy message",
     "quote.copied": "Copied",
+    "quote.jump.send": "Review and send",
     "contact.jump.builder": "Open quote configurator",
   },
   es: {
@@ -737,6 +738,7 @@ export const site = {
     "quote.step.3": "03 · Plazo y descripción",
     "quote.copy": "Copiar mensaje",
     "quote.copied": "Mensaje copiado",
+    "quote.jump.send": "Ver mensaje y enviar",
     "contact.jump.builder": "Configurar presupuesto",
   },
 } as const

@@ -134,13 +134,13 @@ const message = Astro.props.message ?? t("wa.default")
         <dd class="flex flex-col gap-1 text-sm text-foreground md:text-base">
           <a
             href={telHref}
-            class="w-fit py-1 transition-colors hover:text-laser-ink"
+            class="inline-flex min-h-11 w-fit items-center transition-colors hover:text-laser-ink"
           >
             {business.phoneDisplay}
           </a>
           <a
             href={`tel:${business.landline}`}
-            class="w-fit py-1 text-muted-foreground transition-colors hover:text-foreground"
+            class="inline-flex min-h-11 w-fit items-center text-muted-foreground transition-colors hover:text-foreground"
           >
             {business.landlineDisplay}
           </a>

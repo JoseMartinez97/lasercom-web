@@ -63,6 +63,8 @@ const ogAlternateLocales = alternates
   .filter(({ code }) => code !== lang)
   .map(({ code }) => ({ es: "es_ES", en: "en_GB" })[code])
 const isHome = Astro.url.pathname === "/" || Astro.url.pathname === "/en/"
+const isContact =
+  Astro.url.pathname === "/contacto/" || Astro.url.pathname === "/en/contact/"
 
 // The business, as Google should understand it: the same name, address and
 // phone as the Business Profile (src/lib/business.ts)
@@ -257,7 +259,11 @@ const structuredData: Record<string, unknown>[] = noindex
       {t("a11y.skip")}
     </a>
     <Header lang={lang} path={Astro.url.pathname} />
-    <main id="main-content" data-wa-href={waHref}>
+    <main
+      id="main-content"
+      data-wa-href={waHref}
+      data-is-contact={isContact ? "true" : undefined}
+    >
       <slot />
     </main>
     <SiteFooter lang={lang} />
@@ -348,7 +354,8 @@ const structuredData: Record<string, unknown>[] = noindex
         stop()
         const current = visit
         // Keep persisted WhatsApp links tailored to the current page after View Transitions
-        const waHref = document.getElementById("main-content")?.dataset.waHref
+        const mainEl = document.getElementById("main-content")
+        const waHref = mainEl?.dataset.waHref
         if (waHref) {
           document
             .querySelectorAll<HTMLAnchorElement>(
@@ -358,6 +365,16 @@ const structuredData: Record<string, unknown>[] = noindex
               a.href = waHref
             })
         }
+        // On /contacto/, the quote builder is already on screen: hide the
+        // redundant Quote pill in the persisted bottom bar and balance Call + WhatsApp
+        const onContact = mainEl?.dataset.isContact === "true"
+        const actionQuote = document.querySelector<HTMLElement>(
+          "[data-action-quote]"
+        )
+        if (actionQuote) actionQuote.hidden = onContact
+        document
+          .querySelectorAll<HTMLElement>("[data-action-call], [data-action-wa]")
+          .forEach((el) => el.classList.toggle("flex-1", onContact))
         cleanups = [mountOpenStatus()]
         pageView()
         animations.then(({ initAnimations }) => {

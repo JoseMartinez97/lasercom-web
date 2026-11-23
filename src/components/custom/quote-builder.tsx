@@ -1,5 +1,5 @@
 import * as React from "react"
-import { ArrowUpRight, Check, Copy, Mail, X } from "lucide-react"
+import { ArrowDown, ArrowUpRight, Check, Copy, Mail, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ui, defaultLang, type Lang, type UiKey } from "@/i18n/ui"
 import { mailHref, whatsappHref } from "@/lib/business"
@@ -282,6 +282,15 @@ export function QuoteBuilder({
               </button>
             ))}
           </div>
+          {!empty && (
+            <a
+              href="#resumen-presupuesto"
+              className="mt-1 inline-flex min-h-11 w-fit items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground lg:hidden"
+            >
+              {t("quote.jump.send")}
+              <ArrowDown className="size-4" aria-hidden />
+            </a>
+          )}
         </div>
 
         <div className="flex flex-col gap-7 border-t border-border pt-7">
@@ -377,7 +386,10 @@ export function QuoteBuilder({
       </div>
 
       {/* Sticky conversion column: message updates live while the visitor selects */}
-      <div className="flex flex-col gap-5 rounded-2xl border border-border bg-background/75 p-5 sm:p-6 lg:sticky lg:top-24 lg:col-span-5">
+      <div
+        id="resumen-presupuesto"
+        className="flex scroll-mt-24 flex-col gap-5 rounded-2xl border border-border bg-background/75 p-5 sm:p-6 lg:sticky lg:top-24 lg:col-span-5"
+      >
         <div className="flex items-center justify-between gap-2">
           <p className="readout text-muted-foreground">{t("quote.preview")}</p>
           <button

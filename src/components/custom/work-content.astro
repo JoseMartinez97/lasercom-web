@@ -28,7 +28,7 @@ const filters: FilterKey[] = [
 ]
 ---
 
-<section class="flex flex-col gap-8 px-5 pt-10 pb-12 md:px-8 lg:pt-16 lg:pb-16">
+<section class="flex flex-col gap-8 px-5 pt-10 pb-6 md:px-8 md:pb-8 lg:pt-16">
   <h1 class="display text-[clamp(3rem,10vw,10rem)]">
     <span class="engrave" style="--i: 0">
       <span class="engrave-text">{t("work.h1")}</span>
@@ -40,37 +40,37 @@ const filters: FilterKey[] = [
   >
     {t("work.lead")}
   </p>
-
-  <div
-    data-work-filters
-    class="hero-in flex flex-wrap items-center justify-between gap-4 border-t border-border pt-6"
-    style="--i: 3"
-  >
-    <div
-      role="group"
-      aria-label={t("work.filter.label")}
-      class="flex flex-wrap gap-2"
-    >
-      {filters.map((key, i) => (
-        <button
-          type="button"
-          data-work-filter={key}
-          aria-pressed={i === 0 ? "true" : "false"}
-          class="min-h-11 rounded-full border border-border px-4 py-2 text-sm font-semibold transition-colors hover:border-foreground aria-[pressed=true]:border-foreground aria-[pressed=true]:bg-foreground aria-[pressed=true]:text-background"
-        >
-          {t(`work.filter.${key}`)}
-        </button>
-      ))}
-    </div>
-    <p
-      data-work-count
-      data-template={t("work.count.shown")}
-      class="readout text-muted-foreground"
-    >
-      {t("work.count.shown").replace("{n}", String(work.length))}
-    </p>
-  </div>
 </section>
+
+<div
+  data-work-filters
+  class="hero-in sticky top-16 z-30 flex flex-col gap-2.5 border-y border-border/80 bg-background/95 px-5 py-3 backdrop-blur-md md:static md:flex-row md:flex-wrap md:items-center md:justify-between md:gap-4 md:border-b-0 md:bg-transparent md:px-8 md:pt-6 md:pb-12 md:backdrop-blur-none lg:pb-16"
+  style="--i: 3"
+>
+  <div
+    role="group"
+    aria-label={t("work.filter.label")}
+    class="flex flex-nowrap gap-2 overflow-x-auto pb-0.5 [scrollbar-width:none] md:flex-wrap md:overflow-visible md:pb-0 [&::-webkit-scrollbar]:hidden"
+  >
+    {filters.map((key, i) => (
+      <button
+        type="button"
+        data-work-filter={key}
+        aria-pressed={i === 0 ? "true" : "false"}
+        class="min-h-11 shrink-0 rounded-full border border-border px-4 py-2 text-sm font-semibold whitespace-nowrap transition-colors hover:border-foreground aria-[pressed=true]:border-foreground aria-[pressed=true]:bg-foreground aria-[pressed=true]:text-background"
+      >
+        {t(`work.filter.${key}`)}
+      </button>
+    ))}
+  </div>
+  <p
+    data-work-count
+    data-template={t("work.count.shown")}
+    class="readout text-muted-foreground"
+  >
+    {t("work.count.shown").replace("{n}", String(work.length))}
+  </p>
+</div>
 
 <ol data-work-items class="flex flex-col">
   {work.map((item, i) => {
@@ -154,7 +154,7 @@ const filters: FilterKey[] = [
               />
               <span
                 aria-hidden="true"
-                class="absolute right-3 bottom-3 inline-flex size-9 items-center justify-center rounded-full bg-background/85 text-foreground opacity-0 shadow-sm backdrop-blur-sm transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100"
+                class="absolute right-3 bottom-3 inline-flex size-9 items-center justify-center rounded-full bg-background/85 text-foreground opacity-100 shadow-sm backdrop-blur-sm transition-opacity md:opacity-0 md:group-hover:opacity-100 md:group-focus-visible:opacity-100"
               >
                 <ZoomIn className="size-4" />
               </span>
@@ -180,7 +180,7 @@ const filters: FilterKey[] = [
                 />
                 <span
                   aria-hidden="true"
-                  class="absolute right-3 bottom-3 inline-flex size-9 items-center justify-center rounded-full bg-background/85 text-foreground opacity-0 shadow-sm backdrop-blur-sm transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100"
+                  class="absolute right-3 bottom-3 inline-flex size-9 items-center justify-center rounded-full bg-background/85 text-foreground opacity-100 shadow-sm backdrop-blur-sm transition-opacity md:opacity-0 md:group-hover:opacity-100 md:group-focus-visible:opacity-100"
                 >
                   <ZoomIn className="size-4" />
                 </span>

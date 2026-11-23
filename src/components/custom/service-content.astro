@@ -144,7 +144,7 @@ const relatedGuideIds: GuideId[] = [
   )}
 </section>
 
-<section class="reveal grid gap-8 border-t border-border px-5 py-20 md:px-8 lg:grid-cols-12 lg:py-28">
+<section class="reveal grid gap-8 border-t border-border px-5 py-14 md:px-8 md:py-20 lg:grid-cols-12 lg:py-28">
   <p class="text-xl leading-relaxed md:text-2xl lg:col-span-7">
     {t(`svc.${id}.intro`)}
   </p>
@@ -154,7 +154,7 @@ const relatedGuideIds: GuideId[] = [
 </section>
 
 {sections.map((section) => (
-  <section class="border-t border-border px-5 py-24 md:px-8 lg:py-32">
+  <section class="border-t border-border px-5 py-14 md:px-8 md:py-24 lg:py-32">
     <div class="mb-12 grid gap-6 lg:grid-cols-12 lg:items-end">
       <h2
         class="display text-[clamp(2.1rem,6vw,5.5rem)] lg:col-span-7"
@@ -185,7 +185,7 @@ const relatedGuideIds: GuideId[] = [
   </section>
 ))}
 
-<section class="steel px-5 py-24 md:px-8 lg:py-32">
+<section class="steel px-5 py-14 md:px-8 md:py-24 lg:py-32">
   <h2 class="display mb-12 text-[clamp(2.1rem,6vw,5.5rem)]" data-title-chars>
     {t(`svc.${id}.points`)}
   </h2>
@@ -216,7 +216,7 @@ const relatedGuideIds: GuideId[] = [
   <MachineFilms lang={lang} names={service.films} />
 )}
 
-<section class="px-5 py-24 md:px-8 lg:py-32">
+<section class="px-5 py-14 md:px-8 md:py-24 lg:py-32">
   <h2 class="display mb-10 text-[clamp(2.1rem,6vw,5.5rem)]" data-title-chars>
     {t("svc.common.uses")}
   </h2>
@@ -265,7 +265,7 @@ const relatedGuideIds: GuideId[] = [
             />
             <span
               aria-hidden="true"
-              class="absolute right-3 bottom-3 inline-flex size-9 items-center justify-center rounded-full bg-background/85 text-foreground opacity-0 shadow-sm backdrop-blur-sm transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100"
+              class="absolute right-3 bottom-3 inline-flex size-9 items-center justify-center rounded-full bg-background/85 text-foreground opacity-100 shadow-sm backdrop-blur-sm transition-opacity md:opacity-0 md:group-hover:opacity-100 md:group-focus-visible:opacity-100"
             >
               <ZoomIn className="size-4" />
             </span>

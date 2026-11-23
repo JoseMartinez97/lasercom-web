@@ -269,45 +269,52 @@ function animateTravellingType() {
 }
 
 // Cinematic scroll depth: sections subtly scale & lift into frame like film
-// curtains, and [data-cinema-drift] elements glide at different scroll speeds
+// curtains, and [data-cinema-drift] elements glide at different scroll speeds.
+// Full-section scale/drift scrub is desktop-only so mobile GPUs stay cool
 function animateCinemaFlow() {
-  gsap.utils
-    .toArray<HTMLElement>("[data-cinema-section]")
-    .forEach((section) => {
+  const desktopMotion = matchMedia(
+    "(min-width: 768px) and (pointer: fine)"
+  ).matches
+
+  if (desktopMotion) {
+    gsap.utils
+      .toArray<HTMLElement>("[data-cinema-section]")
+      .forEach((section) => {
+        gsap.fromTo(
+          section,
+          { y: 48, scale: 0.965 },
+          {
+            y: 0,
+            scale: 1,
+            ease: "none",
+            scrollTrigger: {
+              trigger: section,
+              start: "top 96%",
+              end: "top 34%",
+              scrub: SCRUB,
+            },
+          }
+        )
+      })
+
+    gsap.utils.toArray<HTMLElement>("[data-cinema-drift]").forEach((el) => {
+      const amount = Number(el.dataset.cinemaDrift) || 32
       gsap.fromTo(
-        section,
-        { y: 48, scale: 0.965 },
+        el,
+        { y: amount },
         {
-          y: 0,
-          scale: 1,
+          y: -amount,
           ease: "none",
           scrollTrigger: {
-            trigger: section,
-            start: "top 96%",
-            end: "top 34%",
+            trigger: el.closest("section") ?? el.parentElement ?? el,
+            start: "top bottom",
+            end: "bottom top",
             scrub: SCRUB,
           },
         }
       )
     })
-
-  gsap.utils.toArray<HTMLElement>("[data-cinema-drift]").forEach((el) => {
-    const amount = Number(el.dataset.cinemaDrift) || 32
-    gsap.fromTo(
-      el,
-      { y: amount },
-      {
-        y: -amount,
-        ease: "none",
-        scrollTrigger: {
-          trigger: el.closest("section") ?? el.parentElement ?? el,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: SCRUB,
-        },
-      }
-    )
-  })
+  }
 
   // Dual opposing kinetic typography marquees scrubbed directly by scroll
   gsap.utils.toArray<HTMLElement>("[data-marquee-track]").forEach((track) => {
@@ -351,6 +358,7 @@ function animateWipes() {
         0
       )
   })
+  if (!matchMedia("(min-width: 768px) and (pointer: fine)").matches) return
   gsap.utils.toArray<HTMLElement>("[data-parallax]").forEach((img) => {
     gsap.fromTo(
       img,
@@ -498,6 +506,7 @@ function initPointer(lenis?: Lenis) {
     })
   }
 
+  const MAGNET_MAX = 10
   document.querySelectorAll<HTMLElement>("[data-magnetic]").forEach((btn) => {
     const area = btn.parentElement ?? btn
     const xTo = gsap.quickTo(btn, "x", { duration: 0.45, ease: "power3" })
@@ -516,8 +525,12 @@ function initPointer(lenis?: Lenis) {
       "pointermove",
       (e) => {
         if (!box) box = btn.getBoundingClientRect()
-        xTo((e.clientX - (box.left + box.width / 2)) * 0.28)
-        yTo((e.clientY - (box.top + box.height / 2)) * 0.36)
+        // The listener sits on the parent row, so the pointer can be far from
+        // the button (e.g. over a sibling link). Cap the lean so it never
+        // slides onto its neighbours.
+        const clamp = gsap.utils.clamp(-MAGNET_MAX, MAGNET_MAX)
+        xTo(clamp((e.clientX - (box.left + box.width / 2)) * 0.28))
+        yTo(clamp((e.clientY - (box.top + box.height / 2)) * 0.36))
       },
       { passive: true }
     )
