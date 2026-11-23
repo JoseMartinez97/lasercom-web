@@ -12,7 +12,7 @@ import { getImage } from "astro:assets"
 import { guides, guidesUpdated } from "@/lib/guides"
 import { business } from "@/lib/business"
 import { photo, serviceFaqIndices, services } from "@/lib/services"
-import type { Lang } from "@/i18n/ui"
+import type { Lang, UiKey } from "@/i18n/ui"
 import { useTranslations } from "@/i18n/utils"
 import { homeFaqIndices, pages } from "@/lib/pages"
 
@@ -63,10 +63,13 @@ if (page.service) {
     {
       "@context": "https://schema.org",
       "@type": "FAQPage",
-      mainEntity: serviceFaqIndices.map((n) => ({
+      mainEntity: serviceFaqIndices(id).map((n) => ({
         "@type": "Question",
-        name: t(`svc.${id}.faq.${n}.q`),
-        acceptedAnswer: { "@type": "Answer", text: t(`svc.${id}.faq.${n}.a`) },
+        name: t(`svc.${id}.faq.${n}.q` as UiKey),
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: t(`svc.${id}.faq.${n}.a` as UiKey),
+        },
       })),
     }
   )

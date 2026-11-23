@@ -187,9 +187,10 @@ export const materials = {
     "svc.metal.name": "Metal",
     "svc.metal.card":
       "Plaques, tags, serial numbers and QR codes on steel, aluminium, brass and more.",
-    "svc.metal.title": "Metal and steel laser engraving in Valencia | Lasercom",
+    "svc.metal.title":
+      "Metal & stainless steel laser engraving, Valencia | Lasercom",
     "svc.metal.description":
-      "Laser engraving and marking on stainless steel, aluminium, brass, copper, silver and gold in Valencia, plus sheet metal cut up to 4 mm. Plates, serials and QR.",
+      "Laser engraving and marking on stainless steel, aluminium, brass, copper, gold and silver in Valencia. Sheet metal cut up to 4 mm. Plates, serial numbers and QR.",
     "svc.metal.h1": "Laser engraving and marking on metal",
     "svc.metal.lead":
       "Plaques, tags, serial numbers, barcodes and logos on stainless steel, anodised aluminium, brass, copper, silver or gold. A permanent mark built to withstand wear and the outdoors.",
@@ -197,6 +198,36 @@ export const materials = {
       "Laser marking gives metals a crisp, permanent finish without inks, acids or mechanical stamping. Applications range from industrial traceability — serial numbers, DataMatrix/QR codes and rating plates — to metal business cards, trophies, pet tags and personalised jewellery.",
     "svc.metal.body":
       "We mark and engrave every metal with our fibre laser: stainless steel, anodised or lacquered aluminium, brass, copper, titanium, sterling silver and gold. With laser annealing on stainless steel we produce a dark, high-contrast mark right at the surface without removing material or compromising corrosion resistance. The same laser also cuts sheet metal up to 4 mm thick.",
+    "svc.metal.metales.title": "How each metal turns out",
+    "svc.metal.metales.lead":
+      "We work every metal with the fibre laser. What changes is the finish: we adjust the technique to the alloy and to what the piece will be used for.",
+    "svc.metal.metales.1.t": "Stainless steel",
+    "svc.metal.metales.1.d":
+      "Laser annealing leaves a black or dark grey mark flush with the surface, without removing material or losing corrosion resistance. If you want a mark you can feel, we engrave into the steel instead.",
+    "svc.metal.metales.2.t": "Aluminium",
+    "svc.metal.metales.2.d":
+      "On anodised aluminium the laser removes the coloured layer and reveals the bright metal underneath: the sharpest contrast for small text, QR codes and barcodes. Lacquered or painted aluminium works the same way.",
+    "svc.metal.metales.3.t": "Brass and copper",
+    "svc.metal.metales.3.d":
+      "A sharp, permanent mark for plaques, small signs, keyrings and decorative pieces. With no pressure on the part, thin sheet does not bend.",
+    "svc.metal.metales.4.t": "Gold and silver",
+    "svc.metal.metales.4.d":
+      "Names, dates, fingerprints and drawings on rings, bracelets, medals and pendants, with small lettering that stays legible.",
+    "svc.metal.metales.5.t": "Titanium and coated metals",
+    "svc.metal.metales.5.d":
+      "Titanium, painted steel and coated metals: tools, jigs, housings and rating plates.",
+    "svc.metal.tecnicas.title": "Mark, engrave or cut",
+    "svc.metal.tecnicas.lead":
+      "Three different jobs on the same machine. If you are not sure which one you need, tell us what the piece is for and we will tell you.",
+    "svc.metal.tecnicas.1.t": "Marking",
+    "svc.metal.tecnicas.1.d":
+      "Changes the colour of the surface without removing material. The usual choice on stainless steel and industrial parts: serial numbers, QR codes, logos and plates that must stay readable for years.",
+    "svc.metal.tecnicas.2.t": "Engraving",
+    "svc.metal.tecnicas.2.d":
+      "Removes a layer of metal and leaves a line with some depth. Used on jewellery, tools and pieces that will be handled or polished.",
+    "svc.metal.tecnicas.3.t": "Cutting",
+    "svc.metal.tecnicas.3.d":
+      "We cut sheet metal up to 4 mm thick from a drawing: parts, silhouettes, letters and shaped plates. Send the file as DXF, DWG, SVG or vector PDF.",
     "svc.metal.points": "Why laser on metal",
     "svc.metal.p1.t": "Truly permanent",
     "svc.metal.p1.d":
@@ -228,6 +259,12 @@ export const materials = {
     "svc.metal.faq.5.q": "Can I bring my own metal piece to be engraved?",
     "svc.metal.faq.5.a":
       "Usually, yes: tools, tags, jewellery or plates. Tell us what it is and what metal it is made of, and we will confirm that it can be marked safely.",
+    "svc.metal.faq.6.q": "Can you engrave stainless steel in black?",
+    "svc.metal.faq.6.a":
+      "Yes. With laser annealing stainless steel is marked in black or very dark grey, flush with the surface and keeping its corrosion resistance. It suits plates, cutlery, flasks and tools.",
+    "svc.metal.faq.7.q": "What file do I need to engrave a logo on metal?",
+    "svc.metal.faq.7.a":
+      "A vector file is best (SVG, PDF, AI or DXF). If you only have an image or a sketch, send it anyway: we prepare it. More in our guide to preparing your file.",
     "svc.plastico.name": "Plastic",
     "svc.plastico.card":
       "Logos, serial numbers, references and QR codes engraved on plastic parts and housings.",
@@ -464,16 +501,46 @@ export const materials = {
     "svc.metal.card":
       "Placas, chapas, números de serie y códigos QR en acero, aluminio, latón y más.",
     "svc.metal.title":
-      "Grabado y marcado láser en metal en Valencia | Lasercom",
+      "Grabado láser en metal y acero inoxidable en Valencia | Lasercom",
     "svc.metal.description":
-      "Grabado y marcado láser en acero inoxidable, aluminio, latón, cobre, plata y oro en Valencia, y corte de chapa de hasta 4 mm. Placas, series y QR.",
+      "Grabado y marcado láser en acero inoxidable, aluminio, latón, cobre, oro y plata en Valencia. Corte de chapa de hasta 4 mm. Placas, números de serie y QR.",
     "svc.metal.h1": "Grabado y marcado láser en metal",
     "svc.metal.lead":
       "Placas, chapas, números de serie, códigos de barras y logotipos en acero inoxidable, aluminio anodizado, latón, cobre, plata u oro. Un marcado permanente que aguanta el uso y la intemperie.",
     "svc.metal.intro":
-      "El marcado láser permite identificar y personalizar metales blandos y duros de forma limpia y definitiva, sin tintas, etiquetas ni punzones. Trabajamos desde trazabilidad industrial —números de serie, códigos QR, códigos de barras y placas de características— hasta tarjetas metálicas de visita, trofeos, chapas para mascotas y joyería.",
+      "El grabado y marcado láser en metal permite identificar y personalizar metales blandos y duros de forma limpia y definitiva, sin tintas, etiquetas ni punzones. Trabajamos desde trazabilidad industrial —números de serie, códigos QR, códigos de barras y placas de características— hasta tarjetas metálicas de visita, trofeos, chapas para mascotas y joyería.",
     "svc.metal.body":
       "Marcamos y grabamos todos los metales con nuestro láser de fibra: acero inoxidable, aluminio anodizado o lacado, latón, cobre, titanio, plata de ley y oro. Con el recocido láser en acero inoxidable logramos una marca oscura de alto contraste a ras de superficie, sin arrancar material ni reducir su resistencia a la corrosión. El mismo láser corta además chapa metálica de hasta 4 mm de grosor.",
+    "svc.metal.metales.title": "Cómo queda cada metal",
+    "svc.metal.metales.lead":
+      "Todos los metales los trabajamos con el láser de fibra. Lo que cambia es el acabado: ajustamos la técnica a la aleación y al uso que va a tener la pieza.",
+    "svc.metal.metales.1.t": "Acero inoxidable",
+    "svc.metal.metales.1.d":
+      "Con recocido láser queda una marca negra o gris oscura a ras de superficie, sin quitar material ni perder la resistencia a la corrosión. Si buscas una marca con tacto, grabamos quitando material.",
+    "svc.metal.metales.2.t": "Aluminio",
+    "svc.metal.metales.2.d":
+      "En aluminio anodizado el láser retira la capa de color y deja ver el aluminio claro de debajo: el contraste más nítido para textos pequeños, QR y códigos de barras. El aluminio lacado o pintado se trabaja igual.",
+    "svc.metal.metales.3.t": "Latón y cobre",
+    "svc.metal.metales.3.d":
+      "Marca permanente y definida para placas, rótulos pequeños, llaveros y piezas decorativas. Como no hay presión, las chapas finas no se doblan.",
+    "svc.metal.metales.4.t": "Oro y plata",
+    "svc.metal.metales.4.d":
+      "Nombres, fechas, huellas y dibujos en anillos, pulseras, medallas y colgantes, con letra pequeña que se sigue leyendo.",
+    "svc.metal.metales.5.t": "Titanio y metales con recubrimiento",
+    "svc.metal.metales.5.d":
+      "Titanio, acero pintado y metales revestidos: herramientas, utillaje, carcasas y placas de características.",
+    "svc.metal.tecnicas.title": "Marcar, grabar o cortar",
+    "svc.metal.tecnicas.lead":
+      "Son tres trabajos distintos con la misma máquina. Si no sabes cuál necesitas, cuéntanos para qué es la pieza y te lo decimos.",
+    "svc.metal.tecnicas.1.t": "Marcado",
+    "svc.metal.tecnicas.1.d":
+      "Cambia el color de la superficie sin quitar material. Es lo habitual en acero inoxidable y en piezas industriales: números de serie, QR, logotipos y placas que se tienen que leer durante años.",
+    "svc.metal.tecnicas.2.t": "Grabado",
+    "svc.metal.tecnicas.2.d":
+      "Quita una capa de metal y deja un trazo con algo de profundidad. Se usa en joyas, herramientas y piezas que se van a tocar o pulir.",
+    "svc.metal.tecnicas.3.t": "Corte",
+    "svc.metal.tecnicas.3.d":
+      "Cortamos chapa metálica de hasta 4 mm de grosor a partir de un plano: piezas, siluetas, letras y placas con forma. Mándanos el archivo en DXF, DWG, SVG o PDF vectorial.",
     "svc.metal.points": "Por qué marcar metal con láser",
     "svc.metal.p1.t": "Marcado permanente",
     "svc.metal.p1.d":
@@ -506,6 +573,13 @@ export const materials = {
     "svc.metal.faq.5.q": "¿Puedo traer mi propia pieza de metal para grabarla?",
     "svc.metal.faq.5.a":
       "Normalmente sí: herramientas, chapas, joyas o placas. Cuéntanos qué es y de qué metal está hecha, y te confirmamos que se puede marcar con seguridad.",
+    "svc.metal.faq.6.q": "¿Podéis grabar acero inoxidable en negro?",
+    "svc.metal.faq.6.a":
+      "Sí. Con recocido láser el acero inoxidable queda marcado en negro o gris muy oscuro, a ras de superficie y sin perder su resistencia a la corrosión. Va bien en placas, cubiertos, termos y herramientas.",
+    "svc.metal.faq.7.q":
+      "¿Qué archivo necesito para grabar un logotipo en metal?",
+    "svc.metal.faq.7.a":
+      "Lo ideal es un archivo vectorial (SVG, PDF, AI o DXF). Si solo tienes una imagen o un boceto, mándalo igualmente: lo preparamos nosotros. Más detalles en la guía para preparar el archivo.",
     "svc.plastico.name": "Plástico",
     "svc.plastico.card":
       "Logotipos, números de serie, referencias y QR grabados en piezas y carcasas de plástico.",

@@ -42,11 +42,11 @@ Metal goes on our **fibre laser**, which marks and engraves every kind of metal:
 - **Anodised or lacquered aluminium:** strips away the coloured surface layer to expose bright aluminium beneath — crisp contrast for rating plates, barcodes and QR codes.
 - **Stainless steel, brass, copper, titanium, sterling silver and gold:** marks bare metal directly; on stainless steel, laser annealing produces a dark, surface-level mark without removing metal or reducing corrosion resistance.
 
-The same laser **cuts sheet metal up to 4 mm** thick: tell us the metal, thickness and measurements and we will quote it.
+The same laser **cuts sheet metal up to 4 mm** thick: tell us the metal, thickness and measurements and we will quote it. More in [metal laser engraving](/en/laser-engraving-metal-stainless-steel/) and [laser engraving on stainless steel](/en/guides/laser-engraving-stainless-steel/).
 
 ## Plastics
 
-The fibre laser also **engraves and marks plastics**: logos, references, serial numbers or codes on parts, housings and plates. Each plastic reacts differently, so tell us which one it is or send us a part and we will confirm the finish. See [metal laser engraving](/en/laser-engraving-metal-stainless-steel/).
+The fibre laser also **engraves and marks plastics**: logos, references, serial numbers or codes on parts, housings and plates. Each plastic reacts differently, so tell us which one it is or send us a part and we will confirm the finish. See [plastic laser engraving](/en/laser-engraving-plastic/).
 
 ## Other laser-friendly materials
 

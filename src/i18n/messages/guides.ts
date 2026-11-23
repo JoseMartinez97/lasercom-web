@@ -49,6 +49,14 @@ export const guides = {
     "guide.marcado-industrial.lead":
       "How permanent marking on metal works without inks or labels, what changes between stainless steel and anodised aluminium, and what to send for a batch quote.",
     "guide.marcado-industrial.minutes": "5",
+    "guide.acero-inoxidable.title":
+      "Laser engraving on stainless steel: black or deep | Lasercom",
+    "guide.acero-inoxidable.description":
+      "Black annealed marks or deeper engraving on stainless steel: which suits plates, cutlery, flasks and tools, how to look after them and what to send for a quote.",
+    "guide.acero-inoxidable.h1": "Laser engraving on stainless steel",
+    "guide.acero-inoxidable.lead":
+      "The two finishes we make on stainless steel, which one suits each piece, how it holds up over time and what we need to quote.",
+    "guide.acero-inoxidable.minutes": "4",
     "guide.joyeria-regalos.title":
       "Laser engraving jewellery, bracelets & gifts | Lasercom",
     "guide.joyeria-regalos.description":
@@ -115,6 +123,14 @@ export const guides = {
     "guide.marcado-industrial.lead":
       "Cómo funciona el marcado permanente en metal sin tintas ni etiquetas, qué cambia entre acero inoxidable y aluminio anodizado y qué enviarnos para presupuestar un lote.",
     "guide.marcado-industrial.minutes": "5",
+    "guide.acero-inoxidable.title":
+      "Grabado láser en acero inoxidable: negro o con relieve | Lasercom",
+    "guide.acero-inoxidable.description":
+      "Marca negra por recocido o grabado con relieve en acero inoxidable: cuál va mejor en placas, cubiertos, termos y herramientas, cómo cuidarlos y qué mandarnos.",
+    "guide.acero-inoxidable.h1": "Grabado láser en acero inoxidable",
+    "guide.acero-inoxidable.lead":
+      "Los dos acabados que hacemos en acero inoxidable, cuál conviene a cada pieza, cómo aguanta con el tiempo y qué necesitamos para darte precio.",
+    "guide.acero-inoxidable.minutes": "4",
     "guide.joyeria-regalos.title":
       "Cómo grabar joyas, pulseras y regalos con láser | Lasercom",
     "guide.joyeria-regalos.description":

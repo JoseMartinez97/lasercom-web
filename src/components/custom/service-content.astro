@@ -1,5 +1,5 @@
 ---
-import type { Lang } from "@/i18n/ui"
+import type { Lang, UiKey } from "@/i18n/ui"
 import { localizePath, useTranslations } from "@/i18n/utils"
 import { buttonVariants } from "@/components/ui/button"
 import CloseSection from "@/components/custom/close-section.astro"
@@ -25,9 +25,19 @@ const serviceHref = (s: ServiceId) =>
   lang === "en" ? services[s].en : services[s].es
 const [lead, ...gallery] = service.photos
 const points = [1, 2, 3, 4] as const
-const faqs = serviceFaqIndices.map((n) => ({
-  q: t(`svc.${id}.faq.${n}.q`),
-  a: t(`svc.${id}.faq.${n}.a`),
+// Keys built from a service's own section ids and FAQ count (lib/services.ts)
+const tk = (key: string) => t(key as UiKey)
+const faqs = serviceFaqIndices(id).map((n) => ({
+  q: tk(`svc.${id}.faq.${n}.q`),
+  a: tk(`svc.${id}.faq.${n}.a`),
+}))
+const sections = (service.sections ?? []).map((s) => ({
+  title: tk(`svc.${id}.${s.id}.title`),
+  lead: tk(`svc.${id}.${s.id}.lead`),
+  items: Array.from({ length: s.items }, (_, i) => ({
+    t: tk(`svc.${id}.${s.id}.${i + 1}.t`),
+    d: tk(`svc.${id}.${s.id}.${i + 1}.d`),
+  })),
 }))
 const message = `${t("svc.common.wa")} ${t(`svc.${id}.name`).toLowerCase()}.`
 
@@ -142,6 +152,38 @@ const relatedGuideIds: GuideId[] = [
     {t(`svc.${id}.body`)}
   </p>
 </section>
+
+{sections.map((section) => (
+  <section class="border-t border-border px-5 py-24 md:px-8 lg:py-32">
+    <div class="mb-12 grid gap-6 lg:grid-cols-12 lg:items-end">
+      <h2
+        class="display text-[clamp(2.1rem,6vw,5.5rem)] lg:col-span-7"
+        data-title-chars
+      >
+        {section.title}
+      </h2>
+      <p class="text-muted-foreground md:text-lg lg:col-span-5">
+        {section.lead}
+      </p>
+    </div>
+    <dl data-rows class="grid md:grid-cols-2 md:gap-x-10 lg:grid-cols-3">
+      {section.items.map((item) => (
+        <div data-row class="relative flex flex-col gap-2 py-8">
+          <span
+            data-row-line
+            class="absolute inset-x-0 top-0 h-px origin-left bg-border"
+          />
+          <dt data-row-cell class="text-2xl font-bold tracking-tight">
+            {item.t}
+          </dt>
+          <dd data-row-cell class="text-muted-foreground md:text-lg">
+            {item.d}
+          </dd>
+        </div>
+      ))}
+    </dl>
+  </section>
+))}
 
 <section class="steel px-5 py-24 md:px-8 lg:py-32">
   <h2 class="display mb-12 text-[clamp(2.1rem,6vw,5.5rem)]" data-title-chars>

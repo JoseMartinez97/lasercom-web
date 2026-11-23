@@ -15,7 +15,7 @@ In industrial environments, adhesive stickers peel off with oil or heat and prin
 
 All metal is marked on the fibre laser, with the technique matched to the alloy and working environment:
 
-- **Stainless steel (laser annealing):** local thermal annealing produces a dark, high-contrast mark flush with the surface without removing metal or compromising corrosion resistance.
+- **Stainless steel (laser annealing):** local thermal annealing produces a dark, high-contrast mark flush with the surface without removing metal or compromising corrosion resistance. More in [laser engraving on stainless steel](/en/guides/laser-engraving-stainless-steel/).
 - **Anodised aluminium:** removes the coloured anodised top coat to reveal bright bare aluminium — ideal for crisp barcodes, QR codes and small text.
 - **Brass, copper, titanium and coated metals:** sharp, permanent direct marking without clamping marks or bending thin sheets.
 

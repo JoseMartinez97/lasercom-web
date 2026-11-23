@@ -8,6 +8,7 @@ export const guideIds = [
   "materiales",
   "preparar-archivo",
   "marcado-industrial",
+  "acero-inoxidable",
   "joyeria-regalos",
   "bodas-eventos",
 ] as const
@@ -40,6 +41,12 @@ export const guides: Record<
     en: "/en/guides/industrial-laser-marking-traceability/",
     photo: "grabado_laser_placa_hospital",
     services: ["industrial", "metal", "plastico", "empresas"],
+  },
+  "acero-inoxidable": {
+    es: "/guias/grabado-laser-acero-inoxidable/",
+    en: "/en/guides/laser-engraving-stainless-steel/",
+    photo: "tarjeta_casfid",
+    services: ["metal", "industrial", "joyeria"],
   },
   "joyeria-regalos": {
     es: "/guias/grabar-joyas-regalos-laser/",

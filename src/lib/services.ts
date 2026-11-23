@@ -46,7 +46,10 @@ export const films = {
 } as const
 export type FilmName = keyof typeof films
 
-export const serviceFaqIndices = [1, 2, 3, 4, 5] as const
+// FAQs are svc.<id>.faq.<n>.q/a, five per page unless a service lists more
+export function serviceFaqIndices(id: ServiceId): number[] {
+  return Array.from({ length: services[id].faqs ?? 5 }, (_, i) => i + 1)
+}
 
 export const serviceIds = [
   "madera",
@@ -77,6 +80,10 @@ export type Service = {
   // Real footage from the workshop's own machines (see filmNames)
   films?: FilmName[]
   related: ServiceId[]
+  // Extra sections for pages that need more depth, after the intro. Copy in
+  // svc.<id>.<section>.title/.lead and svc.<id>.<section>.<n>.t/.d
+  sections?: { id: string; items: number }[]
+  faqs?: number
 }
 
 export const services: Record<ServiceId, Service> = {
@@ -148,6 +155,11 @@ export const services: Record<ServiceId, Service> = {
     ],
     films: ["rotulo-disco", "dibujo-chapa"],
     related: ["industrial", "plastico", "joyeria"],
+    sections: [
+      { id: "metales", items: 5 },
+      { id: "tecnicas", items: 3 },
+    ],
+    faqs: 7,
   },
   plastico: {
     es: "/grabado-laser-plastico/",

@@ -42,11 +42,11 @@ El metal lo trabajamos con el **láser de fibra**, que marca y graba todo tipo d
 - **Aluminio anodizado o lacado:** el rayo retira la capa coloreada superficial dejando ver el aluminio claro, con contraste altísimo para placas y códigos de barras.
 - **Acero inoxidable, latón, cobre, titanio, plata de ley y oro:** el láser marca directamente el metal desnudo; en acero inoxidable permite además el recocido superficial sin arrancar material ni afectar a la protección anticorrosión.
 
-El mismo láser **corta chapa metálica de hasta 4 mm** de grosor: indícanos el metal, el grosor y las medidas para darte precio.
+El mismo láser **corta chapa metálica de hasta 4 mm** de grosor: indícanos el metal, el grosor y las medidas para darte precio. Más en [grabado láser en metal](/corte-grabado-laser-metal-acero/) y en [grabado láser en acero inoxidable](/guias/grabado-laser-acero-inoxidable/).
 
 ## Plásticos
 
-Con el láser de fibra también **grabamos y marcamos plásticos**: logotipos, referencias, números de serie o códigos en piezas, carcasas y placas. Cada plástico reacciona distinto, así que cuéntanos cuál es o mándanos una pieza y te confirmamos el acabado. Más en [grabado y marcado láser en metal](/corte-grabado-laser-metal-acero/).
+Con el láser de fibra también **grabamos y marcamos plásticos**: logotipos, referencias, números de serie o códigos en piezas, carcasas y placas. Cada plástico reacciona distinto, así que cuéntanos cuál es o mándanos una pieza y te confirmamos el acabado. Más en [grabado láser en plástico](/grabado-laser-plastico/).
 
 ## Otros materiales que admiten láser
 
