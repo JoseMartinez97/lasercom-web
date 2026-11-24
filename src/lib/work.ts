@@ -10,7 +10,7 @@ export const work = [
   {
     slug: "ktf",
     filters: ["business", "metal"],
-    photos: ["ktf_1", "ktf_2"],
+    photos: ["ktf_1", "ktf_2", "ktf_3", "ktf_4"],
     service: "metal",
   },
   {

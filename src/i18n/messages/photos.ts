@@ -1,6 +1,9 @@
 // Alt text for every photo in src/assets/work, by file name
 export const photos = {
   en: {
+    "photo.ktf_3":
+      "Stack of metal keychains with engraved tree and compass design",
+    "photo.ktf_4": "Metal keychains with engraved text and sun at the end",
     "photo.ktf_1":
       "Stacked metal keychains featuring an engraved circular tree and compass design",
     "photo.ktf_2":
@@ -121,6 +124,9 @@ export const photos = {
       "Black acrylic business cards with engraved text",
   },
   es: {
+    "photo.ktf_3":
+      "Pila de llaveros de metal con diseño grabado de árbol y brújula",
+    "photo.ktf_4": "Llaveros metálicos con texto grabado y sol en el extremo",
     "photo.ktf_1":
       "Llaveros metálicos apilados con un grabado circular de un árbol y una brújula",
     "photo.ktf_2":
