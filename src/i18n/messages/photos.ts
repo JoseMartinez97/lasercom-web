@@ -1,6 +1,10 @@
 // Alt text for every photo in src/assets/work, by file name
 export const photos = {
   en: {
+    "photo.ktf_1":
+      "Stacked metal keychains featuring an engraved circular tree and compass design",
+    "photo.ktf_2":
+      "Close up of the engraved metal keychains showing ninety days text and a compass",
     "photo.corte_grabado_laser_decorar":
       "Ron Barceló Imperial 30th anniversary bottle on its engraved wooden stand",
     "photo.peana_grabada_a_laser":
@@ -117,6 +121,10 @@ export const photos = {
       "Black acrylic business cards with engraved text",
   },
   es: {
+    "photo.ktf_1":
+      "Llaveros metálicos apilados con un grabado circular de un árbol y una brújula",
+    "photo.ktf_2":
+      "Detalle de los llaveros de metal grabados con el texto noventa días y una brújula",
     "photo.corte_grabado_laser_decorar":
       "Botella del 30 aniversario de Ron Barceló Imperial sobre su peana de madera grabada",
     "photo.peana_grabada_a_laser":

@@ -154,6 +154,8 @@ export const services: Record<ServiceId, Service> = {
     en: "/en/laser-engraving-metal-stainless-steel/",
     kind: "material",
     photos: [
+      "ktf_1",
+      "ktf_2",
       "chapa_5j_sin_fondo",
       "tarjeta_casfid",
       "collar_perro_laser",

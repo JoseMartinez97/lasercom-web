@@ -8,6 +8,12 @@ export type WorkFilter =
 
 export const work = [
   {
+    slug: "ktf",
+    filters: ["business", "metal"],
+    photos: ["ktf_1", "ktf_2"],
+    service: "metal",
+  },
+  {
     slug: "torrejon",
     filters: ["business"],
     photos: ["torrejon_1", "torrejon_2"],

@@ -175,6 +175,10 @@ export const site = {
     "work.portatiles.type": "Plastic · Marking",
     "work.portatiles.text":
       "The underside of laptops marked with logos, support details, a serial number and a QR code, straight onto the casing instead of an adhesive label.",
+    "work.ktf.name": "Engraved metal keychains",
+    "work.ktf.type": "Metal · Engraving",
+    "work.ktf.text":
+      "Metal keychains with a ring engraved with a circular tree and compass design, alongside custom text and day counts.",
     "work.torrejon.name": "B.A. Torrejón signage profiles",
     "work.torrejon.type": "Industrial profile · Marking",
     "work.torrejon.text":
@@ -546,6 +550,10 @@ export const site = {
     "work.portatiles.type": "Plástico · Marcado",
     "work.portatiles.text":
       "Marcado de la base de ordenadores portátiles con logotipos, datos de soporte técnico, número de serie y un código QR, directamente sobre la carcasa en lugar de una etiqueta adhesiva.",
+    "work.ktf.name": "Llaveros metálicos grabados",
+    "work.ktf.type": "Metal · Grabado",
+    "work.ktf.text":
+      "Llaveros metálicos con anilla grabados con un diseño circular de árbol y brújula, además de textos personalizados y numeración de días.",
     "work.torrejon.name": "Perfiles de señalización B.A. Torrejón",
     "work.torrejon.type": "Perfil industrial · Marcado",
     "work.torrejon.text":
