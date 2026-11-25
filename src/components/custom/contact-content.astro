@@ -93,13 +93,8 @@ const direct = [
     class="hero-in mt-8 scroll-mt-24 rounded-[1.75rem] border border-border bg-card p-5 md:p-8 lg:p-10"
     style="--i: 2"
   >
-    <!-- Hydrates once the card is well inside the screen: on phones its top
-         peeks in at first paint, and React there pushed LCP past budget -->
-    <QuoteBuilder
-      client:visible={{ rootMargin: "0px 0px -160px 0px" }}
-      lang={lang}
-      serviceNames={serviceNames}
-    />
+    <!-- Hydrates as soon as the configurator enters the viewport so preset clicks are responsive -->
+    <QuoteBuilder client:visible lang={lang} serviceNames={serviceNames} />
   </div>
 </section>
 

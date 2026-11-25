@@ -22,7 +22,7 @@ const { currentLang, path } = Astro.props
       aria-current={code === currentLang ? "page" : undefined}
       class={cn(
         toggleVariants({ variant: "outline", size: "sm" }),
-        "relative rounded-none px-2.5 font-mono text-xs no-underline not-first:border-l-0 after:absolute after:inset-x-0 after:-inset-y-2 first:rounded-l-2xl last:rounded-r-2xl focus-visible:z-10 aria-[current=page]:bg-muted"
+        "relative min-h-11 min-w-11 rounded-none px-3 font-mono text-xs no-underline not-first:border-l-0 first:rounded-l-2xl last:rounded-r-2xl focus-visible:z-10 aria-[current=page]:bg-muted sm:min-h-9 sm:min-w-9 sm:px-2.5"
       )}
     >
       {code.toUpperCase()}

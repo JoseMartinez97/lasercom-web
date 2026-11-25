@@ -36,7 +36,7 @@ const year = new Date().getFullYear()
           <li>
             <a
               href={lang === "en" ? services[id].en : services[id].es}
-              class="inline-flex min-h-10 items-center text-muted-foreground transition-colors hover:text-foreground md:min-h-7"
+              class="inline-flex min-h-11 items-center text-muted-foreground transition-colors hover:text-foreground md:min-h-7"
             >
               {t(`svc.${id}.name`)}
             </a>
@@ -54,7 +54,7 @@ const year = new Date().getFullYear()
           <li>
             <a
               href={href("/trabajos/")}
-              class="inline-block py-1.5 text-muted-foreground transition-colors hover:text-foreground md:py-1"
+              class="inline-flex min-h-11 items-center text-muted-foreground transition-colors hover:text-foreground md:min-h-7"
             >
               {t("nav.work")}
             </a>
@@ -62,7 +62,7 @@ const year = new Date().getFullYear()
           <li>
             <a
               href={href("/guias/")}
-              class="inline-block py-1.5 text-muted-foreground transition-colors hover:text-foreground md:py-1"
+              class="inline-flex min-h-11 items-center text-muted-foreground transition-colors hover:text-foreground md:min-h-7"
             >
               {t("nav.guides")}
             </a>
@@ -70,7 +70,7 @@ const year = new Date().getFullYear()
           <li>
             <a
               href={href("/contacto/")}
-              class="inline-block py-1.5 text-muted-foreground transition-colors hover:text-foreground md:py-1"
+              class="inline-flex min-h-11 items-center text-muted-foreground transition-colors hover:text-foreground md:min-h-7"
             >
               {t("nav.quote")}
             </a>
@@ -134,7 +134,7 @@ const year = new Date().getFullYear()
             <a
               href="/aviso-legal/"
               hreflang="es"
-              class="inline-block py-1.5 transition-colors hover:text-foreground md:py-0"
+              class="inline-flex min-h-11 items-center transition-colors hover:text-foreground md:min-h-0"
             >
               {t("footer.legal.notice")}
             </a>
@@ -143,7 +143,7 @@ const year = new Date().getFullYear()
             <a
               href="/politica-de-privacidad/"
               hreflang="es"
-              class="inline-block py-1.5 transition-colors hover:text-foreground md:py-0"
+              class="inline-flex min-h-11 items-center transition-colors hover:text-foreground md:min-h-0"
             >
               {t("footer.legal.privacy")}
             </a>
@@ -152,7 +152,7 @@ const year = new Date().getFullYear()
             <a
               href="/politica-de-cookies/"
               hreflang="es"
-              class="inline-block py-1.5 transition-colors hover:text-foreground md:py-0"
+              class="inline-flex min-h-11 items-center transition-colors hover:text-foreground md:min-h-0"
             >
               {t("footer.legal.cookies")}
             </a>
@@ -162,7 +162,7 @@ const year = new Date().getFullYear()
               <button
                 type="button"
                 data-cookie-settings
-                class="inline-block py-1.5 transition-colors hover:text-foreground md:py-0"
+                class="inline-flex min-h-11 items-center transition-colors hover:text-foreground md:min-h-0"
               >
                 {t("footer.legal.cookieSettings")}
               </button>

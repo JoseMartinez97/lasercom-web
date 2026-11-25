@@ -72,7 +72,7 @@ const isCurrent = (target: string) => {
                 aria-expanded="false"
                 aria-controls="header-services-menu"
                 aria-label={t("nav.services.open")}
-                class="inline-flex size-9 items-center justify-center rounded-full text-muted-foreground transition-colors hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring"
+                class="inline-flex size-11 items-center justify-center rounded-full text-muted-foreground transition-colors hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring"
               >
                 <ChevronDown
                   data-mega-chevron
@@ -228,7 +228,7 @@ const isCurrent = (target: string) => {
       </button>
     </div>
 
-    <nav aria-label={t("nav.main")} class="flex flex-col gap-1">
+    <nav aria-label={t("nav.menu.title")} class="flex flex-col gap-1">
       {navLinks.map((link) => (
         <a
           href={link.href}
@@ -251,7 +251,7 @@ const isCurrent = (target: string) => {
             <a
               href={serviceHref(id)}
               data-drawer-link
-              class="flex min-h-10 items-center transition-colors hover:text-foreground"
+              class="flex min-h-11 items-center transition-colors hover:text-foreground"
             >
               {t(`svc.${id}.name`)}
             </a>
@@ -344,10 +344,16 @@ const isCurrent = (target: string) => {
           trigger.focus()
         }
       }
+      const onFocusOut = (e: FocusEvent) => {
+        if (!panel.hidden && !wrap.contains(e.relatedTarget as Node | null)) {
+          setOpen(false)
+        }
+      }
 
       trigger.addEventListener("click", onTriggerClick)
       wrap.addEventListener("mouseenter", onMouseEnter)
       wrap.addEventListener("mouseleave", onMouseLeave)
+      wrap.addEventListener("focusout", onFocusOut)
       document.addEventListener("click", onDocClick)
       document.addEventListener("keydown", onKeyDown)
       cleanups.push(() => {
@@ -355,6 +361,7 @@ const isCurrent = (target: string) => {
         trigger.removeEventListener("click", onTriggerClick)
         wrap.removeEventListener("mouseenter", onMouseEnter)
         wrap.removeEventListener("mouseleave", onMouseLeave)
+        wrap.removeEventListener("focusout", onFocusOut)
         document.removeEventListener("click", onDocClick)
         document.removeEventListener("keydown", onKeyDown)
       })

@@ -50,7 +50,7 @@ const filters: FilterKey[] = [
   <div
     role="group"
     aria-label={t("work.filter.label")}
-    class="flex flex-nowrap gap-2 overflow-x-auto pb-0.5 [scrollbar-width:none] md:flex-wrap md:overflow-visible md:pb-0 [&::-webkit-scrollbar]:hidden"
+    class="flex flex-nowrap gap-2 overflow-x-auto pr-10 pb-0.5 [mask-image:linear-gradient(to_right,black_calc(100%-2.5rem),transparent)] [scrollbar-width:none] md:flex-wrap md:overflow-visible md:pr-0 md:pb-0 md:[mask-image:none] [&::-webkit-scrollbar]:hidden"
   >
     {filters.map((key, i) => (
       <button
@@ -143,7 +143,7 @@ const filters: FilterKey[] = [
               type="button"
               data-lightbox-trigger
               data-lightbox-group={`work-${item.slug}`}
-              aria-label={t("lightbox.open")}
+              aria-label={`${t("lightbox.open")}: ${t(`work.${item.slug}.name`)}`}
               class="group relative block size-full"
             >
               <WorkPhoto
@@ -160,7 +160,7 @@ const filters: FilterKey[] = [
               </span>
             </button>
           </div>
-          {rest.slice(0, 2).map((name) => (
+          {rest.slice(0, 2).map((name, photoIdx) => (
             <div
               data-wipe
               class="relative aspect-square overflow-hidden rounded-2xl border border-border/75 bg-paper"
@@ -169,7 +169,7 @@ const filters: FilterKey[] = [
                 type="button"
                 data-lightbox-trigger
                 data-lightbox-group={`work-${item.slug}`}
-                aria-label={t("lightbox.open")}
+                aria-label={`${t("lightbox.open")}: ${t(`work.${item.slug}.name`)} (${photoIdx + 2})`}
                 class="group relative block size-full"
               >
                 <WorkPhoto

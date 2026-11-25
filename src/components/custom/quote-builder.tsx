@@ -412,10 +412,10 @@ export function QuoteBuilder({
         </div>
 
         {/* The message as it will arrive, in a chat bubble */}
-        <div className="rounded-2xl bg-[#e7f6dc] p-4 dark:bg-[#1f3a2a]">
+        <div className="rounded-2xl border border-(--whatsapp)/20 bg-(--whatsapp-surface) p-4">
           <p
             aria-live="polite"
-            className="rounded-xl rounded-tr-sm bg-[#d9fdd3] px-4 py-3 text-[0.95rem] leading-relaxed whitespace-pre-line text-[#111b21] shadow-sm"
+            className="rounded-xl rounded-tr-sm bg-(--whatsapp-bubble) px-4 py-3 text-[0.95rem] leading-relaxed whitespace-pre-line text-(--whatsapp-ink) shadow-sm"
           >
             {message}
           </p>

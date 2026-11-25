@@ -65,6 +65,14 @@
   --input: oklch(1 0 0 / 16%);
   --ring: var(--laser);
   --radius: 0.75rem;
+  /* Semantic brand & live-status tokens */
+  --whatsapp: #25d366;
+  --whatsapp-solid: #15803d;
+  --whatsapp-surface: #14281d;
+  --whatsapp-bubble: #1c3a2a;
+  --whatsapp-ink: #e8f5ec;
+  --status-open: #2fbf71;
+  --beam-spark: #ffd7b0;
 }
 
 /* Steel: deeper recessed obsidian stage for contrast panels, closing CTA & footer */
@@ -308,31 +316,33 @@
   z-index: 90;
   display: grid;
   place-items: center;
-  width: 10px;
-  height: 10px;
-  margin: -5px 0 0 -5px;
+  width: 96px;
+  height: 96px;
+  margin: -48px 0 0 -48px;
+  pointer-events: none;
+  opacity: 0;
+  contain: layout style;
+  transition: opacity 0.3s ease-out;
+}
+.laser-cursor::before {
+  content: "";
+  position: absolute;
+  inset: 0;
   border-radius: 9999px;
   background: var(--laser);
   box-shadow: 0 0 12px 2px color-mix(in oklab, var(--laser) 60%, transparent);
-  pointer-events: none;
-  opacity: 0;
-  will-change: transform;
-  contain: layout style;
-  transition:
-    width 0.35s cubic-bezier(0.2, 0.7, 0.1, 1),
-    height 0.35s cubic-bezier(0.2, 0.7, 0.1, 1),
-    margin 0.35s cubic-bezier(0.2, 0.7, 0.1, 1),
-    opacity 0.3s ease-out;
+  transform: scale(0.104);
+  transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.1, 1);
 }
 .laser-cursor[data-on] {
   opacity: 1;
 }
-.laser-cursor[data-big] {
-  width: 96px;
-  height: 96px;
-  margin: -48px 0 0 -48px;
+.laser-cursor[data-big]::before {
+  transform: scale(1);
 }
 .laser-cursor span {
+  position: relative;
+  z-index: 1;
   font: 600 0.75rem/1.1 var(--font-sans);
   color: white;
   text-align: center;
@@ -362,7 +372,6 @@
   border-radius: 9999px;
   background: var(--laser);
   opacity: 0;
-  will-change: transform, opacity;
 }
 .laser-vernier i:nth-child(4n + 1) {
   left: -5px;

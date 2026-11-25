@@ -2,7 +2,7 @@
 import type { Lang } from "@/i18n/ui"
 import { localizePath, useTranslations } from "@/i18n/utils"
 import { buttonVariants } from "@/components/ui/button"
-import LottiePlayer from "@/components/custom/lottie-player.astro"
+import LaserReticle from "@/components/custom/laser-reticle.astro"
 import { cn } from "@/lib/utils"
 import { ArrowRight } from "lucide-react"
 
@@ -65,13 +65,13 @@ const statusLabels = {
     >
       <span
         data-bg-word-left
-        class="display whitespace-nowrap text-[clamp(5.5rem,20vw,19rem)] leading-[0.82] tracking-[-0.05em] text-white/[0.045] will-change-transform"
+        class="display whitespace-nowrap text-[clamp(5.5rem,20vw,19rem)] leading-[0.82] tracking-[-0.05em] text-white/[0.045]"
       >
         LASER
       </span>
       <span
         data-bg-word-right
-        class="display whitespace-nowrap text-[clamp(5.5rem,20vw,19rem)] leading-[0.82] tracking-[-0.05em] text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.08)] will-change-transform"
+        class="display whitespace-nowrap text-[clamp(5.5rem,20vw,19rem)] leading-[0.82] tracking-[-0.05em] text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.08)]"
       >
         COM
       </span>
@@ -93,11 +93,7 @@ const statusLabels = {
     <!-- Minimal top bar: single progress hairline + quiet coordinates -->
     <div class="relative z-20 flex items-center justify-between gap-4">
       <div class="flex items-center gap-2">
-        <LottiePlayer
-          src="/lottie/laser-reticle.json"
-          speed={0.85}
-          class="size-6 shrink-0"
-        />
+        <LaserReticle class="size-6" />
         <span class="readout text-muted-foreground">{t("home.readout")}</span>
       </div>
     </div>
@@ -201,7 +197,7 @@ const statusLabels = {
             href={href("/trabajos/")}
             class={cn(
               buttonVariants({ variant: "outline", size: "cta" }),
-              "border-white/20 bg-background/85 text-foreground hover:bg-card dark:bg-background/85 dark:hover:bg-card"
+              "border-white/20 bg-background/85 text-foreground hover:bg-card"
             )}
           >
             {t("home.work.all")}
@@ -231,7 +227,6 @@ const statusLabels = {
     top: 0;
     opacity: 0;
     background: color-mix(in oklab, var(--laser) 55%, transparent);
-    will-change: transform, opacity;
   }
 
   .gantry-x {
@@ -418,6 +413,8 @@ const statusLabels = {
       currentProgress = reduced ? 1 : p
 
       if (reduced) {
+        if (beat1) beat1.inert = false
+        if (beat3) beat3.inert = false
         if (stateRow) stateRow.dataset.state = "done"
         if (statusTextEl) statusTextEl.textContent = statusLabels.done ?? ""
         if (progressEl) progressEl.style.transform = "scaleX(1)"
@@ -431,9 +428,11 @@ const statusLabels = {
       // Direct DOM transform/opacity updates (zero per-frame tween allocation)
       const beat1Out = seg(p, 0.02, 0.22)
       if (beat1) {
+        const beat1Hidden = beat1Out > 0.6
         beat1.style.opacity = String(1 - beat1Out)
         beat1.style.transform = `translate3d(0, ${(-beat1Out * 72).toFixed(1)}px, 0) scale(${(1 - beat1Out * 0.04).toFixed(4)})`
-        beat1.style.pointerEvents = beat1Out > 0.6 ? "none" : ""
+        beat1.style.pointerEvents = beat1Hidden ? "none" : ""
+        beat1.inert = beat1Hidden
       }
 
       const beat2In = seg(p, 0.2, 0.36)
@@ -444,9 +443,11 @@ const statusLabels = {
 
       const beat3In = seg(p, 0.74, 0.9)
       if (beat3) {
+        const beat3Interactive = beat3In > 0.35
         beat3.style.opacity = String(beat3In)
         beat3.style.transform = `translate3d(0, ${((1 - beat3In) * 24).toFixed(1)}px, 0)`
-        beat3.style.pointerEvents = beat3In > 0.35 ? "auto" : "none"
+        beat3.style.pointerEvents = beat3Interactive ? "auto" : "none"
+        beat3.inert = !beat3Interactive
       }
 
       if (bedEl) {
