@@ -4,7 +4,9 @@
 //
 //   node scripts/indexnow.mjs hashes   after `astro build` (`pnpm build`): writes
 //                                      dist/indexnow.json, a fingerprint of the
-//                                      content of every page in the sitemap
+//                                      content of every page in the sitemap,
+//                                      and dates each page in the sitemap
+//                                      (<lastmod>) by when that content changed
 //   node scripts/indexnow.mjs diff     compares it with the one on the live
 //                                      site and writes indexnow-changed.json
 //   node scripts/indexnow.mjs submit   once published: checks the new version
@@ -49,7 +51,7 @@ function fingerprint(html) {
   return createHash("sha256").update(content).digest("hex").slice(0, 16)
 }
 
-function hashes() {
+async function hashes() {
   // A preview build (PUBLIC_PREVIEW=1) is never announced to search engines
   if (process.env.PUBLIC_PREVIEW === "1")
     return console.log("indexnow: preview build, no fingerprints")
@@ -67,13 +69,57 @@ function hashes() {
   }
   writeFileSync(`${dist}indexnow.json`, JSON.stringify(pages, null, 1) + "\n")
   console.log(`indexnow: fingerprinted ${urls.length} pages`)
+
+  // <lastmod>: Google trusts it only while it stays accurate, so a page
+  // keeps the date the live sitemap gives it as long as its content is the
+  // same, and takes today's date when it is new or changed. A redesign that
+  // leaves the text alone doesn't redate every page
+  const [before, dates] = await Promise.all([live(), liveDates()])
+  const today = new Date().toISOString().slice(0, 10)
+  const lastmod = (url) =>
+    before?.[url] === pages[url] && dates[url] ? dates[url] : today
+  writeFileSync(
+    `${dist}sitemap-0.xml`,
+    sitemap.replace(
+      /<loc>([^<]+)<\/loc>/g,
+      (loc, url) => `${loc}<lastmod>${lastmod(url)}</lastmod>`
+    )
+  )
+  const kept = urls.filter((u) => lastmod(u) !== today).length
+  console.log(
+    `sitemap: ${kept} pages keep their date, ${urls.length - kept} dated ${today}`
+  )
+}
+
+// The <lastmod> of every page in the live sitemap, by address
+async function liveDates() {
+  try {
+    const res = await fetch(`${SITE}/sitemap-0.xml`, {
+      cache: "no-store",
+      signal: AbortSignal.timeout(10_000),
+    })
+    if (!res.ok) return {}
+    const xml = await res.text()
+    return Object.fromEntries(
+      [
+        ...xml.matchAll(
+          /<loc>([^<]+)<\/loc>(?:(?!<\/url>).)*?<lastmod>([^<]+)<\/lastmod>/gs
+        ),
+      ].map(([, url, date]) => [url, date])
+    )
+  } catch {
+    return {}
+  }
 }
 
 // The fingerprints on the live site, or null if it has none yet (first
 // publish, or the old site is still there)
 async function live() {
   try {
-    const res = await fetch(`${SITE}/indexnow.json`, { cache: "no-store" })
+    const res = await fetch(`${SITE}/indexnow.json`, {
+      cache: "no-store",
+      signal: AbortSignal.timeout(10_000),
+    })
     if (!res.ok) return null
     return await res.json()
   } catch {
